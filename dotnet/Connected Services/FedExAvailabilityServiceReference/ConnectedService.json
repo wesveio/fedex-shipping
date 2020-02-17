@@ -1,0 +1,71 @@
+﻿{
+  "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
+  "Version": "15.0.30730.948",
+  "GettingStartedDocument": {
+    "Uri": "https://go.microsoft.com/fwlink/?linkid=858517"
+  },
+  "ExtendedData": {
+    "inputs": [
+      "../../Web References/FedEx/ValidationAvailabilityAndCommitmentService_v13.wsdl"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, FedExAvailabilityServiceReference"
+    ],
+    "references": [
+      "Microsoft.Extensions.Configuration, {Microsoft.Extensions.Configuration, 3.0.0}",
+      "Microsoft.Extensions.Configuration.Abstractions, {Microsoft.Extensions.Configuration.Abstractions, 3.0.0}",
+      "Microsoft.Extensions.Configuration.Binder, {Microsoft.Extensions.Configuration.Binder, 3.0.0}",
+      "Microsoft.Extensions.Configuration.CommandLine, {Microsoft.Extensions.Configuration.CommandLine, 3.0.0}",
+      "Microsoft.Extensions.Configuration.EnvironmentVariables, {Microsoft.Extensions.Configuration.EnvironmentVariables, 3.0.0}",
+      "Microsoft.Extensions.Configuration.FileExtensions, {Microsoft.Extensions.Configuration.FileExtensions, 3.0.0}",
+      "Microsoft.Extensions.Configuration.Json, {Microsoft.Extensions.Configuration.Json, 3.0.0}",
+      "Microsoft.Extensions.Configuration.UserSecrets, {Microsoft.Extensions.Configuration.UserSecrets, 3.0.0}",
+      "Microsoft.Extensions.DependencyInjection, {Microsoft.Extensions.DependencyInjection, 3.0.0}",
+      "Microsoft.Extensions.DependencyInjection.Abstractions, {Microsoft.Extensions.DependencyInjection.Abstractions, 3.0.0}",
+      "Microsoft.Extensions.FileProviders.Abstractions, {Microsoft.Extensions.FileProviders.Abstractions, 3.0.0}",
+      "Microsoft.Extensions.FileProviders.Physical, {Microsoft.Extensions.FileProviders.Physical, 3.0.0}",
+      "Microsoft.Extensions.FileSystemGlobbing, {Microsoft.Extensions.FileSystemGlobbing, 3.0.0}",
+      "Microsoft.Extensions.Hosting, {Microsoft.Extensions.Hosting, 3.0.0}",
+      "Microsoft.Extensions.Hosting.Abstractions, {Microsoft.Extensions.Hosting.Abstractions, 3.0.0}",
+      "Microsoft.Extensions.Logging, {Microsoft.Extensions.Logging, 3.0.0}",
+      "Microsoft.Extensions.Logging.Abstractions, {Microsoft.Extensions.Logging.Abstractions, 3.0.0}",
+      "Microsoft.Extensions.Logging.Configuration, {Microsoft.Extensions.Logging.Configuration, 3.0.0}",
+      "Microsoft.Extensions.Logging.Console, {Microsoft.Extensions.Logging.Console, 3.0.0}",
+      "Microsoft.Extensions.Logging.Debug, {Microsoft.Extensions.Logging.Debug, 3.0.0}",
+      "Microsoft.Extensions.Logging.EventLog, {Microsoft.Extensions.Logging.EventLog, 3.0.0}",
+      "Microsoft.Extensions.Logging.EventSource, {Microsoft.Extensions.Logging.EventSource, 3.0.0}",
+      "Microsoft.Extensions.Options, {Microsoft.Extensions.Options, 3.0.0}",
+      "Microsoft.Extensions.Options.ConfigurationExtensions, {Microsoft.Extensions.Options.ConfigurationExtensions, 3.0.0}",
+      "Microsoft.Extensions.Primitives, {Microsoft.Extensions.Primitives, 3.0.0}",
+      "Microsoft.VisualStudio.Validation, {Microsoft.VisualStudio.Validation, 15.5.31}",
+      "Newtonsoft.Json, {Newtonsoft.Json, 12.0.3}",
+      "SoapCore, {SoapCore, 1.0.0}",
+      "System.CodeDom, {System.CodeDom, 4.6.0}",
+      "System.Diagnostics.EventLog, {System.Diagnostics.EventLog, 4.6.0}",
+      "System.IO, {System.IO, 4.3.0}",
+      "System.IO.Pipelines, {System.IO.Pipelines, 4.6.0}",
+      "System.Reflection.DispatchProxy, {System.Reflection.DispatchProxy, 4.5.0}",
+      "System.Runtime, {System.Runtime, 4.3.0}",
+      "System.Security.AccessControl, {System.Security.AccessControl, 4.6.0}",
+      "System.Security.Cryptography.Xml, {System.Security.Cryptography.Xml, 4.5.0}",
+      "System.Security.Permissions, {System.Security.Permissions, 4.5.0}",
+      "System.Security.Principal.Windows, {System.Security.Principal.Windows, 4.6.0}",
+      "System.ServiceModel, {System.ServiceModel.Primitives, 4.7.0}",
+      "System.ServiceModel.Duplex, {System.ServiceModel.Duplex, 4.4.4}",
+      "System.ServiceModel.Http, {System.ServiceModel.Http, 4.7.0}",
+      "System.ServiceModel.NetTcp, {System.ServiceModel.NetTcp, 4.4.4}",
+      "System.ServiceModel.Primitives, {System.ServiceModel.Primitives, 4.7.0}",
+      "System.ServiceModel.Security, {System.ServiceModel.Security, 4.4.4}",
+      "System.Text.Encoding, {System.Text.Encoding, 4.3.0}",
+      "System.Threading.Tasks, {System.Threading.Tasks, 4.3.0}",
+      "System.Xml.ReaderWriter, {System.Xml.ReaderWriter, 4.3.0}",
+      "System.Xml.XmlSerializer, {System.Xml.XmlSerializer, 4.3.0}"
+    ],
+    "targetFramework": "netcoreapp3.0",
+    "typeReuseMode": "All"
+  }
+}

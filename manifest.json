@@ -1,0 +1,69 @@
+{
+  "name": "shipping-utilities",
+  "vendor": "vtex",
+  "version": "0.0.5",
+  "title": "Shipping Utilities",
+  "description": "An app for interfacing with shipping carriers to provide rates and tracking information.",
+  "scripts": {
+    "prereleasy": "bash pre.sh"
+  },
+  "builders": {
+    "dotnet": "2.x"
+  },
+  "policies": [
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "bnb.data.bl.uk"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "nuget.org"
+      }
+    },
+    {
+      "name": "ADMIN_DS"
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{account}}.vtexcommercestable.com.br",
+        "path": "/api/dataentities/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "infra.io.vtex.com",
+        "path": "/vbase/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "infra.io.vtex.com",
+        "path": "/apps/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "wsbeta.fedex.com",
+        "path": "/web-services/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "ws.fedex.com",
+        "path": "/web-services/*"
+      }
+    },
+    {
+      "name": "vbase-read-write"
+    }
+  ],
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+}

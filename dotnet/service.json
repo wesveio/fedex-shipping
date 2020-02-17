@@ -1,0 +1,34 @@
+{
+  "stack": "dotnet",
+  "memory": 256,
+  "runtimeArgs": [
+  ],
+  "routes": {
+    "getRates": {
+      "path": "/shipping-utilities/getRates/:carrier",
+      "public": true
+    },
+    "getRawRates": {
+      "path": "/shipping-utilities/getRawRates/:carrier",
+      "public": true
+    },
+    "track": {
+      "path": "/shipping-utilities/track/:carrier/:trackingNumber",
+      "public": true
+    },
+    "getMerchantSettings": {
+      "path": "/shipping-utilities/getSettings/:carrier",
+      "public": false
+    },
+    "setMerchantSettings": {
+      "path": "/shipping-utilities/setSettings/:carrier",
+      "public": false
+    }
+  },
+  "events": {
+    "onAppsLinked": {
+      "sender": "apps",
+      "keys": ["linked"]
+    }
+  }
+}
