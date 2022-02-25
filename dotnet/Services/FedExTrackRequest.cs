@@ -44,6 +44,7 @@ namespace ShippingUtilities.Services
                 // Call the Track web service passing in a TrackRequest and returning a TrackReply
                 trackResponse response = await client.trackAsync(request);
                 reply = response.TrackReply;
+                Console.WriteLine($"!reply! = {reply}");
                 if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
                 {
                     ShowTrackReply(reply);
@@ -53,7 +54,7 @@ namespace ShippingUtilities.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine($"ERROR: {e.Message} {e.StackTrace}");
             }
 
             return reply;
@@ -95,8 +96,9 @@ namespace ShippingUtilities.Services
             //request.SelectionDetails[0].ShipDateRangeBeginSpecified = false;
             //request.SelectionDetails[0].ShipDateRangeEndSpecified = false;
 
-            //request.SelectionDetails[0].Destination = new Address();
-            //request.SelectionDetails[0].Destination.CountryCode = "US";
+            request.SelectionDetails[0].Destination = new Address();
+            request.SelectionDetails[0].Destination.CountryCode = "US";
+            request.SelectionDetails[0].Destination.PostalCode = "33327";
 
             // Include detailed scans is optional.
             // If omitted, set to false

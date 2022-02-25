@@ -22,6 +22,8 @@ namespace ShippingUnitTest
 
             GetRatesRequest getRatesRequest = BuildRequest();
 
+            Console.WriteLine(JsonConvert.SerializeObject(getRatesRequest));
+
             GetRatesResponseWrapper response = new GetRatesResponseWrapper();
             for (int i = 0; i < 5; i++)
             {

@@ -18,11 +18,11 @@
     },
     "getMerchantSettings": {
       "path": "/shipping-utilities/getSettings/:carrier",
-      "public": false
+      "public": true
     },
     "setMerchantSettings": {
       "path": "/shipping-utilities/setSettings/:carrier",
-      "public": false
+      "public": true
     }
   },
   "events": {

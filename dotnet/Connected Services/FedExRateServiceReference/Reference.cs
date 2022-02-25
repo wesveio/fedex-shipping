@@ -11,20 +11,20 @@ namespace FedExRateServiceReference
 {
     
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://fedex.com/ws/rate/v26", ConfigurationName="FedExRateServiceReference.RatePortType")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://fedex.com/ws/rate/v31", ConfigurationName="FedExRateServiceReference.RatePortType")]
     public interface RatePortType
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://fedex.com/ws/rate/v26/getRates", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://fedex.com/ws/rate/v31/getRates", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<FedExRateServiceReference.getRatesResponse> getRatesAsync(FedExRateServiceReference.getRatesRequest request);
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RateRequest
     {
         
@@ -190,9 +190,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class WebAuthenticationDetail
     {
         
@@ -230,9 +230,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class WebAuthenticationCredential
     {
         
@@ -270,9 +270,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class PackageRateDetail
     {
         
@@ -630,8 +630,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ReturnedRateType
     {
         
@@ -667,8 +667,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RatedWeightMethod
     {
         
@@ -713,8 +713,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum MinimumChargeType
     {
         
@@ -735,9 +735,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Weight
     {
         
@@ -807,8 +807,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum WeightUnits
     {
         
@@ -820,9 +820,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Money
     {
         
@@ -876,9 +876,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RateDiscount
     {
         
@@ -980,8 +980,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RateDiscountType
     {
         
@@ -1002,9 +1002,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Rebate
     {
         
@@ -1106,8 +1106,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RebateType
     {
         
@@ -1122,9 +1122,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Surcharge
     {
         
@@ -1226,8 +1226,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum SurchargeType
     {
         
@@ -1251,9 +1251,6 @@ namespace FedExRateServiceReference
         
         /// <remarks/>
         CANADIAN_DESTINATION,
-        
-        /// <remarks/>
-        CLEARANCE_ENTRY_FEE,
         
         /// <remarks/>
         COD,
@@ -1320,6 +1317,12 @@ namespace FedExRateServiceReference
         
         /// <remarks/>
         FUEL,
+        
+        /// <remarks/>
+        HIGH_COST_SERVICE_AREA_DESTINATION,
+        
+        /// <remarks/>
+        HIGH_COST_SERVICE_AREA_ORIGIN,
         
         /// <remarks/>
         HOLD_AT_LOCATION,
@@ -1458,8 +1461,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum SurchargeLevelType
     {
         
@@ -1471,9 +1474,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Tax
     {
         
@@ -1543,8 +1546,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum TaxType
     {
         
@@ -1571,9 +1574,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class VariableHandlingCharges
     {
         
@@ -1643,9 +1646,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RatedPackageDetail
     {
         
@@ -1763,9 +1766,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class TrackingId
     {
         
@@ -1835,8 +1838,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum TrackingIdType
     {
         
@@ -1854,8 +1857,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum OversizeClassType
     {
         
@@ -1870,9 +1873,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class AncillaryFeeAndTax
     {
         
@@ -1942,8 +1945,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum AncillaryFeeAndTaxType
     {
         
@@ -1961,9 +1964,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class EdtTaxDetail
     {
         
@@ -2113,8 +2116,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum EdtTaxType
     {
         
@@ -2165,15 +2168,17 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class EdtCommodityTax
     {
         
         private string harmonizedCodeField;
         
         private EdtTaxDetail[] taxesField;
+        
+        private Money totalField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -2202,12 +2207,26 @@ namespace FedExRateServiceReference
                 this.taxesField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public Money Total
+        {
+            get
+            {
+                return this.totalField;
+            }
+            set
+            {
+                this.totalField = value;
+            }
+        }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class FreightRateNotation
     {
         
@@ -2245,9 +2264,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class FreightBaseCharge
     {
         
@@ -2429,8 +2448,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum FreightClassType
     {
         
@@ -2490,8 +2509,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum FreightChargeBasisType
     {
         
@@ -2506,9 +2525,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class FreightRateDetail
     {
         
@@ -2626,8 +2645,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum FreightRateQuoteType
     {
         
@@ -2639,8 +2658,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum FreightBaseChargeCalculationType
     {
         
@@ -2652,9 +2671,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShipmentLegRateDetail
     {
         
@@ -3332,9 +3351,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Address
     {
         
@@ -3500,8 +3519,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum PricingCodeType
     {
         
@@ -3546,9 +3565,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CurrencyExchangeRate
     {
         
@@ -3618,8 +3637,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum SpecialRatingAppliedType
     {
         
@@ -3634,8 +3653,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RateDimensionalDivisorType
     {
         
@@ -3656,9 +3675,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShipmentRateDetail
     {
         
@@ -4320,9 +4339,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RatedShipmentDetail
     {
         
@@ -4392,9 +4411,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Distance
     {
         
@@ -4464,8 +4483,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum DistanceUnits
     {
         
@@ -4477,9 +4496,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class FreightServiceCenterDetail
     {
         
@@ -4693,8 +4712,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum FreightServiceSchedulingType
     {
         
@@ -4709,8 +4728,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum DayOfWeekType
     {
         
@@ -4737,9 +4756,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ContactAndAddress
     {
         
@@ -4777,9 +4796,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Contact
     {
         
@@ -4945,9 +4964,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class FreightCommitDetail
     {
         
@@ -5001,9 +5020,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class DelayDetail
     {
         
@@ -5185,8 +5204,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum DelayLevelType
     {
         
@@ -5213,8 +5232,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum DelayPointType
     {
         
@@ -5235,8 +5254,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum CommitmentDelayType
     {
         
@@ -5275,9 +5294,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CleansedAddressAndLocationDetail
     {
         
@@ -5411,9 +5430,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CommitDetail
     {
         
@@ -5995,9 +6014,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ServiceDescription
     {
         
@@ -6083,9 +6102,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ProductName
     {
         
@@ -6139,8 +6158,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ServiceOptionType
     {
         
@@ -6161,9 +6180,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ServiceSubOptionDetail
     {
         
@@ -6249,8 +6268,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum FreightGuaranteeType
     {
         
@@ -6262,8 +6281,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum SmartPostIndiciaType
     {
         
@@ -6284,9 +6303,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class SignatureOptionDetail
     {
         
@@ -6340,8 +6359,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum SignatureOptionType
     {
         
@@ -6362,8 +6381,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum TransitTimeType
     {
         
@@ -6432,9 +6451,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Notification
     {
         
@@ -6552,8 +6571,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum NotificationSeverityType
     {
         
@@ -6574,9 +6593,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class NotificationParameter
     {
         
@@ -6614,8 +6633,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum InternationalDocumentContentType
     {
         
@@ -6627,8 +6646,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RequiredShippingDocumentType
     {
         
@@ -6652,9 +6671,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RateReplyDetail
     {
         
@@ -7060,9 +7079,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RateReply
     {
         
@@ -7148,9 +7167,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class TransactionDetail
     {
         
@@ -7188,9 +7207,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Localization
     {
         
@@ -7228,9 +7247,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class VersionId
     {
         
@@ -7245,7 +7264,7 @@ namespace FedExRateServiceReference
         public VersionId()
         {
             this.serviceIdField = "crs";
-            this.majorField = 26;
+            this.majorField = 31;
             this.intermediateField = 0;
             this.minorField = 0;
         }
@@ -7308,9 +7327,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShipperConveyanceDetail
     {
         
@@ -7332,9 +7351,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ContentRecord
     {
         
@@ -7404,9 +7423,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class AlcoholDetail
     {
         
@@ -7444,8 +7463,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum AlcoholRecipientType
     {
         
@@ -7457,9 +7476,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class PriorityAlertDetail
     {
         
@@ -7497,8 +7516,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum PriorityAlertEnhancementType
     {
         
@@ -7507,9 +7526,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class BatteryClassificationDetail
     {
         
@@ -7611,8 +7630,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum BatteryMaterialType
     {
         
@@ -7624,8 +7643,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum BatteryPackingType
     {
         
@@ -7637,8 +7656,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum BatteryRegulatorySubType
     {
         
@@ -7647,9 +7666,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class PackageSpecialServicesRequested
     {
         
@@ -7783,9 +7802,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CodDetail
     {
         
@@ -7951,9 +7970,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CodAddTransportationChargesDetail
     {
         
@@ -8055,8 +8074,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RateTypeBasisType
     {
         
@@ -8068,8 +8087,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum CodAddTransportationChargeBasisType
     {
         
@@ -8087,8 +8106,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ChargeBasisLevelType
     {
         
@@ -8100,8 +8119,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum CodCollectionType
     {
         
@@ -8116,9 +8135,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Party
     {
         
@@ -8188,9 +8207,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class TaxpayerIdentification
     {
         
@@ -8324,8 +8343,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum TinType
     {
         
@@ -8343,8 +8362,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum CodReturnReferenceIndicatorType
     {
         
@@ -8362,9 +8381,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class DangerousGoodsDetail
     {
         
@@ -8658,8 +8677,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum HazardousCommodityRegulationType
     {
         
@@ -8677,8 +8696,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum DangerousGoodsAccessibilityType
     {
         
@@ -8690,8 +8709,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum HazardousCommodityOptionType
     {
         
@@ -8715,8 +8734,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum DangerousGoodsPackingOptionType
     {
         
@@ -8725,9 +8744,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class DangerousGoodsContainer
     {
         
@@ -8845,8 +8864,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum HazardousContainerPackingType
     {
         
@@ -8855,8 +8874,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RadioactiveContainerClassType
     {
         
@@ -8886,9 +8905,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class HazardousCommodityContent
     {
         
@@ -8990,9 +9009,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class HazardousCommodityDescription
     {
         
@@ -9254,8 +9273,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum HazardousCommodityPackingGroupType
     {
         
@@ -9273,9 +9292,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class HazardousCommodityPackingDetail
     {
         
@@ -9329,8 +9348,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum HazardousCommodityDescriptionProcessingOptionType
     {
         
@@ -9339,9 +9358,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class HazardousCommodityQuantityDetail
     {
         
@@ -9427,8 +9446,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum HazardousCommodityQuantityType
     {
         
@@ -9440,9 +9459,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class HazardousCommodityInnerReceptacleDetail
     {
         
@@ -9464,9 +9483,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class HazardousCommodityOptionDetail
     {
         
@@ -9520,8 +9539,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum HazardousCommodityLabelTextOptionType
     {
         
@@ -9536,9 +9555,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RadionuclideDetail
     {
         
@@ -9656,9 +9675,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RadionuclideActivity
     {
         
@@ -9728,8 +9747,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RadioactivityUnitOfMeasure
     {
         
@@ -9753,8 +9772,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum PhysicalFormType
     {
         
@@ -9772,9 +9791,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class NetExplosiveDetail
     {
         
@@ -9860,8 +9879,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum NetExplosiveClassificationType
     {
         
@@ -9879,9 +9898,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class HazardousCommodityPackagingDetail
     {
         
@@ -9919,9 +9938,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class DangerousGoodsSignatory
     {
         
@@ -9975,9 +9994,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RadioactivityDetail
     {
         
@@ -10095,9 +10114,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Dimensions
     {
         
@@ -10183,8 +10202,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum LinearUnits
     {
         
@@ -10196,9 +10215,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomerReference
     {
         
@@ -10252,8 +10271,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum CustomerReferenceType
     {
         
@@ -10292,9 +10311,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class AssociatedFreightLineItemDetail
     {
         
@@ -10316,9 +10335,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RequestedPackageLineItem
     {
         
@@ -10580,9 +10599,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class VariableHandlingChargeDetail
     {
         
@@ -10700,8 +10719,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RateElementBasisType
     {
         
@@ -10719,8 +10738,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum PhysicalPackagingType
     {
         
@@ -10795,9 +10814,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ReturnInstructionsDetail
     {
         
@@ -10835,9 +10854,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShippingDocumentFormat
     {
         
@@ -11004,9 +11023,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShippingDocumentDispositionDetail
     {
         
@@ -11108,8 +11127,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ShippingDocumentDispositionType
     {
         
@@ -11139,8 +11158,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ShippingDocumentGroupingType
     {
         
@@ -11152,9 +11171,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShippingDocumentEMailDetail
     {
         
@@ -11224,9 +11243,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShippingDocumentEMailRecipient
     {
         
@@ -11280,8 +11299,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum EMailNotificationRecipientType
     {
         
@@ -11299,8 +11318,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ShippingDocumentEMailGroupingType
     {
         
@@ -11312,9 +11331,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShippingDocumentPrintDetail
     {
         
@@ -11336,9 +11355,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class LinearMeasure
     {
         
@@ -11408,8 +11427,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ShippingDocumentImageType
     {
         
@@ -11427,8 +11446,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ShippingDocumentStockType
     {
         
@@ -11466,8 +11485,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum DocumentFormatOptionType
     {
         
@@ -11476,9 +11495,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class FreightAddressLabelDetail
     {
         
@@ -11612,8 +11631,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum PageQuadrantType
     {
         
@@ -11631,9 +11650,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class DocTabContent
     {
         
@@ -11704,8 +11723,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum DocTabContentType
     {
         
@@ -11726,9 +11745,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class DocTabZoneSpecification
     {
         
@@ -11830,8 +11849,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum DocTabZoneJustificationType
     {
         
@@ -11843,9 +11862,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class DocTabContentBarcoded
     {
         
@@ -11899,8 +11918,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum BarcodeSymbologyType
     {
         
@@ -11945,8 +11964,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RelativeVerticalPositionType
     {
         
@@ -11958,9 +11977,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomLabelDetail
     {
         
@@ -12078,8 +12097,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum CustomLabelCoordinateUnits
     {
         
@@ -12091,9 +12110,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomLabelTextEntry
     {
         
@@ -12227,9 +12246,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomLabelPosition
     {
         
@@ -12283,8 +12302,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RotationType
     {
         
@@ -12302,9 +12321,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomLabelGraphicEntry
     {
         
@@ -12358,9 +12377,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomLabelBoxEntry
     {
         
@@ -12398,9 +12417,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomLabelTextBoxEntry
     {
         
@@ -12566,9 +12585,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomLabelBarcodeEntry
     {
         
@@ -12718,9 +12737,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class DangerousGoodsShippersDeclarationDetail
     {
         
@@ -12758,9 +12777,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomerImageUsage
     {
         
@@ -12830,8 +12849,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum CustomerImageUsageType
     {
         
@@ -12843,8 +12862,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ImageId
     {
         
@@ -12865,9 +12884,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Op900Detail
     {
         
@@ -12953,67 +12972,29 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
-    public partial class NaftaProducer
-    {
-        
-        private string idField;
-        
-        private Party producerField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string Id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Party Producer
-        {
-            get
-            {
-                return this.producerField;
-            }
-            set
-            {
-                this.producerField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
-    public partial class NaftaCertificateOfOriginDetail
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
+    public partial class UsmcaCertificationOfOriginDetail
     {
         
         private ShippingDocumentFormat formatField;
         
         private DateRange blanketPeriodField;
         
-        private NaftaImporterSpecificationType importerSpecificationField;
+        private UsmcaCertifierSpecificationType certifierSpecificationField;
+        
+        private bool certifierSpecificationFieldSpecified;
+        
+        private UsmcaImporterSpecificationType importerSpecificationField;
         
         private bool importerSpecificationFieldSpecified;
         
-        private Contact signatureContactField;
-        
-        private NaftaProducerSpecificationType producerSpecificationField;
+        private UsmcaProducerSpecificationType producerSpecificationField;
         
         private bool producerSpecificationFieldSpecified;
         
-        private NaftaProducer[] producersField;
+        private Party producerField;
         
         private CustomerImageUsage[] customerImageUsagesField;
         
@@ -13047,7 +13028,35 @@ namespace FedExRateServiceReference
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public NaftaImporterSpecificationType ImporterSpecification
+        public UsmcaCertifierSpecificationType CertifierSpecification
+        {
+            get
+            {
+                return this.certifierSpecificationField;
+            }
+            set
+            {
+                this.certifierSpecificationField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool CertifierSpecificationSpecified
+        {
+            get
+            {
+                return this.certifierSpecificationFieldSpecified;
+            }
+            set
+            {
+                this.certifierSpecificationFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public UsmcaImporterSpecificationType ImporterSpecification
         {
             get
             {
@@ -13074,22 +13083,8 @@ namespace FedExRateServiceReference
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public Contact SignatureContact
-        {
-            get
-            {
-                return this.signatureContactField;
-            }
-            set
-            {
-                this.signatureContactField = value;
-            }
-        }
-        
-        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-        public NaftaProducerSpecificationType ProducerSpecification
+        public UsmcaProducerSpecificationType ProducerSpecification
         {
             get
             {
@@ -13116,16 +13111,16 @@ namespace FedExRateServiceReference
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Producers", Order=5)]
-        public NaftaProducer[] Producers
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public Party Producer
         {
             get
             {
-                return this.producersField;
+                return this.producerField;
             }
             set
             {
-                this.producersField = value;
+                this.producerField = value;
             }
         }
         
@@ -13145,9 +13140,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class DateRange
     {
         
@@ -13217,16 +13212,26 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
-    public enum NaftaImporterSpecificationType
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
+    public enum UsmcaCertifierSpecificationType
     {
         
         /// <remarks/>
-        IMPORTER_OF_RECORD,
+        EXPORTER,
         
         /// <remarks/>
-        RECIPIENT,
+        IMPORTER,
+        
+        /// <remarks/>
+        PRODUCER,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
+    public enum UsmcaImporterSpecificationType
+    {
         
         /// <remarks/>
         UNKNOWN,
@@ -13236,31 +13241,25 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
-    public enum NaftaProducerSpecificationType
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
+    public enum UsmcaProducerSpecificationType
     {
         
         /// <remarks/>
         AVAILABLE_UPON_REQUEST,
         
         /// <remarks/>
-        MULTIPLE_SPECIFIED,
+        SAME_AS_EXPORTER,
         
         /// <remarks/>
-        SAME,
-        
-        /// <remarks/>
-        SINGLE_SPECIFIED,
-        
-        /// <remarks/>
-        UNKNOWN,
+        VARIOUS,
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class GeneralAgencyAgreementDetail
     {
         
@@ -13282,9 +13281,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ExportDeclarationDetail
     {
         
@@ -13322,9 +13321,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomDocumentDetail
     {
         
@@ -13442,8 +13441,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum LabelPrintingOrientationType
     {
         
@@ -13455,8 +13454,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum LabelRotationType
     {
         
@@ -13474,9 +13473,145 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
+    public partial class UsmcaCommercialInvoiceCertificationOfOriginDetail
+    {
+        
+        private ShippingDocumentFormat formatField;
+        
+        private CustomerImageUsage[] customerImageUsagesField;
+        
+        private string formVersionField;
+        
+        private UsmcaCertifierSpecificationType certifierSpecificationField;
+        
+        private bool certifierSpecificationFieldSpecified;
+        
+        private UsmcaProducerSpecificationType producerSpecificationField;
+        
+        private bool producerSpecificationFieldSpecified;
+        
+        private Party producerField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public ShippingDocumentFormat Format
+        {
+            get
+            {
+                return this.formatField;
+            }
+            set
+            {
+                this.formatField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("CustomerImageUsages", Order=1)]
+        public CustomerImageUsage[] CustomerImageUsages
+        {
+            get
+            {
+                return this.customerImageUsagesField;
+            }
+            set
+            {
+                this.customerImageUsagesField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public string FormVersion
+        {
+            get
+            {
+                return this.formVersionField;
+            }
+            set
+            {
+                this.formVersionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public UsmcaCertifierSpecificationType CertifierSpecification
+        {
+            get
+            {
+                return this.certifierSpecificationField;
+            }
+            set
+            {
+                this.certifierSpecificationField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool CertifierSpecificationSpecified
+        {
+            get
+            {
+                return this.certifierSpecificationFieldSpecified;
+            }
+            set
+            {
+                this.certifierSpecificationFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public UsmcaProducerSpecificationType ProducerSpecification
+        {
+            get
+            {
+                return this.producerSpecificationField;
+            }
+            set
+            {
+                this.producerSpecificationField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool ProducerSpecificationSpecified
+        {
+            get
+            {
+                return this.producerSpecificationFieldSpecified;
+            }
+            set
+            {
+                this.producerSpecificationFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public Party Producer
+        {
+            get
+            {
+                return this.producerField;
+            }
+            set
+            {
+                this.producerField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CommercialInvoiceDetail
     {
         
@@ -13514,9 +13649,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CertificateOfOriginDetail
     {
         
@@ -13554,9 +13689,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShippingDocumentSpecification
     {
         
@@ -13566,6 +13701,8 @@ namespace FedExRateServiceReference
         
         private CommercialInvoiceDetail commercialInvoiceDetailField;
         
+        private UsmcaCommercialInvoiceCertificationOfOriginDetail usmcaCommercialInvoiceCertificationOfOriginDetailField;
+        
         private CustomDocumentDetail[] customPackageDocumentDetailField;
         
         private CustomDocumentDetail[] customShipmentDocumentDetailField;
@@ -13574,7 +13711,7 @@ namespace FedExRateServiceReference
         
         private GeneralAgencyAgreementDetail generalAgencyAgreementDetailField;
         
-        private NaftaCertificateOfOriginDetail naftaCertificateOfOriginDetailField;
+        private UsmcaCertificationOfOriginDetail usmcaCertificationOfOriginDetailField;
         
         private Op900Detail op900DetailField;
         
@@ -13627,7 +13764,21 @@ namespace FedExRateServiceReference
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("CustomPackageDocumentDetail", Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public UsmcaCommercialInvoiceCertificationOfOriginDetail UsmcaCommercialInvoiceCertificationOfOriginDetail
+        {
+            get
+            {
+                return this.usmcaCommercialInvoiceCertificationOfOriginDetailField;
+            }
+            set
+            {
+                this.usmcaCommercialInvoiceCertificationOfOriginDetailField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("CustomPackageDocumentDetail", Order=4)]
         public CustomDocumentDetail[] CustomPackageDocumentDetail
         {
             get
@@ -13641,7 +13792,7 @@ namespace FedExRateServiceReference
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("CustomShipmentDocumentDetail", Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute("CustomShipmentDocumentDetail", Order=5)]
         public CustomDocumentDetail[] CustomShipmentDocumentDetail
         {
             get
@@ -13655,7 +13806,7 @@ namespace FedExRateServiceReference
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public ExportDeclarationDetail ExportDeclarationDetail
         {
             get
@@ -13669,7 +13820,7 @@ namespace FedExRateServiceReference
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
         public GeneralAgencyAgreementDetail GeneralAgencyAgreementDetail
         {
             get
@@ -13683,21 +13834,21 @@ namespace FedExRateServiceReference
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
-        public NaftaCertificateOfOriginDetail NaftaCertificateOfOriginDetail
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public UsmcaCertificationOfOriginDetail UsmcaCertificationOfOriginDetail
         {
             get
             {
-                return this.naftaCertificateOfOriginDetailField;
+                return this.usmcaCertificationOfOriginDetailField;
             }
             set
             {
-                this.naftaCertificateOfOriginDetailField = value;
+                this.usmcaCertificationOfOriginDetailField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
         public Op900Detail Op900Detail
         {
             get
@@ -13711,7 +13862,7 @@ namespace FedExRateServiceReference
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=10)]
         public DangerousGoodsShippersDeclarationDetail DangerousGoodsShippersDeclarationDetail
         {
             get
@@ -13725,7 +13876,7 @@ namespace FedExRateServiceReference
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=10)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
         public FreightAddressLabelDetail FreightAddressLabelDetail
         {
             get
@@ -13739,7 +13890,7 @@ namespace FedExRateServiceReference
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=12)]
         public ReturnInstructionsDetail ReturnInstructionsDetail
         {
             get
@@ -13754,8 +13905,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RequestedShippingDocumentType
     {
         
@@ -13784,22 +13935,25 @@ namespace FedExRateServiceReference
         LABEL,
         
         /// <remarks/>
-        NAFTA_CERTIFICATE_OF_ORIGIN,
-        
-        /// <remarks/>
         PRO_FORMA_INVOICE,
         
         /// <remarks/>
         RETURN_INSTRUCTIONS,
         
         /// <remarks/>
+        USMCA_CERTIFICATION_OF_ORIGIN,
+        
+        /// <remarks/>
+        USMCA_COMMERCIAL_INVOICE_CERTIFICATION_OF_ORIGIN,
+        
+        /// <remarks/>
         VICS_BILL_OF_LADING,
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class AdditionalLabelsDetail
     {
         
@@ -13853,8 +14007,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum AdditionalLabelsType
     {
         
@@ -13884,9 +14038,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RegulatoryLabelContentDetail
     {
         
@@ -13940,8 +14094,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RegulatoryLabelType
     {
         
@@ -13950,8 +14104,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum CustomerSpecifiedLabelGenerationOptionType
     {
         
@@ -13966,9 +14120,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ConfigurableLabelReferenceEntry
     {
         
@@ -14038,9 +14192,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomerSpecifiedLabelDetail
     {
         
@@ -14238,8 +14392,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum LabelMaskableDataType
     {
         
@@ -14278,8 +14432,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum SecondaryBarcodeType
     {
         
@@ -14297,9 +14451,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class LabelSpecification
     {
         
@@ -14529,8 +14683,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum LabelFormatType
     {
         
@@ -14554,8 +14708,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum LabelStockType
     {
         
@@ -14613,8 +14767,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum LabelOrderType
     {
         
@@ -14626,9 +14780,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class SmartPostShipmentDetail
     {
         
@@ -14747,8 +14901,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum SmartPostShipmentProcessingOptionType
     {
         
@@ -14757,8 +14911,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum SmartPostAncillaryEndorsementType
     {
         
@@ -14779,9 +14933,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class PickupDetail
     {
         
@@ -14931,8 +15085,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum PickupRequestType
     {
         
@@ -14944,8 +15098,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum PickupRequestSourceType
     {
         
@@ -14957,9 +15111,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class DestinationControlDetail
     {
         
@@ -15013,8 +15167,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum DestinationControlStatementType
     {
         
@@ -15026,9 +15180,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ExportDetail
     {
         
@@ -15114,8 +15268,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum B13AFilingOptionType
     {
         
@@ -15136,145 +15290,49 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
-    public partial class NaftaCommodityDetail
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
+    public partial class UsmcaCommodityDetail
     {
         
-        private NaftaPreferenceCriterionCode preferenceCriterionField;
+        private UsmcaOriginCriterionCode originCriterionField;
         
-        private bool preferenceCriterionFieldSpecified;
-        
-        private NaftaProducerDeterminationCode producerDeterminationField;
-        
-        private bool producerDeterminationFieldSpecified;
-        
-        private string producerIdField;
-        
-        private NaftaNetCostMethodCode netCostMethodField;
-        
-        private bool netCostMethodFieldSpecified;
-        
-        private DateRange netCostDateRangeField;
+        private bool originCriterionFieldSpecified;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public NaftaPreferenceCriterionCode PreferenceCriterion
+        public UsmcaOriginCriterionCode OriginCriterion
         {
             get
             {
-                return this.preferenceCriterionField;
+                return this.originCriterionField;
             }
             set
             {
-                this.preferenceCriterionField = value;
+                this.originCriterionField = value;
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool PreferenceCriterionSpecified
+        public bool OriginCriterionSpecified
         {
             get
             {
-                return this.preferenceCriterionFieldSpecified;
+                return this.originCriterionFieldSpecified;
             }
             set
             {
-                this.preferenceCriterionFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public NaftaProducerDeterminationCode ProducerDetermination
-        {
-            get
-            {
-                return this.producerDeterminationField;
-            }
-            set
-            {
-                this.producerDeterminationField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool ProducerDeterminationSpecified
-        {
-            get
-            {
-                return this.producerDeterminationFieldSpecified;
-            }
-            set
-            {
-                this.producerDeterminationFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public string ProducerId
-        {
-            get
-            {
-                return this.producerIdField;
-            }
-            set
-            {
-                this.producerIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public NaftaNetCostMethodCode NetCostMethod
-        {
-            get
-            {
-                return this.netCostMethodField;
-            }
-            set
-            {
-                this.netCostMethodField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool NetCostMethodSpecified
-        {
-            get
-            {
-                return this.netCostMethodFieldSpecified;
-            }
-            set
-            {
-                this.netCostMethodFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-        public DateRange NetCostDateRange
-        {
-            get
-            {
-                return this.netCostDateRangeField;
-            }
-            set
-            {
-                this.netCostDateRangeField = value;
+                this.originCriterionFieldSpecified = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
-    public enum NaftaPreferenceCriterionCode
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
+    public enum UsmcaOriginCriterionCode
     {
         
         /// <remarks/>
@@ -15291,47 +15349,12 @@ namespace FedExRateServiceReference
         
         /// <remarks/>
         E,
-        
-        /// <remarks/>
-        F,
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
-    public enum NaftaProducerDeterminationCode
-    {
-        
-        /// <remarks/>
-        NO_1,
-        
-        /// <remarks/>
-        NO_2,
-        
-        /// <remarks/>
-        NO_3,
-        
-        /// <remarks/>
-        YES,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
-    public enum NaftaNetCostMethodCode
-    {
-        
-        /// <remarks/>
-        NC,
-        
-        /// <remarks/>
-        NO,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class EdtExciseCondition
     {
         
@@ -15369,9 +15392,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Measure
     {
         
@@ -15425,9 +15448,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Commodity
     {
         
@@ -15471,7 +15494,7 @@ namespace FedExRateServiceReference
         
         private string partNumberField;
         
-        private NaftaCommodityDetail naftaDetailField;
+        private UsmcaCommodityDetail usmcaDetailField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -15755,22 +15778,22 @@ namespace FedExRateServiceReference
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=17)]
-        public NaftaCommodityDetail NaftaDetail
+        public UsmcaCommodityDetail UsmcaDetail
         {
             get
             {
-                return this.naftaDetailField;
+                return this.usmcaDetailField;
             }
             set
             {
-                this.naftaDetailField = value;
+                this.usmcaDetailField = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum CommodityPurposeType
     {
         
@@ -15782,9 +15805,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CommercialInvoice
     {
         
@@ -16014,8 +16037,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum TaxesOrMiscellaneousChargeType
     {
         
@@ -16039,8 +16062,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum PurposeOfShipmentType
     {
         
@@ -16064,9 +16087,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RecipientCustomsId
     {
         
@@ -16120,8 +16143,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RecipientCustomsIdType
     {
         
@@ -16136,9 +16159,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomsOptionDetail
     {
         
@@ -16192,8 +16215,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum CustomsOptionType
     {
         
@@ -16229,9 +16252,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class BrokerDetail
     {
         
@@ -16285,8 +16308,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum BrokerType
     {
         
@@ -16298,9 +16321,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomsClearanceDetail
     {
         
@@ -16610,8 +16633,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ClearanceBrokerageType
     {
         
@@ -16632,9 +16655,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Payment
     {
         
@@ -16643,6 +16666,8 @@ namespace FedExRateServiceReference
         private bool paymentTypeFieldSpecified;
         
         private Payor payorField;
+        
+        private EPaymentDetail ePaymentDetailField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -16685,22 +16710,39 @@ namespace FedExRateServiceReference
                 this.payorField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public EPaymentDetail EPaymentDetail
+        {
+            get
+            {
+                return this.ePaymentDetailField;
+            }
+            set
+            {
+                this.ePaymentDetailField = value;
+            }
+        }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum PaymentType
     {
+        
+        /// <remarks/>
+        EPAYMENT,
         
         /// <remarks/>
         SENDER,
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Payor
     {
         
@@ -16722,8 +16764,179 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
+    public partial class EPaymentDetail
+    {
+        
+        private string idField;
+        
+        private EPaymentProcessorType ePaymentProcessorField;
+        
+        private bool ePaymentProcessorFieldSpecified;
+        
+        private EPaymentModeType ePaymentModeField;
+        
+        private bool ePaymentModeFieldSpecified;
+        
+        private string maskedCreditCardField;
+        
+        private string creditCardExpirationDateField;
+        
+        private Money amountField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string Id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public EPaymentProcessorType EPaymentProcessor
+        {
+            get
+            {
+                return this.ePaymentProcessorField;
+            }
+            set
+            {
+                this.ePaymentProcessorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool EPaymentProcessorSpecified
+        {
+            get
+            {
+                return this.ePaymentProcessorFieldSpecified;
+            }
+            set
+            {
+                this.ePaymentProcessorFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public EPaymentModeType EPaymentMode
+        {
+            get
+            {
+                return this.ePaymentModeField;
+            }
+            set
+            {
+                this.ePaymentModeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool EPaymentModeSpecified
+        {
+            get
+            {
+                return this.ePaymentModeFieldSpecified;
+            }
+            set
+            {
+                this.ePaymentModeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public string MaskedCreditCard
+        {
+            get
+            {
+                return this.maskedCreditCardField;
+            }
+            set
+            {
+                this.maskedCreditCardField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public string CreditCardExpirationDate
+        {
+            get
+            {
+                return this.creditCardExpirationDateField;
+            }
+            set
+            {
+                this.creditCardExpirationDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public Money Amount
+        {
+            get
+            {
+                return this.amountField;
+            }
+            set
+            {
+                this.amountField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
+    public enum EPaymentProcessorType
+    {
+        
+        /// <remarks/>
+        RETAIL_SINGLE_POINT_OF_SALE,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
+    public enum EPaymentModeType
+    {
+        
+        /// <remarks/>
+        APPLE_PAY,
+        
+        /// <remarks/>
+        CASH,
+        
+        /// <remarks/>
+        CHECK,
+        
+        /// <remarks/>
+        CREDIT_CARD,
+        
+        /// <remarks/>
+        GOOGLE_PAY,
+        
+        /// <remarks/>
+        PAYPAL,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum FreightOnValueType
     {
         
@@ -16735,8 +16948,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RegulatoryControlType
     {
         
@@ -16744,19 +16957,19 @@ namespace FedExRateServiceReference
         FOOD_OR_PERISHABLE,
         
         /// <remarks/>
-        NAFTA,
-        
-        /// <remarks/>
         NOT_APPLICABLE_FOR_LOW_CUSTOMS_VALUE_EXCEPTION,
         
         /// <remarks/>
         NOT_IN_FREE_CIRCULATION,
+        
+        /// <remarks/>
+        USMCA,
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Volume
     {
         
@@ -16826,8 +17039,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum VolumeUnits
     {
         
@@ -16839,9 +17052,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class FreightShipmentLineItem
     {
         
@@ -17007,9 +17220,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class FreightSpecialServicePayment
     {
         
@@ -17063,8 +17276,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum FreightShipmentRoleType
     {
         
@@ -17076,9 +17289,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class LiabilityCoverageDetail
     {
         
@@ -17132,8 +17345,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum LiabilityCoverageType
     {
         
@@ -17145,9 +17358,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class FreightShipmentDetail
     {
         
@@ -17473,8 +17686,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum FreightCollectTermsType
     {
         
@@ -17486,9 +17699,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ExpressFreightDetailContact
     {
         
@@ -17526,9 +17739,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ExpressFreightDetail
     {
         
@@ -17662,9 +17875,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class CustomDeliveryWindowDetail
     {
         
@@ -17782,8 +17995,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum CustomDeliveryWindowType
     {
         
@@ -17801,9 +18014,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class UploadDocumentReferenceDetail
     {
         
@@ -17969,8 +18182,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum UploadDocumentProducerType
     {
         
@@ -18000,8 +18213,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum UploadDocumentType
     {
         
@@ -18015,9 +18228,6 @@ namespace FedExRateServiceReference
         ETD_LABEL,
         
         /// <remarks/>
-        NAFTA_CERTIFICATE_OF_ORIGIN,
-        
-        /// <remarks/>
         NET_RATE_SHEET,
         
         /// <remarks/>
@@ -18025,11 +18235,17 @@ namespace FedExRateServiceReference
         
         /// <remarks/>
         PRO_FORMA_INVOICE,
+        
+        /// <remarks/>
+        USMCA_CERTIFICATION_OF_ORIGIN,
+        
+        /// <remarks/>
+        USMCA_COMMERCIAL_INVOICE_CERTIFICATION_OF_ORIGIN,
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum UploadDocumentIdProducer
     {
         
@@ -18056,9 +18272,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class EtdDetail
     {
         
@@ -18112,8 +18328,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum EtdAttributeType
     {
         
@@ -18122,9 +18338,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class FreightGuaranteeDetail
     {
         
@@ -18194,9 +18410,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class HomeDeliveryPremiumDetail
     {
         
@@ -18282,8 +18498,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum HomeDeliveryPremiumType
     {
         
@@ -18298,9 +18514,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShipmentDryIceDetail
     {
         
@@ -18355,8 +18571,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ShipmentDryIceProcessingOptionType
     {
         
@@ -18365,9 +18581,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class InternationalTrafficInArmsRegulationsDetail
     {
         
@@ -18389,9 +18605,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class InternationalControlledExportDetail
     {
         
@@ -18509,8 +18725,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum InternationalControlledExportType
     {
         
@@ -18549,9 +18765,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class PendingShipmentDetail
     {
         
@@ -18655,8 +18871,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum PendingShipmentType
     {
         
@@ -18665,8 +18881,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum PendingShipmentProcessingOptionType
     {
         
@@ -18675,8 +18891,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RecommendedDocumentType
     {
         
@@ -18720,18 +18936,6 @@ namespace FedExRateServiceReference
         INTERIM_FOOTWEAR_INVOICE,
         
         /// <remarks/>
-        NAFTA_CERTIFICATE_OF_ORIGIN_CANADA_ENGLISH,
-        
-        /// <remarks/>
-        NAFTA_CERTIFICATE_OF_ORIGIN_CANADA_FRENCH,
-        
-        /// <remarks/>
-        NAFTA_CERTIFICATE_OF_ORIGIN_SPANISH,
-        
-        /// <remarks/>
-        NAFTA_CERTIFICATE_OF_ORIGIN_UNITED_STATES,
-        
-        /// <remarks/>
         PACKING_LIST,
         
         /// <remarks/>
@@ -18757,12 +18961,30 @@ namespace FedExRateServiceReference
         
         /// <remarks/>
         UNITED_STATES_WATCH_REPAIR_DECLARATION,
+        
+        /// <remarks/>
+        USMCA_CERTIFICATION_OF_ORIGIN_ENGLISH,
+        
+        /// <remarks/>
+        USMCA_CERTIFICATION_OF_ORIGIN_FRENCH,
+        
+        /// <remarks/>
+        USMCA_CERTIFICATION_OF_ORIGIN_SPANISH,
+        
+        /// <remarks/>
+        USMCA_COMMERCIAL_INVOICE_CERTIFICATION_OF_ORIGIN_ENGLISH,
+        
+        /// <remarks/>
+        USMCA_COMMERCIAL_INVOICE_CERTIFICATION_OF_ORIGIN_FRENCH,
+        
+        /// <remarks/>
+        USMCA_COMMERCIAL_INVOICE_CERTIFICATION_OF_ORIGIN_SPANISH,
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ReturnAssociationDetail
     {
         
@@ -18816,9 +19038,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ReturnEMailDetail
     {
         
@@ -18856,8 +19078,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ReturnEMailAllowedSpecialServiceType
     {
         
@@ -18869,9 +19091,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class Rma
     {
         
@@ -18893,9 +19115,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ReturnShipmentDetail
     {
         
@@ -18981,8 +19203,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ReturnType
     {
         
@@ -18997,9 +19219,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShipmentNotificationFormatSpecification
     {
         
@@ -19037,8 +19259,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum NotificationFormatType
     {
         
@@ -19050,9 +19272,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class EMailDetail
     {
         
@@ -19090,9 +19312,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class NotificationDetail
     {
         
@@ -19162,8 +19384,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum NotificationType
     {
         
@@ -19172,9 +19394,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShipmentEventNotificationSpecification
     {
         
@@ -19260,8 +19482,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ShipmentNotificationRoleType
     {
         
@@ -19276,14 +19498,11 @@ namespace FedExRateServiceReference
         
         /// <remarks/>
         SHIPPER,
-        
-        /// <remarks/>
-        THIRD_PARTY,
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum NotificationEventType
     {
         
@@ -19316,9 +19535,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShipmentEventNotificationDetail
     {
         
@@ -19388,8 +19607,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ShipmentNotificationAggregationType
     {
         
@@ -19401,9 +19620,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class HoldAtLocationDetail
     {
         
@@ -19521,8 +19740,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum FedExLocationType
     {
         
@@ -19558,9 +19777,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class DeliveryOnInvoiceAcceptanceDetail
     {
         
@@ -19598,9 +19817,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShipmentSpecialServicesRequested
     {
         
@@ -19847,8 +20066,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum FlatbedTrailerOption
     {
         
@@ -19860,9 +20079,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShipmentAuthorizationDetail
     {
         
@@ -19884,9 +20103,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ShipmentVariationOptionDetail
     {
         
@@ -19924,9 +20143,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class RequestedShipment
     {
         
@@ -20509,8 +20728,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum DropoffType
     {
         
@@ -20531,8 +20750,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum RateRequestType
     {
         
@@ -20547,8 +20766,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum EdtRequestType
     {
         
@@ -20560,8 +20779,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ShipmentOnlyFieldsType
     {
         
@@ -20576,9 +20795,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ConsolidationKey
     {
         
@@ -20664,8 +20883,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ConsolidationType
     {
         
@@ -20686,9 +20905,9 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public partial class ClientDetail
     {
         
@@ -20790,8 +21009,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum ExpressRegionCode
     {
         
@@ -20812,8 +21031,8 @@ namespace FedExRateServiceReference
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v26")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://fedex.com/ws/rate/v31")]
     public enum CarrierCodeType
     {
         
@@ -20827,6 +21046,9 @@ namespace FedExRateServiceReference
         FDXG,
         
         /// <remarks/>
+        FDXO,
+        
+        /// <remarks/>
         FXCC,
         
         /// <remarks/>
@@ -20837,13 +21059,13 @@ namespace FedExRateServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class getRatesRequest
     {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://fedex.com/ws/rate/v26", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://fedex.com/ws/rate/v31", Order=0)]
         public FedExRateServiceReference.RateRequest RateRequest;
         
         public getRatesRequest()
@@ -20857,13 +21079,13 @@ namespace FedExRateServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class getRatesResponse
     {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://fedex.com/ws/rate/v26", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://fedex.com/ws/rate/v31", Order=0)]
         public FedExRateServiceReference.RateReply RateReply;
         
         public getRatesResponse()
@@ -20876,13 +21098,13 @@ namespace FedExRateServiceReference
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     public interface RatePortTypeChannel : FedExRateServiceReference.RatePortType, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.1")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     public partial class RatePortTypeClient : System.ServiceModel.ClientBase<FedExRateServiceReference.RatePortType>, FedExRateServiceReference.RatePortType
     {
         
