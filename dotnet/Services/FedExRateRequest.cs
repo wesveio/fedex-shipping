@@ -211,7 +211,6 @@
             request.ReturnTransitAndCommit = true;
             request.ReturnTransitAndCommitSpecified = true;
             SetShipmentDetails(request, getRatesRequest);
-            Console.WriteLine(JsonConvert.SerializeObject(request));
             return request;
         }
 
