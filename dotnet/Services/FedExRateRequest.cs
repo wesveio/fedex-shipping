@@ -47,8 +47,10 @@
                 //Console.WriteLine(jsonrequest);
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
+                //Console.WriteLine(JsonConvert.SerializeObject(getRatesRequest));
                 getRatesResponse ratesResponse = await client.getRatesAsync(request);
                 stopWatch.Stop();
+                // Console.Write(JsonConvert.SerializeObject(ratesResponse));
                 // Get the elapsed time as a TimeSpan value.
                 TimeSpan ts = stopWatch.Elapsed;
                 getRatesResponseWrapper.timeSpan = ts;
@@ -63,30 +65,27 @@
                     foreach(RateReplyDetail detail in reply.RateReplyDetails)
                     {
                         //Item matchingItem = getRatesRequest.items.Select(x => x.id.Equals())
-                        //GetRatesResponse rateResponse = new GetRatesResponse
                         //{
-                        //    carrierId = detail.ServiceType,
-                        //    carrierName = CARRIER,
-                        //    deliveryOnWeekends = false,
-                        //    dockId = getRatesRequest.items[0].availability[0].dockId,
-                        //    itemId = getRatesRequest.items[0].id,
-                        //    price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount,
                         //    quantity = getRatesRequest.items[0].quantity,
                         //    time = $"{this.TransitDays(detail.ServiceType, detail.TransitTime.ToString(), detail.DeliveryTimestamp.ToString())}.00:00:00"
                         //};
-
                         GetRatesResponse rateResponse = new GetRatesResponse
                         {
-                            carrierId = detail.ServiceDescription.Code,
-                            carrierName = detail.ServiceDescription.Description,
-                            //deliveryOnWeekends = false,
+                            carrierId = "FEDEX",
                             //dockId = getRatesRequest.items[0].availability[0].dockId,
-                            //itemId = getRatesRequest.items[0].id,
+                            itemId = getRatesRequest.items[0].id,
                             price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount,
-                            //quantity = getRatesRequest.items[0].quantity,
-                            time = $"{this.TransitDays(detail.ServiceType, detail.TransitTime.ToString(), detail.DeliveryTimestamp.ToString())}.00:00:00",
-                            slaType = detail.ServiceType
+                            numberOfPackages = getRatesRequest.items[0].quantity,
+                            estimateDate = detail.DeliveryTimestamp,
+                            shippingMethod = detail.ServiceDescription.Description,
+                            transitTime = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC,
+                            carrierSchedule = new List<Schedule>(),
+                            deliveryChannel = "delivery",
+                            weekendAndHolidays = new WeekendAndHolidays(),
+                            pickupAddress = null,
                         };
+
+                        //rateResponse.carrierBusinessHours.Add(new BusinessHour(i, ));
 
                         getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
                     }
@@ -152,15 +151,14 @@
                             GetRatesResponse rateResponse = new GetRatesResponse
                             {
                                 carrierId = detail.ServiceDescription.Code,
-                                carrierName = detail.ServiceDescription.Description,
                                 //deliveryOnWeekends = false,
                                 //dockId = tempRequest.items[0].availability[0].dockId,
                                 //wareHouseId = tempRequest.items[0].availability[0].warehouseId,
                                 //itemId = tempRequest.items[0].id,
                                 price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount,
                                 //quantity = tempRequest.items[0].quantity,
-                                time = $"{this.TransitDays(detail.ServiceType, detail.TransitTime.ToString(), detail.DeliveryTimestamp.ToString())}.00:00:00",
-                                slaType = detail.ServiceType
+                                // time = $"{this.TransitDays(detail.ServiceType, detail.TransitTime.ToString(), detail.DeliveryTimestamp.ToString())}.00:00:00",
+                                shippingMethod = detail.ServiceType
                             };
 
                             getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
@@ -212,9 +210,8 @@
             
             request.ReturnTransitAndCommit = true;
             request.ReturnTransitAndCommitSpecified = true;
-            
             SetShipmentDetails(request, getRatesRequest);
-            
+            Console.WriteLine(JsonConvert.SerializeObject(request));
             return request;
         }
 
@@ -224,8 +221,10 @@
             SetOrigin(request, getRatesRequest);
             SetDestination(request, getRatesRequest);
             SetPackageLineItems(request, getRatesRequest);
-            //request.RequestedShipment.PackageCount = getRatesRequest.items.Count.ToString();
             request.RequestedShipment.PackageCount = getRatesRequest.items.Sum(x => x.quantity).ToString();
+            request.RequestedShipment.PreferredCurrency = getRatesRequest.currency;
+            request.RequestedShipment.ShipTimestampSpecified = true;
+            request.RequestedShipment.ShipTimestamp = getRatesRequest.shippingDateUTC;
         }
 
         private void SetOrigin(RateRequest request, GetRatesRequest getRatesRequest)
@@ -237,6 +236,9 @@
             request.RequestedShipment.Shipper.Address.City = getRatesRequest.origin.city;
             request.RequestedShipment.Shipper.Address.StateOrProvinceCode = getRatesRequest.origin.state;
             request.RequestedShipment.Shipper.Address.StreetLines = new string[] { getRatesRequest.origin.street };
+            request.RequestedShipment.Shipper.Address.ResidentialSpecified = getRatesRequest.origin.residential;
+            request.RequestedShipment.Shipper.Address.Residential = getRatesRequest.origin.residential;
+            request.RequestedShipment.Shipper.Address.GeographicCoordinates = getRatesRequest.origin.coordinates.latitude.ToString("+#.###;-#.###;0") + getRatesRequest.origin.coordinates.longitude.ToString("+#.###;-#.###;0");
         }
 
         private void SetDestination(RateRequest request, GetRatesRequest getRatesRequest)
@@ -248,6 +250,9 @@
             request.RequestedShipment.Recipient.Address.City = getRatesRequest.destination.city;
             request.RequestedShipment.Recipient.Address.StateOrProvinceCode = getRatesRequest.destination.state;
             request.RequestedShipment.Recipient.Address.StreetLines = new string[] { getRatesRequest.destination.street };
+            request.RequestedShipment.Recipient.Address.ResidentialSpecified = getRatesRequest.destination.residential;
+            request.RequestedShipment.Recipient.Address.Residential = getRatesRequest.destination.residential;
+            request.RequestedShipment.Recipient.Address.GeographicCoordinates = getRatesRequest.destination.coordinates.latitude.ToString("+#.###;-#.###;0") + getRatesRequest.destination.coordinates.longitude.ToString("+#.###;-#.###;0");
         }
 
         private void SetPackageLineItems(RateRequest request, GetRatesRequest getRatesRequest)
@@ -264,13 +269,13 @@
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Units = WeightUnits.LB;
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.UnitsSpecified = true;
                 //request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Value = getRatesRequest.items[cnt].unitDimension.weight * getRatesRequest.items[cnt].quantity;
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Value = getRatesRequest.items[cnt].unitDimension.weight;
+                request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Value = Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight);
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.ValueSpecified = true;
                 // package dimensions
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions = new Dimensions();
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Length = getRatesRequest.items[cnt].unitDimension.length.ToString();
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Width = getRatesRequest.items[cnt].unitDimension.weight.ToString();
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Height = getRatesRequest.items[cnt].unitDimension.height.ToString();
+                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Length = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.length).ToString();
+                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Width = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.width).ToString();
+                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Height = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height).ToString();
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Units = LinearUnits.IN;
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.UnitsSpecified = true;
             }
