@@ -47,7 +47,8 @@
                 //Console.WriteLine(jsonrequest);
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
-                //Console.WriteLine(JsonConvert.SerializeObject(getRatesRequest));
+                // Console.WriteLine(JsonConvert.SerializeObject(getRatesRequest));
+                // Console.WriteLine(JsonConvert.SerializeObject(request));
                 getRatesResponse ratesResponse = await client.getRatesAsync(request);
                 stopWatch.Stop();
                 // Console.Write(JsonConvert.SerializeObject(ratesResponse));
@@ -85,7 +86,10 @@
                             pickupAddress = null,
                         };
 
-                        //rateResponse.carrierBusinessHours.Add(new BusinessHour(i, ));
+                        rateResponse.carrierBusinessHours = new BusinessHour[7];
+                        for (int day = 0; day < 7; day++) {
+                            rateResponse.carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, "0:00", "23:59");
+                        }
 
                         getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
                     }
@@ -277,6 +281,16 @@
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Height = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height).ToString();
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Units = LinearUnits.IN;
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.UnitsSpecified = true;
+                
+                //Special Handling goods
+                if (!String.IsNullOrEmpty(getRatesRequest.items[cnt].modal)) {
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested = new PackageSpecialServicesRequested();
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.SpecialServiceTypes = new String[] {"DANGEROUS_GOODS"};
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail = new DangerousGoodsDetail();
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.Offeror = "TEST OFFEROR";
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.EmergencyContactNumber = "3268545905";
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.Options = new HazardousCommodityOptionType[] { HazardousCommodityOptionType.HAZARDOUS_MATERIALS };
+                }
             }
         }
 

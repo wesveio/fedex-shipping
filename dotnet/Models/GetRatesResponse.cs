@@ -14,7 +14,7 @@ namespace ShippingUtilities.Models
         public TimeSpan transitTime { get; set; }
         public List<Schedule> carrierSchedule { get; set; }
         public WeekendAndHolidays weekendAndHolidays { get; set; }
-        public List<BusinessHour> carrierBusinessHours { get; set; }
+        public BusinessHour[] carrierBusinessHours { get; set; }
         public string deliveryChannel { get; set; }
         public Destination pickupAddress { get; set; }
     }
@@ -34,14 +34,14 @@ namespace ShippingUtilities.Models
 
     public class BusinessHour
     {
-        public BusinessHour (DayOfWeek dayOfWeek, TimeSpan openingTime, TimeSpan closingTime)
+        public BusinessHour (DayOfWeek dayOfWeek, string openingTime, string closingTime)
         {
             this.dayOfWeek = dayOfWeek;
             this.openingTime = openingTime;
             this.closingTime = closingTime;
         }
         public DayOfWeek dayOfWeek { get; set; }
-        public TimeSpan openingTime { get; set; }
-        public TimeSpan closingTime { get; set; }
+        public string openingTime { get; set; }
+        public string closingTime { get; set; }
     }
 }
