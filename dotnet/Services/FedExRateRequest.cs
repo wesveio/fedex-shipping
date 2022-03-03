@@ -63,6 +63,10 @@
                 {
                     ShowRateReply(reply);
                     //string replyjson = JsonConvert.SerializeObject(reply);
+                    int totalQuantity = 0;
+                    foreach (Item item in getRatesRequest.items) {
+                        totalQuantity += item.quantity;
+                    }
                     foreach(RateReplyDetail detail in reply.RateReplyDetails)
                     {
                         //Item matchingItem = getRatesRequest.items.Select(x => x.id.Equals())
@@ -70,16 +74,17 @@
                         //    quantity = getRatesRequest.items[0].quantity,
                         //    time = $"{this.TransitDays(detail.ServiceType, detail.TransitTime.ToString(), detail.DeliveryTimestamp.ToString())}.00:00:00"
                         //};
+                        TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
                         GetRatesResponse rateResponse = new GetRatesResponse
                         {
                             carrierId = "FEDEX",
                             //dockId = getRatesRequest.items[0].availability[0].dockId,
                             itemId = getRatesRequest.items[0].id,
                             price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount,
-                            numberOfPackages = getRatesRequest.items[0].quantity,
+                            numberOfPackages = totalQuantity,
                             estimateDate = detail.DeliveryTimestamp,
                             shippingMethod = detail.ServiceDescription.Description,
-                            transitTime = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC,
+                            transitTime = transitArrival.ToString(),
                             carrierSchedule = new List<Schedule>(),
                             deliveryChannel = "delivery",
                             weekendAndHolidays = new WeekendAndHolidays(),
@@ -88,7 +93,7 @@
 
                         rateResponse.carrierBusinessHours = new BusinessHour[7];
                         for (int day = 0; day < 7; day++) {
-                            rateResponse.carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, "0:00", "23:59");
+                            rateResponse.carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, new TimeSpan(0, 0, 0).ToString(), new TimeSpan(23, 59, 59).ToString());
                         }
 
                         getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);

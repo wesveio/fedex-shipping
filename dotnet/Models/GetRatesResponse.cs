@@ -11,7 +11,7 @@ namespace ShippingUtilities.Models
         public string carrierId { get; set; }
         public decimal price { get; set; }
         public DateTimeOffset estimateDate { get; set; }
-        public TimeSpan transitTime { get; set; }
+        public string transitTime { get; set; }
         public List<Schedule> carrierSchedule { get; set; }
         public WeekendAndHolidays weekendAndHolidays { get; set; }
         public BusinessHour[] carrierBusinessHours { get; set; }
