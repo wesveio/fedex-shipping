@@ -5,7 +5,7 @@
   ],
   "routes": {
     "getRates": {
-      "path": "/shipping-utilities/getRates/:carrier",
+      "path": "/shp-rates/calculate",
       "public": true
     },
     "getRawRates": {

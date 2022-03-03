@@ -53,17 +53,13 @@
             return Json(rateReply.rateReply);
         }
 
-        public async Task<IActionResult> GetRates(string carrier)
+        public async Task<IActionResult> GetRates()
         {
             GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
             var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
             GetRatesRequest getRatesRequest = JsonConvert.DeserializeObject<GetRatesRequest>(bodyAsText);
-            switch (carrier.ToUpper())
-            {
-                case FEDEX:
-                    getRatesResponseWrapper = await this._fedExRateRequest.GetRates(getRatesRequest);
-                    break;
-            }
+
+            getRatesResponseWrapper = await this._fedExRateRequest.GetRates(getRatesRequest);            
 
             Response.Headers.Add("Cache-Control", "private");
             Response.Headers.Add("Timespan", getRatesResponseWrapper.timeSpan.TotalSeconds.ToString());
