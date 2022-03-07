@@ -6,34 +6,26 @@ namespace ShippingUtilities.Models
 {
     public class UnitDimension
     {
-        public int weight { get; set; }
-        public int height { get; set; }
-        public int width { get; set; }
-        public int length { get; set; }
-    }
-
-    public class Availability
-    {
-        public string warehouseId { get; set; }
-        public string dockId { get; set; }
-        public int availableQuantity { get; set; }
+        public double weight { get; set; }
+        public double height { get; set; }
+        public double width { get; set; }
+        public double length { get; set; }
     }
 
     public class Item
     {
         public string id { get; set; }
         public int quantity { get; set; }
-        public object modal { get; set; }
+        public string modal { get; set; }
         public object groupId { get; set; }
         public double unitPrice { get; set; }
         public UnitDimension unitDimension { get; set; }
-        public List<Availability> availability { get; set; }
     }
 
-    public class Location
+    public class Geolocation
     {
-        public object lat { get; set; }
-        public object lon { get; set; }
+        public double? latitude { get; set; }
+        public double? longitude { get; set; }
     }
 
     public class Origin
@@ -43,7 +35,8 @@ namespace ShippingUtilities.Models
         public string state { get; set; }
         public string zipCode { get; set; }
         public string country { get; set; }
-        public Location location { get; set; }
+        public bool residential { get; set; }
+        public Geolocation coordinates { get; set; }
     }
 
     public class Destination
@@ -53,7 +46,8 @@ namespace ShippingUtilities.Models
         public string state { get; set; }
         public string zipCode { get; set; }
         public string country { get; set; }
-        public Location location { get; set; }
+        public bool residential { get; set; }
+        public Geolocation coordinates { get; set; }
     }
 
     public class GetRatesRequest
@@ -61,5 +55,7 @@ namespace ShippingUtilities.Models
         public List<Item> items { get; set; }
         public Origin origin { get; set; }
         public Destination destination { get; set; }
+        public string currency { get; set; }
+        public DateTime shippingDateUTC { get; set; }
     }
 }

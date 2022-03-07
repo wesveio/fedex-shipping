@@ -1,0 +1,12 @@
+{
+    "type": "object",
+    "properties": {
+      "providerName": {
+        "type": "FedEx"
+      },
+      "description": {
+        "type": "FedEx Dynamic Rates"
+      }
+    }
+  }
+  

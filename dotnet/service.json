@@ -5,8 +5,21 @@
   ],
   "routes": {
     "getRates": {
-      "path": "/shipping-utilities/getRates/:carrier",
-      "public": true
+      "path": "/shp-rates/calculate",
+      "settingsType": "workspace",
+      "public": false,
+      "access": "authorized",
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": [
+            "get","post"
+          ],
+          "principals": [
+            "vrn:apps:*:{{account}}:{{workspace}}:app/vtex.shipping-rates-provider@*"
+          ]
+        }
+      ]
     },
     "getRawRates": {
       "path": "/shipping-utilities/getRawRates/:carrier",

@@ -8,7 +8,8 @@
     "prereleasy": "bash pre.sh"
   },
   "builders": {
-    "dotnet": "2.x"
+    "dotnet": "2.x",
+    "vtex.shipping-rates-provider": "0.x"
   },
   "policies": [
     {

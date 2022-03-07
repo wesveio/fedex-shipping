@@ -93,30 +93,8 @@ namespace ShippingUnitTest
 
         public GetRatesRequest BuildRequest()
         {
-            Availability availability1 = new Availability
-            {
-                availableQuantity = 5,
-                dockId = "d1",
-                warehouseId = "w1"
-            };
-
-            Availability availability2 = new Availability
-            {
-                availableQuantity = 2,
-                dockId = "d1",
-                warehouseId = "w1"
-            };
-
-            Availability availability3 = new Availability
-            {
-                availableQuantity = 2,
-                dockId = "d1",
-                warehouseId = "w2"
-            };
-
             Item item1 = new Item
             {
-                availability = new List<Availability> { availability1 },
                 groupId = null,
                 id = "1",
                 modal = null,
@@ -133,7 +111,6 @@ namespace ShippingUnitTest
 
             Item item2 = new Item
             {
-                availability = new List<Availability> { availability2, availability3 },
                 groupId = null,
                 id = "2",
                 modal = null,
