@@ -246,7 +246,7 @@
             request.RequestedShipment.Shipper.Address.StreetLines = new string[] { getRatesRequest.origin.street };
             request.RequestedShipment.Shipper.Address.ResidentialSpecified = getRatesRequest.origin.residential;
             request.RequestedShipment.Shipper.Address.Residential = getRatesRequest.origin.residential;
-            request.RequestedShipment.Shipper.Address.GeographicCoordinates = getRatesRequest.origin.coordinates.latitude.ToString("+#.###;-#.###;0") + getRatesRequest.origin.coordinates.longitude.ToString("+#.###;-#.###;0");
+            // request.RequestedShipment.Shipper.Address.GeographicCoordinates = getRatesRequest.origin.coordinates.latitude.ToString("+#.###;-#.###;0") + getRatesRequest.origin.coordinates.longitude.ToString("+#.###;-#.###;0");
         }
 
         private void SetDestination(RateRequest request, GetRatesRequest getRatesRequest)
@@ -260,7 +260,7 @@
             request.RequestedShipment.Recipient.Address.StreetLines = new string[] { getRatesRequest.destination.street };
             request.RequestedShipment.Recipient.Address.ResidentialSpecified = getRatesRequest.destination.residential;
             request.RequestedShipment.Recipient.Address.Residential = getRatesRequest.destination.residential;
-            request.RequestedShipment.Recipient.Address.GeographicCoordinates = getRatesRequest.destination.coordinates.latitude.ToString("+#.###;-#.###;0") + getRatesRequest.destination.coordinates.longitude.ToString("+#.###;-#.###;0");
+            // request.RequestedShipment.Recipient.Address.GeographicCoordinates = getRatesRequest.destination.coordinates.latitude.ToString("+#.###;-#.###;0") + getRatesRequest.destination.coordinates.longitude.ToString("+#.###;-#.###;0");
         }
 
         private void SetPackageLineItems(RateRequest request, GetRatesRequest getRatesRequest)

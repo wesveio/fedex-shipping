@@ -24,8 +24,8 @@ namespace ShippingUtilities.Models
 
     public class Geolocation
     {
-        public double latitude { get; set; }
-        public double longitude { get; set; }
+        public double? latitude { get; set; }
+        public double? longitude { get; set; }
     }
 
     public class Origin
