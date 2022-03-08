@@ -555,5 +555,19 @@
 
             UNKNOWN = 30,
         }
+
+        private enum ModalOptions
+        {
+            CHEMICALS,
+            ELECTRONICS,
+            FURNITURE,
+            GLASS,
+            LIQUID,
+            MATTRESSES,
+            REFRIGERATED,
+            TIRES,
+            WHITE_GOODS,
+            FIREARMS
+        }
     }
 }
