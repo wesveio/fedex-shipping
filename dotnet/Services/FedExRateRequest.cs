@@ -75,6 +75,7 @@
                         //    time = $"{this.TransitDays(detail.ServiceType, detail.TransitTime.ToString(), detail.DeliveryTimestamp.ToString())}.00:00:00"
                         //};
                         TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
+                        string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
                         GetRatesResponse rateResponse = new GetRatesResponse
                         {
                             carrierId = "FEDEX",
@@ -84,7 +85,7 @@
                             numberOfPackages = totalQuantity,
                             estimateDate = detail.DeliveryTimestamp,
                             shippingMethod = detail.ServiceDescription.Description,
-                            transitTime = transitArrival.ToString(),
+                            transitTime = transitString,
                             carrierSchedule = new List<Schedule>(),
                             deliveryChannel = "delivery",
                             weekendAndHolidays = new WeekendAndHolidays(),
