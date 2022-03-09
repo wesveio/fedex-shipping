@@ -16,6 +16,10 @@
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private MerchantSettings _merchantSettings;
 
+        private Dictionary<string, string> iso2CodeMap = new Dictionary<string, string>(){
+            {"USA", "US"}
+        };
+
         public FedExRateRequest(IMerchantSettingsRepository merchantSettingsRepository)
         {
             this._merchantSettingsRepository = merchantSettingsRepository ??
@@ -240,8 +244,8 @@
         {
             request.RequestedShipment.Shipper = new Party();
             request.RequestedShipment.Shipper.Address = new Address();
-            request.RequestedShipment.Shipper.Address.PostalCode = getRatesRequest.origin.zipCode;
-            request.RequestedShipment.Shipper.Address.CountryCode = getRatesRequest.origin.country;
+            request.RequestedShipment.Shipper.Address.PostalCode = getRatesRequest.origin.zipCode.Substring(getRatesRequest.origin.zipCode.Length - 5, 5);
+            request.RequestedShipment.Shipper.Address.CountryCode = iso2CodeMap[getRatesRequest.origin.country];
             request.RequestedShipment.Shipper.Address.City = getRatesRequest.origin.city;
             request.RequestedShipment.Shipper.Address.StateOrProvinceCode = getRatesRequest.origin.state;
             request.RequestedShipment.Shipper.Address.StreetLines = new string[] { getRatesRequest.origin.street };
@@ -254,8 +258,8 @@
         {
             request.RequestedShipment.Recipient = new Party();
             request.RequestedShipment.Recipient.Address = new Address();
-            request.RequestedShipment.Recipient.Address.PostalCode = getRatesRequest.destination.zipCode;
-            request.RequestedShipment.Recipient.Address.CountryCode = getRatesRequest.destination.country;
+            request.RequestedShipment.Recipient.Address.PostalCode = getRatesRequest.destination.zipCode.Substring(getRatesRequest.destination.zipCode.Length - 5, 5);
+            request.RequestedShipment.Recipient.Address.CountryCode = iso2CodeMap[getRatesRequest.destination.country];
             request.RequestedShipment.Recipient.Address.City = getRatesRequest.destination.city;
             request.RequestedShipment.Recipient.Address.StateOrProvinceCode = getRatesRequest.destination.state;
             request.RequestedShipment.Recipient.Address.StreetLines = new string[] { getRatesRequest.destination.street };
