@@ -1,7 +1,7 @@
 {
   "name": "shipping-utilities",
   "vendor": "vtex",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "title": "Shipping Utilities",
   "description": "An app for interfacing with shipping carriers to provide rates and tracking information.",
   "scripts": {
