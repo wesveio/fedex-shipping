@@ -20,6 +20,20 @@
             {"USA", "US"}
         };
 
+        private Dictionary<string, string[]> modalOptionsMap = new Dictionary<string, string[]>()
+        {
+            {"CHEMICALS", new string[]{"DANGEROUS_GOODS", "HAZARDOUS_MATERIALS"}},
+            {"ELECTRONICS", new string[]{"DANGEROUS_GOODS", "BATTERY"}},
+            {"FURNITURE", new string[0]},
+            {"GLASS", new string[0]},
+            {"LIQUID", new string[]{"DANGEROUS_GOODS", "HAZARDOUS_MATERIALS"}},
+            {"MATTRESSES", new string[0]},
+            {"REFRIGERATED", new string[0]},
+            {"TIRES", new string[0]},
+            {"WHITE_GOODS", new string[0]},
+            {"FIREARMS", new string[]{"DANGEROUS_GOODS", "ORM_D"}},
+        };
+
         public FedExRateRequest(IMerchantSettingsRepository merchantSettingsRepository)
         {
             this._merchantSettingsRepository = merchantSettingsRepository ??
@@ -292,14 +306,20 @@
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Units = LinearUnits.IN;
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.UnitsSpecified = true;
                 
-                //Special Handling goods
-                if (!String.IsNullOrEmpty(getRatesRequest.items[cnt].modal)) {
+                // Special Handling goods
+                // Checks if the modal is in the options and there is available mapping
+                if (modalOptionsMap.ContainsKey(getRatesRequest.items[cnt].modal) && modalOptionsMap[getRatesRequest.items[cnt].modal].Length > 0) {
+                    string specialHandlingTypes = modalOptionsMap[getRatesRequest.items[cnt].modal][0];
                     request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested = new PackageSpecialServicesRequested();
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.SpecialServiceTypes = new String[] {"DANGEROUS_GOODS"};
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail = new DangerousGoodsDetail();
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.Offeror = "TEST OFFEROR";
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.EmergencyContactNumber = "3268545905";
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.Options = new HazardousCommodityOptionType[] { HazardousCommodityOptionType.HAZARDOUS_MATERIALS };
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.SpecialServiceTypes = new String[] { specialHandlingTypes };
+                    if (specialHandlingTypes.Equals("DANGEROUS_GOODS")) {
+                        HazardousCommodityOptionType hazOptionType;
+                        Enum.TryParse<HazardousCommodityOptionType>(modalOptionsMap[getRatesRequest.items[cnt].modal][1], out hazOptionType);
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail = new DangerousGoodsDetail();
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.Offeror = "TEST OFFEROR";
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.EmergencyContactNumber = "3268545905";
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.Options = new HazardousCommodityOptionType[] { hazOptionType };
+                    }
                 }
             }
         }

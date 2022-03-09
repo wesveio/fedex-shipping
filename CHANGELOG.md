@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added modal mapping for various goods types
+
 ## [0.0.6] - 2022-03-09
 
 ### Added
