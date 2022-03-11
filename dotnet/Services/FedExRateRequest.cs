@@ -218,7 +218,6 @@
         {
             // Build the RateRequest
             RateRequest request = new RateRequest();
-            //
             request.WebAuthenticationDetail = new WebAuthenticationDetail();
             request.WebAuthenticationDetail.UserCredential = new WebAuthenticationCredential();
             request.WebAuthenticationDetail.UserCredential.Key = this._merchantSettings.UserCredentialKey;
