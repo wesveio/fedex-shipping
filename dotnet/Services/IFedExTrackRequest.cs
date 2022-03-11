@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using TrackServiceReference;
 
-namespace ShippingUtilities.Services
+namespace FedexShipping.Services
 {
     public interface IFedExTrackRequest
     {

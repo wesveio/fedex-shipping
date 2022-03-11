@@ -1,4 +1,4 @@
-﻿namespace ShippingUtilities.Services
+﻿namespace FedexShipping.Services
 {
     using System;
 

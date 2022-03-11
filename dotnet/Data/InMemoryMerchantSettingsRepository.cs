@@ -1,8 +1,8 @@
-﻿namespace ShippingUtilities.Data
+﻿namespace FedexShipping.Data
 {
     using System.Threading.Tasks;
     using System.Collections.Generic;
-    using ShippingUtilities.Models;
+    using FedexShipping.Models;
 
     public class InMemoryMerchantSettingsRepository : IMerchantSettingsRepository
     {

@@ -1,6 +1,6 @@
-﻿namespace ShippingUtilities.Data
+﻿namespace FedexShipping.Data
 {
-    using ShippingUtilities.Models;
+    using FedexShipping.Models;
     using System.Threading.Tasks;
 
     public interface IMerchantSettingsRepository

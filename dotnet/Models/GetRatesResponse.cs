@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ShippingUtilities.Models
+namespace FedexShipping.Models
 {
     public class GetRatesResponse
     {

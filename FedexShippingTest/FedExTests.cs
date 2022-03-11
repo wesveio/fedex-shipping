@@ -1,14 +1,14 @@
 using FedExAvailabilityServiceReference;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using ShippingUtilities.Data;
-using ShippingUtilities.Models;
-using ShippingUtilities.Services;
+using FedexShipping.Data;
+using FedexShipping.Models;
+using FedexShipping.Services;
 using System;
 using System.Collections.Generic;
 using TrackServiceReference;
 
-namespace ShippingUnitTest
+namespace FedexShippingTest
 {
     [TestClass]
     public class FedExTests

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\dotnet\ShippingUtilities.csproj" />
+    <ProjectReference Include="..\dotnet\FedexShipping.csproj" />
   </ItemGroup>
 
 </Project>

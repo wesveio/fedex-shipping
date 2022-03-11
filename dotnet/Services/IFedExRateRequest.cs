@@ -1,8 +1,8 @@
 ﻿using FedExRateServiceReference;
-using ShippingUtilities.Models;
+using FedexShipping.Models;
 using System.Threading.Tasks;
 
-namespace ShippingUtilities.Services
+namespace FedexShipping.Services
 {
     public interface IFedExRateRequest
     {

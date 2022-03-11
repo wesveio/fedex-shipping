@@ -4,8 +4,8 @@ namespace Vtex
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using ShippingUtilities.Services;
-    using ShippingUtilities.Data;
+    using FedexShipping.Services;
+    using FedexShipping.Data;
 
     public class StartupExtender
     {
