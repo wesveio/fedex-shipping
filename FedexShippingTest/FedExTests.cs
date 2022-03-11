@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using TrackServiceReference;
 
-namespace ShippingUnitTest
+namespace FedexShippingTest
 {
     [TestClass]
     public class FedExTests

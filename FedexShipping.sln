@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShippingUtilities", "dotnet\ShippingUtilities.csproj", "{20A6F810-E717-47F8-95F4-201873F256F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FedexShipping", "dotnet\FedexShipping.csproj", "{20A6F810-E717-47F8-95F4-201873F256F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShippingUnitTest", "ShippingUnitTest\ShippingUnitTest.csproj", "{831EA510-287A-4C3C-AADB-4B71C40B53B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FedexShippingTest", "FedexShippingTest\FedexShippingTest.csproj", "{831EA510-287A-4C3C-AADB-4B71C40B53B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
