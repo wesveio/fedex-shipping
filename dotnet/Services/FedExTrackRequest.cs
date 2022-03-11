@@ -1,12 +1,12 @@
-﻿using ShippingUtilities.Data;
-using ShippingUtilities.Models;
+﻿using FedexShipping.Data;
+using FedexShipping.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TrackServiceReference;
 
-namespace ShippingUtilities.Services
+namespace FedexShipping.Services
 {
     public class FedExTrackRequest : IFedExTrackRequest
     {

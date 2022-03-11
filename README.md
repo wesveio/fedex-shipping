@@ -1,5 +1,9 @@
-# shipping-utilities
-Shipping Utilities
+# FedEx Shipping
+FedEx Dynamic Shipping Rates
+FedEx App works in tandem with shipping-rates-provider to fetch for dynamic rates. This app acts as the middleware between FedEx and 
+
+## Functionalities
+- Fetch dynamic rates from FedEx
 
 Test Calculate Shipping API
 

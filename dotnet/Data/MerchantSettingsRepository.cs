@@ -1,12 +1,12 @@
-﻿namespace ShippingUtilities.Data
+﻿namespace FedexShipping.Data
 {
     using Microsoft.AspNetCore.Http;
-    using ShippingUtilities.Models;
+    using FedexShipping.Models;
     using System;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
-    using ShippingUtilities.Services;
+    using FedexShipping.Services;
     using Newtonsoft.Json;
 
     public class MerchantSettingsRepository : IMerchantSettingsRepository

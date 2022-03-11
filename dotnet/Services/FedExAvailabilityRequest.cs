@@ -1,12 +1,12 @@
 ﻿using FedExAvailabilityServiceReference;
-using ShippingUtilities.Data;
-using ShippingUtilities.Models;
+using FedexShipping.Data;
+using FedexShipping.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShippingUtilities.Services
+namespace FedexShipping.Services
 {
     public class FedExAvailabilityRequest : IFedExAvailabilityRequest
     {

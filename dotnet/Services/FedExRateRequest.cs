@@ -1,4 +1,4 @@
-﻿namespace ShippingUtilities.Services
+﻿namespace FedexShipping.Services
 {
     using System;
     using System.Collections.Generic;
@@ -7,8 +7,8 @@
     using System.Threading.Tasks;
     using FedExRateServiceReference;
     using Newtonsoft.Json;
-    using ShippingUtilities.Data;
-    using ShippingUtilities.Models;
+    using FedexShipping.Data;
+    using FedexShipping.Models;
 
     public class FedExRateRequest : IFedExRateRequest
     {

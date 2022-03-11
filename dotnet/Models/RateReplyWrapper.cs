@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShippingUtilities.Models
+namespace FedexShipping.Models
 {
     public class RateReplyWrapper
     {

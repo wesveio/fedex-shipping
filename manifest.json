@@ -1,8 +1,8 @@
 {
-  "name": "shipping-utilities",
+  "name": "fedex-shipping",
   "vendor": "vtex",
   "version": "0.1.0",
-  "title": "Shipping Utilities",
+  "title": "FedEx Shipping",
   "description": "An app for interfacing with shipping carriers to provide rates and tracking information.",
   "scripts": {
     "prereleasy": "bash pre.sh"
