@@ -283,6 +283,7 @@
 
         private void SetPackageLineItems(RateRequest request, GetRatesRequest getRatesRequest)
         {
+            Console.WriteLine(JsonConvert.SerializeObject(getRatesRequest));
             request.RequestedShipment.RequestedPackageLineItems = new RequestedPackageLineItem[getRatesRequest.items.Count];
             for(int cnt = 0; cnt < getRatesRequest.items.Count; cnt++ )
             {
@@ -307,7 +308,7 @@
                 
                 // Special Handling goods
                 // Checks if the modal is in the options and there is available mapping
-                if (modalOptionsMap.ContainsKey(getRatesRequest.items[cnt].modal) && modalOptionsMap[getRatesRequest.items[cnt].modal].Length > 0) {
+                if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && modalOptionsMap.ContainsKey(getRatesRequest.items[cnt].modal) && modalOptionsMap[getRatesRequest.items[cnt].modal].Length > 0) {
                     string specialHandlingTypes = modalOptionsMap[getRatesRequest.items[cnt].modal][0];
                     request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested = new PackageSpecialServicesRequested();
                     request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.SpecialServiceTypes = new String[] { specialHandlingTypes };
