@@ -7,6 +7,12 @@
   "scripts": {
     "prereleasy": "bash pre.sh"
   },
+  "billingOptions": {
+    "type": "free",
+    "availableCountries": [
+      "*"
+    ]
+  },
   "builders": {
     "dotnet": "2.x",
     "vtex.shipping-rates-provider": "0.x"
