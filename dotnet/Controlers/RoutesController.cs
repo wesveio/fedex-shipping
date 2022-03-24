@@ -1,8 +1,6 @@
 ﻿namespace service.Controllers
 {
     using System;
-    using System.Collections.Generic;
-    using System.Net;
     using System.Threading.Tasks;
     using FedExRateServiceReference;
     using Microsoft.AspNetCore.Http;
@@ -19,9 +17,10 @@
         private readonly IFedExRateRequest _fedExRateRequest;
         private readonly IFedExAvailabilityRequest _fedExAvailabilityRequest;
         private readonly IFedExTrackRequest _fedExTrackRequest;
+        private readonly IFedExEstimateDeliveryRequest _fedExEstimateDeliveryRequest;
         private const string FEDEX = "FEDEX";
 
-        public RoutesController(IMerchantSettingsRepository merchantSettingsRepository, IFedExRateRequest fedExRateRequest, IFedExAvailabilityRequest fedExAvailabilityRequest, IFedExTrackRequest fedExTrackRequest)
+        public RoutesController(IMerchantSettingsRepository merchantSettingsRepository, IFedExRateRequest fedExRateRequest, IFedExAvailabilityRequest fedExAvailabilityRequest, IFedExTrackRequest fedExTrackRequest, IFedExEstimateDeliveryRequest fedExEstimateDeliveryRequest)
         {
             this._merchantSettingsRepository = merchantSettingsRepository ??
                                             throw new ArgumentNullException(nameof(merchantSettingsRepository));
@@ -31,6 +30,8 @@
                                             throw new ArgumentNullException(nameof(fedExAvailabilityRequest));
             this._fedExTrackRequest = fedExTrackRequest ??
                                             throw new ArgumentNullException(nameof(fedExTrackRequest));
+            this._fedExEstimateDeliveryRequest = fedExEstimateDeliveryRequest ??
+                                            throw new ArgumentNullException(nameof(fedExEstimateDeliveryRequest));
         }
 
         public async Task<IActionResult> GetRawRates(string carrier)
@@ -97,6 +98,18 @@
             var authenticationResponse = await this._merchantSettingsRepository.GetMerchantSettings(carrier);
             Response.Headers.Add("Cache-Control", "no-cache");
             return Json(authenticationResponse);
+        }
+
+        public async Task<IActionResult> GetEstimateDate()
+        {
+            var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            GetEstimateDeliveryRequest getEstDateReq = JsonConvert.DeserializeObject<GetEstimateDeliveryRequest>(bodyAsText);
+
+            this._fedExEstimateDeliveryRequest.getEstimateDelivery(getEstDateReq);
+            GetEstimateDeliveryResponse result = this._fedExEstimateDeliveryRequest.getEstimateDelivery(getEstDateReq);
+            Response.Headers.Add("Cache-Control", "private");
+
+            return Json(result);
         }
     }
 }
