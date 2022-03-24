@@ -36,6 +36,23 @@
     "setMerchantSettings": {
       "path": "/fedex-shipping/setSettings/:carrier",
       "public": true
+    },
+    "getEstimateDate": {
+      "path": "/shp-rates/estimate/date",
+      "settingsType": "workspace",
+      "public": false,
+      "access": "authorized",
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": [
+            "get","post"
+          ],
+          "principals": [
+            "vrn:apps:*:{{account}}:{{workspace}}:app/vtex.shipping-rates-provider@*"
+          ]
+        }
+      ]
     }
   },
   "events": {
