@@ -9,11 +9,13 @@
     using Newtonsoft.Json;
     using FedexShipping.Data;
     using FedexShipping.Models;
+    using Vtex.Api.Context;
 
     public class FedExRateRequest : IFedExRateRequest
     {
-        private const string CARRIER = "FedEx";
+        private readonly IIOServiceContext _context;
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
+        private const string CARRIER = "FedEx";
         private MerchantSettings _merchantSettings;
 
         private Dictionary<string, string> iso2CodeMap = new Dictionary<string, string>(){
@@ -34,10 +36,11 @@
             {"FIREARMS", new string[]{"DANGEROUS_GOODS", "ORM_D"}},
         };
 
-        public FedExRateRequest(IMerchantSettingsRepository merchantSettingsRepository)
+        public FedExRateRequest(IMerchantSettingsRepository merchantSettingsRepository, IIOServiceContext context)
         {
             this._merchantSettingsRepository = merchantSettingsRepository ??
                                             throw new ArgumentNullException(nameof(merchantSettingsRepository));
+            this._context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<GetRatesResponseWrapper> GetRates(GetRatesRequest getRatesRequest)
@@ -45,7 +48,6 @@
             this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings(CARRIER);
             GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
             RateRequest request = await CreateRateRequest(getRatesRequest);
-            //RateService service = new RateService();
             RatePortTypeClient client;
             if (this._merchantSettings.IsLive)
             {
@@ -59,19 +61,19 @@
 
             try
             {
-                // Call the web service passing in a RateRequest and returning a RateReply
-                //RateReply reply = await service.getRates(request);
-                //string jsonrequest = JsonConvert.SerializeObject(request);
-                //Console.WriteLine(jsonrequest);
+                _context.Vtex.Logger.Info("GetRates", "FedEx RatesRequest", 
+                    "Mapped RequestedShipment of RateRequest To FedEx", 
+                    new[]
+                    {
+                        ( "entireObject", JsonConvert.SerializeObject(request.RequestedShipment)),
+                    }
+                );
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
-                // Console.WriteLine(JsonConvert.SerializeObject(getRatesRequest));
-                // Console.WriteLine(JsonConvert.SerializeObject(request));
                 getRatesResponse ratesResponse = await client.getRatesAsync(request);
                 stopWatch.Stop();
-                // Console.Write(JsonConvert.SerializeObject(ratesResponse));
-                // Get the elapsed time as a TimeSpan value.
                 TimeSpan ts = stopWatch.Elapsed;
+                _context.Vtex.Logger.Info("GetRates", "FedEx RatesResponse Time", $"Time Spent: {ts.TotalMilliseconds}ms");
                 getRatesResponseWrapper.timeSpan = ts;
                 Console.WriteLine($"{{\"__VTEX_IO_LOG\":true, \"service\":\"fedex\",  \"ttl\":{ts.TotalMilliseconds}}}");
                 Console.WriteLine($"Elapsed = {ts.TotalMilliseconds} = {ts.Seconds}(seconds)");
