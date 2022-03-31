@@ -1,6 +1,7 @@
 ﻿namespace service.Controllers
 {
     using System;
+    using System.Diagnostics;
     using System.Threading.Tasks;
     using FedExRateServiceReference;
     using Microsoft.AspNetCore.Http;
@@ -10,9 +11,11 @@
     using FedexShipping.Models;
     using FedexShipping.Services;
     using TrackServiceReference;
+    using Vtex.Api.Context;
 
     public class RoutesController : Controller
     {
+        private readonly IIOServiceContext _context;
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private readonly IFedExRateRequest _fedExRateRequest;
         private readonly IFedExAvailabilityRequest _fedExAvailabilityRequest;
@@ -20,7 +23,7 @@
         private readonly IFedExEstimateDeliveryRequest _fedExEstimateDeliveryRequest;
         private const string FEDEX = "FEDEX";
 
-        public RoutesController(IMerchantSettingsRepository merchantSettingsRepository, IFedExRateRequest fedExRateRequest, IFedExAvailabilityRequest fedExAvailabilityRequest, IFedExTrackRequest fedExTrackRequest, IFedExEstimateDeliveryRequest fedExEstimateDeliveryRequest)
+        public RoutesController(IMerchantSettingsRepository merchantSettingsRepository, IFedExRateRequest fedExRateRequest, IFedExAvailabilityRequest fedExAvailabilityRequest, IFedExTrackRequest fedExTrackRequest, IFedExEstimateDeliveryRequest fedExEstimateDeliveryRequest, IIOServiceContext context)
         {
             this._merchantSettingsRepository = merchantSettingsRepository ??
                                             throw new ArgumentNullException(nameof(merchantSettingsRepository));
@@ -32,6 +35,7 @@
                                             throw new ArgumentNullException(nameof(fedExTrackRequest));
             this._fedExEstimateDeliveryRequest = fedExEstimateDeliveryRequest ??
                                             throw new ArgumentNullException(nameof(fedExEstimateDeliveryRequest));
+            this._context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<IActionResult> GetRawRates(string carrier)
@@ -56,16 +60,42 @@
 
         public async Task<IActionResult> GetRates()
         {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
             var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
             GetRatesRequest getRatesRequest = JsonConvert.DeserializeObject<GetRatesRequest>(bodyAsText);
+            _context.Vtex.Logger.Info("GetRates", "GetRatesRequest", 
+                "Get Rates Request", 
+                new[]
+                {
+                    ( "Origin ZipCode", getRatesRequest.origin.zipCode),
+                    ( "Destination ZipCode", getRatesRequest.destination.zipCode),
+                    ( "Unique Item Count", getRatesRequest.items.Count.ToString()),
+                    ( "entireObject", JsonConvert.SerializeObject(getRatesRequest)),
+                }
+            );
 
             getRatesResponseWrapper = await this._fedExRateRequest.GetRates(getRatesRequest);            
 
             Response.Headers.Add("Cache-Control", "private");
             Response.Headers.Add("Timespan", getRatesResponseWrapper.timeSpan.TotalSeconds.ToString());
 
-            //return Json(getRatesResponseWrapper.GetRatesResponses);
+            _context.Vtex.Logger.Info("GetRates", "GetRatesResponse", 
+                "Get Rates Response", 
+                new[]
+                {
+                    ( "HighestSeverity", getRatesResponseWrapper.HighestSeverity),
+                    ( "Success", getRatesResponseWrapper.Success.ToString()),
+                    ( "Error", getRatesResponseWrapper.Error),
+                    ( "entireObject", JsonConvert.SerializeObject(getRatesResponseWrapper)),
+                }
+            );
+
+            stopWatch.Stop();
+            TimeSpan ts = stopWatch.Elapsed;
+            _context.Vtex.Logger.Info("GetRates", "GetRates Time", $"Time Spent: {ts.TotalMilliseconds}ms");
+
             return Json(getRatesResponseWrapper.GetRatesResponses);
         }
 
