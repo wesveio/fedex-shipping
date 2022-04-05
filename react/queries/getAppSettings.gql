@@ -1,0 +1,11 @@
+query GetAppSettings {
+  getAppSettings {
+    userCredentialKey
+    userCredentialPassword
+    parentCredentialKey
+    parentCredentialPassword
+    clientDetailAccountNumber
+    clientDetailMeterNumber
+    isLive
+  }
+}

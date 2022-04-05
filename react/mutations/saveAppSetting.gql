@@ -1,0 +1,19 @@
+mutation SaveAppSetting(
+    $appSetting: AppSettingInput
+) {
+  saveAppSetting(
+    appSetting: $appSetting
+  ) {
+    status
+  }
+}
+
+input AppSettingInput {
+  userCredentialKey: String
+  userCredentialPassword: String
+  parentCredentialKey: String
+  parentCredentialPassword: String
+  clientDetailAccountNumber: String
+  clientDetailMeterNumber: String
+  isLive: Boolean
+}

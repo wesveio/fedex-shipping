@@ -24,6 +24,7 @@
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.*" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.7.0" />
     <PackageReference Include="System.ServiceModel.Security" Version="4.4.*" />
+    <PackageReference Include="GraphQL" Version="2.4.0" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,27 @@
+type Query {
+  getAppSettings: AppSetting @cacheControl(scope: PRIVATE)
+}
+
+type AppSetting {
+  userCredentialKey: String
+  userCredentialPassword: String
+  parentCredentialKey: String
+  parentCredentialPassword: String
+  clientDetailAccountNumber: String
+  clientDetailMeterNumber: String
+  isLive: Boolean
+}
+
+input AppSettingInput {
+  userCredentialKey: String
+  userCredentialPassword: String
+  parentCredentialKey: String
+  parentCredentialPassword: String
+  clientDetailAccountNumber: String
+  clientDetailMeterNumber: String
+  isLive: Boolean
+}
+
+type Mutation {
+  saveAppSetting(appSetting: AppSettingInput): Boolean @cacheControl(scope: PRIVATE) 
+}
