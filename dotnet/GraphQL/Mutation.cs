@@ -17,12 +17,11 @@ namespace FedexShipping.GraphQL
         FieldAsync<BooleanGraphType>(
             "saveAppSetting",
             arguments: new QueryArguments(
-                new QueryArgument<AppSettingsType> { Name = "AppSettings" }
+                new QueryArgument<AppSettingsInput> { Name = "appSetting" }
             ),
             resolve: async context =>
             {
-                Console.WriteLine("yes");
-                var appSettings = context.GetArgument<MerchantSettings>("AppSettings");
+                var appSettings = context.GetArgument<MerchantSettings>("appSetting");
                 return await _merchantSettingsRepository.SetMerchantSettings("fedex", appSettings);
             }
         );

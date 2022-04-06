@@ -61,13 +61,15 @@ const Admin: FC = () => {
     })
     saveAppSetting({
       variables: {
-        userCredentialKey,
-        userCredentialPassword,
-        parentCredentialKey: '',
-        parentCredentialPassword: '',
-        clientDetailMeterNumber,
-        clientDetailAccountNumber,
-        isLive
+        appSetting: {
+          userCredentialKey,
+          userCredentialPassword,
+          parentCredentialKey: '',
+          parentCredentialPassword: '',
+          clientDetailMeterNumber,
+          clientDetailAccountNumber,
+          isLive
+        }
       }
     })
   }
