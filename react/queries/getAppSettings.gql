@@ -7,5 +7,7 @@ query GetAppSettings {
     clientDetailAccountNumber
     clientDetailMeterNumber
     isLive
+    unitWeight
+    unitDimension
   }
 }

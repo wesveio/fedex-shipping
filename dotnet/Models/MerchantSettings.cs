@@ -14,6 +14,6 @@ namespace FedexShipping.Models
         public string ClientDetailMeterNumber { get; set; }
         public bool IsLive { get; set; }
         public string UnitWeight { get; set; }
-        public string UnitDimensions { get; set; }
+        public string UnitDimension { get; set; }
     }
 }

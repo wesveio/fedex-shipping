@@ -7,7 +7,9 @@ import {
   Heading,
   Toggle,
   Button,
-  useToast
+  useToast,
+  Set,
+  Select,
 } from '@vtex/admin-ui'
 import { useQuery, useMutation } from 'react-apollo'
 import AppSettings from '../queries/getAppSettings.gql'
@@ -23,7 +25,9 @@ const Configurations: FC = () => {
     clientDetailAccountNumber: '',
     userCredentialKey: '',
     userCredentialPassword: '',
-    isLive: false
+    isLive: false,
+    unitWeight: 'LB',
+    unitDimension: 'IN',
   })
 
   const [saveAppSetting] = useMutation(SaveAppSetting);
@@ -37,7 +41,7 @@ const Configurations: FC = () => {
 
   const showToast = useToast()
 
-  const { clientDetailMeterNumber, clientDetailAccountNumber, userCredentialKey, userCredentialPassword, isLive } = state
+  const { clientDetailMeterNumber, clientDetailAccountNumber, userCredentialKey, userCredentialPassword, isLive, unitWeight, unitDimension } = state
 
   const handleSave = () => {
     saveAppSetting({
@@ -49,7 +53,9 @@ const Configurations: FC = () => {
           parentCredentialPassword: '',
           clientDetailMeterNumber,
           clientDetailAccountNumber,
-          isLive
+          isLive,
+          unitWeight,
+          unitDimension
         }
       }
     }).then((result: any) => {
@@ -87,8 +93,26 @@ const Configurations: FC = () => {
             onChange={() => setState({...state, isLive: !isLive})}
           />
         </div>
-        <Button variant="primary" onClick={() => handleSave()}>Save</Button>
+        <Set spacing={3}>
+          <Select
+            label="Weight"
+            value={unitWeight ?? "LB"}
+            onChange={(e) => setState({...state, unitWeight: e.target.value})}
+          >
+            <option value="LB">Pounds</option>
+            <option value="KG">Kilograms</option>
+          </Select>
+          <Select
+            label="Dimensions"
+            value={unitDimension ?? "IN"}
+            onChange={(e) => setState({...state, unitDimension: e.target.value})}
+          >
+            <option value="IN">Inches</option>
+            <option value="CM">Centimeters</option>
+          </Select>
+        </Set>
       </div>
+      <Button variant="primary" onClick={() => handleSave()}>Save</Button>
     </PageContent>
     )
     

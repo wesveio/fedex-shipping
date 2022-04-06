@@ -10,6 +10,8 @@ type AppSetting {
   clientDetailAccountNumber: String
   clientDetailMeterNumber: String
   isLive: Boolean
+  unitWeight: String
+  unitDimension: String
 }
 
 input AppSettingsInput {
@@ -20,6 +22,8 @@ input AppSettingsInput {
   clientDetailAccountNumber: String
   clientDetailMeterNumber: String
   isLive: Boolean
+  unitWeight: String
+  unitDimension: String
 }
 
 type Mutation {

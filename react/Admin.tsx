@@ -9,7 +9,6 @@ import {
   ToastProvider,
 } from '@vtex/admin-ui'
 import Configurations from './components/Configurations'
-import MeasurementsConfig from './components/MeasurementsConfig'
 
 const Admin: FC = () => {
   const [ThemeProvider] = createSystem({
@@ -28,7 +27,6 @@ const Admin: FC = () => {
             </PageTitle>
           </PageHeader>
           <Configurations/>
-          <MeasurementsConfig/>
         </Page>
       </ToastProvider>
     </ThemeProvider>
