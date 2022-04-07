@@ -12,5 +12,7 @@
   "admin/fedex-shipping.meter": "Meter Number",
   "admin/fedex-shipping.accountNum": "Account Number",
   "admin/fedex-shipping.credKey": "Credential Key",
-  "admin/fedex-shipping.credPwd": "Credential Password"
+  "admin/fedex-shipping.credPwd": "Credential Password",
+  "admin/fedex-shipping.unitsMeasurement": "Configure Your Unit of Measurement",
+  "admin/fedex-shipping.hiddenSLA": "Hidden FedEx SLAs"
 }

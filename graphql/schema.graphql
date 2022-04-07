@@ -12,6 +12,7 @@ type AppSetting {
   isLive: Boolean
   unitWeight: String
   unitDimension: String
+  hiddenSLA: [String]
 }
 
 input AppSettingsInput {
@@ -24,6 +25,7 @@ input AppSettingsInput {
   isLive: Boolean
   unitWeight: String
   unitDimension: String
+  hiddenSLA: [String]
 }
 
 type Mutation {

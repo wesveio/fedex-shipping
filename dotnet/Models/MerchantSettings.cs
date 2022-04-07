@@ -15,5 +15,6 @@ namespace FedexShipping.Models
         public bool IsLive { get; set; }
         public string UnitWeight { get; set; }
         public string UnitDimension { get; set; }
+        public List<String> HiddenSLA { get; set; } = new List<String>();
     }
 }
