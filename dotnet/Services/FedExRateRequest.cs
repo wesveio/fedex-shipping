@@ -299,7 +299,9 @@
                 //request.RequestedShipment.RequestedPackageLineItems[cnt].GroupPackageCount = "1";
                 // package weight
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Weight = new Weight();
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Units = WeightUnits.LB;
+                WeightUnits weightUnits;
+                Enum.TryParse<WeightUnits>(this._merchantSettings.UnitWeight, out weightUnits);
+                request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Units = weightUnits;
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.UnitsSpecified = true;
                 //request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Value = getRatesRequest.items[cnt].unitDimension.weight * getRatesRequest.items[cnt].quantity;
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Value = Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight);
@@ -309,7 +311,9 @@
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Length = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.length).ToString();
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Width = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.width).ToString();
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Height = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height).ToString();
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Units = LinearUnits.IN;
+                LinearUnits linearUnits;
+                Enum.TryParse<LinearUnits>(this._merchantSettings.UnitDimension, out linearUnits);
+                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Units = linearUnits;
                 request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.UnitsSpecified = true;
                 
                 // Special Handling goods

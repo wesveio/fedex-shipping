@@ -1,0 +1,16 @@
+{
+  "admin/fedex-shipping.title": "admin/fedex-shipping.title",
+  "admin/fedex-shipping.isLive": "admin/fedex-shipping.isLive",
+  "admin/fedex-shipping.kg": "admin/fedex-shipping.kg",
+  "admin/fedex-shipping.lb": "admin/fedex-shipping.lb",
+  "admin/fedex-shipping.in": "admin/fedex-shipping.in",
+  "admin/fedex-shipping.cm": "admin/fedex-shipping.cm",
+  "admin/fedex-shipping.settings": "admin/fedex-shipping.settings",
+  "admin/fedex-shipping.saveSettings": "admin/fedex-shipping.saveSettings",
+  "admin/fedex-shipping.dimensions": "admin/fedex-shipping.dimensions",
+  "admin/fedex-shipping.weight": "admin/fedex-shipping.weight",
+  "admin/fedex-shipping.meter": "admin/fedex-shipping.meter",
+  "admin/fedex-shipping.accountNum": "admin/fedex-shipping.accountNum",
+  "admin/fedex-shipping.credKey": "admin/fedex-shipping.credKey",
+  "admin/fedex-shipping.credPwd": "admin/fedex-shipping.credPwd"
+}

@@ -5,7 +5,7 @@
 
     public interface IMerchantSettingsRepository
     {
-        Task SetMerchantSettings(string carrier, MerchantSettings merchantSettings);
+        Task<bool> SetMerchantSettings(string carrier, MerchantSettings merchantSettings);
 
         Task<MerchantSettings> GetMerchantSettings(string carrier);
     }

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added admin panel
+- Added weight/dimension units settings
+
 ## [1.2.1] - 2022-03-31
 
 ### Added

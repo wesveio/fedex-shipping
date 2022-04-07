@@ -64,8 +64,9 @@
             return JsonConvert.DeserializeObject<MerchantSettings>(responseContent);
         }
 
-        public async Task SetMerchantSettings(string carrier, MerchantSettings merchantSettings)
+        public async Task<bool> SetMerchantSettings(string carrier, MerchantSettings merchantSettings)
         {
+            Console.WriteLine(JsonConvert.SerializeObject(merchantSettings));
             if (merchantSettings == null)
             {
                 merchantSettings = new MerchantSettings();
@@ -87,8 +88,7 @@
 
             var client = _clientFactory.CreateClient();
             var response = await client.SendAsync(request);
-
-            response.EnsureSuccessStatusCode();
+            return response.IsSuccessStatusCode;
         }
     }
 }

@@ -1,0 +1,16 @@
+{
+  "admin/fedex-shipping.title": "FedEx Shipping",
+  "admin/fedex-shipping.isLive": "Is Live",
+  "admin/fedex-shipping.kg": "Kilograms",
+  "admin/fedex-shipping.lb": "Pounds",
+  "admin/fedex-shipping.in": "Inches",
+  "admin/fedex-shipping.cm": "Centimeters",
+  "admin/fedex-shipping.settings": "Settings",
+  "admin/fedex-shipping.saveSettings": "Save",
+  "admin/fedex-shipping.dimensions": "Dimensions",
+  "admin/fedex-shipping.weight": "Weight",
+  "admin/fedex-shipping.meter": "Meter Number",
+  "admin/fedex-shipping.accountNum": "Account Number",
+  "admin/fedex-shipping.credKey": "Credential Key",
+  "admin/fedex-shipping.credPwd": "Credential Password"
+}
