@@ -88,12 +88,7 @@
 
             var client = _clientFactory.CreateClient();
             var response = await client.SendAsync(request);
-            try {
-                response.EnsureSuccessStatusCode();
-                return true;
-            } catch (Exception e) {
-                return false;
-            }
+            return response.IsSuccessStatusCode;
         }
     }
 }
