@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import React, { useState, useEffect } from 'react'
+import { useIntl } from 'react-intl'
 import {
   PageContent,
   Input,
@@ -16,6 +17,8 @@ import AppSettings from '../queries/getAppSettings.gql'
 import SaveAppSetting from '../mutations/saveAppSetting.gql'
 
 const Configurations: FC = () => {
+  const { formatMessage } = useIntl()
+
   const { data } = useQuery(AppSettings, {
     ssr: false,
   })
@@ -73,21 +76,21 @@ const Configurations: FC = () => {
   return (
     <PageContent>
       <div className="pv6">
-        <Heading>Settings</Heading>
-        <Input id="meter" label="Meter Number" value={clientDetailMeterNumber} 
+        <Heading>{formatMessage({id: 'admin/fedex-shipping.settings'})}</Heading>
+        <Input id="meter" label={formatMessage({id: 'admin/fedex-shipping.meter'})} value={clientDetailMeterNumber} 
           onChange={(e) => setState({...state, clientDetailMeterNumber: e.target.value})}
           />
-        <Input id="accountNumber" label="Account Number" value={clientDetailAccountNumber}
+        <Input id="accountNumber" label={formatMessage({id: 'admin/fedex-shipping.accountNum'})} value={clientDetailAccountNumber}
           onChange={(e) => setState({...state, clientDetailAccountNumber: e.target.value})}
           />
-        <InputPassword id="credentialKey" label="Credential Key" value={userCredentialKey}
+        <InputPassword id="credentialKey" label={formatMessage({id: 'admin/fedex-shipping.credKey'})} value={userCredentialKey}
           onChange={(e) => setState({...state, userCredentialKey: e.target.value})}
           />
-        <InputPassword id="credentialPwd" label="Credential Password" value={userCredentialPassword}
+        <InputPassword id="credentialPwd" label={formatMessage({id: 'admin/fedex-shipping.credPwd'})} value={userCredentialPassword}
           onChange={(e) => setState({...state, userCredentialPassword: e.target.value})}
         />
         <div>
-          Is Live: <Toggle
+        {formatMessage({id: 'admin/fedex-shipping.isLive'})}<Toggle
             aria-label="label"
             checked={isLive}
             onChange={() => setState({...state, isLive: !isLive})}
@@ -95,24 +98,24 @@ const Configurations: FC = () => {
         </div>
         <Set spacing={3}>
           <Select
-            label="Weight"
+            label={formatMessage({id: 'admin/fedex-shipping.weight'})}
             value={unitWeight ?? "LB"}
             onChange={(e) => setState({...state, unitWeight: e.target.value})}
           >
-            <option value="LB">Pounds</option>
-            <option value="KG">Kilograms</option>
+            <option value="LB">{formatMessage({id: 'admin/fedex-shipping.kg'})}</option>
+            <option value="KG">{formatMessage({id: 'admin/fedex-shipping.lb'})}</option>
           </Select>
           <Select
-            label="Dimensions"
+            label={formatMessage({id: 'admin/fedex-shipping.dimensions'})}
             value={unitDimension ?? "IN"}
             onChange={(e) => setState({...state, unitDimension: e.target.value})}
           >
-            <option value="IN">Inches</option>
-            <option value="CM">Centimeters</option>
+            <option value="IN">{formatMessage({id: 'admin/fedex-shipping.in'})}</option>
+            <option value="CM">{formatMessage({id: 'admin/fedex-shipping.cm'})}</option>
           </Select>
         </Set>
       </div>
-      <Button variant="primary" onClick={() => handleSave()}>Save</Button>
+      <Button variant="primary" onClick={() => handleSave()}>{formatMessage({id: 'admin/fedex-shipping.saveSettings'})}</Button>
     </PageContent>
     )
     
