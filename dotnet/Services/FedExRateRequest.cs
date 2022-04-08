@@ -89,38 +89,35 @@
                     }
 
                     Dictionary<string, double> ratesRatio = CalculateRatesRatio(getRatesRequest.items);
-                    Console.WriteLine(JsonConvert.SerializeObject(ratesRatio));
+                    HashSet<string> hiddenSLASet = new HashSet<string>(this._merchantSettings.HiddenSLA);
                     foreach(RateReplyDetail detail in reply.RateReplyDetails)
                     {
-                        //Item matchingItem = getRatesRequest.items.Select(x => x.id.Equals())
-                        //{
-                        //    quantity = getRatesRequest.items[0].quantity,
-                        //    time = $"{this.TransitDays(detail.ServiceType, detail.TransitTime.ToString(), detail.DeliveryTimestamp.ToString())}.00:00:00"
-                        //};
-                        TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
-                        string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
-                        foreach (Item item in getRatesRequest.items) {
-                            GetRatesResponse rateResponse = new GetRatesResponse
-                            {
-                                carrierId = "FEDEX",
-                                itemId = item.id,
-                                price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount * Convert.ToDecimal(ratesRatio[item.id]),
-                                numberOfPackages = item.quantity,
-                                estimateDate = detail.DeliveryTimestamp,
-                                shippingMethod = detail.ServiceDescription.Description,
-                                transitTime = transitString,
-                                carrierSchedule = new List<Schedule>(),
-                                deliveryChannel = "delivery",
-                                weekendAndHolidays = new WeekendAndHolidays(),
-                                pickupAddress = null,
-                            };
+                        if (!hiddenSLASet.Contains(detail.ServiceDescription.Description)) {
+                            TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
+                            string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
+                            foreach (Item item in getRatesRequest.items) {
+                                GetRatesResponse rateResponse = new GetRatesResponse
+                                {
+                                    carrierId = "FEDEX",
+                                    itemId = item.id,
+                                    price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount * Convert.ToDecimal(ratesRatio[item.id]),
+                                    numberOfPackages = item.quantity,
+                                    estimateDate = detail.DeliveryTimestamp,
+                                    shippingMethod = detail.ServiceDescription.Description,
+                                    transitTime = transitString,
+                                    carrierSchedule = new List<Schedule>(),
+                                    deliveryChannel = "delivery",
+                                    weekendAndHolidays = new WeekendAndHolidays(),
+                                    pickupAddress = null,
+                                };
 
-                            rateResponse.carrierBusinessHours = new BusinessHour[7];
-                            for (int day = 0; day < 7; day++) {
-                                rateResponse.carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, new TimeSpan(0, 0, 0).ToString(), new TimeSpan(23, 59, 59).ToString());
+                                rateResponse.carrierBusinessHours = new BusinessHour[7];
+                                for (int day = 0; day < 7; day++) {
+                                    rateResponse.carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, new TimeSpan(0, 0, 0).ToString(), new TimeSpan(23, 59, 59).ToString());
+                                }
+
+                                getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
                             }
-
-                            getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
                         }
                     }
 
