@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added a selection to choose what services are returned
+
 ## [1.3.0] - 2022-04-07
 
 ### Added
