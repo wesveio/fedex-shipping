@@ -16,5 +16,16 @@ namespace FedexShipping.Models
         public string UnitWeight { get; set; }
         public string UnitDimension { get; set; }
         public List<String> HiddenSLA { get; set; } = new List<String>();
+        public List<ModalMap> ItemModals { get; set; } = new List<ModalMap>();
     }
+
+    public class ModalMap {
+        public string Modal { get; set; }
+        public string FedexHandling { get; set; }
+        public ModalMap(string Modal, string FedexHandling) {
+            this.Modal = Modal;
+            this.FedexHandling = FedexHandling;
+        }
+    }
+
 }

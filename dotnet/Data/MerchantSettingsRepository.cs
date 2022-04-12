@@ -60,8 +60,18 @@
             var client = _clientFactory.CreateClient();
             var response = await client.SendAsync(request);
             string responseContent = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<MerchantSettings>(responseContent);
+            MerchantSettings merchantSettings = JsonConvert.DeserializeObject<MerchantSettings>(responseContent);
+            merchantSettings.ItemModals.Add(new ModalMap("CHEMICALS", "HAZARDOUS_MATERIALS"));
+            merchantSettings.ItemModals.Add(new ModalMap("ELECTRONICS", "BATTERY"));
+            merchantSettings.ItemModals.Add(new ModalMap("FURNITURE", "NONE"));
+            merchantSettings.ItemModals.Add(new ModalMap("GLASS", "NONE"));
+            merchantSettings.ItemModals.Add(new ModalMap("LIQUID", "HAZARDOUS_MATERIALS"));
+            merchantSettings.ItemModals.Add(new ModalMap("MATTRESSES", "NONE"));
+            merchantSettings.ItemModals.Add(new ModalMap("REFRIGERATED", "NONE"));
+            merchantSettings.ItemModals.Add(new ModalMap("TIRES", "NONE"));
+            merchantSettings.ItemModals.Add(new ModalMap("WHITE_GOODS", "NONE"));
+            merchantSettings.ItemModals.Add(new ModalMap("FIREARMS", "ORM_D"));
+            return merchantSettings;
         }
 
         public async Task<bool> SetMerchantSettings(string carrier, MerchantSettings merchantSettings)

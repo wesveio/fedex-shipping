@@ -10,5 +10,9 @@ query GetAppSettings {
     unitWeight
     unitDimension
     hiddenSLA
+    itemModals {
+      modal
+      fedexHandling
+    }
   }
 }
