@@ -4,12 +4,12 @@ using FedexShipping.Models;
 
 namespace FedexShipping.GraphQL.Types
 {
-    [GraphQLMetadata("ItemModals")]
-    public class ItemModalsInput : ObjectGraphType<ModalMap>
+    [GraphQLMetadata("ItemModalsInput")]
+    public class ItemModalsInput : InputObjectGraphType<ModalMap>
     {
         public ItemModalsInput()
         {
-            Name = "ItemModals";
+            Name = "ItemModalsInput";
 
             Field(x => x.Modal).Description("modal");
             Field(x => x.FedexHandling).Description("fedexHandling");

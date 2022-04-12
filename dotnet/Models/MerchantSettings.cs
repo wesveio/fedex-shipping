@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FedexShipping.Models
 {
@@ -22,6 +21,7 @@ namespace FedexShipping.Models
     public class ModalMap {
         public string Modal { get; set; }
         public string FedexHandling { get; set; }
+        public ModalMap() {}
         public ModalMap(string Modal, string FedexHandling) {
             this.Modal = Modal;
             this.FedexHandling = FedexHandling;

@@ -119,7 +119,6 @@ const Configurations: FC = () => {
           type: 'plain',
           render: ({ item }) => {
             const fedexHandling = ['BATTERY', 'HAZARDOUS_MATERIALS', 'LIMITED_QUANTITIES_COMMODITIES', 'ORM_D', 'REPORTABLE_QUANTITIES', 'SMALL_QUANTITY_EXCEPTION', 'NONE']
-            
             dropdownStates[item.id] = useDropdownState({
               items: fedexHandling,
               initialSelectedItem: item.fedexHandling,
@@ -144,6 +143,13 @@ const Configurations: FC = () => {
   const showToast = useToast()
 
   const handleSave = () => {
+    const saveModals: any[] = []
+    dropdownStates.forEach((dropdown, index) => {
+      saveModals.push({
+        modal: items[index].modal,
+        fedexHandling: dropdown.selectedItem
+      })
+    })
     saveAppSetting({
       variables: {
         appSetting: {
@@ -157,6 +163,7 @@ const Configurations: FC = () => {
           unitWeight,
           unitDimension,
           hiddenSLA: checkbox.state,
+          itemModals: saveModals
         }
       }
     }).then((result: any) => {
@@ -192,7 +199,7 @@ const Configurations: FC = () => {
 
     return (
       <Collapsible state={modalMap} disabled={false}>
-        <CollapsibleHeader label='Modal Mapping'/>
+        <CollapsibleHeader label={formatMessage({id: 'admin/fedex-shipping.modalMap'})}/>
         <CollapsibleContent>
           <DataGrid state={modalGridState} />
         </CollapsibleContent>
@@ -253,8 +260,8 @@ const Configurations: FC = () => {
           {generateCheckboxGroup()}
         </Set>
         <Set orientation='vertical' spacing={3}>
-          <Heading className='pt6'>Modal Mapping</Heading>
-          <Text variant='body'>Maps the VTEX Modal to the FedEx Handling Types</Text>
+          <Heading className='pt6'>{formatMessage({id: 'admin/fedex-shipping.modalMap'})}</Heading>
+          <Text variant='body'>{formatMessage({id: 'admin/fedex-shipping.modalMap.description'})}</Text>
           {generateModalMapping()}
         </Set>
       </div>
