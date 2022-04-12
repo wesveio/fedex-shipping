@@ -2,6 +2,11 @@ type Query {
   getAppSettings: AppSetting @cacheControl(scope: PRIVATE)
 }
 
+type ItemModal {
+  modal: String
+  fedexHandling: String
+}
+
 type AppSetting {
   userCredentialKey: String
   userCredentialPassword: String
@@ -13,6 +18,12 @@ type AppSetting {
   unitWeight: String
   unitDimension: String
   hiddenSLA: [String]
+  itemModals: [ItemModal]
+}
+
+input ItemModalInput {
+  modal: String
+  fedexHandling: String
 }
 
 input AppSettingsInput {
@@ -26,6 +37,7 @@ input AppSettingsInput {
   unitWeight: String
   unitDimension: String
   hiddenSLA: [String]
+  itemModals: [ItemModalInput]
 }
 
 type Mutation {

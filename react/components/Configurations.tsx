@@ -14,7 +14,19 @@ import {
   useCheckboxState,
   CheckboxGroup,
   Label,
-  Checkbox
+  Checkbox,
+  Text,
+  useCollapsibleState,
+  Collapsible,
+  CollapsibleHeader,
+  CollapsibleContent,
+  useDataGridState,
+  DataGrid,
+  IconXCircle,
+  IconCheckCircle,
+  Center,
+  Dropdown,
+  useDropdownState
 } from '@vtex/admin-ui'
 import { useQuery, useMutation } from 'react-apollo'
 import AppSettings from '../queries/getAppSettings.gql'
@@ -27,7 +39,17 @@ const Configurations: FC = () => {
     ssr: false,
   })
   
-  const [state, setState] = useState<any>({
+  const [state, setState] = useState<{
+    clientDetailMeterNumber: string
+    clientDetailAccountNumber: string
+    userCredentialKey: string
+    userCredentialPassword: string
+    isLive: boolean
+    unitWeight: string
+    unitDimension: string
+    hiddenSLA: any[]
+    itemModals: any[]
+  }>({
     clientDetailMeterNumber: '',
     clientDetailAccountNumber: '',
     userCredentialKey: '',
@@ -36,13 +58,14 @@ const Configurations: FC = () => {
     unitWeight: 'LB',
     unitDimension: 'IN',
     hiddenSLA: [],
+    itemModals: [],
   })
 
   const [slaState] = useState<any>({
     slaList: ['FedEx Ground', 'Priority Overnight', 'Express Saver', '2DAY AM', 'First Overnight', 'Standard Overnight', '2Day', 'FedEx Home Delivery']
   })
 
-  const { clientDetailMeterNumber, clientDetailAccountNumber, userCredentialKey, userCredentialPassword, isLive, unitWeight, unitDimension, hiddenSLA } = state
+  const { clientDetailMeterNumber, clientDetailAccountNumber, userCredentialKey, userCredentialPassword, isLive, unitWeight, unitDimension, hiddenSLA, itemModals: items } = state
   const { slaList } = slaState
 
   const [saveAppSetting] = useMutation(SaveAppSetting);
@@ -52,14 +75,81 @@ const Configurations: FC = () => {
   useEffect(() => {
     if (!data?.getAppSettings) return
 
-    const getAppSettings = data.getAppSettings
+    let getAppSettings = data.getAppSettings
     checkbox.setState(getAppSettings.hiddenSLA)
+
+    getAppSettings.itemModals.forEach((itemModal: any, index: number) => {
+      itemModal.id = index
+    })
+
     setState({...getAppSettings})
   }, [data])
+
+  // Prefills array of modal list size
+  let dropdownStates: any[] = Array(7).fill(0)
+
+  let modalGridState = useDataGridState({
+    columns: [
+      {
+        id: 'modal',
+        header: 'Modal Name',
+        accessor: 'modal',
+      },
+      {
+        id: 'isDangerous',
+        header: 'Dangerous Goods',
+        accessor: 'fedexHandling',
+        resolver: {
+          type: 'plain',
+          render: ({ item }) => {
+            let isDangerousGoods = !dropdownStates[item.id]?.selectedItem ? item.fedexHandling === 'NONE' : dropdownStates[item.id]?.selectedItem === 'NONE'
+            return (
+              <Center>
+                {isDangerousGoods ? <IconXCircle/> : <IconCheckCircle />}
+              </Center>
+            )
+          }
+        }
+      },
+      {
+        id: 'fedexHandling',
+        header: 'FedEx Handling Method',
+        accessor: 'fedexHandling',
+        resolver: {
+          type: 'plain',
+          render: ({ item }) => {
+            const fedexHandling = ['BATTERY', 'HAZARDOUS_MATERIALS', 'LIMITED_QUANTITIES_COMMODITIES', 'ORM_D', 'REPORTABLE_QUANTITIES', 'SMALL_QUANTITY_EXCEPTION', 'NONE']
+            dropdownStates[item.id] = useDropdownState({
+              items: fedexHandling,
+              initialSelectedItem: item.fedexHandling,
+            })
+            
+            return (
+              <div>
+                <Dropdown
+                  items={fedexHandling}
+                  state={dropdownStates[item.id]}
+                  label='fedexHandling'
+                />
+              </div>
+            )
+          }
+        }
+      },
+    ],
+    items,
+  })
 
   const showToast = useToast()
 
   const handleSave = () => {
+    const saveModals: any[] = []
+    dropdownStates.forEach((dropdown, index) => {
+      saveModals.push({
+        modal: items[index].modal,
+        fedexHandling: dropdown.selectedItem
+      })
+    })
     saveAppSetting({
       variables: {
         appSetting: {
@@ -73,6 +163,7 @@ const Configurations: FC = () => {
           unitWeight,
           unitDimension,
           hiddenSLA: checkbox.state,
+          itemModals: saveModals
         }
       }
     }).then((result: any) => {
@@ -103,6 +194,19 @@ const Configurations: FC = () => {
     )
   }
 
+  const generateModalMapping = () => {
+    const modalMap = useCollapsibleState()
+
+    return (
+      <Collapsible state={modalMap} disabled={false}>
+        <CollapsibleHeader label={formatMessage({id: 'admin/fedex-shipping.modalMap'})}/>
+        <CollapsibleContent>
+          <DataGrid state={modalGridState} />
+        </CollapsibleContent>
+      </Collapsible>
+    )
+  }
+
 
   return (
     <PageContent>
@@ -122,11 +226,14 @@ const Configurations: FC = () => {
             onChange={(e) => setState({...state, userCredentialPassword: e.target.value})}
           />
           <div>
-          {formatMessage({id: 'admin/fedex-shipping.isLive'})}<Toggle
+          <Label>
+            <Toggle
               aria-label='label'
               checked={isLive}
               onChange={() => setState({...state, isLive: !isLive})}
             />
+            {formatMessage({id: 'admin/fedex-shipping.isLive'})}
+          </Label>
           </div>
         </Set>
         <Heading>{formatMessage({id: 'admin/fedex-shipping.unitsMeasurement'})}</Heading>
@@ -151,6 +258,11 @@ const Configurations: FC = () => {
         <Heading className='pt6'>{formatMessage({id: 'admin/fedex-shipping.hiddenSLA'})}</Heading>
         <Set orientation='vertical' spacing={3}>
           {generateCheckboxGroup()}
+        </Set>
+        <Set orientation='vertical' spacing={3}>
+          <Heading className='pt6'>{formatMessage({id: 'admin/fedex-shipping.modalMap'})}</Heading>
+          <Text variant='body'>{formatMessage({id: 'admin/fedex-shipping.modalMap.description'})}</Text>
+          {generateModalMapping()}
         </Set>
       </div>
       <Button variant='primary' onClick={() => handleSave()}>{formatMessage({id: 'admin/fedex-shipping.saveSettings'})}</Button>

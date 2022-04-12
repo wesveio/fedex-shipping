@@ -22,6 +22,7 @@ namespace FedexShipping.GraphQL.Types
             Field(b => b.UnitWeight).Description("unitWeight");
             Field(b => b.UnitDimension).Description("unitDimension");
             Field(b => b.HiddenSLA).Description("hiddenSLA");
+            Field(b => b.ItemModals, type: typeof(ListGraphType<ItemModalsInput>)).Description("Item Modals Mapping");
         }
     }
 }
