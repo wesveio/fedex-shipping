@@ -19,5 +19,6 @@
   "admin/fedex-shipping.modalMap.description": "admin/fedex-shipping.modalMap.description",
   "admin/fedex-shipping.modalTableHeader": "admin/fedex-shipping.modalTableHeader",
   "admin/fedex-shipping.dangerTableHeader": "admin/fedex-shipping.dangerTableHeader",
-  "admin/fedex-shipping.handingTableHeader": "admin/fedex-shipping.handingTableHeader"
+  "admin/fedex-shipping.handingTableHeader": "admin/fedex-shipping.handingTableHeader",
+  "admin/fedex-shipping.optimizeShipping": "admin/fedex-shipping.optimizeShipping"
 }

@@ -45,6 +45,7 @@ const Configurations: FC = () => {
     userCredentialKey: string
     userCredentialPassword: string
     isLive: boolean
+    optimizeShipping: boolean
     unitWeight: string
     unitDimension: string
     hiddenSLA: any[]
@@ -55,6 +56,7 @@ const Configurations: FC = () => {
     userCredentialKey: '',
     userCredentialPassword: '',
     isLive: false,
+    optimizeShipping: false,
     unitWeight: 'LB',
     unitDimension: 'IN',
     hiddenSLA: [],
@@ -65,7 +67,7 @@ const Configurations: FC = () => {
     slaList: ['FedEx Ground', 'Priority Overnight', 'Express Saver', '2DAY AM', 'First Overnight', 'Standard Overnight', '2Day', 'FedEx Home Delivery']
   })
 
-  const { clientDetailMeterNumber, clientDetailAccountNumber, userCredentialKey, userCredentialPassword, isLive, unitWeight, unitDimension, hiddenSLA, itemModals: items } = state
+  const { clientDetailMeterNumber, clientDetailAccountNumber, userCredentialKey, userCredentialPassword, isLive, optimizeShipping, unitWeight, unitDimension, hiddenSLA, itemModals: items } = state
   const { slaList } = slaState
 
   const [saveAppSetting] = useMutation(SaveAppSetting);
@@ -160,6 +162,7 @@ const Configurations: FC = () => {
           clientDetailMeterNumber,
           clientDetailAccountNumber,
           isLive,
+          optimizeShipping,
           unitWeight,
           unitDimension,
           hiddenSLA: checkbox.state,
@@ -225,7 +228,6 @@ const Configurations: FC = () => {
           <InputPassword id='credentialPwd' label={formatMessage({id: 'admin/fedex-shipping.credPwd'})} value={userCredentialPassword}
             onChange={(e) => setState({...state, userCredentialPassword: e.target.value})}
           />
-          <div>
           <Label>
             <Toggle
               aria-label='label'
@@ -234,7 +236,14 @@ const Configurations: FC = () => {
             />
             {formatMessage({id: 'admin/fedex-shipping.isLive'})}
           </Label>
-          </div>
+          <Label>
+            <Toggle
+              aria-label='label'
+              checked={optimizeShipping}
+              onChange={() => setState({...state, optimizeShipping: !optimizeShipping})}
+            />
+            {formatMessage({id: 'admin/fedex-shipping.optimizeShipping'})}
+          </Label>
         </Set>
         <Heading>{formatMessage({id: 'admin/fedex-shipping.unitsMeasurement'})}</Heading>
         <Set className='pt6' spacing={3}>
