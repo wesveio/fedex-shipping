@@ -8,9 +8,9 @@ namespace FedexShipping.Models
     public class GetRatesResponseWrapper
     {
         public List<GetRatesResponse> GetRatesResponses { get; set; }
-        public string HighestSeverity { get; set; }
+        public List<string> HighestSeverity { get; set; } = new List<string>();
         public List<Notification>  Notifications { get; set; }
-        public string Error { get; set; }
+        public List<string> Error { get; set; } = new List<string>();
         public bool Success { get; set; }
         public TimeSpan timeSpan { get; set; }
 
