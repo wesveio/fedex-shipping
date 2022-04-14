@@ -85,9 +85,9 @@
                 "Get Rates Response", 
                 new[]
                 {
-                    ( "HighestSeverity", getRatesResponseWrapper.HighestSeverity),
+                    ( "HighestSeverity", string.Join(",", getRatesResponseWrapper.HighestSeverity)),
                     ( "Success", getRatesResponseWrapper.Success.ToString()),
-                    ( "Error", getRatesResponseWrapper.Error),
+                    ( "Error", string.Join(",", getRatesResponseWrapper.Error)),
                     ( "entireObject", JsonConvert.SerializeObject(getRatesResponseWrapper)),
                 }
             );
