@@ -83,7 +83,6 @@
                         TimeSpan ts = stopWatch.Elapsed;
                         _context.Vtex.Logger.Info("GetRates", "FedEx RatesResponse Time", $"Time Spent: {ts.TotalMilliseconds}ms");
                         getRatesResponseWrapper.timeSpan = ts;
-                        Console.WriteLine($"{{\"__VTEX_IO_LOG\":true, \"service\":\"fedex\",  \"ttl\":{ts.TotalMilliseconds}}}");
                         Console.WriteLine($"Elapsed = {ts.TotalMilliseconds} = {ts.Seconds}(seconds)");
                         RateReply reply = ratesResponse.RateReply;
                         getRatesResponseWrapperParent.HighestSeverity.Add(reply.HighestSeverity.ToString());                
@@ -586,8 +585,6 @@
                 reply = ratesResponse.RateReply;
                 rateReply.rateReply = reply;
                 rateReply.timeSpan = ts;
-
-                Console.WriteLine($"{{\"__VTEX_IO_LOG\":true, \"service\":\"fedex\",  \"ttl\":{ts.TotalMilliseconds}}}");
 
                 if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
                 {
