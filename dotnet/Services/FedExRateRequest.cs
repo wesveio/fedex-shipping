@@ -352,7 +352,7 @@
 
                 for(int cnt = 0; cnt < getRatesRequest.items.Count; cnt++ )
                 {
-                    request.RequestedShipment.RequestedPackageLineItems[0].Weight.Value += Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight);
+                    request.RequestedShipment.RequestedPackageLineItems[0].Weight.Value += Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight * getRatesRequest.items[cnt].quantity);
                     // package dimensions
                       
                     double currentItemVolume = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.length) * Math.Ceiling(getRatesRequest.items[cnt].unitDimension.width) * Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height);
@@ -362,6 +362,7 @@
                         request.RequestedShipment.RequestedPackageLineItems[0].Dimensions.Length = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.length).ToString();
                         request.RequestedShipment.RequestedPackageLineItems[0].Dimensions.Width = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.width).ToString();
                         request.RequestedShipment.RequestedPackageLineItems[0].Dimensions.Height = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height).ToString();
+                        request.RequestedShipment.RequestedPackageLineItems[0].GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
                     }
 
                     // Special Handling goods
@@ -378,6 +379,7 @@
                         request.RequestedShipment.RequestedPackageLineItems[0].SpecialServicesRequested.DangerousGoodsDetail.Options = new HazardousCommodityOptionType[] { hazOptionType };
                     }
                 }
+                request.RequestedShipment.RequestedPackageLineItems[0].Weight.Value /= Convert.ToDecimal(request.RequestedShipment.RequestedPackageLineItems[0].GroupPackageCount);
             } else {
                 request.RequestedShipment.RequestedPackageLineItems = new RequestedPackageLineItem[getRatesRequest.items.Count];
             
@@ -393,7 +395,6 @@
                     Enum.TryParse<WeightUnits>(this._merchantSettings.UnitWeight, out weightUnits);
                     request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Units = weightUnits;
                     request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.UnitsSpecified = true;
-                    //request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Value = getRatesRequest.items[cnt].unitDimension.weight * getRatesRequest.items[cnt].quantity;
                     request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Value = Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight);
                     request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.ValueSpecified = true;
                     // package dimensions
