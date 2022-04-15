@@ -19,6 +19,6 @@
   "admin/fedex-shipping.modalMap.description": "Maps the VTEX Modal to the FedEx Handling Types",
   "admin/fedex-shipping.modalTableHeader": "Modal Name",
   "admin/fedex-shipping.dangerTableHeader": "Dangerous Goods",
-  "admin/fedex-shipping.handingTableHeader": "FedEx Handling Method"
-
+  "admin/fedex-shipping.handingTableHeader": "FedEx Handling Method",
+  "admin/fedex-shipping.optimizeShipping": "Optimizes Shipping: Packing all items into the largest item's box"
 }

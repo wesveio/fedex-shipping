@@ -83,7 +83,6 @@
                         TimeSpan ts = stopWatch.Elapsed;
                         _context.Vtex.Logger.Info("GetRates", "FedEx RatesResponse Time", $"Time Spent: {ts.TotalMilliseconds}ms");
                         getRatesResponseWrapper.timeSpan = ts;
-                        Console.WriteLine($"Elapsed = {ts.TotalMilliseconds} = {ts.Seconds}(seconds)");
                         RateReply reply = ratesResponse.RateReply;
                         getRatesResponseWrapperParent.HighestSeverity.Add(reply.HighestSeverity.ToString());                
                         if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
@@ -310,7 +309,6 @@
             request.RequestedShipment.Shipper.Address.StreetLines = new string[] { getRatesRequest.origin.street };
             request.RequestedShipment.Shipper.Address.ResidentialSpecified = getRatesRequest.origin.residential;
             request.RequestedShipment.Shipper.Address.Residential = getRatesRequest.origin.residential;
-            // request.RequestedShipment.Shipper.Address.GeographicCoordinates = getRatesRequest.origin.coordinates.latitude.ToString("+#.###;-#.###;0") + getRatesRequest.origin.coordinates.longitude.ToString("+#.###;-#.###;0");
         }
 
         private void SetDestination(RateRequest request, GetRatesRequest getRatesRequest)
@@ -329,47 +327,100 @@
 
         private void SetPackageLineItems(RateRequest request, GetRatesRequest getRatesRequest)
         {
-            Console.WriteLine(JsonConvert.SerializeObject(getRatesRequest));
-            request.RequestedShipment.RequestedPackageLineItems = new RequestedPackageLineItem[getRatesRequest.items.Count];
-            
-            for(int cnt = 0; cnt < getRatesRequest.items.Count; cnt++ )
-            {
-                request.RequestedShipment.RequestedPackageLineItems[cnt] = new RequestedPackageLineItem();
-                request.RequestedShipment.RequestedPackageLineItems[cnt].SequenceNumber = getRatesRequest.items[cnt].id;
-                request.RequestedShipment.RequestedPackageLineItems[cnt].GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
-                //request.RequestedShipment.RequestedPackageLineItems[cnt].GroupPackageCount = "1";
-                // package weight
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Weight = new Weight();
+            if (this._merchantSettings.OptimizeShipping) {
+                // Combines all the items into one box
+                request.RequestedShipment.RequestedPackageLineItems = new RequestedPackageLineItem[1];
+                request.RequestedShipment.RequestedPackageLineItems[0] = new RequestedPackageLineItem();
+
+                request.RequestedShipment.RequestedPackageLineItems[0].GroupPackageCount = "1";
+                request.RequestedShipment.RequestedPackageLineItems[0].Weight = new Weight();
+                request.RequestedShipment.RequestedPackageLineItems[0].Dimensions = new Dimensions();
+
                 WeightUnits weightUnits;
                 Enum.TryParse<WeightUnits>(this._merchantSettings.UnitWeight, out weightUnits);
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Units = weightUnits;
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.UnitsSpecified = true;
-                //request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Value = getRatesRequest.items[cnt].unitDimension.weight * getRatesRequest.items[cnt].quantity;
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Value = Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight);
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.ValueSpecified = true;
-                // package dimensions
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions = new Dimensions();
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Length = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.length).ToString();
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Width = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.width).ToString();
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Height = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height).ToString();
+                request.RequestedShipment.RequestedPackageLineItems[0].Weight.Units = weightUnits;
+                request.RequestedShipment.RequestedPackageLineItems[0].Weight.UnitsSpecified = true;
+                request.RequestedShipment.RequestedPackageLineItems[0].Weight.Value = 0;
+                request.RequestedShipment.RequestedPackageLineItems[0].Weight.ValueSpecified = true;
+
                 LinearUnits linearUnits;
                 Enum.TryParse<LinearUnits>(this._merchantSettings.UnitDimension, out linearUnits);
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Units = linearUnits;
-                request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.UnitsSpecified = true;
-                
-                // Special Handling goods
-                // Checks if the modal is in the options and there is available mapping
-                if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE")) {
-                    string specialHandlingTypes = "DANGEROUS_GOODS";
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested = new PackageSpecialServicesRequested();
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.SpecialServiceTypes = new String[] { specialHandlingTypes };
-                    HazardousCommodityOptionType hazOptionType;
-                    Enum.TryParse<HazardousCommodityOptionType>(modalOptionsMap[getRatesRequest.items[cnt].modal], out hazOptionType);
-                    Console.WriteLine(hazOptionType);
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail = new DangerousGoodsDetail();
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.Offeror = "TEST OFFEROR";
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.EmergencyContactNumber = "3268545905";
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.Options = new HazardousCommodityOptionType[] { hazOptionType };
+                request.RequestedShipment.RequestedPackageLineItems[0].Dimensions.Units = linearUnits;
+                request.RequestedShipment.RequestedPackageLineItems[0].Dimensions.UnitsSpecified = true;
+
+                double maxVolume = 0;
+
+                for(int cnt = 0; cnt < getRatesRequest.items.Count; cnt++ )
+                {
+                    request.RequestedShipment.RequestedPackageLineItems[0].Weight.Value += Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight * getRatesRequest.items[cnt].quantity);
+                    // package dimensions
+                      
+                    double currentItemVolume = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.length) * Math.Ceiling(getRatesRequest.items[cnt].unitDimension.width) * Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height);
+
+                    if (currentItemVolume > maxVolume) {
+                        request.RequestedShipment.RequestedPackageLineItems[0].SequenceNumber = getRatesRequest.items[cnt].id;
+                        request.RequestedShipment.RequestedPackageLineItems[0].Dimensions.Length = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.length).ToString();
+                        request.RequestedShipment.RequestedPackageLineItems[0].Dimensions.Width = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.width).ToString();
+                        request.RequestedShipment.RequestedPackageLineItems[0].Dimensions.Height = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height).ToString();
+                        request.RequestedShipment.RequestedPackageLineItems[0].GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
+                    }
+
+                    // Special Handling goods
+                    // Checks if the modal is in the options and there is available mapping
+                    if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE")) {
+                        string specialHandlingTypes = "DANGEROUS_GOODS";
+                        request.RequestedShipment.RequestedPackageLineItems[0].SpecialServicesRequested = new PackageSpecialServicesRequested();
+                        request.RequestedShipment.RequestedPackageLineItems[0].SpecialServicesRequested.SpecialServiceTypes = new String[] { specialHandlingTypes };
+                        HazardousCommodityOptionType hazOptionType;
+                        Enum.TryParse<HazardousCommodityOptionType>(modalOptionsMap[getRatesRequest.items[cnt].modal], out hazOptionType);
+                        request.RequestedShipment.RequestedPackageLineItems[0].SpecialServicesRequested.DangerousGoodsDetail = new DangerousGoodsDetail();
+                        request.RequestedShipment.RequestedPackageLineItems[0].SpecialServicesRequested.DangerousGoodsDetail.Offeror = "TEST OFFEROR";
+                        request.RequestedShipment.RequestedPackageLineItems[0].SpecialServicesRequested.DangerousGoodsDetail.EmergencyContactNumber = "3268545905";
+                        request.RequestedShipment.RequestedPackageLineItems[0].SpecialServicesRequested.DangerousGoodsDetail.Options = new HazardousCommodityOptionType[] { hazOptionType };
+                    }
+                }
+                request.RequestedShipment.RequestedPackageLineItems[0].Weight.Value /= Convert.ToDecimal(request.RequestedShipment.RequestedPackageLineItems[0].GroupPackageCount);
+            } else {
+                request.RequestedShipment.RequestedPackageLineItems = new RequestedPackageLineItem[getRatesRequest.items.Count];
+            
+                for(int cnt = 0; cnt < getRatesRequest.items.Count; cnt++ )
+                {
+                    request.RequestedShipment.RequestedPackageLineItems[cnt] = new RequestedPackageLineItem();
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].SequenceNumber = getRatesRequest.items[cnt].id;
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
+                    //request.RequestedShipment.RequestedPackageLineItems[cnt].GroupPackageCount = "1";
+                    // package weight
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].Weight = new Weight();
+                    WeightUnits weightUnits;
+                    Enum.TryParse<WeightUnits>(this._merchantSettings.UnitWeight, out weightUnits);
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Units = weightUnits;
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.UnitsSpecified = true;
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Value = Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight);
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.ValueSpecified = true;
+                    // package dimensions
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions = new Dimensions();
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Length = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.length).ToString();
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Width = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.width).ToString();
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Height = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height).ToString();
+                    LinearUnits linearUnits;
+                    Enum.TryParse<LinearUnits>(this._merchantSettings.UnitDimension, out linearUnits);
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Units = linearUnits;
+                    request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.UnitsSpecified = true;
+                    
+                    // Special Handling goods
+                    // Checks if the modal is in the options and there is available mapping
+                    if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE")) {
+                        string specialHandlingTypes = "DANGEROUS_GOODS";
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested = new PackageSpecialServicesRequested();
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.SpecialServiceTypes = new String[] { specialHandlingTypes };
+                        HazardousCommodityOptionType hazOptionType;
+                        Enum.TryParse<HazardousCommodityOptionType>(modalOptionsMap[getRatesRequest.items[cnt].modal], out hazOptionType);
+                        Console.WriteLine(hazOptionType);
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail = new DangerousGoodsDetail();
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.Offeror = "TEST OFFEROR";
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.EmergencyContactNumber = "3268545905";
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail.Options = new HazardousCommodityOptionType[] { hazOptionType };
+                    }
                 }
             }
         }

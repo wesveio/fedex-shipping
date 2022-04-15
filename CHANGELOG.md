@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added optimize packaging by packing items to the biggest box
+- Added killswitch for optimizing packaging
+
 ## [1.6.0] - 2022-04-14
 
 ### Added

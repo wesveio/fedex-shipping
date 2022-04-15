@@ -19,6 +19,7 @@ namespace FedexShipping.GraphQL.Types
             Field(b => b.ClientDetailAccountNumber).Description("clientDetailAccountNumber");
             Field(b => b.ClientDetailMeterNumber).Description("clientDetailMeterNumber");
             Field(b => b.IsLive).Description("isLive");
+            Field(b => b.OptimizeShipping).Description("Optimizes Shipping");
             Field(b => b.UnitWeight).Description("unitWeight");
             Field(b => b.UnitDimension).Description("unitDimension");
             Field(b => b.HiddenSLA).Description("hiddenSLA");
