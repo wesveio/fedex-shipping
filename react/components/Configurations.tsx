@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FC } from 'react'
 import React, { useState, useEffect } from 'react'
 import { useIntl } from 'react-intl'
@@ -219,7 +220,7 @@ const Configurations: FC = () => {
   }
 
   const generateCheckboxGroup = () => {
-    const checkboxes = slaList.map((sla: any) => {
+    const checkboxes = slaList.map((sla: string) => {
       return (
         <Label key={sla}>
           <Checkbox state={checkbox} value={sla} />
