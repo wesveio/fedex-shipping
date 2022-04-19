@@ -8,6 +8,7 @@ import {
   createSystem,
   ToastProvider,
 } from '@vtex/admin-ui'
+
 import Configurations from './components/Configurations'
 
 const Admin: FC = () => {
@@ -23,15 +24,14 @@ const Admin: FC = () => {
         <Page className="pa7">
           <PageHeader>
             <PageTitle>
-              {formatMessage({id: 'admin/fedex-shipping.title'})}
+              {formatMessage({ id: 'admin/fedex-shipping.title' })}
             </PageTitle>
           </PageHeader>
-          <Configurations/>
+          <Configurations />
         </Page>
       </ToastProvider>
     </ThemeProvider>
-    )
-    
+  )
 }
 
 export default Admin

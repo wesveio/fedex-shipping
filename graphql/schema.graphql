@@ -5,6 +5,7 @@ type Query {
 type ItemModal {
   modal: String
   fedexHandling: String
+  shipAlone: Boolean
 }
 
 type AppSetting {
@@ -25,6 +26,7 @@ type AppSetting {
 input ItemModalInput {
   modal: String
   fedexHandling: String
+  shipAlone: Boolean
 }
 
 input AppSettingsInput {
@@ -43,5 +45,6 @@ input AppSettingsInput {
 }
 
 type Mutation {
-  saveAppSetting(appSetting: AppSettingsInput): Boolean @cacheControl(scope: PRIVATE) 
+  saveAppSetting(appSetting: AppSettingsInput): Boolean
+    @cacheControl(scope: PRIVATE)
 }

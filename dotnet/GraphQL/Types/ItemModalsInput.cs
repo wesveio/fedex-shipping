@@ -13,6 +13,7 @@ namespace FedexShipping.GraphQL.Types
 
             Field(x => x.Modal).Description("modal");
             Field(x => x.FedexHandling).Description("fedexHandling");
+            Field(x => x.ShipAlone).Description("Determines if a modal is ship alone");
         }
     }
 }
