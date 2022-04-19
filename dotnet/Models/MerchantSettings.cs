@@ -22,10 +22,12 @@ namespace FedexShipping.Models
     public class ModalMap {
         public string Modal { get; set; }
         public string FedexHandling { get; set; }
+        public bool ShipAlone { get; set; }
         public ModalMap() {}
-        public ModalMap(string Modal, string FedexHandling) {
+        public ModalMap(string Modal, string FedexHandling, Boolean ShipAlone) {
             this.Modal = Modal;
             this.FedexHandling = FedexHandling;
+            this.ShipAlone = ShipAlone;
         }
     }
 

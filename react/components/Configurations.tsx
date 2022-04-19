@@ -12,7 +12,6 @@ import {
   useToast,
   Set,
   Select,
-  useCheckboxState,
   CheckboxGroup,
   Label,
   Checkbox,
@@ -26,6 +25,7 @@ import {
   IconCheckCircle,
   Center,
   Dropdown,
+  useCheckboxState as UseCheckboxState,
   useCollapsibleState as UseCollapsibleState,
   useDropdownState as UseDropdownState,
 } from '@vtex/admin-ui'
@@ -95,7 +95,7 @@ const Configurations: FC = () => {
 
   const [saveAppSetting] = useMutation(SaveAppSetting)
 
-  const checkbox = useCheckboxState({ state: hiddenSLA })
+  const checkbox = UseCheckboxState({ state: hiddenSLA })
 
   useEffect(() => {
     if (!data?.getAppSettings) return
@@ -113,6 +113,8 @@ const Configurations: FC = () => {
 
   // Prefills array of modal list size
   const dropdownStates: any[] = Array(7).fill(0)
+
+  const checkboxModalStates: any[] = Array(10).fill(false)
 
   const modalGridState = useDataGridState({
     columns: [
@@ -174,6 +176,21 @@ const Configurations: FC = () => {
           },
         },
       },
+      {
+        id: 'shipAlone',
+        header: 'Ship Alone',
+        accessor: 'shipAlone',
+        resolver: {
+          type: 'plain',
+          render: ({ item }) => {
+            checkboxModalStates[item.id] = UseCheckboxState({
+              state: item.shipAlone,
+            })
+
+            return <Checkbox state={checkboxModalStates[item.id]} />
+          },
+        },
+      },
     ],
     items,
   })
@@ -187,6 +204,7 @@ const Configurations: FC = () => {
       saveModals.push({
         modal: items[index].modal,
         fedexHandling: dropdown.selectedItem,
+        shipAlone: checkboxModalStates[index].state,
       })
     })
     saveAppSetting({

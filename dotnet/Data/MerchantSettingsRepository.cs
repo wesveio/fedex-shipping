@@ -62,16 +62,16 @@
             string responseContent = await response.Content.ReadAsStringAsync();
             MerchantSettings merchantSettings = JsonConvert.DeserializeObject<MerchantSettings>(responseContent);
             if (merchantSettings.ItemModals.Count == 0) {
-                merchantSettings.ItemModals.Add(new ModalMap("CHEMICALS", "HAZARDOUS_MATERIALS"));
-                merchantSettings.ItemModals.Add(new ModalMap("ELECTRONICS", "BATTERY"));
-                merchantSettings.ItemModals.Add(new ModalMap("FURNITURE", "NONE"));
-                merchantSettings.ItemModals.Add(new ModalMap("GLASS", "NONE"));
-                merchantSettings.ItemModals.Add(new ModalMap("LIQUID", "HAZARDOUS_MATERIALS"));
-                merchantSettings.ItemModals.Add(new ModalMap("MATTRESSES", "NONE"));
-                merchantSettings.ItemModals.Add(new ModalMap("REFRIGERATED", "NONE"));
-                merchantSettings.ItemModals.Add(new ModalMap("TIRES", "NONE"));
-                merchantSettings.ItemModals.Add(new ModalMap("WHITE_GOODS", "NONE"));
-                merchantSettings.ItemModals.Add(new ModalMap("FIREARMS", "ORM_D"));
+                merchantSettings.ItemModals.Add(new ModalMap("CHEMICALS", "HAZARDOUS_MATERIALS", false));
+                merchantSettings.ItemModals.Add(new ModalMap("ELECTRONICS", "BATTERY", false));
+                merchantSettings.ItemModals.Add(new ModalMap("FURNITURE", "NONE", false));
+                merchantSettings.ItemModals.Add(new ModalMap("GLASS", "NONE", false));
+                merchantSettings.ItemModals.Add(new ModalMap("LIQUID", "HAZARDOUS_MATERIALS", false));
+                merchantSettings.ItemModals.Add(new ModalMap("MATTRESSES", "NONE", false));
+                merchantSettings.ItemModals.Add(new ModalMap("REFRIGERATED", "NONE", false));
+                merchantSettings.ItemModals.Add(new ModalMap("TIRES", "NONE", false));
+                merchantSettings.ItemModals.Add(new ModalMap("WHITE_GOODS", "NONE", false));
+                merchantSettings.ItemModals.Add(new ModalMap("FIREARMS", "ORM_D", false));
             }
             return merchantSettings;
         }
