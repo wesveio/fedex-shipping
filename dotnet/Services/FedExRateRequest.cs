@@ -353,21 +353,13 @@
                         packageLines.Add(new RequestedPackageLineItem());
                         packageLines.Last().SequenceNumber = getRatesRequest.items[cnt].id;
                         packageLines.Last().GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
-                        // package weight
+
                         packageLines.Last().Weight = new Weight();
-                        WeightUnits weightUnits;
-                        Enum.TryParse<WeightUnits>(this._merchantSettings.UnitWeight, out weightUnits);
-                        packageLines.Last().Weight.Units = weightUnits;
-                        packageLines.Last().Weight.UnitsSpecified = true;
-                        packageLines.Last().Weight.Value = Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight);
-                        packageLines.Last().Weight.ValueSpecified = true;
-                        // package dimensions
+                        setWeight(packageLines.Last().Weight, getRatesRequest.items[cnt].unitDimension.weight);
+
                         packageLines.Last().Dimensions = new Dimensions();
                         setDimensions(packageLines.Last().Dimensions, getRatesRequest.items[cnt].unitDimension.length, getRatesRequest.items[cnt].unitDimension.width, getRatesRequest.items[cnt].unitDimension.height);
-                        LinearUnits linearUnits;
-                        Enum.TryParse<LinearUnits>(this._merchantSettings.UnitDimension, out linearUnits);
-                        packageLines.Last().Dimensions.Units = linearUnits;
-                        packageLines.Last().Dimensions.UnitsSpecified = true;
+                        setDimensionUnits(packageLines.Last().Dimensions);
 
                         // Special Handling goods
                         // Checks if the modal is in the options and there is available mapping
@@ -385,23 +377,12 @@
                             packageLines.Last().Weight = new Weight();
                             packageLines.Last().Dimensions = new Dimensions();
 
-                            WeightUnits weightUnits;
-                            Enum.TryParse<WeightUnits>(this._merchantSettings.UnitWeight, out weightUnits);
-                            packageLines.Last().Weight.Units = weightUnits;
-                            packageLines.Last().Weight.UnitsSpecified = true;
-                            packageLines.Last().Weight.Value = 0;
-                            packageLines.Last().Weight.ValueSpecified = true;
-
-                            LinearUnits linearUnits;
-                            Enum.TryParse<LinearUnits>(this._merchantSettings.UnitDimension, out linearUnits);
-                            packageLines.Last().Dimensions.Units = linearUnits;
-                            packageLines.Last().Dimensions.UnitsSpecified = true;
+                            setWeight(packageLines.Last().Weight, 0);
+                            setDimensionUnits(packageLines.Last().Dimensions);
                         }
 
                         packageLines[mergedPackageIndex].Weight.Value += Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight * getRatesRequest.items[cnt].quantity);
-                        
-                        // package dimensions
-                        
+                                                
                         double currentItemVolume = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.length) * Math.Ceiling(getRatesRequest.items[cnt].unitDimension.width) * Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height);
 
                         if (currentItemVolume > maxVolume) {
@@ -432,22 +413,12 @@
                     request.RequestedShipment.RequestedPackageLineItems[cnt] = new RequestedPackageLineItem();
                     request.RequestedShipment.RequestedPackageLineItems[cnt].SequenceNumber = getRatesRequest.items[cnt].id;
                     request.RequestedShipment.RequestedPackageLineItems[cnt].GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
-                    //request.RequestedShipment.RequestedPackageLineItems[cnt].GroupPackageCount = "1";
-                    // package weight
                     request.RequestedShipment.RequestedPackageLineItems[cnt].Weight = new Weight();
-                    WeightUnits weightUnits;
-                    Enum.TryParse<WeightUnits>(this._merchantSettings.UnitWeight, out weightUnits);
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Units = weightUnits;
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.UnitsSpecified = true;
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.Value = Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight);
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].Weight.ValueSpecified = true;
-                    // package dimensions
+                    setWeight(request.RequestedShipment.RequestedPackageLineItems[cnt].Weight, getRatesRequest.items[cnt].unitDimension.weight);
+
                     request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions = new Dimensions();
                     setDimensions(request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions, getRatesRequest.items[cnt].unitDimension.length, getRatesRequest.items[cnt].unitDimension.width, getRatesRequest.items[cnt].unitDimension.height);
-                    LinearUnits linearUnits;
-                    Enum.TryParse<LinearUnits>(this._merchantSettings.UnitDimension, out linearUnits);
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.Units = linearUnits;
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions.UnitsSpecified = true;
+                    setDimensionUnits(request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions);
                     
                     // Special Handling goods
                     // Checks if the modal is in the options and there is available mapping
@@ -459,10 +430,26 @@
             }
         }
 
+        public void setWeight(Weight weight, double weightAmount) {
+            WeightUnits weightUnits;
+            Enum.TryParse<WeightUnits>(this._merchantSettings.UnitWeight, out weightUnits);
+            weight.Units = weightUnits;
+            weight.UnitsSpecified = true;
+            weight.Value = Convert.ToDecimal(weightAmount);
+            weight.ValueSpecified = true;
+        }
+
         public void setDimensions(Dimensions dimensions, double length, double width, double height) {
             dimensions.Length = Math.Ceiling(length).ToString();
             dimensions.Width = Math.Ceiling(width).ToString();
             dimensions.Height = Math.Ceiling(height).ToString();
+        }
+
+        public void setDimensionUnits(Dimensions dimensions) {
+            LinearUnits linearUnits;
+            Enum.TryParse<LinearUnits>(this._merchantSettings.UnitDimension, out linearUnits);
+            dimensions.Units = linearUnits;
+            dimensions.UnitsSpecified = true;
         }
 
         public void setDangerousGoodsDetail(PackageSpecialServicesRequested packageSpecialServicesRequested, string modal) {
