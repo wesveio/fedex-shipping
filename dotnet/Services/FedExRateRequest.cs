@@ -372,11 +372,8 @@
                         // Special Handling goods
                         // Checks if the modal is in the options and there is available mapping
                         if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE")) {
-                            string specialHandlingTypes = "DANGEROUS_GOODS";
                             packageLines.Last().SpecialServicesRequested = new PackageSpecialServicesRequested();
-                            packageLines.Last().SpecialServicesRequested.SpecialServiceTypes = new String[] { specialHandlingTypes };
-                            packageLines.Last().SpecialServicesRequested.DangerousGoodsDetail = new DangerousGoodsDetail();
-                            setDangerousGoodsDetail(packageLines.Last().SpecialServicesRequested.DangerousGoodsDetail, modalOptionsMap[getRatesRequest.items[cnt].modal]);
+                            setDangerousGoodsDetail(packageLines.Last().SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
                         }
                     } else {
                         // Sets up the item if can be combined
@@ -416,11 +413,8 @@
                         // Special Handling goods
                         // Checks if the modal is in the options and there is available mapping
                         if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE")) {
-                            string specialHandlingTypes = "DANGEROUS_GOODS";
                             packageLines[mergedPackageIndex].SpecialServicesRequested = new PackageSpecialServicesRequested();
-                            packageLines[mergedPackageIndex].SpecialServicesRequested.SpecialServiceTypes = new String[] { specialHandlingTypes };
-                            packageLines[mergedPackageIndex].SpecialServicesRequested.DangerousGoodsDetail = new DangerousGoodsDetail();
-                            setDangerousGoodsDetail(packageLines[mergedPackageIndex].SpecialServicesRequested.DangerousGoodsDetail, modalOptionsMap[getRatesRequest.items[cnt].modal]);
+                            setDangerousGoodsDetail(packageLines[mergedPackageIndex].SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
                         }
                     
                     }
@@ -458,11 +452,8 @@
                     // Special Handling goods
                     // Checks if the modal is in the options and there is available mapping
                     if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE")) {
-                        string specialHandlingTypes = "DANGEROUS_GOODS";
                         request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested = new PackageSpecialServicesRequested();
-                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.SpecialServiceTypes = new String[] { specialHandlingTypes };
-                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail = new DangerousGoodsDetail();
-                        setDangerousGoodsDetail(request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested.DangerousGoodsDetail, modalOptionsMap[getRatesRequest.items[cnt].modal]);
+                        setDangerousGoodsDetail(request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
                     }
                 }
             }
@@ -474,12 +465,15 @@
             dimensions.Height = Math.Ceiling(height).ToString();
         }
 
-        public void setDangerousGoodsDetail(DangerousGoodsDetail dangerousGoodsDetail, string modal) {
+        public void setDangerousGoodsDetail(PackageSpecialServicesRequested packageSpecialServicesRequested, string modal) {
+            string specialHandlingTypes = "DANGEROUS_GOODS";
+            packageSpecialServicesRequested.SpecialServiceTypes = new String[] { specialHandlingTypes };
+            packageSpecialServicesRequested.DangerousGoodsDetail = new DangerousGoodsDetail();
             HazardousCommodityOptionType hazOptionType;
             Enum.TryParse<HazardousCommodityOptionType>(modal, out hazOptionType);
-            dangerousGoodsDetail.Offeror = "TEST OFFEROR";
-            dangerousGoodsDetail.EmergencyContactNumber = "3268545905";
-            dangerousGoodsDetail.Options = new HazardousCommodityOptionType[] { hazOptionType };
+            packageSpecialServicesRequested.DangerousGoodsDetail.Offeror = "TEST OFFEROR";
+            packageSpecialServicesRequested.DangerousGoodsDetail.EmergencyContactNumber = "3268545905";
+            packageSpecialServicesRequested.DangerousGoodsDetail.Options = new HazardousCommodityOptionType[] { hazOptionType };
         }
 
         private void ShowRateReply(RateReply reply)
