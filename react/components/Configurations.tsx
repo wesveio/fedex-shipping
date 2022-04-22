@@ -306,10 +306,10 @@ const Configurations: FC = () => {
           onChange={(e) => setState({ ...state, unitWeight: e.target.value })}
         >
           <option value="LB">
-            {formatMessage({ id: 'admin/fedex-shipping.kg' })}
+            {formatMessage({ id: 'admin/fedex-shipping.lb' })}
           </option>
           <option value="KG">
-            {formatMessage({ id: 'admin/fedex-shipping.lb' })}
+            {formatMessage({ id: 'admin/fedex-shipping.kg' })}
           </option>
         </Select>
         <Select
