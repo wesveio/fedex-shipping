@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Improved admin panel styling
+
 ## [1.8.2] - 2022-04-22
 
 ### Fixed
