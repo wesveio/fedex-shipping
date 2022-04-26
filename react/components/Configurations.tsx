@@ -21,10 +21,11 @@ import {
   CollapsibleContent,
   useDataGridState,
   DataGrid,
-  IconXCircle,
+  IconWarning,
   IconCheckCircle,
   Center,
   Dropdown,
+  Tooltip,
   useCheckboxState as UseCheckboxState,
   useCollapsibleState as UseCollapsibleState,
   useDropdownState as UseDropdownState,
@@ -110,20 +111,21 @@ const Configurations: FC = () => {
         accessor: 'modal',
       },
       {
-        id: 'isDangerous',
-        header: 'Dangerous Goods',
-        accessor: 'fedexHandling',
+        id: 'shipAlone',
+        header: 'Ship Alone',
+        accessor: 'shipAlone',
         resolver: {
           type: 'plain',
           render: ({ item }) => {
-            const isDangerousGoods = !dropdownStates[item.id]?.selectedItem
-              ? item.fedexHandling === 'NONE'
-              : dropdownStates[item.id]?.selectedItem === 'NONE'
+            checkboxModalStates[item.id] = UseCheckboxState({
+              state: item.shipAlone,
+            })
 
             return (
-              <Center>
-                {isDangerousGoods ? <IconXCircle /> : <IconCheckCircle />}
-              </Center>
+              <Checkbox
+                csx={{ margin: 'auto' }}
+                state={checkboxModalStates[item.id]}
+              />
             )
           },
         },
@@ -140,28 +142,35 @@ const Configurations: FC = () => {
               initialSelectedItem: item.fedexHandling,
             })
 
-            return (
-              <Dropdown
-                items={fedexHandling}
-                state={dropdownStates[item.id]}
-                label="fedexHandling"
-              />
-            )
-          },
-        },
-      },
-      {
-        id: 'shipAlone',
-        header: 'Ship Alone',
-        accessor: 'shipAlone',
-        resolver: {
-          type: 'plain',
-          render: ({ item }) => {
-            checkboxModalStates[item.id] = UseCheckboxState({
-              state: item.shipAlone,
-            })
+            const isDangerousGoods = !dropdownStates[item.id]?.selectedItem
+              ? item.fedexHandling === 'NONE'
+              : dropdownStates[item.id]?.selectedItem === 'NONE'
 
-            return <Checkbox state={checkboxModalStates[item.id]} />
+            return (
+              <Set>
+                <Dropdown
+                  variant="secondary"
+                  csx={{ width: 300 }}
+                  items={fedexHandling}
+                  state={dropdownStates[item.id]}
+                  label="fedexHandling"
+                />
+                <Center>
+                  {isDangerousGoods ? (
+                    <Tooltip label="No Special Handling" placement="right">
+                      <IconCheckCircle />
+                    </Tooltip>
+                  ) : (
+                    <Tooltip
+                      label="Dangerous Goods. Requires FedEx Special Handling"
+                      placement="right"
+                    >
+                      <IconWarning />
+                    </Tooltip>
+                  )}
+                </Center>
+              </Set>
+            )
           },
         },
       },
@@ -241,11 +250,12 @@ const Configurations: FC = () => {
 
   return (
     <PageContent>
-      <Heading className="pv6">
-        {formatMessage({ id: 'admin/fedex-shipping.settings' })}
-      </Heading>
-      <Set orientation="vertical" spacing={3}>
+      <Set orientation="vertical" spacing={2}>
+        <Heading className="pt6">
+          {formatMessage({ id: 'admin/fedex-shipping.settings' })}
+        </Heading>
         <Input
+          csx={{ width: 250 }}
           id="meter"
           label={formatMessage({ id: 'admin/fedex-shipping.meter' })}
           value={clientDetailMeterNumber}
@@ -254,6 +264,7 @@ const Configurations: FC = () => {
           }
         />
         <Input
+          csx={{ width: 250 }}
           id="accountNumber"
           label={formatMessage({ id: 'admin/fedex-shipping.accountNum' })}
           value={clientDetailAccountNumber}
@@ -262,6 +273,7 @@ const Configurations: FC = () => {
           }
         />
         <InputPassword
+          csx={{ width: 250 }}
           id="credentialKey"
           label={formatMessage({ id: 'admin/fedex-shipping.credKey' })}
           value={userCredentialKey}
@@ -270,6 +282,7 @@ const Configurations: FC = () => {
           }
         />
         <InputPassword
+          csx={{ width: 250 }}
           id="credentialPwd"
           label={formatMessage({ id: 'admin/fedex-shipping.credPwd' })}
           value={userCredentialPassword}
@@ -277,15 +290,15 @@ const Configurations: FC = () => {
             setState({ ...state, userCredentialPassword: e.target.value })
           }
         />
-        <Label>
+        <Set orientation="horizontal" spacing={2}>
           <Toggle
             aria-label="label"
             checked={isLive}
             onChange={() => setState({ ...state, isLive: !isLive })}
           />
-          {formatMessage({ id: 'admin/fedex-shipping.isLive' })}
-        </Label>
-        <Label>
+          <Label>{formatMessage({ id: 'admin/fedex-shipping.isLive' })}</Label>
+        </Set>
+        <Set orientation="horizontal" spacing={2}>
           <Toggle
             aria-label="label"
             checked={optimizeShipping}
@@ -293,13 +306,15 @@ const Configurations: FC = () => {
               setState({ ...state, optimizeShipping: !optimizeShipping })
             }
           />
-          {formatMessage({ id: 'admin/fedex-shipping.optimizeShipping' })}
-        </Label>
+          <Label>
+            {formatMessage({ id: 'admin/fedex-shipping.optimizeShipping' })}
+          </Label>
+        </Set>
       </Set>
-      <Heading>
-        {formatMessage({ id: 'admin/fedex-shipping.unitsMeasurement' })}
-      </Heading>
-      <Set className="pt6" spacing={3}>
+      <Set orientation="vertical" spacing={2}>
+        <Heading className="pt6">
+          {formatMessage({ id: 'admin/fedex-shipping.unitsMeasurement' })}
+        </Heading>
         <Select
           label={formatMessage({ id: 'admin/fedex-shipping.weight' })}
           value={unitWeight ?? 'LB'}
@@ -327,14 +342,14 @@ const Configurations: FC = () => {
           </option>
         </Select>
       </Set>
-      <Heading className="pt6">
-        {formatMessage({ id: 'admin/fedex-shipping.hiddenSLA' })}
-      </Heading>
-      <Set orientation="vertical" spacing={3}>
+      <Set orientation="vertical" spacing={1}>
+        <Heading className="pt6">
+          {formatMessage({ id: 'admin/fedex-shipping.hiddenSLA' })}
+        </Heading>
         {generateCheckboxGroup()}
       </Set>
-      <Set orientation="vertical" spacing={3}>
-        <Heading className="pt6">
+      <Set orientation="vertical" spacing={1}>
+        <Heading className="pt3">
           {formatMessage({ id: 'admin/fedex-shipping.modalMap' })}
         </Heading>
         <Text variant="body">
