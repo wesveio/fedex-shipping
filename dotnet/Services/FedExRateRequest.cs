@@ -81,7 +81,12 @@
                         getRatesResponse ratesResponse = await client.getRatesAsync(request);
                         stopWatch.Stop();
                         TimeSpan ts = stopWatch.Elapsed;
-                        _context.Vtex.Logger.Info("GetRates", "FedEx RatesResponse Time", $"Time Spent: {ts.TotalMilliseconds}ms");
+                        _context.Vtex.Logger.Info("GetRates", "FedEx RatesResponse Time", "Time Spent in MS",
+                            new[]
+                            {
+                                ( "timeLapsed", ts.TotalMilliseconds.ToString()),
+                            }
+                        );
                         getRatesResponseWrapper.timeSpan = ts;
                         RateReply reply = ratesResponse.RateReply;
                         getRatesResponseWrapperParent.HighestSeverity.Add(reply.HighestSeverity.ToString());                
@@ -545,10 +550,10 @@
             {
                 Notification notification = reply.Notifications[i];
                 Console.WriteLine("Notification no. {0}", i);
-                Console.WriteLine(" Severity: {0}", notification.Severity);
-                Console.WriteLine(" Code: {0}", notification.Code);
-                Console.WriteLine(" Message: {0}", notification.Message);
-                Console.WriteLine(" Source: {0}", notification.Source);
+                Console.WriteLine("Severity: {0}", notification.Severity);
+                Console.WriteLine("Code: {0}", notification.Code);
+                Console.WriteLine("Message: {0}", notification.Message);
+                Console.WriteLine("Source: {0}", notification.Source);
             }
         }
 

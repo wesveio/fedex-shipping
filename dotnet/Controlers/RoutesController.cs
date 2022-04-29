@@ -94,7 +94,12 @@
 
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
-            _context.Vtex.Logger.Info("GetRates", "GetRates Time", $"Time Spent: {ts.TotalMilliseconds}ms");
+            _context.Vtex.Logger.Info("GetRates", "GetRates Time", "Time Spent in MS",
+                new[]
+                {
+                    ( "timeLapsed", ts.TotalMilliseconds.ToString()),
+                }
+            );
 
             return Json(getRatesResponseWrapper.GetRatesResponses);
         }
