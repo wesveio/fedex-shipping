@@ -9,7 +9,7 @@ Test Calculate Shipping API
 
 | Field | Value |
 | --- | ---|
-|URL|https://app.io.vtex.com/vtex.shipping-rates-provider/v0/sandboxusdev/weiworkspace/shp-rates/calculate|
+|URL|https://app.io.vtex.com/vtex.shipping-rates-provider/v0/{account}/{workspace}/shp-rates/calculate|
 |METHOD|POST|
 |Headers required|VtexIdclientAutCookie|
 
@@ -52,7 +52,7 @@ Request Body Examples
     "shippingDateUTC": "2022-03-09T01:02:45.128577+00:00",
     "currency": null,
     "shippingRatesProvidersIds": [
-        "vtex.fedex-shipping"
+        "vtexus.fedex-shipping"
     ]
 }
 ```
@@ -102,7 +102,7 @@ Request Body Examples
     "shippingDateUTC": "2022-02-14T18:46:08.6986181+00:00",
     "currency": "USD",
     "shippingRatesProvidersIds": [
-        "vtex.fedex-shipping"
+        "vtexus.fedex-shipping"
     ]
 }
 ```
