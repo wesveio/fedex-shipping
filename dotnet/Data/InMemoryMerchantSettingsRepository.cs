@@ -10,30 +10,14 @@
 
         public InMemoryMerchantSettingsRepository()
         {
-            //Required for All Web Services
-            //Developer Test Key:	 614CcXUEx89qLL6S
-            //Required for FedEx Web Services for Intra Country Shipping in US and Global
-            //Test Account Number:	 510087240
-            //Test Meter Number:	 114036294
-            //Required for FedEx Web Services for Office and Print
-            //Test FedEx Office Integrator ID:	 123
-            //Test Client Product ID:	 TEST
-            //Test Client Product Version:	 9999
-
-            //Test Account Information
-            //Test URL: https://wsbeta.fedex.com:443/web-services
-            //Test Password: O6Ar42a8ZavOQsmCCGi1j5Z5f
-            //FedEx Shipping Account Number: 510087240
-            //FedEx Meter Number: 114036294
-
             MerchantSettings merchantSettings = new MerchantSettings()
             {
-                ClientDetailAccountNumber = "510087240",
-                ClientDetailMeterNumber = "114036294",
+                ClientDetailAccountNumber = "9876543210",
+                ClientDetailMeterNumber = "1234567890",
                 ParentCredentialKey = "",
                 ParentCredentialPassword = "",
-                UserCredentialKey = "614CcXUEx89qLL6S",
-                UserCredentialPassword = "O6Ar42a8ZavOQsmCCGi1j5Z5f"
+                UserCredentialKey = "key",
+                UserCredentialPassword = "password"
             };
 
             this.SetMerchantSettings("FedEx", merchantSettings);

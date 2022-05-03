@@ -3,8 +3,7 @@
   "memory": 256,
   "timeout": 30,
   "ttl": 30,
-  "runtimeArgs": [
-  ],
+  "runtimeArgs": [],
   "routes": {
     "getRates": {
       "path": "/shp-rates/calculate",
@@ -14,9 +13,7 @@
       "policies": [
         {
           "effect": "allow",
-          "actions": [
-            "get","post"
-          ],
+          "actions": ["get", "post"],
           "principals": [
             "vrn:apps:*:{{account}}:{{workspace}}:app/vtex.shipping-rates-provider@*"
           ]
@@ -33,11 +30,23 @@
     },
     "getMerchantSettings": {
       "path": "/fedex-shipping/getSettings/:carrier",
-      "public": true
+      "public": false,
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": ["get"]
+        }
+      ]
     },
     "setMerchantSettings": {
       "path": "/fedex-shipping/setSettings/:carrier",
-      "public": true
+      "public": false,
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": ["post"]
+        }
+      ]
     },
     "getEstimateDate": {
       "path": "/shp-rates/estimate/date",
@@ -47,9 +56,7 @@
       "policies": [
         {
           "effect": "allow",
-          "actions": [
-            "get","post"
-          ],
+          "actions": ["get", "post"],
           "principals": [
             "vrn:apps:*:{{account}}:{{workspace}}:app/vtex.shipping-rates-provider@*"
           ]
