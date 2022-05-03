@@ -16,6 +16,7 @@ type AppSetting {
   clientDetailAccountNumber: String
   clientDetailMeterNumber: String
   isLive: Boolean
+  residential: Boolean
   optimizeShipping: Boolean
   unitWeight: String
   unitDimension: String
@@ -37,6 +38,7 @@ input AppSettingsInput {
   clientDetailAccountNumber: String
   clientDetailMeterNumber: String
   isLive: Boolean
+  residential: Boolean
   optimizeShipping: Boolean
   unitWeight: String
   unitDimension: String
