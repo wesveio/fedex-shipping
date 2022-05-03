@@ -49,6 +49,7 @@ const Configurations: FC = () => {
     userCredentialKey: string
     userCredentialPassword: string
     isLive: boolean
+    residential: boolean
     optimizeShipping: boolean
     unitWeight: string
     unitDimension: string
@@ -60,6 +61,7 @@ const Configurations: FC = () => {
     userCredentialKey: '',
     userCredentialPassword: '',
     isLive: false,
+    residential: false,
     optimizeShipping: false,
     unitWeight: 'LB',
     unitDimension: 'IN',
@@ -73,6 +75,7 @@ const Configurations: FC = () => {
     userCredentialKey,
     userCredentialPassword,
     isLive,
+    residential,
     optimizeShipping,
     unitWeight,
     unitDimension,
@@ -200,6 +203,7 @@ const Configurations: FC = () => {
           clientDetailMeterNumber,
           clientDetailAccountNumber,
           isLive,
+          residential,
           optimizeShipping,
           unitWeight,
           unitDimension,
@@ -297,6 +301,16 @@ const Configurations: FC = () => {
             onChange={() => setState({ ...state, isLive: !isLive })}
           />
           <Label>{formatMessage({ id: 'admin/fedex-shipping.isLive' })}</Label>
+        </Set>
+        <Set orientation="horizontal" spacing={2}>
+          <Toggle
+            aria-label="label"
+            checked={residential}
+            onChange={() => setState({ ...state, residential: !residential })}
+          />
+          <Label>
+            {formatMessage({ id: 'admin/fedex-shipping.residential' })}
+          </Label>
         </Set>
         <Set orientation="horizontal" spacing={2}>
           <Toggle

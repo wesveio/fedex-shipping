@@ -327,8 +327,8 @@
             request.RequestedShipment.Recipient.Address.City = getRatesRequest.destination.city;
             request.RequestedShipment.Recipient.Address.StateOrProvinceCode = getRatesRequest.destination.state;
             request.RequestedShipment.Recipient.Address.StreetLines = new string[] { getRatesRequest.destination.street };
-            request.RequestedShipment.Recipient.Address.ResidentialSpecified = getRatesRequest.destination.residential;
-            request.RequestedShipment.Recipient.Address.Residential = getRatesRequest.destination.residential;
+            request.RequestedShipment.Recipient.Address.ResidentialSpecified = this._merchantSettings.Residential;
+            request.RequestedShipment.Recipient.Address.Residential = this._merchantSettings.Residential;
         }
 
         // Creates a set for modals with shipAlone
@@ -653,12 +653,6 @@
             RatePortTypeClient client;
             RateReplyWrapper rateReply = new RateReplyWrapper();
             RateReply reply = new RateReply();
-            //if (this._merchantSettings.IsLive)
-            //{
-            //    string remoteAddress = "https://ws.fedex.com:443/web-services";
-            //    client = new RatePortTypeClient(RatePortTypeClient.EndpointConfiguration.RateServicePort, remoteAddress);
-            //}
-            //else
             {
                 client = new RatePortTypeClient();
             }
