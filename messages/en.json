@@ -2,6 +2,7 @@
   "admin/fedex-shipping.title": "FedEx Shipping",
   "admin/fedex-shipping.isLive": "Is Live",
   "admin/fedex-shipping.kg": "Kilograms",
+  "admin/fedex-shipping.g": "Grams",
   "admin/fedex-shipping.lb": "Pounds",
   "admin/fedex-shipping.in": "Inches",
   "admin/fedex-shipping.cm": "Centimeters",
