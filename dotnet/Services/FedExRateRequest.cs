@@ -436,12 +436,16 @@
         }
 
         public void setWeight(Weight weight, double weightAmount) {
+            weight.Value = Convert.ToDecimal(weightAmount);
+            weight.ValueSpecified = true;
+            if (this._merchantSettings.UnitWeight.Equals("G")) {
+                this._merchantSettings.UnitWeight = "KG";
+                weight.Value /= 1000;
+            }
             WeightUnits weightUnits;
             Enum.TryParse<WeightUnits>(this._merchantSettings.UnitWeight, out weightUnits);
             weight.Units = weightUnits;
             weight.UnitsSpecified = true;
-            weight.Value = Convert.ToDecimal(weightAmount);
-            weight.ValueSpecified = true;
         }
 
         public void setDimensions(Dimensions dimensions, double length, double width, double height) {

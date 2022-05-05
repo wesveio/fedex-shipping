@@ -340,6 +340,9 @@ const Configurations: FC = () => {
           <option value="KG">
             {formatMessage({ id: 'admin/fedex-shipping.kg' })}
           </option>
+          <option value="G">
+            {formatMessage({ id: 'admin/fedex-shipping.g' })}
+          </option>
         </Select>
         <Select
           label={formatMessage({ id: 'admin/fedex-shipping.dimensions' })}
