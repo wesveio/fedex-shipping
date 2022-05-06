@@ -22,5 +22,7 @@
   "admin/fedex-shipping.dangerTableHeader": "Dangerous Goods",
   "admin/fedex-shipping.handingTableHeader": "FedEx Handling Method",
   "admin/fedex-shipping.optimizeShipping": "Optimizes Shipping: Packing all items into the largest item's box",
-  "admin/fedex-shipping.residential": "Ship to Residential"
+  "admin/fedex-shipping.residential": "Ship to Residential",
+  "admin/fedex-shipping.modifySLA": "Modify SLA",
+  "admin/fedex-shipping.modifySLA.description": "Hide SLAs and Add Surcharges"
 }

@@ -73,6 +73,16 @@
                 merchantSettings.ItemModals.Add(new ModalMap("WHITE_GOODS", "NONE", false));
                 merchantSettings.ItemModals.Add(new ModalMap("FIREARMS", "ORM_D", false));
             }
+            if (merchantSettings.SlaSettings.Count == 0) {
+                merchantSettings.SlaSettings.Add(new SlaSettings("FedEx Ground", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("Priority Overnight", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("Express Saver", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("2DAY AM", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("First Overnight", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("Standard Overnight", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("2Day", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("FedEx Home Delivery", false, 0, 0));
+            }
             return merchantSettings;
         }
 

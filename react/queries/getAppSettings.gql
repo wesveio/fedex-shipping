@@ -17,5 +17,11 @@ query GetAppSettings {
       fedexHandling
       shipAlone
     }
+    slaSettings {
+      sla
+      hidden
+      surchargeFlatRate
+      surchargePercent
+    }
   }
 }
