@@ -23,7 +23,6 @@ namespace FedexShipping.GraphQL.Types
             Field(b => b.OptimizeShipping).Description("Optimizes Shipping");
             Field(b => b.UnitWeight).Description("unitWeight");
             Field(b => b.UnitDimension).Description("unitDimension");
-            Field(b => b.HiddenSLA).Description("hiddenSLA");
             Field(b => b.ItemModals, type: typeof(ListGraphType<ItemModalsType>)).Description("Item Modals Mapping");
             Field(b => b.SlaSettings, type: typeof(ListGraphType<SlaSettingsType>)).Description("SLA Settings");
         }

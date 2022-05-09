@@ -15,7 +15,6 @@
   "admin/fedex-shipping.credKey": "Credential Key",
   "admin/fedex-shipping.credPwd": "Credential Password",
   "admin/fedex-shipping.unitsMeasurement": "Configure Your Unit of Measurement",
-  "admin/fedex-shipping.hiddenSLA": "Hidden FedEx SLAs",
   "admin/fedex-shipping.modalMap": "Modal Mapping",
   "admin/fedex-shipping.modalMap.description": "Maps the VTEX Modal to the FedEx Handling Types",
   "admin/fedex-shipping.modalTableHeader": "Modal Name",

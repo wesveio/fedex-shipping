@@ -11,7 +11,6 @@ query GetAppSettings {
     optimizeShipping
     unitWeight
     unitDimension
-    hiddenSLA
     itemModals {
       modal
       fedexHandling

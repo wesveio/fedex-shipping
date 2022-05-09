@@ -1,14 +1,3 @@
-const slaList: string[] = [
-  'FedEx Ground',
-  'Priority Overnight',
-  'Express Saver',
-  '2DAY AM',
-  'First Overnight',
-  'Standard Overnight',
-  '2Day',
-  'FedEx Home Delivery',
-]
-
 const fedexHandling: string[] = [
   'BATTERY',
   'HAZARDOUS_MATERIALS',
@@ -19,4 +8,4 @@ const fedexHandling: string[] = [
   'NONE',
 ]
 
-export { slaList, fedexHandling }
+export { fedexHandling }

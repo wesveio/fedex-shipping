@@ -27,7 +27,6 @@ type AppSetting {
   optimizeShipping: Boolean
   unitWeight: String
   unitDimension: String
-  hiddenSLA: [String]
   itemModals: [ItemModal]
   slaSettings: [SlaSettings]
 }
@@ -57,7 +56,6 @@ input AppSettingsInput {
   optimizeShipping: Boolean
   unitWeight: String
   unitDimension: String
-  hiddenSLA: [String]
   itemModals: [ItemModalInput]
   slaSettings: [SlaSettingsInput]
 }

@@ -12,7 +12,6 @@ import {
   useToast,
   Set,
   Select,
-  CheckboxGroup,
   Label,
   Checkbox,
   Text,
@@ -34,7 +33,7 @@ import { useQuery, useMutation } from 'react-apollo'
 
 import AppSettings from '../queries/getAppSettings.gql'
 import SaveAppSetting from '../mutations/saveAppSetting.gql'
-import { fedexHandling, slaList } from '../utils/constants'
+import { fedexHandling } from '../utils/constants'
 
 const Configurations: FC = () => {
   const { formatMessage } = useIntl()
@@ -53,7 +52,6 @@ const Configurations: FC = () => {
     optimizeShipping: boolean
     unitWeight: string
     unitDimension: string
-    hiddenSLA: string[]
     itemModals: any[]
     slaSettings: any[]
   }>({
@@ -66,7 +64,6 @@ const Configurations: FC = () => {
     optimizeShipping: false,
     unitWeight: 'LB',
     unitDimension: 'IN',
-    hiddenSLA: [],
     itemModals: [],
     slaSettings: [],
   })
@@ -81,21 +78,16 @@ const Configurations: FC = () => {
     optimizeShipping,
     unitWeight,
     unitDimension,
-    hiddenSLA,
     itemModals: items,
     slaSettings,
   } = state
 
   const [saveAppSetting] = useMutation(SaveAppSetting)
 
-  const checkbox = UseCheckboxState({ state: hiddenSLA })
-
   useEffect(() => {
     if (!data?.getAppSettings) return
 
     const { getAppSettings } = data
-
-    checkbox.setState(getAppSettings.hiddenSLA)
 
     getAppSettings.itemModals.forEach((itemModal: any, index: number) => {
       itemModal.id = index
@@ -338,7 +330,6 @@ const Configurations: FC = () => {
           optimizeShipping,
           unitWeight,
           unitDimension,
-          hiddenSLA: checkbox.state,
           itemModals: saveModals,
           slaSettings: saveSlaSettings,
         },
@@ -354,19 +345,6 @@ const Configurations: FC = () => {
         message,
       })
     })
-  }
-
-  const generateCheckboxGroup = () => {
-    const checkboxes = slaList.map((sla: string) => {
-      return (
-        <Label key={sla}>
-          <Checkbox state={checkbox} value={sla} />
-          {sla}
-        </Label>
-      )
-    })
-
-    return <CheckboxGroup orientation="vertical">{checkboxes}</CheckboxGroup>
   }
 
   const generateItemModalMapping = () => {
@@ -505,12 +483,6 @@ const Configurations: FC = () => {
             {formatMessage({ id: 'admin/fedex-shipping.cm' })}
           </option>
         </Select>
-      </Set>
-      <Set orientation="vertical" spacing={1}>
-        <Heading className="pt6">
-          {formatMessage({ id: 'admin/fedex-shipping.hiddenSLA' })}
-        </Heading>
-        {generateCheckboxGroup()}
       </Set>
       <Set orientation="vertical" spacing={1}>
         <Heading className="pt3">
