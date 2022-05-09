@@ -16,8 +16,8 @@ namespace FedexShipping.Models
         public bool OptimizeShipping { get; set; }
         public string UnitWeight { get; set; }
         public string UnitDimension { get; set; }
-        public List<String> HiddenSLA { get; set; } = new List<String>();
         public List<ModalMap> ItemModals { get; set; } = new List<ModalMap>();
+        public List<SlaSettings> SlaSettings { get; set; } = new List<SlaSettings>();
     }
 
     public class ModalMap {
@@ -29,6 +29,20 @@ namespace FedexShipping.Models
             this.Modal = Modal;
             this.FedexHandling = FedexHandling;
             this.ShipAlone = ShipAlone;
+        }
+    }
+
+    public class SlaSettings {
+        public string Sla { get; set; }
+        public bool Hidden { get; set; }
+        public double SurchargePercent { get; set; }
+        public double SurchargeFlatRate { get; set; }
+        public SlaSettings() {}
+        public SlaSettings(string Sla, bool Hidden, double SurchargePercent, double SurchargeFlatRate) {
+            this.Sla = Sla;
+            this.Hidden = Hidden;
+            this.SurchargePercent = SurchargePercent;
+            this.SurchargeFlatRate = SurchargeFlatRate;
         }
     }
 

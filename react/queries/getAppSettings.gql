@@ -11,11 +11,16 @@ query GetAppSettings {
     optimizeShipping
     unitWeight
     unitDimension
-    hiddenSLA
     itemModals {
       modal
       fedexHandling
       shipAlone
+    }
+    slaSettings {
+      sla
+      hidden
+      surchargeFlatRate
+      surchargePercent
     }
   }
 }

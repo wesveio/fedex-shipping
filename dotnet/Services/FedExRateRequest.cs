@@ -61,6 +61,12 @@
                 client = new RatePortTypeClient();
             }
 
+            Dictionary<string, SlaSettings> slaMapping = new Dictionary<string, SlaSettings>();
+
+            foreach (SlaSettings slaSettings in this._merchantSettings.SlaSettings) {
+                slaMapping.Add(slaSettings.Sla, slaSettings);
+            }
+
             foreach (KeyValuePair<string, List<Item>> entry in splitItems) {
                 if (entry.Value.Count > 0) {
                     GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
@@ -100,10 +106,9 @@
                             }
 
                             Dictionary<string, double> ratesRatio = CalculateRatesRatio(getRatesRequest.items);
-                            HashSet<string> hiddenSLASet = new HashSet<string>(this._merchantSettings.HiddenSLA);
                             foreach(RateReplyDetail detail in reply.RateReplyDetails)
                             {
-                                if (!hiddenSLASet.Contains(detail.ServiceDescription.Description)) {
+                                if (!slaMapping[detail.ServiceDescription.Description].Hidden) {
                                     TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
                                     string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
                                     foreach (Item item in getRatesRequest.items) {
@@ -122,6 +127,8 @@
                                             pickupAddress = null,
                                         };
 
+                                        rateResponse.price += Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargePercent / 100) * rateResponse.price + Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargeFlatRate);
+
                                         rateResponse.carrierBusinessHours = new BusinessHour[7];
                                         for (int day = 0; day < 7; day++) {
                                             rateResponse.carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, new TimeSpan(0, 0, 0).ToString(), new TimeSpan(23, 59, 59).ToString());
@@ -136,7 +143,6 @@
                         }
 
                         ShowNotifications(reply);
-                        //getRatesResponseWrapper.Notifications = new List<Notification>();
                         foreach(Notification notification in reply.Notifications)
                         {
                             getRatesResponseWrapper.Notifications.Add(notification);
@@ -477,6 +483,7 @@
             Console.WriteLine("RateReply details:");
             for (int i = 0; i < reply.RateReplyDetails.Length; i++)
             {
+                Console.WriteLine(i);
                 RateReplyDetail rateReplyDetail = reply.RateReplyDetails[i];
                 Console.WriteLine("Rate Reply Detail for Service {0} ", i + 1);
                 Console.WriteLine("Service Type: {0}", rateReplyDetail.ServiceType);

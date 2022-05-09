@@ -15,12 +15,13 @@
   "admin/fedex-shipping.credKey": "Credential Key",
   "admin/fedex-shipping.credPwd": "Credential Password",
   "admin/fedex-shipping.unitsMeasurement": "Configure Your Unit of Measurement",
-  "admin/fedex-shipping.hiddenSLA": "Hidden FedEx SLAs",
   "admin/fedex-shipping.modalMap": "Modal Mapping",
   "admin/fedex-shipping.modalMap.description": "Maps the VTEX Modal to the FedEx Handling Types",
   "admin/fedex-shipping.modalTableHeader": "Modal Name",
   "admin/fedex-shipping.dangerTableHeader": "Dangerous Goods",
   "admin/fedex-shipping.handingTableHeader": "FedEx Handling Method",
   "admin/fedex-shipping.optimizeShipping": "Optimizes Shipping: Packing all items into the largest item's box",
-  "admin/fedex-shipping.residential": "Ship to Residential"
+  "admin/fedex-shipping.residential": "Ship to Residential",
+  "admin/fedex-shipping.modifySLA": "Modify SLA",
+  "admin/fedex-shipping.modifySLA.description": "Hide SLAs and Add Surcharges"
 }

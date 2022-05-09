@@ -22,5 +22,7 @@
   "admin/fedex-shipping.dangerTableHeader": "admin/fedex-shipping.dangerTableHeader",
   "admin/fedex-shipping.handingTableHeader": "admin/fedex-shipping.handingTableHeader",
   "admin/fedex-shipping.optimizeShipping": "admin/fedex-shipping.optimizeShipping",
-  "admin/fedex-shipping.residential": "admin/fedex-shipping.residential"
+  "admin/fedex-shipping.residential": "admin/fedex-shipping.residential",
+  "admin/fedex-shipping.modifySLA": "admin/fedex-shipping.modifySLA",
+  "admin/fedex-shipping.modifySLA.description": "admin/fedex-shipping.modifySLA.description"
 }

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Addedd
+
+- Added a new table for surcharges and hiding SLAs
+
 ## [1.9.2] - 2022-05-05
 
 ### Added

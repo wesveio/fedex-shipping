@@ -12,7 +12,6 @@ import {
   useToast,
   Set,
   Select,
-  CheckboxGroup,
   Label,
   Checkbox,
   Text,
@@ -34,7 +33,7 @@ import { useQuery, useMutation } from 'react-apollo'
 
 import AppSettings from '../queries/getAppSettings.gql'
 import SaveAppSetting from '../mutations/saveAppSetting.gql'
-import { fedexHandling, slaList } from '../utils/constants'
+import { fedexHandling } from '../utils/constants'
 
 const Configurations: FC = () => {
   const { formatMessage } = useIntl()
@@ -53,8 +52,8 @@ const Configurations: FC = () => {
     optimizeShipping: boolean
     unitWeight: string
     unitDimension: string
-    hiddenSLA: string[]
     itemModals: any[]
+    slaSettings: any[]
   }>({
     clientDetailMeterNumber: '',
     clientDetailAccountNumber: '',
@@ -65,8 +64,8 @@ const Configurations: FC = () => {
     optimizeShipping: false,
     unitWeight: 'LB',
     unitDimension: 'IN',
-    hiddenSLA: [],
     itemModals: [],
+    slaSettings: [],
   })
 
   const {
@@ -79,23 +78,23 @@ const Configurations: FC = () => {
     optimizeShipping,
     unitWeight,
     unitDimension,
-    hiddenSLA,
     itemModals: items,
+    slaSettings,
   } = state
 
   const [saveAppSetting] = useMutation(SaveAppSetting)
-
-  const checkbox = UseCheckboxState({ state: hiddenSLA })
 
   useEffect(() => {
     if (!data?.getAppSettings) return
 
     const { getAppSettings } = data
 
-    checkbox.setState(getAppSettings.hiddenSLA)
-
     getAppSettings.itemModals.forEach((itemModal: any, index: number) => {
       itemModal.id = index
+    })
+
+    getAppSettings.slaSettings.forEach((slaSetting: any, index: number) => {
+      slaSetting.id = index
     })
 
     setState({ ...getAppSettings })
@@ -105,6 +104,8 @@ const Configurations: FC = () => {
   const dropdownStates: any[] = Array(7).fill(0)
 
   const checkboxModalStates: any[] = Array(10).fill(false)
+
+  const checkboxSlaStates: any[] = Array(9).fill(false)
 
   const modalGridState = useDataGridState({
     columns: [
@@ -181,10 +182,122 @@ const Configurations: FC = () => {
     items,
   })
 
+  const setSurcharge = (value: number, surchargeType: string, id: number) => {
+    const newSlaSettings = slaSettings
+
+    newSlaSettings[id][surchargeType] = value
+    setState({ ...state, slaSettings: newSlaSettings })
+  }
+
+  const slaGridState = useDataGridState({
+    columns: [
+      {
+        id: 'sla',
+        header: 'SLA Name',
+        accessor: 'sla',
+      },
+      {
+        id: 'hidden',
+        header: 'Hide SLA',
+        accessor: 'hidden',
+        resolver: {
+          type: 'plain',
+          render: ({ item }) => {
+            checkboxSlaStates[item.id] = UseCheckboxState({
+              state: item.hidden,
+            })
+
+            return (
+              <Checkbox
+                csx={{ margin: 'auto' }}
+                state={checkboxSlaStates[item.id]}
+              />
+            )
+          },
+        },
+      },
+      {
+        id: 'surchargeFlat',
+        header: 'Surcharge Flat Rate',
+        accessor: 'surchargeFlatRate',
+        resolver: {
+          type: 'plain',
+          render: ({ item }) => {
+            return (
+              <Set>
+                <Input
+                  id={item.id}
+                  label="Flat Rate Surcharge"
+                  charLimit={7}
+                  value={item.surchargeFlatRate}
+                  onChange={(e) => {
+                    let inputVal = e.target.value
+
+                    if (inputVal.endsWith('.')) {
+                      inputVal += '00'
+                    }
+
+                    const regexp = /^\d{0,4}(?:[.,]\d{1,2})?$/
+
+                    if (regexp.test(inputVal)) {
+                      setSurcharge(
+                        parseFloat(inputVal),
+                        'surchargeFlatRate',
+                        item.id
+                      )
+                    }
+                  }}
+                />
+              </Set>
+            )
+          },
+        },
+      },
+      {
+        id: 'surchargePct',
+        header: 'Surcharge Percentage',
+        accessor: 'surchargePercent',
+        resolver: {
+          type: 'plain',
+          render: ({ item }) => {
+            return (
+              <Set>
+                <Input
+                  id={item.id}
+                  label="Percent Surcharge"
+                  suffix="%"
+                  charLimit={3}
+                  value={item.surchargePercent}
+                  onChange={(e) => {
+                    const inputVal =
+                      e.target.value === '-' || e.target.value.length === 0
+                        ? '0'
+                        : e.target.value
+
+                    if (!Number.isNaN(inputVal)) {
+                      setSurcharge(
+                        parseInt(inputVal, 10),
+                        'surchargePercent',
+                        item.id
+                      )
+                    }
+                  }}
+                />
+              </Set>
+            )
+          },
+        },
+      },
+    ],
+    items: slaSettings,
+  })
+
   const showToast = useToast()
 
   const handleSave = () => {
     const saveModals: any[] = []
+
+    const saveSlaSettings: SlaSetting[] = []
 
     dropdownStates.forEach((dropdown, index) => {
       saveModals.push({
@@ -193,6 +306,16 @@ const Configurations: FC = () => {
         shipAlone: checkboxModalStates[index].state,
       })
     })
+
+    slaSettings.forEach((sla, index) => {
+      saveSlaSettings.push({
+        sla: sla.sla,
+        hidden: checkboxSlaStates[index].state,
+        surchargePercent: sla.surchargePercent,
+        surchargeFlatRate: sla.surchargeFlatRate,
+      })
+    })
+
     saveAppSetting({
       variables: {
         appSetting: {
@@ -207,8 +330,8 @@ const Configurations: FC = () => {
           optimizeShipping,
           unitWeight,
           unitDimension,
-          hiddenSLA: checkbox.state,
           itemModals: saveModals,
+          slaSettings: saveSlaSettings,
         },
       },
     }).then((result: any) => {
@@ -224,20 +347,7 @@ const Configurations: FC = () => {
     })
   }
 
-  const generateCheckboxGroup = () => {
-    const checkboxes = slaList.map((sla: string) => {
-      return (
-        <Label key={sla}>
-          <Checkbox state={checkbox} value={sla} />
-          {sla}
-        </Label>
-      )
-    })
-
-    return <CheckboxGroup orientation="vertical">{checkboxes}</CheckboxGroup>
-  }
-
-  const generateModalMapping = () => {
+  const generateItemModalMapping = () => {
     const modalMap = UseCollapsibleState()
 
     return (
@@ -247,6 +357,21 @@ const Configurations: FC = () => {
         />
         <CollapsibleContent>
           <DataGrid state={modalGridState} />
+        </CollapsibleContent>
+      </Collapsible>
+    )
+  }
+
+  const generateSLAMapping = () => {
+    const slaMap = UseCollapsibleState()
+
+    return (
+      <Collapsible state={slaMap} disabled={false}>
+        <CollapsibleHeader
+          label={formatMessage({ id: 'admin/fedex-shipping.modifySLA' })}
+        />
+        <CollapsibleContent>
+          <DataGrid state={slaGridState} />
         </CollapsibleContent>
       </Collapsible>
     )
@@ -360,10 +485,13 @@ const Configurations: FC = () => {
         </Select>
       </Set>
       <Set orientation="vertical" spacing={1}>
-        <Heading className="pt6">
-          {formatMessage({ id: 'admin/fedex-shipping.hiddenSLA' })}
+        <Heading className="pt3">
+          {formatMessage({ id: 'admin/fedex-shipping.modifySLA' })}
         </Heading>
-        {generateCheckboxGroup()}
+        <Text variant="body">
+          {formatMessage({ id: 'admin/fedex-shipping.modifySLA.description' })}
+        </Text>
+        {generateSLAMapping()}
       </Set>
       <Set orientation="vertical" spacing={1}>
         <Heading className="pt3">
@@ -372,7 +500,7 @@ const Configurations: FC = () => {
         <Text variant="body">
           {formatMessage({ id: 'admin/fedex-shipping.modalMap.description' })}
         </Text>
-        {generateModalMapping()}
+        {generateItemModalMapping()}
       </Set>
       <Button variant="primary" onClick={() => handleSave()}>
         {formatMessage({ id: 'admin/fedex-shipping.saveSettings' })}

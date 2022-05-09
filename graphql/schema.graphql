@@ -8,6 +8,13 @@ type ItemModal {
   shipAlone: Boolean
 }
 
+type SlaSettings {
+  sla: String
+  hidden: Boolean
+  surchargePercent: Float
+  surchargeFlatRate: Float
+}
+
 type AppSetting {
   userCredentialKey: String
   userCredentialPassword: String
@@ -20,14 +27,21 @@ type AppSetting {
   optimizeShipping: Boolean
   unitWeight: String
   unitDimension: String
-  hiddenSLA: [String]
   itemModals: [ItemModal]
+  slaSettings: [SlaSettings]
 }
 
 input ItemModalInput {
   modal: String
   fedexHandling: String
   shipAlone: Boolean
+}
+
+input SlaSettingsInput {
+  sla: String
+  hidden: Boolean
+  surchargePercent: Float
+  surchargeFlatRate: Float
 }
 
 input AppSettingsInput {
@@ -42,8 +56,8 @@ input AppSettingsInput {
   optimizeShipping: Boolean
   unitWeight: String
   unitDimension: String
-  hiddenSLA: [String]
   itemModals: [ItemModalInput]
+  slaSettings: [SlaSettingsInput]
 }
 
 type Mutation {
