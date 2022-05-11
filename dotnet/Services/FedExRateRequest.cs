@@ -15,6 +15,7 @@
     {
         private readonly IIOServiceContext _context;
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
+        private readonly IFedExCacheRepository _fedExCacheRespository;
         private const string CARRIER = "FedEx";
         private MerchantSettings _merchantSettings;
 
@@ -36,11 +37,12 @@
             {"FIREARMS", "ORM_D"},
         };
 
-        public FedExRateRequest(IMerchantSettingsRepository merchantSettingsRepository, IIOServiceContext context)
+        public FedExRateRequest(IMerchantSettingsRepository merchantSettingsRepository, IIOServiceContext context, IFedExCacheRepository fedExCacheRepository)
         {
             this._merchantSettingsRepository = merchantSettingsRepository ??
                                             throw new ArgumentNullException(nameof(merchantSettingsRepository));
             this._context = context ?? throw new ArgumentNullException(nameof(context));
+            this._fedExCacheRespository = fedExCacheRepository ?? throw new ArgumentNullException(nameof(fedExCacheRepository));
         }
 
         public async Task<GetRatesResponseWrapper> GetRates(GetRatesRequest getRatesRequest)
@@ -48,118 +50,142 @@
             this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings(CARRIER);
             GetRatesResponseWrapper getRatesResponseWrapperParent = new GetRatesResponseWrapper();
             getRatesResponseWrapperParent.Success = true;
-            Dictionary<String, List<Item>> splitItems = SplitRequestItemsByModal(getRatesRequest);
             
-            RatePortTypeClient client;
-            if (this._merchantSettings.IsLive)
-            {
-                string remoteAddress = "https://ws.fedex.com:443/web-services";
-                client = new RatePortTypeClient(RatePortTypeClient.EndpointConfiguration.RateServicePort, remoteAddress);
+            GetRatesResponseWrapper fedexCachedResponse;
+            int cacheKey = $@"
+                {_context.Vtex.App.Version}
+                {JsonConvert.SerializeObject(this._merchantSettings)}
+                {getRatesRequest.origin.zipCode}
+                {getRatesRequest.destination.zipCode}
+                {JsonConvert.SerializeObject(getRatesRequest.items)}"
+                .GetHashCode();
+
+            if (_fedExCacheRespository.TryGetCache(cacheKey, out fedexCachedResponse)) {
+                getRatesResponseWrapperParent = fedexCachedResponse;
+                _context.Vtex.Logger.Info("GetRates", "Cache Used", 
+                    "Cached Result", 
+                    new[]
+                    {
+                        ( "entireObject", JsonConvert.SerializeObject(fedexCachedResponse)),
+                    }
+                );
             }
             else
             {
-                client = new RatePortTypeClient();
-            }
+                Dictionary<String, List<Item>> splitItems = SplitRequestItemsByModal(getRatesRequest);
+                
+                RatePortTypeClient client;
+                if (this._merchantSettings.IsLive)
+                {
+                    string remoteAddress = "https://ws.fedex.com:443/web-services";
+                    client = new RatePortTypeClient(RatePortTypeClient.EndpointConfiguration.RateServicePort, remoteAddress);
+                }
+                else
+                {
+                    client = new RatePortTypeClient();
+                }
 
-            Dictionary<string, SlaSettings> slaMapping = new Dictionary<string, SlaSettings>();
+                Dictionary<string, SlaSettings> slaMapping = new Dictionary<string, SlaSettings>();
 
-            foreach (SlaSettings slaSettings in this._merchantSettings.SlaSettings) {
-                slaMapping.Add(slaSettings.Sla, slaSettings);
-            }
+                foreach (SlaSettings slaSettings in this._merchantSettings.SlaSettings) {
+                    slaMapping.Add(slaSettings.Sla, slaSettings);
+                }
 
-            foreach (KeyValuePair<string, List<Item>> entry in splitItems) {
-                if (entry.Value.Count > 0) {
-                    GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
-                    getRatesRequest.items = entry.Value;
-                    RateRequest request = await CreateRateRequest(getRatesRequest);
+                foreach (KeyValuePair<string, List<Item>> entry in splitItems) {
+                    if (entry.Value.Count > 0) {
+                        GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
+                        getRatesRequest.items = entry.Value;
+                        RateRequest request = await CreateRateRequest(getRatesRequest);
 
-                    try
-                    {
-                        _context.Vtex.Logger.Info("GetRates", "FedEx RatesRequest", 
-                            "Mapped RequestedShipment of RateRequest To FedEx", 
-                            new[]
-                            {
-                                ( "entireObject", JsonConvert.SerializeObject(request.RequestedShipment)),
-                            }
-                        );
-                        Stopwatch stopWatch = new Stopwatch();
-                        stopWatch.Start();
-                        getRatesResponse ratesResponse = await client.getRatesAsync(request);
-                        stopWatch.Stop();
-                        TimeSpan ts = stopWatch.Elapsed;
-                        _context.Vtex.Logger.Info("GetRates", "FedEx RatesResponse Time", "Time Spent in MS",
-                            new[]
-                            {
-                                ( "timeLapsed", ts.TotalMilliseconds.ToString()),
-                            }
-                        );
-                        getRatesResponseWrapper.timeSpan = ts;
-                        RateReply reply = ratesResponse.RateReply;
-                        getRatesResponseWrapperParent.HighestSeverity.Add(reply.HighestSeverity.ToString());                
-                        if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
+                        try
                         {
-                            ShowRateReply(reply);
-                            //string replyjson = JsonConvert.SerializeObject(reply);
-                            int totalQuantity = 0;
-                            foreach (Item item in getRatesRequest.items) {
-                                totalQuantity += item.quantity;
-                            }
+                            _context.Vtex.Logger.Info("GetRates", "FedEx RatesRequest", 
+                                "Mapped RequestedShipment of RateRequest To FedEx", 
+                                new[]
+                                {
+                                    ( "entireObject", JsonConvert.SerializeObject(request.RequestedShipment)),
+                                }
+                            );
+                            Stopwatch stopWatch = new Stopwatch();
+                            stopWatch.Start();
+                            getRatesResponse ratesResponse = await client.getRatesAsync(request);
+                            stopWatch.Stop();
+                            TimeSpan ts = stopWatch.Elapsed;
+                            _context.Vtex.Logger.Info("GetRates", "FedEx RatesResponse Time", "Time Spent in MS",
+                                new[]
+                                {
+                                    ( "timeLapsed", ts.TotalMilliseconds.ToString()),
+                                }
+                            );
 
-                            Dictionary<string, double> ratesRatio = CalculateRatesRatio(getRatesRequest.items);
-                            foreach(RateReplyDetail detail in reply.RateReplyDetails)
+                            getRatesResponseWrapper.timeSpan = ts;
+                            RateReply reply = ratesResponse.RateReply;
+                            getRatesResponseWrapperParent.HighestSeverity.Add(reply.HighestSeverity.ToString());
+                            if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
                             {
-                                if (!slaMapping[detail.ServiceDescription.Description].Hidden) {
-                                    TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
-                                    string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
-                                    foreach (Item item in getRatesRequest.items) {
-                                        GetRatesResponse rateResponse = new GetRatesResponse
-                                        {
-                                            carrierId = "FEDEX",
-                                            itemId = item.id,
-                                            price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount * Convert.ToDecimal(ratesRatio[item.id]),
-                                            numberOfPackages = item.quantity,
-                                            estimateDate = detail.DeliveryTimestamp,
-                                            shippingMethod = detail.ServiceDescription.Description,
-                                            transitTime = transitString,
-                                            carrierSchedule = new List<Schedule>(),
-                                            deliveryChannel = "delivery",
-                                            weekendAndHolidays = new WeekendAndHolidays(),
-                                            pickupAddress = null,
-                                        };
+                                ShowRateReply(reply);
 
-                                        rateResponse.price += Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargePercent / 100) * rateResponse.price + Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargeFlatRate);
+                                Dictionary<string, double> ratesRatio = CalculateRatesRatio(getRatesRequest.items);
+                                foreach(RateReplyDetail detail in reply.RateReplyDetails)
+                                {
+                                    if (!slaMapping[detail.ServiceDescription.Description].Hidden) {
+                                        TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
+                                        string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
+                                        foreach (Item item in getRatesRequest.items) {
+                                            GetRatesResponse rateResponse = new GetRatesResponse
+                                            {
+                                                carrierId = "FEDEX",
+                                                itemId = item.id,
+                                                price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount * Convert.ToDecimal(ratesRatio[item.id]),
+                                                numberOfPackages = item.quantity,
+                                                estimateDate = detail.DeliveryTimestamp,
+                                                shippingMethod = detail.ServiceDescription.Description,
+                                                transitTime = transitString,
+                                                carrierSchedule = new List<Schedule>(),
+                                                deliveryChannel = "delivery",
+                                                weekendAndHolidays = new WeekendAndHolidays(),
+                                                pickupAddress = null,
+                                            };
 
-                                        rateResponse.carrierBusinessHours = new BusinessHour[7];
-                                        for (int day = 0; day < 7; day++) {
-                                            rateResponse.carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, new TimeSpan(0, 0, 0).ToString(), new TimeSpan(23, 59, 59).ToString());
+                                            rateResponse.price += Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargePercent / 100) * rateResponse.price + Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargeFlatRate);
+
+                                            rateResponse.carrierBusinessHours = new BusinessHour[7];
+                                            for (int day = 0; day < 7; day++) {
+                                                rateResponse.carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, new TimeSpan(0, 0, 0).ToString(), new TimeSpan(23, 59, 59).ToString());
+                                            }
+
+                                            getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
                                         }
-
-                                        getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
                                     }
                                 }
+
+                                getRatesResponseWrapper.Success = true;
                             }
 
-                            getRatesResponseWrapper.Success = true;
+                            ShowNotifications(reply);
+                            foreach(Notification notification in reply.Notifications)
+                            {
+                                getRatesResponseWrapper.Notifications.Add(notification);
+                            }
                         }
-
-                        ShowNotifications(reply);
-                        foreach(Notification notification in reply.Notifications)
+                        catch (Exception e)
                         {
-                            getRatesResponseWrapper.Notifications.Add(notification);
+                            Console.WriteLine($"Exception: {e.Message}");
+                            Console.WriteLine($"Exception: {e.InnerException}");
+                            Console.WriteLine($"Exception: {e.StackTrace}");
+                            getRatesResponseWrapperParent.Error.Add(e.Message);
                         }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine($"Exception: {e.Message}");
-                        Console.WriteLine($"Exception: {e.InnerException}");
-                        Console.WriteLine($"Exception: {e.StackTrace}");
-                        getRatesResponseWrapperParent.Error.Add(e.Message);
-                    }
 
-                    getRatesResponseWrapperParent.GetRatesResponses.AddRange(getRatesResponseWrapper.GetRatesResponses);
-                    getRatesResponseWrapperParent.Notifications.AddRange(getRatesResponseWrapper.Notifications);
-                    getRatesResponseWrapperParent.timeSpan = getRatesResponseWrapper.timeSpan;
-                    getRatesResponseWrapperParent.Success = getRatesResponseWrapperParent.Success && getRatesResponseWrapper.Success;
+                        getRatesResponseWrapperParent.GetRatesResponses.AddRange(getRatesResponseWrapper.GetRatesResponses);
+                        getRatesResponseWrapperParent.Notifications.AddRange(getRatesResponseWrapper.Notifications);
+                        getRatesResponseWrapperParent.timeSpan = getRatesResponseWrapper.timeSpan;
+                        getRatesResponseWrapperParent.Success = getRatesResponseWrapperParent.Success && getRatesResponseWrapper.Success;
+                    }
+                }
+
+                // Only cache if the response is successful
+                if (getRatesResponseWrapperParent.Success) {
+                    await _fedExCacheRespository.SetCache(cacheKey, getRatesResponseWrapperParent);
                 }
             }
             return getRatesResponseWrapperParent;

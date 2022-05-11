@@ -15,7 +15,6 @@
   "admin/fedex-shipping.credKey": "admin/fedex-shipping.credKey",
   "admin/fedex-shipping.credPwd": "admin/fedex-shipping.credPwd",
   "admin/fedex-shipping.unitsMeasurement": "admin/fedex-shipping.unitsMeasurement",
-  "admin/fedex-shipping.hiddenSLA": "admin/fedex-shipping.hiddenSLA",
   "admin/fedex-shipping.modalMap": "admin/fedex-shipping.modalMap",
   "admin/fedex-shipping.modalMap.description": "admin/fedex-shipping.modalMap.description",
   "admin/fedex-shipping.modalTableHeader": "admin/fedex-shipping.modalTableHeader",
