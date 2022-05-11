@@ -67,14 +67,14 @@ namespace FedexShipping.Data
                 success = await CacheRatesResponse(cacheKey, fedexRatesCache);
                 if (success)
                 {
-                    await _cachedKeys.AddCacheKey(cacheKey);
+                    _cachedKeys.AddCacheKey(cacheKey);
                 }
 
-                List<int> keysToRemove = await _cachedKeys.ListExpiredKeys();
+                List<int> keysToRemove = _cachedKeys.ListExpiredKeys();
                 foreach (int cacheKeyToRemove in keysToRemove)
                 {
                     await CacheRatesResponse(cacheKey, null);
-                    await _cachedKeys.RemoveCacheKey(cacheKey);
+                    _cachedKeys.RemoveCacheKey(cacheKey);
                 }
             }
             catch (Exception ex)

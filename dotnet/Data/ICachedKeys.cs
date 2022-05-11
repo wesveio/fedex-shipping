@@ -5,8 +5,8 @@ namespace FedexShipping.Data
 {
     public interface ICachedKeys
     {
-        Task AddCacheKey(int cacheKey);
-        Task RemoveCacheKey(int cacheKey);
-        Task<List<int>> ListExpiredKeys();
+        void AddCacheKey(int cacheKey);
+        void RemoveCacheKey(int cacheKey);
+        List<int> ListExpiredKeys();
     }
 }
