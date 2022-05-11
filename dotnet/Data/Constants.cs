@@ -1,6 +1,6 @@
 namespace FedexShipping.Data
 {
-    public class Constants
+    public static class Constants
     {
         public const string SETTINGS_NAME = "merchantSettings";
         public const string SETTINGS_BUCKET = "shipping_utilities";

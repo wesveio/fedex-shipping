@@ -6,9 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added caching for the getRates function
+
 ## [1.10.0] - 2022-05-09
 
-### Addedd
+### Added
 
 - Added a new table for surcharges and hiding SLAs
 

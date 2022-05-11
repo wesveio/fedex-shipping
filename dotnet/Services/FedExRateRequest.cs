@@ -124,10 +124,6 @@
                             if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
                             {
                                 ShowRateReply(reply);
-                                int totalQuantity = 0;
-                                foreach (Item item in getRatesRequest.items) {
-                                    totalQuantity += item.quantity;
-                                }
 
                                 Dictionary<string, double> ratesRatio = CalculateRatesRatio(getRatesRequest.items);
                                 foreach(RateReplyDetail detail in reply.RateReplyDetails)
@@ -187,7 +183,10 @@
                     }
                 }
 
-                await _fedExCacheRespository.SetCache(cacheKey, getRatesResponseWrapperParent);
+                // Only cache if the response is successful
+                if (getRatesResponseWrapperParent.Success) {
+                    await _fedExCacheRespository.SetCache(cacheKey, getRatesResponseWrapperParent);
+                }
             }
             return getRatesResponseWrapperParent;
         }

@@ -21,7 +21,7 @@ namespace FedexShipping.Data
 
         public async Task RemoveCacheKey(int cacheKey)
         {
-            bool removed = this._cacheKeys.Remove(cacheKey);
+            this._cacheKeys.Remove(cacheKey);
         }
 
         public async Task<List<int>> ListExpiredKeys()
