@@ -29,6 +29,8 @@ import {
   TabPanel,
   Tab,
   TabList,
+  IconGearSix,
+  IconStorefront,
   useCheckboxState as UseCheckboxState,
   useCollapsibleState as UseCollapsibleState,
   useDropdownState as UseDropdownState,
@@ -90,7 +92,7 @@ const Configurations: FC = () => {
 
   const [saveAppSetting] = useMutation(SaveAppSetting)
 
-  const tabState = UseTabState({ selectedId: '2' })
+  const tabState = UseTabState({ selectedId: '1' })
 
   useEffect(() => {
     if (!data?.getAppSettings) return
@@ -234,7 +236,7 @@ const Configurations: FC = () => {
             return (
               <Set>
                 <Input
-                  id={item.id}
+                  id={`${item.id}-flat`}
                   label="Flat Rate Surcharge"
                   charLimit={7}
                   value={item.surchargeFlatRate}
@@ -271,7 +273,7 @@ const Configurations: FC = () => {
             return (
               <Set>
                 <Input
-                  id={item.id}
+                  id={`${item.id}-pct`}
                   label="Percent Surcharge"
                   suffix="%"
                   charLimit={3}
@@ -389,14 +391,17 @@ const Configurations: FC = () => {
     <PageContent>
       <Tabs state={tabState}>
         <TabList fluid aria-label="fluid-tabs">
-          <Tab id="1">Settings</Tab>
-          <Tab id="2">Dock Settings</Tab>
+          <Tab id="1" csx={{ fontSize: '1.25rem' }}>
+            <IconGearSix size="small" />
+            App Settings
+          </Tab>
+          <Tab id="2" csx={{ fontSize: '1.25rem' }}>
+            <IconStorefront size="small" />
+            Dock Configurations
+          </Tab>
         </TabList>
         <TabPanel id="1" csx={{ padding: 3 }}>
           <Set orientation="vertical" spacing={2}>
-            <Heading className="pt6">
-              {formatMessage({ id: 'admin/fedex-shipping.settings' })}
-            </Heading>
             <Input
               csx={{ width: 250 }}
               id="meter"
