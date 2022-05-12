@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Allow users to connect docks to the app
+- Allow users to remove docks from the app
+
 ## [1.11.0] - 2022-05-11
 
 ### Added

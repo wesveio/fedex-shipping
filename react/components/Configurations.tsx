@@ -25,15 +25,21 @@ import {
   Center,
   Dropdown,
   Tooltip,
+  Tabs,
+  TabPanel,
+  Tab,
+  TabList,
   useCheckboxState as UseCheckboxState,
   useCollapsibleState as UseCollapsibleState,
   useDropdownState as UseDropdownState,
+  useTabState as UseTabState,
 } from '@vtex/admin-ui'
 import { useQuery, useMutation } from 'react-apollo'
 
 import AppSettings from '../queries/getAppSettings.gql'
 import SaveAppSetting from '../mutations/saveAppSetting.gql'
 import { fedexHandling } from '../utils/constants'
+import DockConfig from './DockConfig'
 
 const Configurations: FC = () => {
   const { formatMessage } = useIntl()
@@ -83,6 +89,8 @@ const Configurations: FC = () => {
   } = state
 
   const [saveAppSetting] = useMutation(SaveAppSetting)
+
+  const tabState = UseTabState({ selectedId: '2' })
 
   useEffect(() => {
     if (!data?.getAppSettings) return
@@ -379,132 +387,156 @@ const Configurations: FC = () => {
 
   return (
     <PageContent>
-      <Set orientation="vertical" spacing={2}>
-        <Heading className="pt6">
-          {formatMessage({ id: 'admin/fedex-shipping.settings' })}
-        </Heading>
-        <Input
-          csx={{ width: 250 }}
-          id="meter"
-          label={formatMessage({ id: 'admin/fedex-shipping.meter' })}
-          value={clientDetailMeterNumber}
-          onChange={(e) =>
-            setState({ ...state, clientDetailMeterNumber: e.target.value })
-          }
-        />
-        <Input
-          csx={{ width: 250 }}
-          id="accountNumber"
-          label={formatMessage({ id: 'admin/fedex-shipping.accountNum' })}
-          value={clientDetailAccountNumber}
-          onChange={(e) =>
-            setState({ ...state, clientDetailAccountNumber: e.target.value })
-          }
-        />
-        <InputPassword
-          csx={{ width: 250 }}
-          id="credentialKey"
-          label={formatMessage({ id: 'admin/fedex-shipping.credKey' })}
-          value={userCredentialKey}
-          onChange={(e) =>
-            setState({ ...state, userCredentialKey: e.target.value })
-          }
-        />
-        <InputPassword
-          csx={{ width: 250 }}
-          id="credentialPwd"
-          label={formatMessage({ id: 'admin/fedex-shipping.credPwd' })}
-          value={userCredentialPassword}
-          onChange={(e) =>
-            setState({ ...state, userCredentialPassword: e.target.value })
-          }
-        />
-        <Set orientation="horizontal" spacing={2}>
-          <Toggle
-            aria-label="label"
-            checked={isLive}
-            onChange={() => setState({ ...state, isLive: !isLive })}
-          />
-          <Label>{formatMessage({ id: 'admin/fedex-shipping.isLive' })}</Label>
-        </Set>
-        <Set orientation="horizontal" spacing={2}>
-          <Toggle
-            aria-label="label"
-            checked={residential}
-            onChange={() => setState({ ...state, residential: !residential })}
-          />
-          <Label>
-            {formatMessage({ id: 'admin/fedex-shipping.residential' })}
-          </Label>
-        </Set>
-        <Set orientation="horizontal" spacing={2}>
-          <Toggle
-            aria-label="label"
-            checked={optimizeShipping}
-            onChange={() =>
-              setState({ ...state, optimizeShipping: !optimizeShipping })
-            }
-          />
-          <Label>
-            {formatMessage({ id: 'admin/fedex-shipping.optimizeShipping' })}
-          </Label>
-        </Set>
-      </Set>
-      <Set orientation="vertical" spacing={2}>
-        <Heading className="pt6">
-          {formatMessage({ id: 'admin/fedex-shipping.unitsMeasurement' })}
-        </Heading>
-        <Select
-          label={formatMessage({ id: 'admin/fedex-shipping.weight' })}
-          value={unitWeight ?? 'LB'}
-          onChange={(e) => setState({ ...state, unitWeight: e.target.value })}
-        >
-          <option value="LB">
-            {formatMessage({ id: 'admin/fedex-shipping.lb' })}
-          </option>
-          <option value="KG">
-            {formatMessage({ id: 'admin/fedex-shipping.kg' })}
-          </option>
-          <option value="G">
-            {formatMessage({ id: 'admin/fedex-shipping.g' })}
-          </option>
-        </Select>
-        <Select
-          label={formatMessage({ id: 'admin/fedex-shipping.dimensions' })}
-          value={unitDimension ?? 'IN'}
-          onChange={(e) =>
-            setState({ ...state, unitDimension: e.target.value })
-          }
-        >
-          <option value="IN">
-            {formatMessage({ id: 'admin/fedex-shipping.in' })}
-          </option>
-          <option value="CM">
-            {formatMessage({ id: 'admin/fedex-shipping.cm' })}
-          </option>
-        </Select>
-      </Set>
-      <Set orientation="vertical" spacing={1}>
-        <Heading className="pt3">
-          {formatMessage({ id: 'admin/fedex-shipping.modifySLA' })}
-        </Heading>
-        <Text variant="body">
-          {formatMessage({ id: 'admin/fedex-shipping.modifySLA.description' })}
-        </Text>
-        {generateSLAMapping()}
-      </Set>
-      <Set orientation="vertical" spacing={1}>
-        <Heading className="pt3">
-          {formatMessage({ id: 'admin/fedex-shipping.modalMap' })}
-        </Heading>
-        <Text variant="body">
-          {formatMessage({ id: 'admin/fedex-shipping.modalMap.description' })}
-        </Text>
-        {generateItemModalMapping()}
-      </Set>
-      <Button variant="primary" onClick={() => handleSave()}>
-        {formatMessage({ id: 'admin/fedex-shipping.saveSettings' })}
-      </Button>
+      <Tabs state={tabState}>
+        <TabList fluid aria-label="fluid-tabs">
+          <Tab id="1">Settings</Tab>
+          <Tab id="2">Dock Settings</Tab>
+        </TabList>
+        <TabPanel id="1" csx={{ padding: 3 }}>
+          <Set orientation="vertical" spacing={2}>
+            <Heading className="pt6">
+              {formatMessage({ id: 'admin/fedex-shipping.settings' })}
+            </Heading>
+            <Input
+              csx={{ width: 250 }}
+              id="meter"
+              label={formatMessage({ id: 'admin/fedex-shipping.meter' })}
+              value={clientDetailMeterNumber}
+              onChange={(e) =>
+                setState({ ...state, clientDetailMeterNumber: e.target.value })
+              }
+            />
+            <Input
+              csx={{ width: 250 }}
+              id="accountNumber"
+              label={formatMessage({ id: 'admin/fedex-shipping.accountNum' })}
+              value={clientDetailAccountNumber}
+              onChange={(e) =>
+                setState({
+                  ...state,
+                  clientDetailAccountNumber: e.target.value,
+                })
+              }
+            />
+            <InputPassword
+              csx={{ width: 250 }}
+              id="credentialKey"
+              label={formatMessage({ id: 'admin/fedex-shipping.credKey' })}
+              value={userCredentialKey}
+              onChange={(e) =>
+                setState({ ...state, userCredentialKey: e.target.value })
+              }
+            />
+            <InputPassword
+              csx={{ width: 250 }}
+              id="credentialPwd"
+              label={formatMessage({ id: 'admin/fedex-shipping.credPwd' })}
+              value={userCredentialPassword}
+              onChange={(e) =>
+                setState({ ...state, userCredentialPassword: e.target.value })
+              }
+            />
+            <Set orientation="horizontal" spacing={2}>
+              <Toggle
+                aria-label="label"
+                checked={isLive}
+                onChange={() => setState({ ...state, isLive: !isLive })}
+              />
+              <Label>
+                {formatMessage({ id: 'admin/fedex-shipping.isLive' })}
+              </Label>
+            </Set>
+            <Set orientation="horizontal" spacing={2}>
+              <Toggle
+                aria-label="label"
+                checked={residential}
+                onChange={() =>
+                  setState({ ...state, residential: !residential })
+                }
+              />
+              <Label>
+                {formatMessage({ id: 'admin/fedex-shipping.residential' })}
+              </Label>
+            </Set>
+            <Set orientation="horizontal" spacing={2}>
+              <Toggle
+                aria-label="label"
+                checked={optimizeShipping}
+                onChange={() =>
+                  setState({ ...state, optimizeShipping: !optimizeShipping })
+                }
+              />
+              <Label>
+                {formatMessage({ id: 'admin/fedex-shipping.optimizeShipping' })}
+              </Label>
+            </Set>
+          </Set>
+          <Set orientation="vertical" spacing={2}>
+            <Heading className="pt6">
+              {formatMessage({ id: 'admin/fedex-shipping.unitsMeasurement' })}
+            </Heading>
+            <Select
+              label={formatMessage({ id: 'admin/fedex-shipping.weight' })}
+              value={unitWeight ?? 'LB'}
+              onChange={(e) =>
+                setState({ ...state, unitWeight: e.target.value })
+              }
+            >
+              <option value="LB">
+                {formatMessage({ id: 'admin/fedex-shipping.lb' })}
+              </option>
+              <option value="KG">
+                {formatMessage({ id: 'admin/fedex-shipping.kg' })}
+              </option>
+              <option value="G">
+                {formatMessage({ id: 'admin/fedex-shipping.g' })}
+              </option>
+            </Select>
+            <Select
+              label={formatMessage({ id: 'admin/fedex-shipping.dimensions' })}
+              value={unitDimension ?? 'IN'}
+              onChange={(e) =>
+                setState({ ...state, unitDimension: e.target.value })
+              }
+            >
+              <option value="IN">
+                {formatMessage({ id: 'admin/fedex-shipping.in' })}
+              </option>
+              <option value="CM">
+                {formatMessage({ id: 'admin/fedex-shipping.cm' })}
+              </option>
+            </Select>
+          </Set>
+          <Set orientation="vertical" spacing={1}>
+            <Heading className="pt3">
+              {formatMessage({ id: 'admin/fedex-shipping.modifySLA' })}
+            </Heading>
+            <Text variant="body">
+              {formatMessage({
+                id: 'admin/fedex-shipping.modifySLA.description',
+              })}
+            </Text>
+            {generateSLAMapping()}
+          </Set>
+          <Set orientation="vertical" spacing={1}>
+            <Heading className="pt3">
+              {formatMessage({ id: 'admin/fedex-shipping.modalMap' })}
+            </Heading>
+            <Text variant="body">
+              {formatMessage({
+                id: 'admin/fedex-shipping.modalMap.description',
+              })}
+            </Text>
+            {generateItemModalMapping()}
+          </Set>
+          <Button variant="primary" onClick={() => handleSave()}>
+            {formatMessage({ id: 'admin/fedex-shipping.saveSettings' })}
+          </Button>
+        </TabPanel>
+        <TabPanel id="2" csx={{ padding: 3 }}>
+          <DockConfig />
+        </TabPanel>
+      </Tabs>
     </PageContent>
   )
 }

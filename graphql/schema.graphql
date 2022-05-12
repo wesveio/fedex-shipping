@@ -1,5 +1,6 @@
 type Query {
   getAppSettings: AppSetting @cacheControl(scope: PRIVATE)
+  getDocks: LogisticsDockList @cacheControl(scope: PRIVATE)
 }
 
 type ItemModal {
@@ -29,6 +30,16 @@ type AppSetting {
   unitDimension: String
   itemModals: [ItemModal]
   slaSettings: [SlaSettings]
+}
+
+type LogisticsDockList {
+  docksList: [LogisticsDocks]
+}
+
+type LogisticsDocks {
+  id: String
+  name: String
+  shippingRatesProviders: [String]
 }
 
 input ItemModalInput {
