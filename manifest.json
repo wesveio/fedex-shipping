@@ -1,7 +1,7 @@
 {
   "name": "fedex-shipping",
   "vendor": "vtexus",
-  "version": "1.11.0",
+  "version": "1.12.0-beta.6",
   "title": "FedEx Shipping",
   "description": "An app for interfacing with FedEx to provide rates and tracking information.",
   "scripts": {
@@ -60,14 +60,7 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "logistics.vtexcommercebeta.com.br",
-        "path": "/api/logistics/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "logistics.vtexcommercestable.com.br",
+        "host": "{{account}}.vtexcommercestable.com.br",
         "path": "/api/logistics/*"
       }
     },

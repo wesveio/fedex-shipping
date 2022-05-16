@@ -16,6 +16,7 @@ namespace FedexShipping.Data
     public class LogisticsRepository : ILogisticsRepository
     {
         private readonly string _applicationName;
+        private readonly string _env;
 
         private readonly IVtexEnvironmentVariableProvider _environmentVariableProvider;
 
@@ -42,16 +43,17 @@ namespace FedexShipping.Data
                                
             this._applicationName =
                 $"{this._environmentVariableProvider.ApplicationVendor}.{this._environmentVariableProvider.ApplicationName}";
+            
+            this._env = string.Equals(this._environmentVariableProvider.Workspace, "master") ? "vtexcommercestable" : "vtexcommercebeta";
         }
 
         public async Task<LogisticsDocksListWrapper> GetDocks() {
             LogisticsDocksListWrapper dockList = new LogisticsDocksListWrapper();
 
-            string beta = "vtexcommercebeta";
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"http://logistics.{beta}.com.br/api/logistics/pvt/configuration/docks?an={this._environmentVariableProvider.Account}")
+                RequestUri = new Uri($"http://{this._context.Vtex.Account}.{this._env}.com.br/api/logistics/pvt/configuration/docks")
             };
 
             string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
@@ -86,18 +88,17 @@ namespace FedexShipping.Data
             List<string> shippingRatesProviders = ((JArray) requestBody["shippingRatesProviders"]).ToObject<List<string>>();
 
             if (updateDockRequest.ToRemove) {
-                shippingRatesProviders.Remove("vtexus.fedex-shipping");
+                shippingRatesProviders.RemoveAll(provider => string.Equals(provider, "vtexus.fedex-shipping"));
             } else {
                 shippingRatesProviders.Add("vtexus.fedex-shipping");
             }
 
             requestBody["shippingRatesProviders"] = JToken.Parse(JsonConvert.SerializeObject(shippingRatesProviders));
 
-            string beta = "vtexcommercebeta";
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                RequestUri = new Uri($"http://{this._environmentVariableProvider.Account}.{beta}.com.br/api/logistics/pvt/configuration/docks"),
+                RequestUri = new Uri($"http://{this._context.Vtex.Account}.{this._env}.com.br/api/logistics/pvt/configuration/docks"),
                 Content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, Constants.APPLICATION_JSON)
             };
 
@@ -115,11 +116,10 @@ namespace FedexShipping.Data
 
         public async Task<bool> SetDocks(UpdateDockRequest updateDockRequest) {
             
-            string beta = "vtexcommercebeta";
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"http://{this._environmentVariableProvider.Account}.{beta}.com.br/api/logistics/pvt/configuration/docks/{updateDockRequest.DockId}")
+                RequestUri = new Uri($"http://{this._context.Vtex.Account}.{this._env}.com.br/api/logistics/pvt/configuration/docks/{updateDockRequest.DockId}")
             };
 
             string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
