@@ -9,36 +9,79 @@ import {
   Pagination,
   DataViewControls,
   DataView,
+  Toggle,
+  Set,
+  useToast,
   useDataGridState,
   usePaginationState,
   useDataViewState,
 } from '@vtex/admin-ui'
-import { useQuery } from 'react-apollo'
+import { useMutation, useQuery } from 'react-apollo'
 
 import GetDocks from '../queries/getDocks.gql'
+import UpdateDockConnection from '../mutations/updateDockConnection.gql'
 
 const DockConfig: FC = () => {
   const { data } = useQuery(GetDocks, {
     ssr: false,
   })
 
+  const showToast = useToast()
+
+  const [updateDockConnection] = useMutation(UpdateDockConnection)
+
   const view = useDataViewState()
 
   const [state, setState] = useState<{
     docksList: any[]
+    dockEnabled: {
+      [name: string]: boolean
+    }
   }>({
     docksList: [],
+    dockEnabled: {},
   })
 
-  const { docksList } = state
+  const { docksList, dockEnabled } = state
 
   useEffect(() => {
     if (!data?.getDocks) return
 
     const { getDocks } = data
 
-    setState({ ...getDocks })
+    const dockEnabledMap: any = {}
+
+    getDocks.docksList.forEach((dock: any) => {
+      dockEnabledMap[dock.id] = dock.shippingRatesProviders.includes(
+        'vtexus.fedex-shipping'
+      )
+    })
+
+    setState({ ...getDocks, dockEnabled: dockEnabledMap })
   }, [data])
+
+  const toggleDock = (dockId: string) => {
+    dockEnabled[dockId] = !dockEnabled[dockId]
+
+    updateDockConnection({
+      variables: {
+        updateDock: {
+          dockId,
+          toRemove: !dockEnabled[dockId],
+        },
+      },
+    }).then((result: any) => {
+      setState({ ...state, dockEnabled })
+
+      const message = result?.data?.updateDockConnection
+        ? 'Dock Updated'
+        : 'Please Try Again'
+
+      showToast({
+        message,
+      })
+    })
+  }
 
   const pagination = usePaginationState({
     pageSize: 10,
@@ -65,15 +108,32 @@ const DockConfig: FC = () => {
           type: 'plain',
           render: ({ item }) => {
             return (
-              <Center>
-                {item.shippingRatesProviders.includes(
-                  'vtexus.fedex-shipping'
-                ) ? (
-                  <IconCheckCircle />
-                ) : (
-                  <IconWarning />
-                )}
-              </Center>
+              <Set>
+                <Center>
+                  {dockEnabled[item.id] ? <IconCheckCircle /> : <IconWarning />}
+                </Center>
+              </Set>
+            )
+          },
+        },
+      },
+      {
+        id: 'changeConnection',
+        header: 'Change Status',
+        accessor: 'shippingRatesProviders',
+        resolver: {
+          type: 'plain',
+          render: ({ item }) => {
+            return (
+              <Set>
+                <Center>
+                  <Toggle
+                    aria-label="label"
+                    checked={dockEnabled[item.id]}
+                    onChange={() => toggleDock(item.id)}
+                  />
+                </Center>
+              </Set>
             )
           },
         },

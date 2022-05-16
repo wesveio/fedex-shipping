@@ -71,7 +71,14 @@ input AppSettingsInput {
   slaSettings: [SlaSettingsInput]
 }
 
+input UpdateDockInput {
+  dockId: String
+  toRemove: Boolean
+}
+
 type Mutation {
   saveAppSetting(appSetting: AppSettingsInput): Boolean
+    @cacheControl(scope: PRIVATE)
+  updateDockConnection(updateDock: UpdateDockInput): Boolean
     @cacheControl(scope: PRIVATE)
 }

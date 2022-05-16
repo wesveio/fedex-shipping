@@ -6,6 +6,6 @@ namespace FedexShipping.Data
     public interface ILogisticsRepository
     {
         Task<LogisticsDocksListWrapper> GetDocks();
-        bool SetDocks();
+        Task<bool> SetDocks(UpdateDockRequest updateDockRequest);
     }
 }

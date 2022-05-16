@@ -4,6 +4,7 @@ namespace FedexShipping.Data
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;
+    using System.Text;
     using Vtex.Api.Context;
     using FedexShipping.Models;
     using FedexShipping.Services;
@@ -81,8 +82,64 @@ namespace FedexShipping.Data
             return dockList;
         }
 
-        public bool SetDocks() {
-            return true;
+        public async Task<bool> ChangeShippingProviders(UpdateDockRequest updateDockRequest, JObject requestBody) {
+            List<string> shippingRatesProviders = ((JArray) requestBody["shippingRatesProviders"]).ToObject<List<string>>();
+
+            if (updateDockRequest.ToRemove) {
+                shippingRatesProviders.Remove("vtexus.fedex-shipping");
+            } else {
+                shippingRatesProviders.Add("vtexus.fedex-shipping");
+            }
+
+            requestBody["shippingRatesProviders"] = JToken.Parse(JsonConvert.SerializeObject(shippingRatesProviders));
+
+            string beta = "vtexcommercebeta";
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri($"http://{this._environmentVariableProvider.Account}.{beta}.com.br/api/logistics/pvt/configuration/docks"),
+                Content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, Constants.APPLICATION_JSON)
+            };
+
+            string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
+            if (authToken != null)
+            {
+                request.Headers.Add(Constants.VTEX_ID_HEADER_NAME, authToken);
+                request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
+            }
+
+            var client = _clientFactory.CreateClient();
+            var response = await client.SendAsync(request);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> SetDocks(UpdateDockRequest updateDockRequest) {
+            
+            string beta = "vtexcommercebeta";
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"http://{this._environmentVariableProvider.Account}.{beta}.com.br/api/logistics/pvt/configuration/docks/{updateDockRequest.DockId}")
+            };
+
+            string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
+            if (authToken != null)
+            {
+                request.Headers.Add(Constants.VTEX_ID_HEADER_NAME, authToken);
+                request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
+            }
+
+            var client = _clientFactory.CreateClient();
+            var response = await client.SendAsync(request);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                JObject parsedObject = JObject.Parse(responseContent);
+                var isSuccessChange = await ChangeShippingProviders(updateDockRequest, parsedObject);
+                return isSuccessChange;
+            }
+
+            return false;
         }
     }
 }

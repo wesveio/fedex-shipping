@@ -53,6 +53,13 @@
     {
       "name": "outbound-access",
       "attrs": {
+        "host": "{{account}}.vtexcommercebeta.com.br",
+        "path": "/api/logistics/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
         "host": "logistics.vtexcommercebeta.com.br",
         "path": "/api/logistics/*"
       }
