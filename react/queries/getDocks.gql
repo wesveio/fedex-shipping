@@ -1,0 +1,9 @@
+query GetDocks {
+  getDocks {
+    docksList {
+      id
+      name
+      shippingRatesProviders
+    }
+  }
+}

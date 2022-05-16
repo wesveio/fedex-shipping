@@ -1,5 +1,6 @@
 type Query {
   getAppSettings: AppSetting @cacheControl(scope: PRIVATE)
+  getDocks: LogisticsDockList @cacheControl(scope: PRIVATE)
 }
 
 type ItemModal {
@@ -31,6 +32,16 @@ type AppSetting {
   slaSettings: [SlaSettings]
 }
 
+type LogisticsDockList {
+  docksList: [LogisticsDocks]
+}
+
+type LogisticsDocks {
+  id: String
+  name: String
+  shippingRatesProviders: [String]
+}
+
 input ItemModalInput {
   modal: String
   fedexHandling: String
@@ -60,7 +71,14 @@ input AppSettingsInput {
   slaSettings: [SlaSettingsInput]
 }
 
+input UpdateDockInput {
+  dockId: String
+  toRemove: Boolean
+}
+
 type Mutation {
   saveAppSetting(appSetting: AppSettingsInput): Boolean
+    @cacheControl(scope: PRIVATE)
+  updateDockConnection(updateDock: UpdateDockInput): Boolean
     @cacheControl(scope: PRIVATE)
 }

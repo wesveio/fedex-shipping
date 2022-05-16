@@ -9,9 +9,7 @@
   },
   "billingOptions": {
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "dependencies": {
     "vtex.styleguide": "9.x",
@@ -50,6 +48,20 @@
       "attrs": {
         "host": "{{account}}.vtexcommercestable.com.br",
         "path": "/api/dataentities/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{account}}.vtexcommercebeta.com.br",
+        "path": "/api/logistics/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{account}}.vtexcommercestable.com.br",
+        "path": "/api/logistics/*"
       }
     },
     {
