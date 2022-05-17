@@ -397,11 +397,15 @@ const Configurations: FC = () => {
           </Tab>
           <Tab id="2" csx={{ fontSize: '1.25rem' }}>
             <IconStorefront size="small" />
+            Advance Configurations
+          </Tab>
+          <Tab id="3" csx={{ fontSize: '1.25rem' }}>
+            <IconStorefront size="small" />
             Dock Configurations
           </Tab>
         </TabList>
         <TabPanel id="1" csx={{ padding: 3 }}>
-          <Set orientation="vertical" spacing={2}>
+          <Set orientation="vertical" spacing={2} className="pb6">
             <Input
               csx={{ width: 250 }}
               id="meter"
@@ -476,6 +480,11 @@ const Configurations: FC = () => {
               </Label>
             </Set>
           </Set>
+          <Button variant="primary" onClick={() => handleSave()}>
+            {formatMessage({ id: 'admin/fedex-shipping.saveSettings' })}
+          </Button>
+        </TabPanel>
+        <TabPanel id="2" csx={{ padding: 3 }}>
           <Set orientation="vertical" spacing={2}>
             <Heading className="pt6">
               {formatMessage({ id: 'admin/fedex-shipping.unitsMeasurement' })}
@@ -534,11 +543,8 @@ const Configurations: FC = () => {
             </Text>
             {generateItemModalMapping()}
           </Set>
-          <Button variant="primary" onClick={() => handleSave()}>
-            {formatMessage({ id: 'admin/fedex-shipping.saveSettings' })}
-          </Button>
         </TabPanel>
-        <TabPanel id="2" csx={{ padding: 3 }}>
+        <TabPanel id="3" csx={{ padding: 3 }}>
           <DockConfig />
         </TabPanel>
       </Tabs>
