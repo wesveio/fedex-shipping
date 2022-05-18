@@ -41,7 +41,7 @@ const AdvanceConfigurations: FC<any> = (props: any) => {
 
     newSlaSettings[id][surchargeType] = value
 
-    props.setSlaSurcharge(newSlaSettings)
+    props.setChange('slaSettings', newSlaSettings)
   }
 
   const modalGridState = useDataGridState({
@@ -286,7 +286,7 @@ const AdvanceConfigurations: FC<any> = (props: any) => {
         <Select
           label={formatMessage({ id: 'admin/fedex-shipping.weight' })}
           value={props.unitWeight ?? 'LB'}
-          onChange={(e) => props.setUnitWeights(e.target.value)}
+          onChange={(e) => props.setChange('unitWeight', e.target.value)}
         >
           <option value="LB">
             {formatMessage({ id: 'admin/fedex-shipping.lb' })}
@@ -301,7 +301,7 @@ const AdvanceConfigurations: FC<any> = (props: any) => {
         <Select
           label={formatMessage({ id: 'admin/fedex-shipping.dimensions' })}
           value={props.unitDimension ?? 'IN'}
-          onChange={(e) => props.setDimensions(e.target.value)}
+          onChange={(e) => props.setChange('unitDimension', e.target.value)}
         >
           <option value="IN">
             {formatMessage({ id: 'admin/fedex-shipping.in' })}
@@ -341,10 +341,8 @@ const AdvanceConfigurations: FC<any> = (props: any) => {
 }
 
 AdvanceConfigurations.defaultProps = {
-  setDimensions: () => undefined,
-  setUnitWeights: () => undefined,
   handleAdvanceSave: () => undefined,
-  setSlaSurcharge: () => undefined,
+  setChange: () => undefined,
   unitDimension: '',
   unitWeight: '',
   slaSettings: [],
@@ -352,10 +350,8 @@ AdvanceConfigurations.defaultProps = {
 }
 
 AdvanceConfigurations.propTypes = {
-  setDimensions: PropTypes.func,
-  setUnitWeights: PropTypes.func,
   handleAdvanceSave: PropTypes.func,
-  setSlaSurcharge: PropTypes.func,
+  setChange: PropTypes.func,
   unitDimension: PropTypes.string,
   unitWeight: PropTypes.string,
   slaSettings: PropTypes.array,

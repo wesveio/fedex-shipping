@@ -94,16 +94,8 @@ const Configurations: FC = () => {
     setState({ ...getAppSettings })
   }, [data])
 
-  const handleSetDimensions = (unitDimensionInput: string) => {
-    setState({ ...state, unitDimension: unitDimensionInput })
-  }
-
-  const handleSetUnitWeights = (unitWeightInput: string) => {
-    setState({ ...state, unitWeight: unitWeightInput })
-  }
-
-  const handleSetSurcharge = (slaSettingsInput: any[]) => {
-    setState({ ...state, slaSettings: slaSettingsInput })
+  const handleSetAdvanceSettings = (fieldName: string, newProp: any) => {
+    setState({ ...state, [fieldName]: newProp })
   }
 
   const showToast = useToast()
@@ -171,15 +163,15 @@ const Configurations: FC = () => {
         <TabList fluid aria-label="fluid-tabs">
           <Tab id="1" csx={{ fontSize: '1.25rem' }}>
             <IconGearSix size="small" />
-            App Settings
+            {formatMessage({ id: 'admin/fedex-shipping.appSettings' })}
           </Tab>
           <Tab id="2" csx={{ fontSize: '1.25rem' }}>
             <IconFaders size="small" />
-            Advance Configurations
+            {formatMessage({ id: 'admin/fedex-shipping.advanceConfig' })}
           </Tab>
           <Tab id="3" csx={{ fontSize: '1.25rem' }}>
             <IconStorefront size="small" />
-            Dock Configurations
+            {formatMessage({ id: 'admin/fedex-shipping.dockConfig' })}
           </Tab>
         </TabList>
         <TabPanel id="1" csx={{ padding: 3 }}>
@@ -264,10 +256,8 @@ const Configurations: FC = () => {
         </TabPanel>
         <TabPanel id="2" csx={{ padding: 3 }}>
           <AdvanceConfigurations
-            setDimensions={handleSetDimensions}
-            setUnitWeights={handleSetUnitWeights}
             handleAdvanceSave={handleSave}
-            setSlaSurcharge={handleSetSurcharge}
+            setChange={handleSetAdvanceSettings}
             unitDimension={unitDimension}
             unitWeight={unitWeight}
             slaSettings={slaSettings}

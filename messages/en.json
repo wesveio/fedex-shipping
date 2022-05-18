@@ -23,5 +23,8 @@
   "admin/fedex-shipping.optimizeShipping": "Optimizes Shipping: Packing all items into the largest item's box",
   "admin/fedex-shipping.residential": "Ship to Residential",
   "admin/fedex-shipping.modifySLA": "Modify SLA",
-  "admin/fedex-shipping.modifySLA.description": "Hide SLAs and Add Surcharges"
+  "admin/fedex-shipping.modifySLA.description": "Hide SLAs and Add Surcharges",
+  "admin/fedex-shipping.appSettings": "App Settings",
+  "admin/fedex-shipping.advanceConfig": "Advance Configurations",
+  "admin/fedex-shipping.dockConfig": "Dock Configurations"
 }
