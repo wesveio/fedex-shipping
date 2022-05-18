@@ -6,42 +6,26 @@ import {
   PageContent,
   Input,
   InputPassword,
-  Heading,
   Toggle,
   Button,
   useToast,
   Set,
-  Select,
   Label,
-  Checkbox,
-  Text,
-  Collapsible,
-  CollapsibleHeader,
-  CollapsibleContent,
-  useDataGridState,
-  DataGrid,
-  IconWarning,
-  IconCheckCircle,
-  Center,
-  Dropdown,
-  Tooltip,
   Tabs,
   TabPanel,
   Tab,
   TabList,
   IconGearSix,
+  IconFaders,
   IconStorefront,
-  useCheckboxState as UseCheckboxState,
-  useCollapsibleState as UseCollapsibleState,
-  useDropdownState as UseDropdownState,
   useTabState as UseTabState,
 } from '@vtex/admin-ui'
 import { useQuery, useMutation } from 'react-apollo'
 
 import AppSettings from '../queries/getAppSettings.gql'
 import SaveAppSetting from '../mutations/saveAppSetting.gql'
-import { fedexHandling } from '../utils/constants'
 import DockConfig from './DockConfig'
+import AdvanceConfigurations from './AdvanceConfigurations'
 
 const Configurations: FC = () => {
   const { formatMessage } = useIntl()
@@ -92,7 +76,7 @@ const Configurations: FC = () => {
 
   const [saveAppSetting] = useMutation(SaveAppSetting)
 
-  const tabState = UseTabState({ selectedId: '2' })
+  const tabState = UseTabState({ selectedId: '1' })
 
   useEffect(() => {
     if (!data?.getAppSettings) return
@@ -110,222 +94,21 @@ const Configurations: FC = () => {
     setState({ ...getAppSettings })
   }, [data])
 
-  // Prefills array of modal list size
-  const dropdownStates: any[] = Array(7).fill(0)
-
-  const checkboxModalStates: any[] = Array(10).fill(false)
-
-  const checkboxSlaStates: any[] = Array(9).fill(false)
-
-  const modalGridState = useDataGridState({
-    columns: [
-      {
-        id: 'modal',
-        header: 'Modal Name',
-        accessor: 'modal',
-      },
-      {
-        id: 'shipAlone',
-        header: 'Ship Alone',
-        accessor: 'shipAlone',
-        resolver: {
-          type: 'plain',
-          render: ({ item }) => {
-            checkboxModalStates[item.id] = UseCheckboxState({
-              state: item.shipAlone,
-            })
-
-            return (
-              <Checkbox
-                csx={{ margin: 'auto' }}
-                state={checkboxModalStates[item.id]}
-              />
-            )
-          },
-        },
-      },
-      {
-        id: 'fedexHandling',
-        header: 'FedEx Handling Method',
-        accessor: 'fedexHandling',
-        resolver: {
-          type: 'plain',
-          render: ({ item }) => {
-            dropdownStates[item.id] = UseDropdownState({
-              items: fedexHandling,
-              initialSelectedItem: item.fedexHandling,
-            })
-
-            const isDangerousGoods = !dropdownStates[item.id]?.selectedItem
-              ? item.fedexHandling === 'NONE'
-              : dropdownStates[item.id]?.selectedItem === 'NONE'
-
-            return (
-              <Set>
-                <Dropdown
-                  variant="secondary"
-                  csx={{ width: 300 }}
-                  items={fedexHandling}
-                  state={dropdownStates[item.id]}
-                  label="fedexHandling"
-                />
-                <Center>
-                  {isDangerousGoods ? (
-                    <Tooltip label="No Special Handling" placement="right">
-                      <IconCheckCircle />
-                    </Tooltip>
-                  ) : (
-                    <Tooltip
-                      label="Dangerous Goods. Requires FedEx Special Handling"
-                      placement="right"
-                    >
-                      <IconWarning />
-                    </Tooltip>
-                  )}
-                </Center>
-              </Set>
-            )
-          },
-        },
-      },
-    ],
-    items,
-  })
-
-  const setSurcharge = (value: number, surchargeType: string, id: number) => {
-    const newSlaSettings = slaSettings
-
-    newSlaSettings[id][surchargeType] = value
-    setState({ ...state, slaSettings: newSlaSettings })
+  const handleSetDimensions = (unitDimensionInput: string) => {
+    setState({ ...state, unitDimension: unitDimensionInput })
   }
 
-  const slaGridState = useDataGridState({
-    columns: [
-      {
-        id: 'sla',
-        header: 'SLA Name',
-        accessor: 'sla',
-      },
-      {
-        id: 'hidden',
-        header: 'Hide SLA',
-        accessor: 'hidden',
-        resolver: {
-          type: 'plain',
-          render: ({ item }) => {
-            checkboxSlaStates[item.id] = UseCheckboxState({
-              state: item.hidden,
-            })
+  const handleSetUnitWeights = (unitWeightInput: string) => {
+    setState({ ...state, unitWeight: unitWeightInput })
+  }
 
-            return (
-              <Checkbox
-                csx={{ margin: 'auto' }}
-                state={checkboxSlaStates[item.id]}
-              />
-            )
-          },
-        },
-      },
-      {
-        id: 'surchargeFlat',
-        header: 'Surcharge Flat Rate',
-        accessor: 'surchargeFlatRate',
-        resolver: {
-          type: 'plain',
-          render: ({ item }) => {
-            return (
-              <Set>
-                <Input
-                  id={`${item.id}-flat`}
-                  label="Flat Rate Surcharge"
-                  charLimit={7}
-                  value={item.surchargeFlatRate}
-                  onChange={(e) => {
-                    let inputVal = e.target.value
-
-                    if (inputVal.endsWith('.')) {
-                      inputVal += '00'
-                    }
-
-                    const regexp = /^\d{0,4}(?:[.,]\d{1,2})?$/
-
-                    if (regexp.test(inputVal)) {
-                      setSurcharge(
-                        parseFloat(inputVal),
-                        'surchargeFlatRate',
-                        item.id
-                      )
-                    }
-                  }}
-                />
-              </Set>
-            )
-          },
-        },
-      },
-      {
-        id: 'surchargePct',
-        header: 'Surcharge Percentage',
-        accessor: 'surchargePercent',
-        resolver: {
-          type: 'plain',
-          render: ({ item }) => {
-            return (
-              <Set>
-                <Input
-                  id={`${item.id}-pct`}
-                  label="Percent Surcharge"
-                  suffix="%"
-                  charLimit={3}
-                  value={item.surchargePercent}
-                  onChange={(e) => {
-                    const inputVal =
-                      e.target.value === '-' || e.target.value.length === 0
-                        ? '0'
-                        : e.target.value
-
-                    if (!Number.isNaN(inputVal)) {
-                      setSurcharge(
-                        parseInt(inputVal, 10),
-                        'surchargePercent',
-                        item.id
-                      )
-                    }
-                  }}
-                />
-              </Set>
-            )
-          },
-        },
-      },
-    ],
-    items: slaSettings,
-  })
+  const handleSetSurcharge = (slaSettingsInput: any[]) => {
+    setState({ ...state, slaSettings: slaSettingsInput })
+  }
 
   const showToast = useToast()
 
-  const handleSave = () => {
-    const saveModals: any[] = []
-
-    const saveSlaSettings: SlaSetting[] = []
-
-    dropdownStates.forEach((dropdown, index) => {
-      saveModals.push({
-        modal: items[index].modal,
-        fedexHandling: dropdown.selectedItem,
-        shipAlone: checkboxModalStates[index].state,
-      })
-    })
-
-    slaSettings.forEach((sla, index) => {
-      saveSlaSettings.push({
-        sla: sla.sla,
-        hidden: checkboxSlaStates[index].state,
-        surchargePercent: sla.surchargePercent,
-        surchargeFlatRate: sla.surchargeFlatRate,
-      })
-    })
-
+  const handleSave = (saveModals: any, saveSlaSettings: any) => {
     saveAppSetting({
       variables: {
         appSetting: {
@@ -357,34 +140,29 @@ const Configurations: FC = () => {
     })
   }
 
-  const generateItemModalMapping = () => {
-    const modalMap = UseCollapsibleState()
+  const mapAndSave = () => {
+    const saveModals: any[] = []
 
-    return (
-      <Collapsible state={modalMap} disabled={false}>
-        <CollapsibleHeader
-          label={formatMessage({ id: 'admin/fedex-shipping.modalMap' })}
-        />
-        <CollapsibleContent>
-          <DataGrid state={modalGridState} />
-        </CollapsibleContent>
-      </Collapsible>
-    )
-  }
+    const saveSlaSettings: SlaSetting[] = []
 
-  const generateSLAMapping = () => {
-    const slaMap = UseCollapsibleState()
+    items.forEach((item) => {
+      saveModals.push({
+        modal: item.modal,
+        fedexHandling: item.fedexHandling,
+        shipAlone: item.shipAlone,
+      })
+    })
 
-    return (
-      <Collapsible state={slaMap} disabled={false}>
-        <CollapsibleHeader
-          label={formatMessage({ id: 'admin/fedex-shipping.modifySLA' })}
-        />
-        <CollapsibleContent>
-          <DataGrid state={slaGridState} />
-        </CollapsibleContent>
-      </Collapsible>
-    )
+    slaSettings.forEach((sla) => {
+      saveSlaSettings.push({
+        sla: sla.sla,
+        hidden: sla.hidden,
+        surchargePercent: sla.surchargePercent,
+        surchargeFlatRate: sla.surchargeFlatRate,
+      })
+    })
+
+    handleSave(saveModals, saveSlaSettings)
   }
 
   return (
@@ -396,7 +174,7 @@ const Configurations: FC = () => {
             App Settings
           </Tab>
           <Tab id="2" csx={{ fontSize: '1.25rem' }}>
-            <IconStorefront size="small" />
+            <IconFaders size="small" />
             Advance Configurations
           </Tab>
           <Tab id="3" csx={{ fontSize: '1.25rem' }}>
@@ -480,69 +258,21 @@ const Configurations: FC = () => {
               </Label>
             </Set>
           </Set>
-          <Button variant="primary" onClick={() => handleSave()}>
+          <Button variant="primary" onClick={() => mapAndSave()}>
             {formatMessage({ id: 'admin/fedex-shipping.saveSettings' })}
           </Button>
         </TabPanel>
         <TabPanel id="2" csx={{ padding: 3 }}>
-          <Set orientation="vertical" spacing={2}>
-            <Heading className="pt6">
-              {formatMessage({ id: 'admin/fedex-shipping.unitsMeasurement' })}
-            </Heading>
-            <Select
-              label={formatMessage({ id: 'admin/fedex-shipping.weight' })}
-              value={unitWeight ?? 'LB'}
-              onChange={(e) =>
-                setState({ ...state, unitWeight: e.target.value })
-              }
-            >
-              <option value="LB">
-                {formatMessage({ id: 'admin/fedex-shipping.lb' })}
-              </option>
-              <option value="KG">
-                {formatMessage({ id: 'admin/fedex-shipping.kg' })}
-              </option>
-              <option value="G">
-                {formatMessage({ id: 'admin/fedex-shipping.g' })}
-              </option>
-            </Select>
-            <Select
-              label={formatMessage({ id: 'admin/fedex-shipping.dimensions' })}
-              value={unitDimension ?? 'IN'}
-              onChange={(e) =>
-                setState({ ...state, unitDimension: e.target.value })
-              }
-            >
-              <option value="IN">
-                {formatMessage({ id: 'admin/fedex-shipping.in' })}
-              </option>
-              <option value="CM">
-                {formatMessage({ id: 'admin/fedex-shipping.cm' })}
-              </option>
-            </Select>
-          </Set>
-          <Set orientation="vertical" spacing={1}>
-            <Heading className="pt3">
-              {formatMessage({ id: 'admin/fedex-shipping.modifySLA' })}
-            </Heading>
-            <Text variant="body">
-              {formatMessage({
-                id: 'admin/fedex-shipping.modifySLA.description',
-              })}
-            </Text>
-            {generateSLAMapping()}
-          </Set>
-          <Set orientation="vertical" spacing={1}>
-            <Heading className="pt3">
-              {formatMessage({ id: 'admin/fedex-shipping.modalMap' })}
-            </Heading>
-            <Text variant="body">
-              {formatMessage({
-                id: 'admin/fedex-shipping.modalMap.description',
-              })}
-            </Text>
-            {generateItemModalMapping()}
-          </Set>
+          <AdvanceConfigurations
+            setDimensions={handleSetDimensions}
+            setUnitWeights={handleSetUnitWeights}
+            handleAdvanceSave={handleSave}
+            setSlaSurcharge={handleSetSurcharge}
+            unitDimension={unitDimension}
+            unitWeight={unitWeight}
+            slaSettings={slaSettings}
+            items={items}
+          />
         </TabPanel>
         <TabPanel id="3" csx={{ padding: 3 }}>
           <DockConfig />
