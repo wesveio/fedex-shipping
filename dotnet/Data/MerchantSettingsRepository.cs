@@ -32,12 +32,12 @@
 
         }
 
-        public async Task<MerchantSettings> GetMerchantSettings(string carrier)
+        public async Task<MerchantSettings> GetMerchantSettings()
         {
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"http://vbase.{this._environmentVariableProvider.Region}.vtex.io/{this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_ACCOUNT]}/{this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_WORKSPACE]}/buckets/{this._applicationName}/{Constants.SETTINGS_BUCKET}/files/{Constants.SETTINGS_NAME}{carrier.ToUpper()}"),
+                RequestUri = new Uri($"http://vbase.{this._environmentVariableProvider.Region}.vtex.io/{this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_ACCOUNT]}/{this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_WORKSPACE]}/buckets/{this._applicationName}/{Constants.SETTINGS_BUCKET}/files/{Constants.SETTINGS_NAME}{Constants.CARRIER.ToUpper()}"),
             };
 
             string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];

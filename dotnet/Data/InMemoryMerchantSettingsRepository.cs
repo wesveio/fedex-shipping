@@ -31,7 +31,7 @@
             return Task.FromResult(true);
         }
 
-        public Task<MerchantSettings> GetMerchantSettings(string carrier)
+        public Task<MerchantSettings> GetMerchantSettings()
         {
             if (!this._inMemorySettings.TryGetValue("settings", out var merchantSettings))
             {

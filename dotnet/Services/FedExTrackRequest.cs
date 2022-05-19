@@ -22,7 +22,7 @@ namespace FedexShipping.Services
 
         public async Task<TrackReply> Track(string trackingNumber)
         {
-            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings(CARRIER);
+            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
             TrackRequest request = CreateTrackRequest(trackingNumber);
 
             //TrackService service = new TrackService();

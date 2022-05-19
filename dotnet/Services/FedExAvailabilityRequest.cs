@@ -22,7 +22,7 @@ namespace FedexShipping.Services
 
         public async Task<serviceAvailabilityResponse> GetAvailability()
         {
-            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings(CARRIER);
+            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
 
             ServiceAvailabilityRequest request = CreateServiceAvailabilityRequest();
             //ValidationAvailabilityAndCommitmentService service = new ValidationAvailabilityAndCommitmentService(); // Initialize the service

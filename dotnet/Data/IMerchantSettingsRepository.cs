@@ -7,6 +7,6 @@
     {
         Task<bool> SetMerchantSettings(string carrier, MerchantSettings merchantSettings);
 
-        Task<MerchantSettings> GetMerchantSettings(string carrier);
+        Task<MerchantSettings> GetMerchantSettings();
     }
 }

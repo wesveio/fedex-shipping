@@ -16,7 +16,7 @@
         private readonly IIOServiceContext _context;
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private readonly IFedExCacheRepository _fedExCacheRespository;
-        private const string CARRIER = "FedEx";
+        // private const string CARRIER = "FedEx";
         private MerchantSettings _merchantSettings;
 
         private Dictionary<string, string> iso2CodeMap = new Dictionary<string, string>(){
@@ -47,7 +47,7 @@
 
         public async Task<GetRatesResponseWrapper> GetRates(GetRatesRequest getRatesRequest)
         {
-            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings(CARRIER);
+            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
             GetRatesResponseWrapper getRatesResponseWrapperParent = new GetRatesResponseWrapper();
             getRatesResponseWrapperParent.Success = true;
             
@@ -193,7 +193,7 @@
 
         public async Task<GetRatesResponseWrapper> GetRatesSeparate(GetRatesRequest getRatesRequest)
         {
-            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings(CARRIER);
+            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
             GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
             for (int ratesCount = 0; ratesCount < getRatesRequest.items.Count; ratesCount++)
             {

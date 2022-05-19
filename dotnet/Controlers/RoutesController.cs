@@ -128,9 +128,9 @@
         /// Retrieve merchant settings
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> GetMerchantSettings(string carrier)
+        public async Task<IActionResult> GetMerchantSettings()
         {
-            var authenticationResponse = await this._merchantSettingsRepository.GetMerchantSettings(carrier);
+            var authenticationResponse = await this._merchantSettingsRepository.GetMerchantSettings();
             Response.Headers.Add("Cache-Control", "no-cache");
             return Json(authenticationResponse);
         }

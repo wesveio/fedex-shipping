@@ -10,6 +10,7 @@ namespace FedexShipping.Data
         public const string APPLICATION_JSON = "application/json";
         public const string AUTHORIZATION_HEADER_NAME = "Authorization";
         public const string RATES_BUCKET = "rates-response";
-        public const string VTEX_ID_HEADER_NAME = "VtexIdclientAutCookie";    
+        public const string VTEX_ID_HEADER_NAME = "VtexIdclientAutCookie";
+        public const string CARRIER = "FedEx";
     }
 }
