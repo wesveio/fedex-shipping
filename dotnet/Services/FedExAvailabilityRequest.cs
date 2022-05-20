@@ -2,8 +2,6 @@
 using FedexShipping.Data;
 using FedexShipping.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FedexShipping.Services

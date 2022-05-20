@@ -20,10 +20,10 @@
                 UserCredentialPassword = "password"
             };
 
-            this.SetMerchantSettings("FedEx", merchantSettings);
+            this.SetMerchantSettings(merchantSettings);
         }
 
-        public Task<bool> SetMerchantSettings(string carrier, MerchantSettings merchantSettings)
+        public Task<bool> SetMerchantSettings(MerchantSettings merchantSettings)
         {
             this._inMemorySettings.Remove("settings");
             this._inMemorySettings.Add("settings", merchantSettings);
