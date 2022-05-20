@@ -20,16 +20,12 @@
         }
       ]
     },
-    "getRawRates": {
-      "path": "/fedex-shipping/getRawRates/:carrier",
-      "public": true
-    },
     "track": {
       "path": "/fedex-shipping/track/:carrier/:trackingNumber",
       "public": true
     },
     "getMerchantSettings": {
-      "path": "/fedex-shipping/getSettings/:carrier",
+      "path": "/fedex-shipping/getSettings",
       "public": false,
       "policies": [
         {
@@ -39,7 +35,7 @@
       ]
     },
     "setMerchantSettings": {
-      "path": "/fedex-shipping/setSettings/:carrier",
+      "path": "/fedex-shipping/setSettings",
       "public": false,
       "policies": [
         {

@@ -16,7 +16,7 @@
         private readonly IIOServiceContext _context;
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private readonly IFedExCacheRepository _fedExCacheRespository;
-        private const string CARRIER = "FedEx";
+        private readonly IVtexEnvironmentVariableProvider _environmentVariableProvider;
         private MerchantSettings _merchantSettings;
 
         private Dictionary<string, string> iso2CodeMap = new Dictionary<string, string>(){
@@ -37,17 +37,19 @@
             {"FIREARMS", "ORM_D"},
         };
 
-        public FedExRateRequest(IMerchantSettingsRepository merchantSettingsRepository, IIOServiceContext context, IFedExCacheRepository fedExCacheRepository)
+        public FedExRateRequest(IVtexEnvironmentVariableProvider environmentVariableProvider, IMerchantSettingsRepository merchantSettingsRepository, IIOServiceContext context, IFedExCacheRepository fedExCacheRepository)
         {
+            this._environmentVariableProvider = environmentVariableProvider ??
+                throw new ArgumentNullException(nameof(environmentVariableProvider));
             this._merchantSettingsRepository = merchantSettingsRepository ??
-                                            throw new ArgumentNullException(nameof(merchantSettingsRepository));
+                throw new ArgumentNullException(nameof(merchantSettingsRepository));
             this._context = context ?? throw new ArgumentNullException(nameof(context));
             this._fedExCacheRespository = fedExCacheRepository ?? throw new ArgumentNullException(nameof(fedExCacheRepository));
         }
 
         public async Task<GetRatesResponseWrapper> GetRates(GetRatesRequest getRatesRequest)
         {
-            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings(CARRIER);
+            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
             GetRatesResponseWrapper getRatesResponseWrapperParent = new GetRatesResponseWrapper();
             getRatesResponseWrapperParent.Success = true;
             
@@ -123,7 +125,9 @@
                             getRatesResponseWrapperParent.HighestSeverity.Add(reply.HighestSeverity.ToString());
                             if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
                             {
-                                ShowRateReply(reply);
+                                if (!string.Equals(this._environmentVariableProvider.Workspace, "master")) {
+                                    ShowRateReply(reply);
+                                }
 
                                 Dictionary<string, double> ratesRatio = CalculateRatesRatio(getRatesRequest.items);
                                 foreach(RateReplyDetail detail in reply.RateReplyDetails)
@@ -162,7 +166,10 @@
                                 getRatesResponseWrapper.Success = true;
                             }
 
-                            ShowNotifications(reply);
+                            if (!string.Equals(this._environmentVariableProvider.Workspace, "master")) {
+                                ShowNotifications(reply);
+                            }
+
                             foreach(Notification notification in reply.Notifications)
                             {
                                 getRatesResponseWrapper.Notifications.Add(notification);
@@ -191,86 +198,9 @@
             return getRatesResponseWrapperParent;
         }
 
-        public async Task<GetRatesResponseWrapper> GetRatesSeparate(GetRatesRequest getRatesRequest)
-        {
-            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings(CARRIER);
-            GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
-            for (int ratesCount = 0; ratesCount < getRatesRequest.items.Count; ratesCount++)
-            {
-                GetRatesRequest tempRequest = new GetRatesRequest
-                {
-                    destination = getRatesRequest.destination,
-                    origin = getRatesRequest.origin,
-                    items = new List<Item> { getRatesRequest.items[ratesCount] }
-                };
-
-                RateRequest request = await CreateRateRequest(tempRequest);
-                RatePortTypeClient client;
-                if (this._merchantSettings.IsLive)
-                {
-                    string remoteAddress = "https://ws.fedex.com:443/web-services";
-                    client = new RatePortTypeClient(RatePortTypeClient.EndpointConfiguration.RateServicePort, remoteAddress);
-                }
-                else
-                {
-                    client = new RatePortTypeClient();
-                }
-
-                try
-                {
-                    // Call the web service passing in a RateRequest and returning a RateReply
-                    getRatesResponse ratesResponse = await client.getRatesAsync(request);
-                    RateReply reply = ratesResponse.RateReply;
-                    getRatesResponseWrapper.HighestSeverity.Add(reply.HighestSeverity.ToString());
-                    if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
-                    {
-                        ShowRateReply(reply);
-                        foreach (RateReplyDetail detail in reply.RateReplyDetails)
-                        {
-                            //Item matchingItem = getRatesRequest.items.Select(x => x.id.Equals())
-                            GetRatesResponse rateResponse = new GetRatesResponse
-                            {
-                                carrierId = detail.ServiceDescription.Code,
-                                //deliveryOnWeekends = false,
-                                //dockId = tempRequest.items[0].availability[0].dockId,
-                                //wareHouseId = tempRequest.items[0].availability[0].warehouseId,
-                                //itemId = tempRequest.items[0].id,
-                                price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount,
-                                //quantity = tempRequest.items[0].quantity,
-                                // time = $"{this.TransitDays(detail.ServiceType, detail.TransitTime.ToString(), detail.DeliveryTimestamp.ToString())}.00:00:00",
-                                shippingMethod = detail.ServiceType
-                            };
-
-                            getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
-                        }
-
-                        getRatesResponseWrapper.Success = true;
-                    }
-
-                    ShowNotifications(reply);
-                    //getRatesResponseWrapper.Notifications = new List<Notification>();
-                    foreach (Notification notification in reply.Notifications)
-                    {
-                        getRatesResponseWrapper.Notifications.Add(notification);
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"Exception: {e.Message}");
-                    Console.WriteLine($"Exception: {e.InnerException}");
-                    Console.WriteLine($"Exception: {e.StackTrace}");
-                    getRatesResponseWrapper.Error.Add(e.Message);
-                }
-            }
-
-            return getRatesResponseWrapper;
-        }
-
         // Splits the request with respect to FedEx handling types
         private Dictionary<String, List<Item>> SplitRequestItemsByModal(GetRatesRequest getRatesRequest)
         {
-            List<List<Item>> requestListItems = new List<List<Item>>();
-
             if (this._merchantSettings.ItemModals.Count > 0)
             {
                 foreach (ModalMap modalMap in this._merchantSettings.ItemModals)
@@ -314,8 +244,9 @@
             request.ClientDetail.AccountNumber = this._merchantSettings.ClientDetailAccountNumber;
             request.ClientDetail.MeterNumber = this._merchantSettings.ClientDetailMeterNumber;
             
+            // This is a reference field for the customer.  Any value can be used and will be provided in the response.
             request.TransactionDetail = new TransactionDetail();
-            request.TransactionDetail.CustomerTransactionId = "***Rate Available Services Request ***"; // This is a reference field for the customer.  Any value can be used and will be provided in the response.
+            request.TransactionDetail.CustomerTransactionId = "***Rate Available Services Request ***";
             
             request.Version = new VersionId();
             
@@ -506,12 +437,10 @@
 
         private void ShowRateReply(RateReply reply)
         {
-            Console.WriteLine("RateReply details:");
+            Console.WriteLine("--- RateReply details ---");
             for (int i = 0; i < reply.RateReplyDetails.Length; i++)
             {
-                Console.WriteLine(i);
                 RateReplyDetail rateReplyDetail = reply.RateReplyDetails[i];
-                Console.WriteLine("Rate Reply Detail for Service {0} ", i + 1);
                 Console.WriteLine("Service Type: {0}", rateReplyDetail.ServiceType);
                 Console.WriteLine("Packaging Type: {0}", rateReplyDetail.PackagingType);
 
@@ -523,7 +452,6 @@
                     ShowPackageRateDetails(shipmentDetail.RatedPackages);
                 }
                 ShowDeliveryDetails(rateReplyDetail);
-                Console.WriteLine("**********************************************************");
             }
         }
 
@@ -586,11 +514,9 @@
             for (int i = 0; i < reply.Notifications.Length; i++)
             {
                 Notification notification = reply.Notifications[i];
-                Console.WriteLine("Notification no. {0}", i);
                 Console.WriteLine("Severity: {0}", notification.Severity);
                 Console.WriteLine("Code: {0}", notification.Code);
                 Console.WriteLine("Message: {0}", notification.Message);
-                Console.WriteLine("Source: {0}", notification.Source);
             }
         }
 
@@ -683,47 +609,6 @@
         private TimeSpan CalculateTransitTime(DateTime deliveryTimestamp)
         {
             return deliveryTimestamp.Date - DateTime.Today;
-        }
-
-        public async Task<RateReplyWrapper> GetRawRates(RateRequest rateRequest)
-        {
-            RatePortTypeClient client;
-            RateReplyWrapper rateReply = new RateReplyWrapper();
-            RateReply reply = new RateReply();
-            {
-                client = new RatePortTypeClient();
-            }
-
-            try
-            {
-                // Call the web service passing in a RateRequest and returning a RateReply
-                //RateReply reply = await service.getRates(request);
-                //string jsonrequest = JsonConvert.SerializeObject(request);
-                //Console.WriteLine(jsonrequest);
-                Stopwatch stopWatch = new Stopwatch();
-                stopWatch.Start();
-                getRatesResponse ratesResponse = await client.getRatesAsync(rateRequest);
-                stopWatch.Stop();
-                // Get the elapsed time as a TimeSpan value.
-                TimeSpan ts = stopWatch.Elapsed;
-                reply = ratesResponse.RateReply;
-                rateReply.rateReply = reply;
-                rateReply.timeSpan = ts;
-
-                if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
-                {
-                    ShowRateReply(reply);
-                }
-
-                ShowNotifications(reply);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Exception: {e.Message}");
-                rateReply.message = e.Message;
-            }
-
-            return rateReply;
         }
 
         private enum Service

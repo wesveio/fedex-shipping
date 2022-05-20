@@ -1,8 +1,6 @@
 ﻿using FedexShipping.Data;
 using FedexShipping.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TrackServiceReference;
 
@@ -10,7 +8,6 @@ namespace FedexShipping.Services
 {
     public class FedExTrackRequest : IFedExTrackRequest
     {
-        private const string CARRIER = "FedEx";
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private MerchantSettings _merchantSettings;
 
@@ -22,7 +19,7 @@ namespace FedexShipping.Services
 
         public async Task<TrackReply> Track(string trackingNumber)
         {
-            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings(CARRIER);
+            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
             TrackRequest request = CreateTrackRequest(trackingNumber);
 
             //TrackService service = new TrackService();

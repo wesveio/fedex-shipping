@@ -3,7 +3,6 @@
     using System;
     using System.Diagnostics;
     using System.Threading.Tasks;
-    using FedExRateServiceReference;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
@@ -36,26 +35,6 @@
             this._fedExEstimateDeliveryRequest = fedExEstimateDeliveryRequest ??
                                             throw new ArgumentNullException(nameof(fedExEstimateDeliveryRequest));
             this._context = context ?? throw new ArgumentNullException(nameof(context));
-        }
-
-        public async Task<IActionResult> GetRawRates(string carrier)
-        {
-            RateReply reply = new RateReply();
-            RateReplyWrapper rateReply = new RateReplyWrapper();
-            var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-            RateRequest rateRequest = JsonConvert.DeserializeObject<RateRequest>(bodyAsText);
-            switch (carrier.ToUpper())
-            {
-                case FEDEX:
-                    rateReply = await this._fedExRateRequest.GetRawRates(rateRequest);
-                    break;
-            }
-
-            Response.Headers.Add("Cache-Control", "private");
-            Response.Headers.Add("Timespan", rateReply.timeSpan.TotalSeconds.ToString());
-
-            //return Json(getRatesResponseWrapper.GetRatesResponses);
-            return Json(rateReply.rateReply);
         }
 
         public async Task<IActionResult> GetRates()
@@ -119,18 +98,18 @@
             return Json(reply);
         }
 
-        public async Task SetMerchantSettings(string carrier, [FromBody] MerchantSettings merchantSettings)
+        public async Task SetMerchantSettings([FromBody] MerchantSettings merchantSettings)
         {
-            await this._merchantSettingsRepository.SetMerchantSettings(carrier, merchantSettings);
+            await this._merchantSettingsRepository.SetMerchantSettings(merchantSettings);
         }
 
         /// <summary>
         /// Retrieve merchant settings
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> GetMerchantSettings(string carrier)
+        public async Task<IActionResult> GetMerchantSettings()
         {
-            var authenticationResponse = await this._merchantSettingsRepository.GetMerchantSettings(carrier);
+            var authenticationResponse = await this._merchantSettingsRepository.GetMerchantSettings();
             Response.Headers.Add("Cache-Control", "no-cache");
             return Json(authenticationResponse);
         }

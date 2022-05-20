@@ -21,7 +21,7 @@ namespace FedexShipping.GraphQL
             resolve: async context =>
             {
                 var appSettings = context.GetArgument<MerchantSettings>("appSetting");
-                return await _merchantSettingsRepository.SetMerchantSettings("fedex", appSettings);
+                return await _merchantSettingsRepository.SetMerchantSettings(appSettings);
             }
         );
 

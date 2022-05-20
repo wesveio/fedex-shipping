@@ -45,22 +45,6 @@ namespace FedexShippingTest
         }
 
         [TestMethod]
-        public void TestMethodGetRatesSeparate()
-        {
-            FedExRateRequest fedExRateRequest = new FedExRateRequest(merchantSettingsRepository);
-
-            GetRatesRequest getRatesRequest = BuildRequest();
-
-            GetRatesResponseWrapper response = new GetRatesResponseWrapper();
-
-            response = fedExRateRequest.GetRatesSeparate(getRatesRequest).Result;
-
-            List<GetRatesResponse> responses = response.GetRatesResponses;
-            string debug = JsonConvert.SerializeObject(responses);
-            Console.WriteLine(debug);
-        }
-
-        [TestMethod]
         public void TestMethodAvailable()
         {
             FedExAvailabilityRequest fedExAvailabilityRequest = new FedExAvailabilityRequest(merchantSettingsRepository);

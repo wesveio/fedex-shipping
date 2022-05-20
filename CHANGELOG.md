@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Removed static carrier param and enabled conditional logs for beta
+
 ## [1.13.0] - 2022-05-19
 
 ### Added

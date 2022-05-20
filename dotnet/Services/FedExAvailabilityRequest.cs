@@ -2,15 +2,12 @@
 using FedexShipping.Data;
 using FedexShipping.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FedexShipping.Services
 {
     public class FedExAvailabilityRequest : IFedExAvailabilityRequest
     {
-        private const string CARRIER = "FedEx";
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private MerchantSettings _merchantSettings;
 
@@ -22,7 +19,7 @@ namespace FedexShipping.Services
 
         public async Task<serviceAvailabilityResponse> GetAvailability()
         {
-            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings(CARRIER);
+            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
 
             ServiceAvailabilityRequest request = CreateServiceAvailabilityRequest();
             //ValidationAvailabilityAndCommitmentService service = new ValidationAvailabilityAndCommitmentService(); // Initialize the service
