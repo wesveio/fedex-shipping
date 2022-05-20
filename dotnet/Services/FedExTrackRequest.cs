@@ -8,7 +8,6 @@ namespace FedexShipping.Services
 {
     public class FedExTrackRequest : IFedExTrackRequest
     {
-        private const string CARRIER = "FedEx";
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private MerchantSettings _merchantSettings;
 
