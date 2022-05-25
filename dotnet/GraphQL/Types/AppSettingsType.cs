@@ -20,7 +20,7 @@ namespace FedexShipping.GraphQL.Types
             Field(b => b.ClientDetailMeterNumber).Description("clientDetailMeterNumber");
             Field(b => b.IsLive).Description("isLive");
             Field(b => b.Residential).Description("Shipping to Residential");
-            Field(b => b.OptimizeShipping).Description("Optimizes Shipping");
+            Field(b => b.OptimizeShippingType).Description("Optimizes Shipping");
             Field(b => b.UnitWeight).Description("unitWeight");
             Field(b => b.UnitDimension).Description("unitDimension");
             Field(b => b.ItemModals, type: typeof(ListGraphType<ItemModalsType>)).Description("Item Modals Mapping");

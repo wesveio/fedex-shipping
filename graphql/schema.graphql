@@ -25,7 +25,7 @@ type AppSetting {
   clientDetailMeterNumber: String
   isLive: Boolean
   residential: Boolean
-  optimizeShipping: Boolean
+  optimizeShippingType: Int
   unitWeight: String
   unitDimension: String
   itemModals: [ItemModal]
@@ -64,7 +64,7 @@ input AppSettingsInput {
   clientDetailMeterNumber: String
   isLive: Boolean
   residential: Boolean
-  optimizeShipping: Boolean
+  optimizeShippingType: Int
   unitWeight: String
   unitDimension: String
   itemModals: [ItemModalInput]

@@ -307,7 +307,7 @@
         private void SetPackageLineItems(RateRequest request, GetRatesRequest getRatesRequest)
         {
             // Combines all the items into one box
-            if (this._merchantSettings.OptimizeShipping) {
+            if (this._merchantSettings.OptimizeShippingType == 1) {
                 HashSet<string> shipAlone = GetShipAlone();
                 int mergedPackageIndex = -1;
                 double maxVolume = 0;

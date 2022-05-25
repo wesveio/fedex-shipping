@@ -8,7 +8,7 @@ query GetAppSettings {
     clientDetailMeterNumber
     isLive
     residential
-    optimizeShipping
+    optimizeShippingType
     unitWeight
     unitDimension
     itemModals {

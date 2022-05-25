@@ -13,7 +13,7 @@ namespace FedexShipping.Models
         public string ClientDetailMeterNumber { get; set; }
         public bool IsLive { get; set; }
         public bool Residential { get; set; }
-        public bool OptimizeShipping { get; set; }
+        public int OptimizeShippingType { get; set; }
         public string UnitWeight { get; set; }
         public string UnitDimension { get; set; }
         public List<ModalMap> ItemModals { get; set; } = new List<ModalMap>();
