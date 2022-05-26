@@ -58,6 +58,16 @@
           ]
         }
       ]
+    },
+    "testPack": {
+      "path": "/fedex-shipping/pack",
+      "public": false,
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": ["post"]
+        }
+      ]
     }
   },
   "events": {

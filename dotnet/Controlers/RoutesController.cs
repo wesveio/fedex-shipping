@@ -11,6 +11,7 @@
     using FedexShipping.Services;
     using TrackServiceReference;
     using Vtex.Api.Context;
+    using System.Collections.Generic;
 
     public class RoutesController : Controller
     {
@@ -20,9 +21,10 @@
         private readonly IFedExAvailabilityRequest _fedExAvailabilityRequest;
         private readonly IFedExTrackRequest _fedExTrackRequest;
         private readonly IFedExEstimateDeliveryRequest _fedExEstimateDeliveryRequest;
+        private readonly IPackingService _packingService;
         private const string FEDEX = "FEDEX";
 
-        public RoutesController(IMerchantSettingsRepository merchantSettingsRepository, IFedExRateRequest fedExRateRequest, IFedExAvailabilityRequest fedExAvailabilityRequest, IFedExTrackRequest fedExTrackRequest, IFedExEstimateDeliveryRequest fedExEstimateDeliveryRequest, IIOServiceContext context)
+        public RoutesController(IMerchantSettingsRepository merchantSettingsRepository, IFedExRateRequest fedExRateRequest, IFedExAvailabilityRequest fedExAvailabilityRequest, IFedExTrackRequest fedExTrackRequest, IFedExEstimateDeliveryRequest fedExEstimateDeliveryRequest, IIOServiceContext context, IPackingService packingService)
         {
             this._merchantSettingsRepository = merchantSettingsRepository ??
                                             throw new ArgumentNullException(nameof(merchantSettingsRepository));
@@ -35,6 +37,7 @@
             this._fedExEstimateDeliveryRequest = fedExEstimateDeliveryRequest ??
                                             throw new ArgumentNullException(nameof(fedExEstimateDeliveryRequest));
             this._context = context ?? throw new ArgumentNullException(nameof(context));
+            this._packingService = packingService ?? throw new ArgumentNullException(nameof(packingService));
         }
 
         public async Task<IActionResult> GetRates()
@@ -81,6 +84,15 @@
             );
 
             return Json(getRatesResponseWrapper.GetRatesResponses);
+        }
+
+        public async Task<IActionResult> TestPack() {
+            var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            List<Item> packingRequest = JsonConvert.DeserializeObject<List<Item>>(bodyAsText);
+            Console.WriteLine(JsonConvert.SerializeObject(packingRequest));
+            PackingResponseWrapper response = await this._packingService.packingMap(packingRequest);
+
+            return Json(response);
         }
 
         public async Task<IActionResult> Track(string carrier, string trackingNumber)
