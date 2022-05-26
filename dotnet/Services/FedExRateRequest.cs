@@ -98,7 +98,6 @@
                         GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
                         getRatesRequest.items = entry.Value;
                         RateRequest request = await CreateRateRequest(getRatesRequest);
-
                         try
                         {
                             _context.Vtex.Logger.Info("GetRates", "FedEx RatesRequest", 
@@ -401,12 +400,13 @@
         public void setWeight(Weight weight, double weightAmount) {
             weight.Value = Convert.ToDecimal(weightAmount);
             weight.ValueSpecified = true;
-            if (this._merchantSettings.UnitWeight.Equals("G")) {
-                this._merchantSettings.UnitWeight = "KG";
+            string parseUnit = this._merchantSettings.UnitWeight;
+            if (parseUnit.Equals("G")) {
+                parseUnit = "KG";
                 weight.Value /= 1000;
             }
             WeightUnits weightUnits;
-            Enum.TryParse<WeightUnits>(this._merchantSettings.UnitWeight, out weightUnits);
+            Enum.TryParse<WeightUnits>(parseUnit, out weightUnits);
             weight.Units = weightUnits;
             weight.UnitsSpecified = true;
         }
@@ -438,6 +438,7 @@
         private void ShowRateReply(RateReply reply)
         {
             Console.WriteLine("--- RateReply details ---");
+            Console.WriteLine(JsonConvert.SerializeObject(reply));
             for (int i = 0; i < reply.RateReplyDetails.Length; i++)
             {
                 RateReplyDetail rateReplyDetail = reply.RateReplyDetails[i];
