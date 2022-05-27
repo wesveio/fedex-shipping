@@ -382,7 +382,6 @@
                     request.RequestedShipment.RequestedPackageLineItems[cnt].GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
                     request.RequestedShipment.RequestedPackageLineItems[cnt].Weight = new Weight();
                     setWeight(request.RequestedShipment.RequestedPackageLineItems[cnt].Weight, getRatesRequest.items[cnt].unitDimension.weight);
-
                     request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions = new Dimensions();
                     setDimensions(request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions, getRatesRequest.items[cnt].unitDimension.length, getRatesRequest.items[cnt].unitDimension.width, getRatesRequest.items[cnt].unitDimension.height);
                     setDimensionUnits(request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions);

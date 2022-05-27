@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed a bug with unit conversion and grams
+
 ## [1.14.0] - 2022-05-20
 
 ### Added
