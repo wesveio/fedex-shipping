@@ -89,9 +89,7 @@
         public async Task<IActionResult> TestPack() {
             var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
             List<Item> packingRequest = JsonConvert.DeserializeObject<List<Item>>(bodyAsText);
-            Console.WriteLine(JsonConvert.SerializeObject(packingRequest));
-            PackingResponseWrapper response = await this._packingService.packingMap(packingRequest);
-
+            List<Item> response = await this._packingService.packingMap(packingRequest);
             return Json(response);
         }
 

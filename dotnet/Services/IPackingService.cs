@@ -6,6 +6,6 @@ namespace FedexShipping.Services
 {
     public interface IPackingService
     {
-        Task<PackingResponseWrapper> packingMap(List<Item> items);
+        Task<List<Item>> packingMap(List<Item> items);
     }
 }

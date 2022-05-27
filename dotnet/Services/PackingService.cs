@@ -14,11 +14,12 @@ namespace FedexShipping.Services
             this._packingRepository = packingRepository ?? throw new ArgumentException(nameof(packingRepository));
         }
 
-        public async Task<PackingResponseWrapper> packingMap(List<Item> items) {
+        public async Task<List<Item>> packingMap(List<Item> items) {
             PackingRequest packingRequest = new PackingRequest();
 
             // All different modals here are handled the same way
             string itemsListModal = null;
+            Dictionary<string, Item> itemMap = new Dictionary<string, Item>();
             foreach (Item item in items)
             {
                 itemsListModal = item.modal;
@@ -31,6 +32,8 @@ namespace FedexShipping.Services
                     (int)Math.Ceiling(item.unitDimension.height),
                     item.quantity
                 ));
+
+                itemMap.Add(item.id, item);
             }
 
             
@@ -47,6 +50,15 @@ namespace FedexShipping.Services
             List<Item> containerizedItems = new List<Item>();
             foreach (PackingResponse packingResponse in packingResponseWrapper.PackedResults)
             {
+
+                double weightTotal = 0;
+
+                // Go thru every packed item and get the weight
+                foreach (PackedItem packedItem in packingResponse.AlgorithmPackingResults[0].PackedItems)
+                {
+                    weightTotal += itemMap[packedItem.id.ToString()].unitDimension.weight;
+                }
+
                 Item newBox = new Item{
                     id = packingResponse.ContainerId.ToString(),
                     groupId = null,
@@ -57,15 +69,14 @@ namespace FedexShipping.Services
                         length = Double.Parse(containerMap[packingResponse.ContainerId].Length),
                         width = Double.Parse(containerMap[packingResponse.ContainerId].Width),
                         height = Double.Parse(containerMap[packingResponse.ContainerId].Height),
-                        weight = 1 // Need to tally weight
+                        weight = weightTotal
                     }
                 };
+
                 containerizedItems.Add(newBox);
             }
-
-
             
-            return packingResponseWrapper;
+            return containerizedItems;
         }
     }
 }
