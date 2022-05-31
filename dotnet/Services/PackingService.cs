@@ -36,8 +36,6 @@ namespace FedexShipping.Services
                 itemMap.Add(item.id, item);
             }
 
-            
-
             PackingResponseWrapper packingResponseWrapper = await this._packingRepository.PackItems(packingRequest);
 
             Dictionary<string, Container> containerMap = new Dictionary<string, Container>();
@@ -59,7 +57,7 @@ namespace FedexShipping.Services
                     weightTotal += itemMap[packedItem.id.ToString()].unitDimension.weight;
                 }
 
-                Item newBox = new Item{
+                Item newBox = new Item {
                     id = packingResponse.ContainerId.ToString(),
                     groupId = null,
                     modal = itemsListModal,

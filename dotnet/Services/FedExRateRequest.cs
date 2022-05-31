@@ -16,6 +16,7 @@
         private readonly IIOServiceContext _context;
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private readonly IFedExCacheRepository _fedExCacheRespository;
+        private readonly IPackingService _packingService;
         private readonly IVtexEnvironmentVariableProvider _environmentVariableProvider;
         private MerchantSettings _merchantSettings;
 
@@ -37,7 +38,7 @@
             {"FIREARMS", "ORM_D"},
         };
 
-        public FedExRateRequest(IVtexEnvironmentVariableProvider environmentVariableProvider, IMerchantSettingsRepository merchantSettingsRepository, IIOServiceContext context, IFedExCacheRepository fedExCacheRepository)
+        public FedExRateRequest(IVtexEnvironmentVariableProvider environmentVariableProvider, IMerchantSettingsRepository merchantSettingsRepository, IIOServiceContext context, IFedExCacheRepository fedExCacheRepository, IPackingService packingService)
         {
             this._environmentVariableProvider = environmentVariableProvider ??
                 throw new ArgumentNullException(nameof(environmentVariableProvider));
@@ -45,6 +46,7 @@
                 throw new ArgumentNullException(nameof(merchantSettingsRepository));
             this._context = context ?? throw new ArgumentNullException(nameof(context));
             this._fedExCacheRespository = fedExCacheRepository ?? throw new ArgumentNullException(nameof(fedExCacheRepository));
+            this._packingService = packingService ?? throw new ArgumentNullException(nameof(packingService));
         }
 
         public async Task<GetRatesResponseWrapper> GetRates(GetRatesRequest getRatesRequest)
@@ -93,6 +95,7 @@
                     slaMapping.Add(slaSettings.Sla, slaSettings);
                 }
 
+                // Iterates through every entry in the different FedEx handling types
                 foreach (KeyValuePair<string, List<Item>> entry in splitItems) {
                     if (entry.Value.Count > 0) {
                         GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
@@ -251,16 +254,16 @@
             
             request.ReturnTransitAndCommit = true;
             request.ReturnTransitAndCommitSpecified = true;
-            SetShipmentDetails(request, getRatesRequest);
+            await SetShipmentDetails(request, getRatesRequest);
             return request;
         }
 
-        private void SetShipmentDetails(RateRequest request, GetRatesRequest getRatesRequest)
+        private async Task SetShipmentDetails(RateRequest request, GetRatesRequest getRatesRequest)
         {
             request.RequestedShipment = new RequestedShipment();
             SetOrigin(request, getRatesRequest);
             SetDestination(request, getRatesRequest);
-            SetPackageLineItems(request, getRatesRequest);
+            await SetPackageLineItems(request, getRatesRequest);
             request.RequestedShipment.PackageCount = getRatesRequest.items.Sum(x => x.quantity).ToString();
             request.RequestedShipment.PreferredCurrency = getRatesRequest.currency;
             request.RequestedShipment.ShipTimestampSpecified = true;
@@ -304,14 +307,20 @@
             return shipAlone;
         }
 
-        private void SetPackageLineItems(RateRequest request, GetRatesRequest getRatesRequest)
+        private async Task SetPackageLineItems(RateRequest request, GetRatesRequest getRatesRequest)
         {
             // Combines all the items into one box
-            if (this._merchantSettings.OptimizeShippingType == 1) {
+            // If 1, then it is pack together in box
+            // If 2, then use smart packing
+            if (this._merchantSettings.OptimizeShippingType > 0) {
                 HashSet<string> shipAlone = GetShipAlone();
                 int mergedPackageIndex = -1;
                 double maxVolume = 0;
                 List<RequestedPackageLineItem> packageLines = new List<RequestedPackageLineItem>();
+
+                // List of items used for smart packing
+                List<Item> smartPackingList = new List<Item>();
+
                 // Iterates through the list
                 // Either combines the items into 1 package
                 // Or adds them separately as ship alone
@@ -334,7 +343,7 @@
                             packageLines.Last().SpecialServicesRequested = new PackageSpecialServicesRequested();
                             setDangerousGoodsDetail(packageLines.Last().SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
                         }
-                    } else {
+                    } else if (this._merchantSettings.OptimizeShippingType == 1) {
                         // Sets up the item if can be combined
                         if (mergedPackageIndex == -1) {
                             mergedPackageIndex = cnt;
@@ -364,12 +373,39 @@
                             packageLines[mergedPackageIndex].SpecialServicesRequested = new PackageSpecialServicesRequested();
                             setDangerousGoodsDetail(packageLines[mergedPackageIndex].SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
                         }
-                    
+                    } else if (!shipAlone.Contains(getRatesRequest.items[cnt].modal) && this._merchantSettings.OptimizeShippingType == 2) {
+                        smartPackingList.Add(getRatesRequest.items[cnt]);
                     }
                 }
+
+                // For combining items into one box
                 if (mergedPackageIndex != -1) {
                     packageLines[mergedPackageIndex].Weight.Value /= Convert.ToDecimal(packageLines[mergedPackageIndex].GroupPackageCount);
+                } else if (smartPackingList.Capacity > 0) { // For smart packing
+                    List<Item> packedResponse = await this._packingService.packingMap(smartPackingList);
+                    foreach (Item box in packedResponse)
+                    {
+                        packageLines.Add(new RequestedPackageLineItem());
+                        packageLines.Last().SequenceNumber = box.id;
+                        packageLines.Last().GroupPackageCount = box.quantity.ToString();
+
+                        packageLines.Last().Weight = new Weight();
+                        setWeight(packageLines.Last().Weight, box.unitDimension.weight);
+
+                        packageLines.Last().Dimensions = new Dimensions();
+                        setDimensions(packageLines.Last().Dimensions, box.unitDimension.length, box.unitDimension.width, box.unitDimension.height);
+                        setDimensionUnits(packageLines.Last().Dimensions);
+                        
+                        // Special Handling goods
+                        // Checks if the modal is in the options and there is available mapping
+                        if (!string.IsNullOrEmpty(box.modal) && !modalOptionsMap[box.modal].Equals("NONE")) {
+                            packageLines.Last().SpecialServicesRequested = new PackageSpecialServicesRequested();
+                            setDangerousGoodsDetail(packageLines.Last().SpecialServicesRequested, modalOptionsMap[box.modal]);
+                        }
+
+                    }
                 }
+
                 request.RequestedShipment.RequestedPackageLineItems = packageLines.ToArray();
 
             } else {
