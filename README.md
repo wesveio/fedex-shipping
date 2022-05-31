@@ -106,3 +106,7 @@ Request Body Examples
     ]
 }
 ```
+
+- Smart Packing
+    - Ship Alone still ships alone
+    - Anything else that can be packed together will be packed in the box dimensions

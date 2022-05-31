@@ -26,5 +26,6 @@
   "admin/fedex-shipping.modifySLA.description": "admin/fedex-shipping.modifySLA.description",
   "admin/fedex-shipping.appSettings": "admin/fedex-shipping.appSettings",
   "admin/fedex-shipping.advanceConfig": "admin/fedex-shipping.advanceConfig",
-  "admin/fedex-shipping.dockConfig": "admin/fedex-shipping.dockConfig"
+  "admin/fedex-shipping.dockConfig": "admin/fedex-shipping.dockConfig",
+  "admin/fedex-shipping.smartPackAlert": "admin/fedex-shipping.smartPackAlert"
 }

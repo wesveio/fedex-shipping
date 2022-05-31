@@ -22,6 +22,8 @@ namespace Vtex
             services.AddTransient<IFedExEstimateDeliveryRequest, FedExEstimateDeliveryRequest>();
             services.AddTransient<IFedExCacheRepository, FedExCacheRespository>();
             services.AddTransient<ILogisticsRepository, LogisticsRepository>();
+            services.AddTransient<IPackingRepository, PackingRepository>();
+            services.AddTransient<IPackingService, PackingService>();
 
             services.AddSingleton<IVtexEnvironmentVariableProvider, VtexEnvironmentVariableProvider>();
             services.AddSingleton<IMerchantSettingsRepository, MerchantSettingsRepository>();

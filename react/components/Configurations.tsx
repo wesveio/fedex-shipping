@@ -18,6 +18,8 @@ import {
   IconGearSix,
   IconFaders,
   IconStorefront,
+  Alert,
+  Select,
   useTabState as UseTabState,
 } from '@vtex/admin-ui'
 import { useQuery, useMutation } from 'react-apollo'
@@ -26,6 +28,7 @@ import AppSettings from '../queries/getAppSettings.gql'
 import SaveAppSetting from '../mutations/saveAppSetting.gql'
 import DockConfig from './DockConfig'
 import AdvanceConfigurations from './AdvanceConfigurations'
+import { packingOptimization } from '../utils/constants'
 
 const Configurations: FC = () => {
   const { formatMessage } = useIntl()
@@ -41,7 +44,7 @@ const Configurations: FC = () => {
     userCredentialPassword: string
     isLive: boolean
     residential: boolean
-    optimizeShipping: boolean
+    optimizeShippingType: number
     unitWeight: string
     unitDimension: string
     itemModals: any[]
@@ -53,7 +56,7 @@ const Configurations: FC = () => {
     userCredentialPassword: '',
     isLive: false,
     residential: false,
-    optimizeShipping: false,
+    optimizeShippingType: 0,
     unitWeight: 'LB',
     unitDimension: 'IN',
     itemModals: [],
@@ -67,7 +70,7 @@ const Configurations: FC = () => {
     userCredentialPassword,
     isLive,
     residential,
-    optimizeShipping,
+    optimizeShippingType,
     unitWeight,
     unitDimension,
     itemModals: items,
@@ -112,7 +115,7 @@ const Configurations: FC = () => {
           clientDetailAccountNumber,
           isLive,
           residential,
-          optimizeShipping,
+          optimizeShippingType,
           unitWeight,
           unitDimension,
           itemModals: saveModals,
@@ -155,6 +158,16 @@ const Configurations: FC = () => {
     })
 
     handleSave(saveModals, saveSlaSettings)
+  }
+
+  const generateOptions = () => {
+    const packingOptions = []
+
+    for (const pack of packingOptimization) {
+      packingOptions.push(<option value={pack}>{pack}</option>)
+    }
+
+    return packingOptions
   }
 
   return (
@@ -237,17 +250,28 @@ const Configurations: FC = () => {
                 {formatMessage({ id: 'admin/fedex-shipping.residential' })}
               </Label>
             </Set>
-            <Set orientation="horizontal" spacing={2}>
-              <Toggle
-                aria-label="label"
-                checked={optimizeShipping}
-                onChange={() =>
-                  setState({ ...state, optimizeShipping: !optimizeShipping })
+            <Set orientation="vertical" spacing={2}>
+              <Select
+                label={formatMessage({
+                  id: 'admin/fedex-shipping.optimizeShipping',
+                })}
+                value={packingOptimization[optimizeShippingType]}
+                onChange={(e) =>
+                  setState({
+                    ...state,
+                    optimizeShippingType: packingOptimization.indexOf(
+                      e.target.value
+                    ),
+                  })
                 }
-              />
-              <Label>
-                {formatMessage({ id: 'admin/fedex-shipping.optimizeShipping' })}
-              </Label>
+              >
+                {generateOptions()}
+              </Select>
+              {optimizeShippingType === 2 ? (
+                <Alert visible tone="warning">
+                  {formatMessage({ id: 'admin/fedex-shipping.smartPackAlert' })}
+                </Alert>
+              ) : null}
             </Set>
           </Set>
           <Button variant="primary" onClick={() => mapAndSave()}>

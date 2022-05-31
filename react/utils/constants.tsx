@@ -8,4 +8,10 @@ const fedexHandling: string[] = [
   'NONE',
 ]
 
-export { fedexHandling }
+const packingOptimization: string[] = [
+  'None',
+  "Pack all items into largest item's dimension",
+  '[BETA] Smart Packing',
+]
+
+export { fedexHandling, packingOptimization }

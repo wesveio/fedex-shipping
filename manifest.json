@@ -9,9 +9,7 @@
   },
   "billingOptions": {
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "dependencies": {
     "vtex.styleguide": "9.x",
@@ -64,6 +62,13 @@
       "attrs": {
         "host": "{{account}}.vtexcommercestable.com.br",
         "path": "/api/logistics/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{workspace}}--{{account}}.myvtex.com",
+        "path": "/packAll"
       }
     },
     {
