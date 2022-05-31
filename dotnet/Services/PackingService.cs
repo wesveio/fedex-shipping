@@ -24,7 +24,7 @@ namespace FedexShipping.Services
             {
                 itemsListModal = item.modal;
                 int itemId = item.id.GetHashCode();
-                bool parsable = Int32.TryParse(item.id, out itemId);
+                Int32.TryParse(item.id, out itemId);
                 packingRequest.ItemsToPack.Add(new RequestItems(
                     itemId,
                     (int)Math.Ceiling(item.unitDimension.length),
@@ -33,7 +33,7 @@ namespace FedexShipping.Services
                     item.quantity
                 ));
 
-                itemMap.Add(item.id, item);
+                itemMap.Add(itemId.ToString(), item);
             }
 
             PackingResponseWrapper packingResponseWrapper = await this._packingRepository.PackItems(packingRequest);

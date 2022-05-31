@@ -8,22 +8,14 @@ namespace FedexShipping.Data
     using Vtex.Api.Context;
     using FedexShipping.Models;
     using FedexShipping.Services;
-    using System.Collections.Generic;
-
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
 
     public class PackingRepository : IPackingRepository
     {
-        private readonly string _applicationName;
-        private readonly string _env;
-
         private readonly IVtexEnvironmentVariableProvider _environmentVariableProvider;
-
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IHttpClientFactory _clientFactory;
         private readonly IIOServiceContext _context;
-        private readonly ICachedKeys _cachedKeys;
 
         public PackingRepository(IVtexEnvironmentVariableProvider environmentVariableProvider, IHttpContextAccessor httpContextAccessor, IHttpClientFactory clientFactory, IIOServiceContext context, ICachedKeys cachedKeys) {
             this._environmentVariableProvider = environmentVariableProvider ??
@@ -37,13 +29,6 @@ namespace FedexShipping.Data
         
             this._context = context ??
                                throw new ArgumentNullException(nameof(context));
-
-            this._cachedKeys = cachedKeys ??
-                               throw new ArgumentNullException(nameof(cachedKeys));
-                               
-            this._applicationName =
-                $"{this._environmentVariableProvider.ApplicationVendor}.{this._environmentVariableProvider.ApplicationName}";
-            
         }
 
         public async Task<PackingResponseWrapper> PackItems(PackingRequest packingRequest) {
