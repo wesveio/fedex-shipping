@@ -3,7 +3,27 @@ FedEx Dynamic Shipping Rates
 FedEx App works in tandem with shipping-rates-provider to fetch for dynamic rates. This app acts as the middleware between FedEx and 
 
 ## Functionalities
+---
 - Fetch dynamic rates from FedEx
+
+## Configurations
+---
+### Standard Configurations
+- `Meter Number`: This is the FedEx Meter Number
+- `Account Number`: This is the FedEx Account Number
+- `Credential Key`: This is the FedEx Credential Key
+- `Credential Password`: This is the FedEx Credential Password
+- `Is Live Toggle`: Toggles between account types. Ensure that the FedEx account values inputted above are reflective of the type here. Otherwise, it will not authenticate.
+- `Ship To Residential`: Toggles the Shipping to Residential or Business. Certain SLAs will not be available for Residential or vise versa.
+- `Optimize Shipping`: Toggles between **No Smart Packing**, **Pack All Into Largest Box**, or **Smart Packing**. See `Optimize Shipping` section for details
+---
+### Advance Configurations
+
+---
+### Dock Configurations
+- Connects docks to the app. If the Toggle is on, items can be shipped from this dock. 
+- ⚠️⚠️⚠️**Ensure that the enabled docks have proper addresses**⚠️⚠️⚠️
+- You can check dock settings here: `https://{workspace}--{account}.myvtex.com/admin/shipping-strategy/loading-docks/`
 
 Test Calculate Shipping API
 
@@ -20,19 +40,18 @@ Request Body Examples
         {
             "id": "880090",
             "quantity": 1,
+            "groupId": null,
             "unitPrice": 500.0,
             "modal": "",
             "unitDimension": {
-                "weight": 10.0000,
-                "height": 10.0000,
-                "width": 10.0000,
-                "length": 10.0000,
-                "maxSumDimension": 0.0
+                "weight": 10.00,
+                "height": 10,
+                "width": 10,
+                "length": 10
             }
         }
     ],
     "origin": {
-        "id": null,
         "zipCode": "33020",
         "country": "USA",
         "state": "FL",
@@ -41,7 +60,6 @@ Request Body Examples
         "residential": false
     },
     "destination": {
-        "id": null,
         "zipCode": "00010002",
         "country": "USA",
         "state": null,
@@ -49,63 +67,12 @@ Request Body Examples
         "coordinates": null,
         "residential": false
     },
-    "shippingDateUTC": "2022-03-09T01:02:45.128577+00:00",
-    "currency": null,
-    "shippingRatesProvidersIds": [
-        "vtexus.fedex-shipping"
-    ]
+    "shippingDateUTC": "2022-05-31T01:02:45.128577+00:00",
+    "currency": null
 }
 ```
 
-```json
-{
-    "items": [
-        {
-            "id": "8999989",
-            "quantity": 1,
-            "modal": "",
-            "unitPrice": 9.99,
-            "unitDimension": {
-                "weight": 1.5,
-                "height": 30,
-                "width": 10.7,
-                "length": 20
-            }
-        }
-    ],
-    "origin": {
-        "id":"",
-        "street": "340 N 3rd St",
-        "city": "Phoenix",
-        "state": "AZ",
-        "country": "USA",
-        "zipCode": "85004",
-        "residential": false,
-        "coordinates": {
-            "latitude": null,
-            "longitude": null
-        }
-    },
-    "destination": {
-        "id":"",
-        "street": "607 N Leroux St",
-        "city": "Flagstaff",
-        "state": "AZ",  
-        "country": "USA",
-        "zipCode": "86001",
-        "residential": true,
-        "coordinates": {
-            "latitude": null,
-            "longitude": null
-        }
-    },
-    "shippingDateUTC": "2022-02-14T18:46:08.6986181+00:00",
-    "currency": "USD",
-    "shippingRatesProvidersIds": [
-        "vtexus.fedex-shipping"
-    ]
-}
-```
+
 
 - Smart Packing
     - Ship Alone still ships alone
