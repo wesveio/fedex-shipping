@@ -64,7 +64,7 @@ FedEx App works in tandem with shipping-rates-provider to fetch for dynamic rate
 
 > A FedEx estimated delivery date will be shown at Order Management if an order has selected FedEx shipping.
 
-> We currently do not support FedEx Freight shipping and international shipping. All shipments must not be over 100<sup>3</sup>in. All docks used must originate from the USA and destinations must also be in the USA.
+> We currently do not support FedEx Freight shipping and international shipping. All shipments must not be over 100in<sup>3</sup>. All docks used must originate from the USA and destinations must also be in the USA.
 
 > Services are limited to areas where FedEx operates. FedEx can not deliver to non-serviceable areas.
 
