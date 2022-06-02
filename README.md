@@ -1,22 +1,23 @@
-📢 Use this project, [contribute](https://github.com/vtex-apps/packing-optimization) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
+📢 Use this project, [contribute](https://github.com/vtex-apps/fedex-shipping) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
 # FedEx Shipping
 <!-- DOCS-IGNORE:start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
-FedEx Dynamic Shipping Rates
-FedEx App works in tandem with shipping-rates-provider to fetch for dynamic rates. This app integrates the FedEx API.
+The **FedEx Shipping** app is an integration with the VTEX [Dynamic Rates Hub](https://github.com/vtex/shipping-rates-provider) to perform real-time shipping cost calculations for the user in checkout. This app uses the FedEx API to calculate shipping costs.
 
 ## Features 🚚
-- Fetch dynamic rates from FedEx
+- Fetch dynamic shipping rates from FedEx during checkout
 
 ## Installation ⏬
 - Set Up a FedEx Developer Account
-- Install the following two apps: `vtex.shipping-rates-provider` and `vtex install vtexus.fedex-shipping`
-- You can install the **Shipping Rates Provider and FedEx App** app by running `vtex.shipping-rates-provider` and `vtex install vtexus.fedex-shipping`, respectively, in your terminal, using the [VTEX IO CLI](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference).
+- Install the following two apps: `vtex.shipping-rates-provider` (the Dynamic Rates Hub app) and `vtexus.fedex-shipping` (this app) by running `vtex install vtex.shipping-rates-provider` and `vtex install vtexus.fedex-shipping` in your terminal, using the [VTEX IO CLI](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference).
 
 ## Configurations ⚙️
+
+### How to *Access* Configuration
+- In the VTEX Admin, `Search` for `FedEx Shipping`
 
 ### Standard Configurations 🔑
 - `Meter Number`: This is the FedEx Meter Number
@@ -56,11 +57,11 @@ FedEx App works in tandem with shipping-rates-provider to fetch for dynamic rate
     - ⚠️***`BETA`*** Smart Packing: Given a list of boxes, we can dynamically pack items into the box, with respect to the space that is already consumed by other items in the box. This feature requires the [Packing Optimization App](https://github.com/vtex-apps/packing-optimization). Please check the [Packing Optimization App](https://github.com/vtex-apps/packing-optimization) for more information on how to use. Most optimal shipping cost.
 
 ### Things To Note ⚠️
-> Please `Save` in the current settings tab before navigating to another settings tab.
+> Remember to `Save` in the current settings tab before navigating to another settings tab. Otherwise, your changes will be lost.
 
 > The FedEx dynamic rates can only be as good as the data inputted. Please correct the item's dimensions and weights and select the proper unit of measurement before using this app.
 
-> Item length, width, and height are rounded up.
+> Item length, width, and height are rounded up to the nearest whole number.
 
 > A FedEx estimated delivery date will be shown at Order Management if an order has selected FedEx shipping.
 
