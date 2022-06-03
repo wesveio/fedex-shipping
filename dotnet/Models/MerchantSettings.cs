@@ -16,6 +16,7 @@ namespace FedexShipping.Models
         public int OptimizeShippingType { get; set; }
         public string UnitWeight { get; set; }
         public string UnitDimension { get; set; }
+        public string PackingAccessKey { get; set; } = "";
         public List<ModalMap> ItemModals { get; set; } = new List<ModalMap>();
         public List<SlaSettings> SlaSettings { get; set; } = new List<SlaSettings>();
     }

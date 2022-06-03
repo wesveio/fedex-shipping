@@ -49,6 +49,7 @@ const Configurations: FC = () => {
     unitDimension: string
     itemModals: any[]
     slaSettings: any[]
+    packingAccessKey: string
   }>({
     clientDetailMeterNumber: '',
     clientDetailAccountNumber: '',
@@ -61,6 +62,7 @@ const Configurations: FC = () => {
     unitDimension: 'IN',
     itemModals: [],
     slaSettings: [],
+    packingAccessKey: '',
   })
 
   const {
@@ -75,6 +77,7 @@ const Configurations: FC = () => {
     unitDimension,
     itemModals: items,
     slaSettings,
+    packingAccessKey,
   } = state
 
   const [saveAppSetting] = useMutation(SaveAppSetting)
@@ -120,6 +123,7 @@ const Configurations: FC = () => {
           unitDimension,
           itemModals: saveModals,
           slaSettings: saveSlaSettings,
+          packingAccessKey,
         },
       },
     }).then((result: any) => {
@@ -268,9 +272,21 @@ const Configurations: FC = () => {
                 {generateOptions()}
               </Select>
               {optimizeShippingType === 2 ? (
-                <Alert visible tone="warning">
-                  {formatMessage({ id: 'admin/fedex-shipping.smartPackAlert' })}
-                </Alert>
+                <Set orientation="vertical">
+                  <Alert visible tone="warning">
+                    {formatMessage({
+                      id: 'admin/fedex-shipping.smartPackAlert',
+                    })}
+                  </Alert>
+                  <InputPassword
+                    id="accessKey"
+                    label="Access Key"
+                    value={packingAccessKey}
+                    onChange={(e) =>
+                      setState({ ...state, packingAccessKey: e.target.value })
+                    }
+                  />
+                </Set>
               ) : null}
             </Set>
           </Set>

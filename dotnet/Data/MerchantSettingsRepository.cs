@@ -72,6 +72,9 @@
                 merchantSettings.SlaSettings.Add(new SlaSettings("2Day", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("FedEx Home Delivery", false, 0, 0));
             }
+            if (merchantSettings.PackingAccessKey == null) {
+                merchantSettings.PackingAccessKey = "";
+            }
             return merchantSettings;
         }
 
