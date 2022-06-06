@@ -86,7 +86,8 @@
             return Json(getRatesResponseWrapper.GetRatesResponses);
         }
 
-        public async Task<IActionResult> TestPack() {
+        public async Task<IActionResult> TestPack()
+        {
             var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
             List<Item> packingRequest = JsonConvert.DeserializeObject<List<Item>>(bodyAsText);
             List<Item> response = await this._packingService.packingMap(packingRequest);
@@ -113,10 +114,6 @@
             await this._merchantSettingsRepository.SetMerchantSettings(merchantSettings);
         }
 
-        /// <summary>
-        /// Retrieve merchant settings
-        /// </summary>
-        /// <returns></returns>
         public async Task<IActionResult> GetMerchantSettings()
         {
             var authenticationResponse = await this._merchantSettingsRepository.GetMerchantSettings();

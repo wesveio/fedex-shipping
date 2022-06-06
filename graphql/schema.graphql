@@ -1,6 +1,7 @@
 type Query {
   getAppSettings: AppSetting @cacheControl(scope: PRIVATE)
   getDocks: LogisticsDockList @cacheControl(scope: PRIVATE)
+  testKey(packingAccessKey: String): Boolean @cacheControl(scope: PRIVATE)
 }
 
 type ItemModal {
@@ -30,6 +31,7 @@ type AppSetting {
   unitDimension: String
   itemModals: [ItemModal]
   slaSettings: [SlaSettings]
+  packingAccessKey: String
 }
 
 type LogisticsDockList {
@@ -69,6 +71,7 @@ input AppSettingsInput {
   unitDimension: String
   itemModals: [ItemModalInput]
   slaSettings: [SlaSettingsInput]
+  packingAccessKey: String
 }
 
 input UpdateDockInput {

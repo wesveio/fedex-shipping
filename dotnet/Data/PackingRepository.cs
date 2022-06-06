@@ -17,7 +17,8 @@ namespace FedexShipping.Data
         private readonly IHttpClientFactory _clientFactory;
         private readonly IIOServiceContext _context;
 
-        public PackingRepository(IVtexEnvironmentVariableProvider environmentVariableProvider, IHttpContextAccessor httpContextAccessor, IHttpClientFactory clientFactory, IIOServiceContext context, ICachedKeys cachedKeys) {
+        public PackingRepository(IVtexEnvironmentVariableProvider environmentVariableProvider, IHttpContextAccessor httpContextAccessor, IHttpClientFactory clientFactory, IIOServiceContext context, ICachedKeys cachedKeys)
+        {
             this._environmentVariableProvider = environmentVariableProvider ??
                                     throw new ArgumentNullException(nameof(environmentVariableProvider));
 
@@ -31,7 +32,8 @@ namespace FedexShipping.Data
                                throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<PackingResponseWrapper> PackItems(PackingRequest packingRequest) {
+        public async Task<PackingResponseWrapper> PackItems(PackingRequest packingRequest, string accessKey)
+        {
             PackingResponseWrapper packingResponse = new PackingResponseWrapper();
 
             var request = new HttpRequestMessage
@@ -44,6 +46,7 @@ namespace FedexShipping.Data
             string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
             if (authToken != null)
             {
+                request.Headers.Add(Constants.PACKING_ACCESS_KEY, accessKey);
                 request.Headers.Add(Constants.VTEX_ID_HEADER_NAME, authToken);
                 request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
             }

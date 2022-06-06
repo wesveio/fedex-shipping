@@ -27,5 +27,8 @@
   "admin/fedex-shipping.appSettings": "admin/fedex-shipping.appSettings",
   "admin/fedex-shipping.advanceConfig": "admin/fedex-shipping.advanceConfig",
   "admin/fedex-shipping.dockConfig": "admin/fedex-shipping.dockConfig",
-  "admin/fedex-shipping.smartPackAlert": "admin/fedex-shipping.smartPackAlert"
+  "admin/fedex-shipping.smartPackAlert": "admin/fedex-shipping.smartPackAlert",
+  "admin/fedex-shipping.correctKey": "admin/fedex-shipping.correctKey",
+  "admin/fedex-shipping.incorrectKey": "admin/fedex-shipping.incorrectKey",
+  "admin/fedex-shipping.testKey": "admin/fedex-shipping.testKey"
 }

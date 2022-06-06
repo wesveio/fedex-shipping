@@ -5,7 +5,8 @@ namespace FedexShipping.Services
     public class FedExEstimateDeliveryRequest : IFedExEstimateDeliveryRequest
     {
 
-        public GetEstimateDeliveryResponse getEstimateDelivery(GetEstimateDeliveryRequest request) {
+        public GetEstimateDeliveryResponse getEstimateDelivery(GetEstimateDeliveryRequest request)
+        {
 
             DateTimeOffset newEstimate = DateTimeOffset.UtcNow + request.previousEstimation.transitTime;
             GetEstimateDeliveryResponse getEstimateDeliveryResponse = new GetEstimateDeliveryResponse(request.carrierId, request.shippingMethod, newEstimate);

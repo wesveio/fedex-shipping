@@ -8,13 +8,20 @@ namespace FedexShipping.Services
     public class PackingService : IPackingService
     {
         private readonly IPackingRepository _packingRepository;
+        private readonly IMerchantSettingsRepository _merchantSettingsRepository;
+        private MerchantSettings _merchantSettings;
 
-        public PackingService(IPackingRepository packingRepository)
+        public PackingService(IPackingRepository packingRepository, IMerchantSettingsRepository merchantSettingsRepository)
         {
             this._packingRepository = packingRepository ?? throw new ArgumentException(nameof(packingRepository));
+            this._merchantSettingsRepository = merchantSettingsRepository ??
+                throw new ArgumentNullException(nameof(merchantSettingsRepository));
         }
 
-        public async Task<List<Item>> packingMap(List<Item> items) {
+        public async Task<List<Item>> packingMap(List<Item> items)
+        {
+            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
+
             PackingRequest packingRequest = new PackingRequest();
 
             // All different modals here are handled the same way
@@ -36,7 +43,7 @@ namespace FedexShipping.Services
                 itemMap.Add(itemId.ToString(), item);
             }
 
-            PackingResponseWrapper packingResponseWrapper = await this._packingRepository.PackItems(packingRequest);
+            PackingResponseWrapper packingResponseWrapper = await this._packingRepository.PackItems(packingRequest, this._merchantSettings.PackingAccessKey);
 
             Dictionary<string, Container> containerMap = new Dictionary<string, Container>();
 

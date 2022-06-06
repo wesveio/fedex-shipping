@@ -1,0 +1,3 @@
+query TestKey($packingAccessKey: String) {
+  testKey(packingAccessKey: $packingAccessKey)
+}

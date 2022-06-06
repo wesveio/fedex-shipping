@@ -24,6 +24,7 @@ namespace FedexShipping.GraphQL.Types
             Field(b => b.UnitDimension).Description("unitDimension");
             Field(b => b.ItemModals, type: typeof(ListGraphType<ItemModalsInput>)).Description("Item Modals Mapping");
             Field(b => b.SlaSettings, type: typeof(ListGraphType<SlaSettingsInput>)).Description("SLA Settings");
+            Field(b => b.PackingAccessKey).Description("Packing Key");
         }
     }
 }
