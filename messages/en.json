@@ -27,5 +27,8 @@
   "admin/fedex-shipping.appSettings": "App Settings",
   "admin/fedex-shipping.advanceConfig": "Advance Configurations",
   "admin/fedex-shipping.dockConfig": "Dock Configurations",
-  "admin/fedex-shipping.smartPackAlert": "Smart Packing is in beta. This feature requires the Packing Optimization App"
+  "admin/fedex-shipping.smartPackAlert": "Smart Packing is in beta. This feature requires the Packing Optimization App",
+  "admin/fedex-shipping.correctKey": "Correct Key",
+  "admin/fedex-shipping.incorrectKey": "Incorrect Key",
+  "admin/fedex-shipping.testKey": "Test Key"
 }

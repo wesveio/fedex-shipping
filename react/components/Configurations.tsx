@@ -22,9 +22,10 @@ import {
   Select,
   useTabState as UseTabState,
 } from '@vtex/admin-ui'
-import { useQuery, useMutation } from 'react-apollo'
+import { useQuery, useMutation, useLazyQuery } from 'react-apollo'
 
 import AppSettings from '../queries/getAppSettings.gql'
+import TestKey from '../queries/getTestKey.gql'
 import SaveAppSetting from '../mutations/saveAppSetting.gql'
 import DockConfig from './DockConfig'
 import AdvanceConfigurations from './AdvanceConfigurations'
@@ -79,6 +80,13 @@ const Configurations: FC = () => {
     slaSettings,
     packingAccessKey,
   } = state
+
+  const [testKey, { called, loading, data: testKeyResponse }] = useLazyQuery(
+    TestKey,
+    {
+      fetchPolicy: 'no-cache',
+    }
+  )
 
   const [saveAppSetting] = useMutation(SaveAppSetting)
 
@@ -137,6 +145,24 @@ const Configurations: FC = () => {
         message,
       })
     })
+  }
+
+  const showKeyStatus = () => {
+    let response
+
+    if (called && !loading) {
+      response = testKeyResponse?.testKey ? (
+        <Alert visible tone="positive">
+          {formatMessage({ id: 'admin/fedex-shipping.correctKey' })}
+        </Alert>
+      ) : (
+        <Alert visible tone="critical">
+          {formatMessage({ id: 'admin/fedex-shipping.incorrectKey' })}
+        </Alert>
+      )
+    }
+
+    return response
   }
 
   const mapAndSave = () => {
@@ -286,6 +312,18 @@ const Configurations: FC = () => {
                       setState({ ...state, packingAccessKey: e.target.value })
                     }
                   />
+                  <Button
+                    onClick={() => {
+                      testKey({
+                        variables: {
+                          packingAccessKey,
+                        },
+                      })
+                    }}
+                  >
+                    {formatMessage({ id: 'admin/fedex-shipping.testKey' })}
+                  </Button>
+                  {showKeyStatus()}
                 </Set>
               ) : null}
             </Set>
