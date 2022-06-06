@@ -65,7 +65,7 @@
       "policies": [
         {
           "effect": "allow",
-          "actions": ["post"]
+          "actions": ["get"]
         }
       ]
     }

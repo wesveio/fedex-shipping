@@ -113,10 +113,6 @@
             await this._merchantSettingsRepository.SetMerchantSettings(merchantSettings);
         }
 
-        /// <summary>
-        /// Retrieve merchant settings
-        /// </summary>
-        /// <returns></returns>
         public async Task<IActionResult> GetMerchantSettings()
         {
             var authenticationResponse = await this._merchantSettingsRepository.GetMerchantSettings();

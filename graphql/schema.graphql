@@ -1,6 +1,7 @@
 type Query {
   getAppSettings: AppSetting @cacheControl(scope: PRIVATE)
   getDocks: LogisticsDockList @cacheControl(scope: PRIVATE)
+  testKey(packingAccessKey: String): Boolean @cacheControl(scope: PRIVATE)
 }
 
 type ItemModal {
