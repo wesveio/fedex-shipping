@@ -31,7 +31,7 @@ namespace FedexShipping.Data
                                throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<PackingResponseWrapper> PackItems(PackingRequest packingRequest) {
+        public async Task<PackingResponseWrapper> PackItems(PackingRequest packingRequest, string accessKey) {
             PackingResponseWrapper packingResponse = new PackingResponseWrapper();
 
             var request = new HttpRequestMessage
@@ -44,6 +44,7 @@ namespace FedexShipping.Data
             string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
             if (authToken != null)
             {
+                request.Headers.Add(Constants.PACKING_ACCESS_KEY, accessKey);
                 request.Headers.Add(Constants.VTEX_ID_HEADER_NAME, authToken);
                 request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
             }

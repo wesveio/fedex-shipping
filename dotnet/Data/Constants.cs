@@ -12,5 +12,6 @@ namespace FedexShipping.Data
         public const string RATES_BUCKET = "rates-response";
         public const string VTEX_ID_HEADER_NAME = "VtexIdclientAutCookie";
         public const string CARRIER = "FedEx";
+        public const string PACKING_ACCESS_KEY = "AccessKey";
     }
 }

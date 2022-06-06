@@ -5,6 +5,6 @@ namespace FedexShipping.Data
 {
     public interface IPackingRepository
     {
-        Task<PackingResponseWrapper> PackItems(PackingRequest packingRequest);
+        Task<PackingResponseWrapper> PackItems(PackingRequest packingRequest, string accessKey);
     }
 }
