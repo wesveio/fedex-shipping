@@ -17,7 +17,8 @@ namespace FedexShipping.Data
         private readonly IHttpClientFactory _clientFactory;
         private readonly IIOServiceContext _context;
 
-        public PackingRepository(IVtexEnvironmentVariableProvider environmentVariableProvider, IHttpContextAccessor httpContextAccessor, IHttpClientFactory clientFactory, IIOServiceContext context, ICachedKeys cachedKeys) {
+        public PackingRepository(IVtexEnvironmentVariableProvider environmentVariableProvider, IHttpContextAccessor httpContextAccessor, IHttpClientFactory clientFactory, IIOServiceContext context, ICachedKeys cachedKeys)
+        {
             this._environmentVariableProvider = environmentVariableProvider ??
                                     throw new ArgumentNullException(nameof(environmentVariableProvider));
 
@@ -31,7 +32,8 @@ namespace FedexShipping.Data
                                throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<PackingResponseWrapper> PackItems(PackingRequest packingRequest, string accessKey) {
+        public async Task<PackingResponseWrapper> PackItems(PackingRequest packingRequest, string accessKey)
+        {
             PackingResponseWrapper packingResponse = new PackingResponseWrapper();
 
             var request = new HttpRequestMessage

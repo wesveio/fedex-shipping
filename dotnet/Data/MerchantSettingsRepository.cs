@@ -50,7 +50,8 @@
             var response = await client.SendAsync(request);
             string responseContent = await response.Content.ReadAsStringAsync();
             MerchantSettings merchantSettings = JsonConvert.DeserializeObject<MerchantSettings>(responseContent);
-            if (merchantSettings.ItemModals.Count == 0) {
+            if (merchantSettings.ItemModals.Count == 0)
+            {
                 merchantSettings.ItemModals.Add(new ModalMap("CHEMICALS", "HAZARDOUS_MATERIALS", false));
                 merchantSettings.ItemModals.Add(new ModalMap("ELECTRONICS", "BATTERY", false));
                 merchantSettings.ItemModals.Add(new ModalMap("FURNITURE", "NONE", false));
@@ -62,7 +63,8 @@
                 merchantSettings.ItemModals.Add(new ModalMap("WHITE_GOODS", "NONE", false));
                 merchantSettings.ItemModals.Add(new ModalMap("FIREARMS", "ORM_D", false));
             }
-            if (merchantSettings.SlaSettings.Count == 0) {
+            if (merchantSettings.SlaSettings.Count == 0) 
+            {
                 merchantSettings.SlaSettings.Add(new SlaSettings("FedEx Ground", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("Priority Overnight", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("Express Saver", false, 0, 0));
@@ -72,7 +74,8 @@
                 merchantSettings.SlaSettings.Add(new SlaSettings("2Day", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("FedEx Home Delivery", false, 0, 0));
             }
-            if (merchantSettings.PackingAccessKey == null) {
+            if (merchantSettings.PackingAccessKey == null) 
+            {
                 merchantSettings.PackingAccessKey = "";
             }
             return merchantSettings;

@@ -86,7 +86,8 @@
             return Json(getRatesResponseWrapper.GetRatesResponses);
         }
 
-        public async Task<IActionResult> TestPack() {
+        public async Task<IActionResult> TestPack()
+        {
             var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
             List<Item> packingRequest = JsonConvert.DeserializeObject<List<Item>>(bodyAsText);
             List<Item> response = await this._packingService.packingMap(packingRequest);

@@ -18,7 +18,8 @@ namespace FedexShipping.Services
                 throw new ArgumentNullException(nameof(merchantSettingsRepository));
         }
 
-        public async Task<List<Item>> packingMap(List<Item> items) {
+        public async Task<List<Item>> packingMap(List<Item> items)
+        {
             this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
 
             PackingRequest packingRequest = new PackingRequest();
