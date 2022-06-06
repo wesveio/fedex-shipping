@@ -55,6 +55,7 @@ The **FedEx Shipping** app is an integration with the VTEX [Dynamic Rates Hub](h
     - None: Treats every item as independent. Highest possible cost.
     - Pack All Into Largest Box: Packs all items into the largest item's box. Lowest possible cost since all items are combined into the dimensions of the largest item. However, this may be unreasonable as space in the box may already be preoccupied.
     - ⚠️***`BETA`*** Smart Packing: Given a list of boxes, we can dynamically pack items into the box, with respect to the space that is already consumed by other items in the box. This feature requires the [Packing Optimization App](https://github.com/vtex-apps/packing-optimization). Please check the [Packing Optimization App](https://github.com/vtex-apps/packing-optimization) for more information on how to use. Most optimal shipping cost.
+- If `Smart Packing` is selected, an `Access Key` field will appear. Please input the Packing Optimization App's `Access Key` here. Press `Test Key` to see if the inputted key is valid. If `Smart Packing` is selected, the key must be valid, or else no rates will be returned.
 
 ### Things To Note ⚠️
 > Remember to `Save` in the current settings tab before navigating to another settings tab. Otherwise, your changes will be lost.
