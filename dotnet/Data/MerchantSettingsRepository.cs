@@ -73,6 +73,12 @@
                 merchantSettings.SlaSettings.Add(new SlaSettings("Standard Overnight", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("2Day", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("FedEx Home Delivery", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Economy", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Priority Express (IP EXP)", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Priority EOD (IP EOD)", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Connect Plus", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International First", false, 0, 0));
+
             }
             if (merchantSettings.PackingAccessKey == null) 
             {

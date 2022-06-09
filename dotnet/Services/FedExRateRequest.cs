@@ -21,7 +21,10 @@
         private MerchantSettings _merchantSettings;
 
         private Dictionary<string, string> iso2CodeMap = new Dictionary<string, string>(){
-            {"USA", "US"}
+            {"USA", "US"},
+            {"MEX", "MX"},
+            {"BRA", "BR"},
+            {"GBR", "GB"}
         };
 
         private Dictionary<string, string> modalOptionsMap = new Dictionary<string, string>()
@@ -94,6 +97,13 @@
                 foreach (SlaSettings slaSettings in this._merchantSettings.SlaSettings) {
                     slaMapping.Add(slaSettings.Sla, slaSettings);
                 }
+
+                slaMapping.Add("International Economy", new SlaSettings("International Economy", false, 0, 0));
+                slaMapping.Add("International Priority Express (IP EXP)", new SlaSettings("International Priority Express (IP EXP)", false, 0, 0));
+                slaMapping.Add("International Priority EOD (IP EOD)", new SlaSettings("International Priority EOD (IP EOD)", false, 0, 0));
+                slaMapping.Add("International Connect Plus", new SlaSettings("International Connect Plus", false, 0, 0));
+                slaMapping.Add("International First", new SlaSettings("International First", false, 0, 0));
+
 
                 // Iterates through every entry in the different FedEx handling types
                 foreach (KeyValuePair<string, List<Item>> entry in splitItems) {
