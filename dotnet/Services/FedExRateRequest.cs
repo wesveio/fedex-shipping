@@ -9,6 +9,7 @@
     using Newtonsoft.Json;
     using FedexShipping.Data;
     using FedexShipping.Models;
+    using System.Text.RegularExpressions;
     using Vtex.Api.Context;
 
     public class FedExRateRequest : IFedExRateRequest
@@ -21,10 +22,10 @@
         private MerchantSettings _merchantSettings;
 
         private Dictionary<string, string> iso2CodeMap = new Dictionary<string, string>(){
-            {"USA", "US"},
-            {"MEX", "MX"},
-            {"BRA", "BR"},
-            {"GBR", "GB"}
+            {"USA", "US"}, // \d{5}$
+            {"MEX", "MX"}, // \d{5}$
+            {"BRA", "BR"}, // ([\d]{5})\-?([\d]{3})$
+            {"GBR", "GB"} // ([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$
         };
 
         private Dictionary<string, string> modalOptionsMap = new Dictionary<string, string>()
@@ -297,7 +298,14 @@
         {
             request.RequestedShipment.Recipient = new Party();
             request.RequestedShipment.Recipient.Address = new Address();
-            request.RequestedShipment.Recipient.Address.PostalCode = getRatesRequest.destination.zipCode.Substring(getRatesRequest.destination.zipCode.Length - 5, 5);
+
+            Regex rx = new Regex(Constants.POSTAL_CODE_REGEX[getRatesRequest.destination.country], RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+            // Find matches.
+            Match match = rx.Match(getRatesRequest.destination.zipCode);
+            Console.WriteLine(match.Value);
+
+            request.RequestedShipment.Recipient.Address.PostalCode = match.Value;
             request.RequestedShipment.Recipient.Address.CountryCode = iso2CodeMap[getRatesRequest.destination.country];
             request.RequestedShipment.Recipient.Address.City = getRatesRequest.destination.city;
             request.RequestedShipment.Recipient.Address.StateOrProvinceCode = getRatesRequest.destination.state;

@@ -1,5 +1,6 @@
 namespace FedexShipping.Data
 {
+    using System.Collections.Generic;
     public static class Constants
     {
         public const string SETTINGS_NAME = "merchantSettings";
@@ -13,5 +14,12 @@ namespace FedexShipping.Data
         public const string VTEX_ID_HEADER_NAME = "VtexIdclientAutCookie";
         public const string CARRIER = "FedEx";
         public const string PACKING_ACCESS_KEY = "AccessKey";
+
+        public static readonly Dictionary<string, string> POSTAL_CODE_REGEX= new Dictionary<string, string> {
+            {"USA", "\\d{5}$"},
+            {"MEX", "\\d{5}$"},
+            {"BRA", "([\\d]{5})\\-?([\\d]{3})$"},
+            {"GBR", "([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$"}
+        };
     }
 }
