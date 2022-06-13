@@ -22,10 +22,14 @@
         private MerchantSettings _merchantSettings;
 
         private Dictionary<string, string> iso2CodeMap = new Dictionary<string, string>(){
-            {"USA", "US"}, // \d{5}$
-            {"MEX", "MX"}, // \d{5}$
-            {"BRA", "BR"}, // ([\d]{5})\-?([\d]{3})$
-            {"GBR", "GB"} // ([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$
+            {"USA", "US"},
+            {"MEX", "MX"},
+            {"BRA", "BR"},
+            {"GBR", "GB"},
+            {"CAN", "CA"},
+            {"FRA", "FR"},
+            {"ITA", "IT"},
+            {"DEU", "DE"}
         };
 
         private Dictionary<string, string> modalOptionsMap = new Dictionary<string, string>()
@@ -104,7 +108,7 @@
                 slaMapping.Add("International Priority EOD (IP EOD)", new SlaSettings("International Priority EOD (IP EOD)", false, 0, 0));
                 slaMapping.Add("International Connect Plus", new SlaSettings("International Connect Plus", false, 0, 0));
                 slaMapping.Add("International First", new SlaSettings("International First", false, 0, 0));
-
+                slaMapping.Add("International Two Day", new SlaSettings("International Two Day", false, 0, 0));
 
                 // Iterates through every entry in the different FedEx handling types
                 foreach (KeyValuePair<string, List<Item>> entry in splitItems) {

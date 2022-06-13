@@ -78,7 +78,7 @@
                 merchantSettings.SlaSettings.Add(new SlaSettings("International Priority EOD (IP EOD)", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("International Connect Plus", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("International First", false, 0, 0));
-
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Two Day", false, 0, 0));
             }
             if (merchantSettings.PackingAccessKey == null) 
             {
