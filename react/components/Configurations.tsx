@@ -90,7 +90,7 @@ const Configurations: FC = () => {
 
   const [saveAppSetting] = useMutation(SaveAppSetting)
 
-  const tabState = UseTabState({ selectedId: '2' })
+  const tabState = UseTabState({ selectedId: '1' })
 
   useEffect(() => {
     if (!data?.getAppSettings) return
