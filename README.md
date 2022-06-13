@@ -72,6 +72,8 @@ The **FedEx Shipping** app is an integration with the VTEX [Dynamic Rates Hub](h
 
 > All dock zipcodes must be valid
 
+> Supported Countries: United States, Mexico, Brazil, Great Britain, Canada, France, Italy, Germany
+
 Test Calculate Shipping API
 
 | Field | Value |

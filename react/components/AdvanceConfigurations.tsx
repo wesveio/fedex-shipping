@@ -56,7 +56,7 @@ const AdvanceConfigurations: FC<any> = (props: any) => {
         header: 'Ship Alone',
         accessor: 'shipAlone',
         resolver: {
-          type: 'plain',
+          type: 'root',
           render: ({ item }: any) => {
             checkboxModalStates[item.id] = UseCheckboxState({
               state: item.shipAlone,
@@ -76,7 +76,7 @@ const AdvanceConfigurations: FC<any> = (props: any) => {
         header: 'FedEx Handling Method',
         accessor: 'fedexHandling',
         resolver: {
-          type: 'plain',
+          type: 'root',
           render: ({ item }: any) => {
             dropdownStates[item.id] = UseDropdownState({
               items: fedexHandling,
@@ -131,7 +131,7 @@ const AdvanceConfigurations: FC<any> = (props: any) => {
         header: 'Hide SLA',
         accessor: 'hidden',
         resolver: {
-          type: 'plain',
+          type: 'root',
           render: ({ item }: any) => {
             checkboxSlaStates[item.id] = UseCheckboxState({
               state: item.hidden,
@@ -151,7 +151,7 @@ const AdvanceConfigurations: FC<any> = (props: any) => {
         header: 'Surcharge Flat Rate',
         accessor: 'surchargeFlatRate',
         resolver: {
-          type: 'plain',
+          type: 'root',
           render: ({ item }: any) => {
             return (
               <Set>
@@ -188,7 +188,7 @@ const AdvanceConfigurations: FC<any> = (props: any) => {
         header: 'Surcharge Percentage',
         accessor: 'surchargePercent',
         resolver: {
-          type: 'plain',
+          type: 'root',
           render: ({ item }: any) => {
             return (
               <Set>

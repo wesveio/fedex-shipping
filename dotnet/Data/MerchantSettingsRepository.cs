@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
     using FedexShipping.Services;
     using Newtonsoft.Json;
+    using System.Collections.Generic;
 
     public class MerchantSettingsRepository : IMerchantSettingsRepository
     {
@@ -63,8 +64,9 @@
                 merchantSettings.ItemModals.Add(new ModalMap("WHITE_GOODS", "NONE", false));
                 merchantSettings.ItemModals.Add(new ModalMap("FIREARMS", "ORM_D", false));
             }
-            if (merchantSettings.SlaSettings.Count == 0) 
+            if (merchantSettings.SlaSettings.Count != 14)
             {
+                merchantSettings.SlaSettings = new List<SlaSettings>();
                 merchantSettings.SlaSettings.Add(new SlaSettings("FedEx Ground", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("Priority Overnight", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("Express Saver", false, 0, 0));
@@ -73,6 +75,12 @@
                 merchantSettings.SlaSettings.Add(new SlaSettings("Standard Overnight", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("2Day", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("FedEx Home Delivery", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Economy", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Priority Express (IP EXP)", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Priority EOD (IP EOD)", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Connect Plus", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International First", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Two Day", false, 0, 0));
             }
             if (merchantSettings.PackingAccessKey == null) 
             {

@@ -194,7 +194,11 @@ const Configurations: FC = () => {
     const packingOptions = []
 
     for (const pack of packingOptimization) {
-      packingOptions.push(<option value={pack}>{pack}</option>)
+      packingOptions.push(
+        <option key={pack} value={pack}>
+          {pack}
+        </option>
+      )
     }
 
     return packingOptions
