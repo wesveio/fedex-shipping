@@ -103,13 +103,6 @@
                     slaMapping.Add(slaSettings.Sla, slaSettings);
                 }
 
-                slaMapping.Add("International Economy", new SlaSettings("International Economy", false, 0, 0));
-                slaMapping.Add("International Priority Express (IP EXP)", new SlaSettings("International Priority Express (IP EXP)", false, 0, 0));
-                slaMapping.Add("International Priority EOD (IP EOD)", new SlaSettings("International Priority EOD (IP EOD)", false, 0, 0));
-                slaMapping.Add("International Connect Plus", new SlaSettings("International Connect Plus", false, 0, 0));
-                slaMapping.Add("International First", new SlaSettings("International First", false, 0, 0));
-                slaMapping.Add("International Two Day", new SlaSettings("International Two Day", false, 0, 0));
-
                 // Iterates through every entry in the different FedEx handling types
                 foreach (KeyValuePair<string, List<Item>> entry in splitItems) {
                     if (entry.Value.Count > 0) {
@@ -307,7 +300,6 @@
 
             // Find matches.
             Match match = rx.Match(getRatesRequest.destination.zipCode);
-            Console.WriteLine(match.Value);
 
             request.RequestedShipment.Recipient.Address.PostalCode = match.Value;
             request.RequestedShipment.Recipient.Address.CountryCode = iso2CodeMap[getRatesRequest.destination.country];

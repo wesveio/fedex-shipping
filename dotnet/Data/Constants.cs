@@ -1,6 +1,7 @@
 namespace FedexShipping.Data
 {
     using System.Collections.Generic;
+    using System.Collections.Immutable;
     public static class Constants
     {
         public const string SETTINGS_NAME = "merchantSettings";
@@ -15,7 +16,7 @@ namespace FedexShipping.Data
         public const string CARRIER = "FedEx";
         public const string PACKING_ACCESS_KEY = "AccessKey";
 
-        public static readonly Dictionary<string, string> POSTAL_CODE_REGEX= new Dictionary<string, string> {
+        public static ImmutableDictionary<string, string> POSTAL_CODE_REGEX= (new Dictionary<string, string> {
             {"USA", "\\d{5}$"},
             {"MEX", "\\d{5}$"},
             {"BRA", "([\\d]{5})\\-?([\\d]{3})$"},
@@ -24,6 +25,6 @@ namespace FedexShipping.Data
             {"FRA", "\\d{5}$"},
             {"ITA", "\\d{5}$"},
             {"DEU", "\\d{5}$"}
-        };
+        }).ToImmutableDictionary();
     }
 }
