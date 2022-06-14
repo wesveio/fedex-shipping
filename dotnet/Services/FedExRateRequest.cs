@@ -84,7 +84,7 @@
             }
             else
             {
-                Dictionary<String, List<Item>> splitItems = SplitRequestItemsByModal(getRatesRequest);
+                Dictionary<string, List<Item>> splitItems = SplitRequestItemsByModal(getRatesRequest);
                 
                 RatePortTypeClient client;
                 if (this._merchantSettings.IsLive)
@@ -103,11 +103,23 @@
                     slaMapping.Add(slaSettings.Sla, slaSettings);
                 }
 
-                // Iterates through every entry in the different FedEx handling types
+                BusinessHour[] carrierBusinessHours = new BusinessHour[7];
+                for (int day = 0; day < 7; day++) {
+                    carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, new TimeSpan(0, 0, 0).ToString(), new TimeSpan(23, 59, 59).ToString());
+                }
+
+                // Iterates in parallel through every entry in the different FedEx handling types
+
+                List<List<Item>> parallelCollectionTest = new List<List<Item>>();
+
                 foreach (KeyValuePair<string, List<Item>> entry in splitItems) {
-                    if (entry.Value.Count > 0) {
+                    parallelCollectionTest.Add(entry.Value);
+                }
+                
+                var tasks = parallelCollectionTest.Select(async itemArr => {
+                    if (itemArr.Count > 0) {
                         GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
-                        getRatesRequest.items = entry.Value;
+                        getRatesRequest.items = itemArr;
                         RateRequest request = await CreateRateRequest(getRatesRequest);
                         try
                         {
@@ -163,11 +175,7 @@
 
                                             rateResponse.price += Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargePercent / 100) * rateResponse.price + Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargeFlatRate);
 
-                                            rateResponse.carrierBusinessHours = new BusinessHour[7];
-                                            for (int day = 0; day < 7; day++) {
-                                                rateResponse.carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, new TimeSpan(0, 0, 0).ToString(), new TimeSpan(23, 59, 59).ToString());
-                                            }
-
+                                            rateResponse.carrierBusinessHours = carrierBusinessHours;
                                             getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
                                         }
                                     }
@@ -198,8 +206,10 @@
                         getRatesResponseWrapperParent.timeSpan = getRatesResponseWrapper.timeSpan;
                         getRatesResponseWrapperParent.Success = getRatesResponseWrapperParent.Success && getRatesResponseWrapper.Success;
                     }
-                }
+                });
 
+                await Task.WhenAll(tasks);
+                
                 // Only cache if the response is successful
                 if (getRatesResponseWrapperParent.Success) {
                     await _fedExCacheRespository.SetCache(cacheKey, getRatesResponseWrapperParent);
@@ -209,22 +219,15 @@
         }
 
         // Splits the request with respect to FedEx handling types
-        private Dictionary<String, List<Item>> SplitRequestItemsByModal(GetRatesRequest getRatesRequest)
+        private Dictionary<string, List<Item>> SplitRequestItemsByModal(GetRatesRequest getRatesRequest)
         {
-            if (this._merchantSettings.ItemModals.Count > 0)
-            {
-                foreach (ModalMap modalMap in this._merchantSettings.ItemModals)
-                {
-                    modalOptionsMap[modalMap.Modal] = modalMap.FedexHandling;
-                }
-            }
-
-            Dictionary<String, List<Item>> handlingItemList = new Dictionary<String, List<Item>>();
+            Dictionary<string, List<Item>> handlingItemList = new Dictionary<string, List<Item>>();
             handlingItemList["NONE"] = new List<Item>();
-            
-            foreach (ModalMap itemModal in this._merchantSettings.ItemModals) {
-                if (!itemModal.FedexHandling.Equals("NONE")) {
-                    handlingItemList[itemModal.FedexHandling] = new List<Item>();
+            foreach (ModalMap modalMap in this._merchantSettings.ItemModals)
+            {
+                modalOptionsMap[modalMap.Modal] = modalMap.FedexHandling;
+                if (!modalMap.FedexHandling.Equals("NONE")) {
+                    handlingItemList[modalMap.FedexHandling] = new List<Item>();
                 }
             }
 
