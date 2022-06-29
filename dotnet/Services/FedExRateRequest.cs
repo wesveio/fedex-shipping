@@ -113,13 +113,15 @@
                 List<List<Item>> parallelCollectionTest = new List<List<Item>>();
 
                 foreach (KeyValuePair<string, List<Item>> entry in splitItems) {
-                    parallelCollectionTest.Add(entry.Value);
-                }
+                    if (entry.Value.Count > 0) {
+                //     parallelCollectionTest.Add(entry.Value);
+                // }
                 
-                var tasks = parallelCollectionTest.Select(async itemArr => {
-                    if (itemArr.Count > 0) {
+                // var tasks = parallelCollectionTest.Select(async itemArr => {
+                //     Console.WriteLine(itemArr.Count);
+                //     if (itemArr.Count > 0) {
                         GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
-                        getRatesRequest.items = itemArr;
+                        getRatesRequest.items = entry.Value;
                         RateRequest request = await CreateRateRequest(getRatesRequest);
                         try
                         {
@@ -206,9 +208,9 @@
                         getRatesResponseWrapperParent.timeSpan = getRatesResponseWrapper.timeSpan;
                         getRatesResponseWrapperParent.Success = getRatesResponseWrapperParent.Success && getRatesResponseWrapper.Success;
                     }
-                });
+                }// });
 
-                await Task.WhenAll(tasks);
+                // await Task.WhenAll(tasks);
                 
                 // Only cache if the response is successful
                 if (getRatesResponseWrapperParent.Success) {
