@@ -73,7 +73,8 @@
                 {JsonConvert.SerializeObject(getRatesRequest.items)}"
                 .GetHashCode();
 
-            if (_fedExCacheRespository.TryGetCache(cacheKey, out fedexCachedResponse)) {
+            if (_fedExCacheRespository.TryGetCache(cacheKey, out fedexCachedResponse))
+            {
                 getRatesResponseWrapperParent = fedexCachedResponse;
                 _context.Vtex.Logger.Info("GetRates", "Cache Used", 
                     "Cached Result", 
@@ -100,12 +101,14 @@
 
                 Dictionary<string, SlaSettings> slaMapping = new Dictionary<string, SlaSettings>();
 
-                foreach (SlaSettings slaSettings in this._merchantSettings.SlaSettings) {
+                foreach (SlaSettings slaSettings in this._merchantSettings.SlaSettings)
+                {
                     slaMapping.Add(slaSettings.Sla, slaSettings);
                 }
 
                 BusinessHour[] carrierBusinessHours = new BusinessHour[7];
-                for (int day = 0; day < 7; day++) {
+                for (int day = 0; day < 7; day++)
+                {
                     carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, new TimeSpan(0, 0, 0).ToString(), new TimeSpan(23, 59, 59).ToString());
                 }
 
@@ -113,14 +116,16 @@
 
                 List<List<Item>> parallelCollection = new List<List<Item>>();
 
-                foreach (KeyValuePair<string, List<Item>> entry in splitItems) {
+                foreach (KeyValuePair<string, List<Item>> entry in splitItems)
+                {
                     parallelCollection.Add(entry.Value);
                 }
 
                 var bag = new ConcurrentBag<GetRatesResponseWrapper>();
 
                 var tasks = parallelCollection.Select(async itemArr => {
-                    if (itemArr.Count > 0) {
+                    if (itemArr.Count > 0)
+                    {
                         GetRatesResponseWrapper cell = new GetRatesResponseWrapper();
                         GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
                         getRatesRequest.items = itemArr;
@@ -163,10 +168,12 @@
                                 Dictionary<string, double> ratesRatio = CalculateRatesRatio(copyItemResult);
                                 foreach(RateReplyDetail detail in reply.RateReplyDetails)
                                 {
-                                    if (!slaMapping[detail.ServiceDescription.Description].Hidden) {
+                                    if (!slaMapping[detail.ServiceDescription.Description].Hidden)
+                                    {
                                         TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
                                         string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
-                                        foreach (Item item in copyItemResult) {
+                                        foreach (Item item in copyItemResult)
+                                        {
                                             GetRatesResponse rateResponse = new GetRatesResponse
                                             {
                                                 carrierId = "FEDEX",
@@ -193,7 +200,8 @@
                                 getRatesResponseWrapper.Success = true;
                             }
 
-                            if (!string.Equals(this._environmentVariableProvider.Workspace, "master")) {
+                            if (!string.Equals(this._environmentVariableProvider.Workspace, "master"))
+                            {
                                 ShowNotifications(reply);
                             }
 
@@ -231,7 +239,8 @@
                     getRatesResponseWrapperParent.timeSpan = elem.timeSpan;
                 }
                 // Only cache if the response is successful
-                if (getRatesResponseWrapperParent.Success) {
+                if (getRatesResponseWrapperParent.Success)
+                {
                     await _fedExCacheRespository.SetCache(cacheKey, getRatesResponseWrapperParent);
                 }
             }
@@ -246,15 +255,20 @@
             foreach (ModalMap modalMap in this._merchantSettings.ItemModals)
             {
                 modalOptionsMap[modalMap.Modal] = modalMap.FedexHandling;
-                if (!modalMap.FedexHandling.Equals("NONE")) {
+                if (!modalMap.FedexHandling.Equals("NONE"))
+                {
                     handlingItemList[modalMap.FedexHandling] = new List<Item>();
                 }
             }
 
-            foreach (Item item in getRatesRequest.items) {
-                if (!string.IsNullOrEmpty(item.modal) && handlingItemList.ContainsKey(modalOptionsMap[item.modal])) {
+            foreach (Item item in getRatesRequest.items)
+            {
+                if (!string.IsNullOrEmpty(item.modal) && handlingItemList.ContainsKey(modalOptionsMap[item.modal]))
+                {
                     handlingItemList[modalOptionsMap[item.modal]].Add(item);
-                } else {
+                }
+                else
+                {
                     handlingItemList["NONE"].Add(item);
                 }
             }
@@ -334,13 +348,17 @@
         }
 
         // Creates a set for modals with shipAlone
-        public HashSet<string> GetShipAlone() {
+        public HashSet<string> GetShipAlone()
+        {
             HashSet<string> shipAlone = new HashSet<string>();
-            foreach (ModalMap itemModal in this._merchantSettings.ItemModals) {
-                if (itemModal.ShipAlone) {
+            foreach (ModalMap itemModal in this._merchantSettings.ItemModals)
+            {
+                if (itemModal.ShipAlone)
+                {
                     shipAlone.Add(itemModal.Modal);
                 }
             }
+
             return shipAlone;
         }
 
@@ -349,7 +367,8 @@
             // Combines all the items into one box
             // If 1, then it is pack together in box
             // If 2, then use smart packing
-            if (this._merchantSettings.OptimizeShippingType > 0) {
+            if (this._merchantSettings.OptimizeShippingType > 0)
+            {
                 HashSet<string> shipAlone = GetShipAlone();
                 int mergedPackageIndex = -1;
                 double maxVolume = 0;
@@ -361,8 +380,10 @@
                 // Iterates through the list
                 // Either combines the items into 1 package
                 // Or adds them separately as ship alone
-                for (int cnt = 0; cnt < getRatesRequest.items.Count; cnt++) {
-                    if (shipAlone.Contains(getRatesRequest.items[cnt].modal)) {
+                for (int cnt = 0; cnt < getRatesRequest.items.Count; cnt++)
+                {
+                    if (shipAlone.Contains(getRatesRequest.items[cnt].modal))
+                    {
                         packageLines.Add(new RequestedPackageLineItem());
                         packageLines.Last().SequenceNumber = getRatesRequest.items[cnt].id;
                         packageLines.Last().GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
@@ -376,13 +397,17 @@
 
                         // Special Handling goods
                         // Checks if the modal is in the options and there is available mapping
-                        if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE")) {
+                        if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE"))
+                        {
                             packageLines.Last().SpecialServicesRequested = new PackageSpecialServicesRequested();
                             setDangerousGoodsDetail(packageLines.Last().SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
                         }
-                    } else if (this._merchantSettings.OptimizeShippingType == 1) {
+                    }
+                    else if (this._merchantSettings.OptimizeShippingType == 1)
+                    {
                         // Sets up the item if can be combined
-                        if (mergedPackageIndex == -1) {
+                        if (mergedPackageIndex == -1)
+                        {
                             mergedPackageIndex = cnt;
                             packageLines.Add(new RequestedPackageLineItem());
 
@@ -398,7 +423,8 @@
                                                 
                         double currentItemVolume = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.length) * Math.Ceiling(getRatesRequest.items[cnt].unitDimension.width) * Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height);
 
-                        if (currentItemVolume > maxVolume) {
+                        if (currentItemVolume > maxVolume)
+                        {
                             packageLines[mergedPackageIndex].SequenceNumber = getRatesRequest.items[cnt].id;
                             setDimensions(packageLines[mergedPackageIndex].Dimensions, getRatesRequest.items[cnt].unitDimension.length, getRatesRequest.items[cnt].unitDimension.width, getRatesRequest.items[cnt].unitDimension.height);
                             packageLines[mergedPackageIndex].GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
@@ -416,9 +442,12 @@
                 }
 
                 // For combining items into one box
-                if (mergedPackageIndex != -1) {
+                if (mergedPackageIndex != -1)
+                {
                     packageLines[mergedPackageIndex].Weight.Value /= Convert.ToDecimal(packageLines[mergedPackageIndex].GroupPackageCount);
-                } else if (smartPackingList.Capacity > 0) { // For smart packing
+                }
+                else if (smartPackingList.Capacity > 0)
+                { // For smart packing
                     List<Item> packedResponse = await this._packingService.packingMap(smartPackingList);
                     foreach (Item box in packedResponse)
                     {
@@ -445,7 +474,9 @@
 
                 request.RequestedShipment.RequestedPackageLineItems = packageLines.ToArray();
 
-            } else {
+            }
+            else
+            {
                 request.RequestedShipment.RequestedPackageLineItems = new RequestedPackageLineItem[getRatesRequest.items.Count];
             
                 for(int cnt = 0; cnt < getRatesRequest.items.Count; cnt++ )
@@ -461,7 +492,8 @@
                     
                     // Special Handling goods
                     // Checks if the modal is in the options and there is available mapping
-                    if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE")) {
+                    if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE"))
+                    {
                         request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested = new PackageSpecialServicesRequested();
                         setDangerousGoodsDetail(request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
                     }
@@ -469,11 +501,13 @@
             }
         }
 
-        public void setWeight(Weight weight, double weightAmount) {
+        public void setWeight(Weight weight, double weightAmount)
+        {
             weight.Value = Convert.ToDecimal(weightAmount);
             weight.ValueSpecified = true;
             string parseUnit = this._merchantSettings.UnitWeight;
-            if (parseUnit.Equals("G")) {
+            if (parseUnit.Equals("G"))
+            {
                 parseUnit = "KG";
                 weight.Value /= 1000;
             }
@@ -483,20 +517,23 @@
             weight.UnitsSpecified = true;
         }
 
-        public void setDimensions(Dimensions dimensions, double length, double width, double height) {
+        public void setDimensions(Dimensions dimensions, double length, double width, double height)
+        {
             dimensions.Length = Math.Ceiling(length).ToString();
             dimensions.Width = Math.Ceiling(width).ToString();
             dimensions.Height = Math.Ceiling(height).ToString();
         }
 
-        public void setDimensionUnits(Dimensions dimensions) {
+        public void setDimensionUnits(Dimensions dimensions)
+        {
             LinearUnits linearUnits;
             Enum.TryParse<LinearUnits>(this._merchantSettings.UnitDimension, out linearUnits);
             dimensions.Units = linearUnits;
             dimensions.UnitsSpecified = true;
         }
 
-        public void setDangerousGoodsDetail(PackageSpecialServicesRequested packageSpecialServicesRequested, string modal) {
+        public void setDangerousGoodsDetail(PackageSpecialServicesRequested packageSpecialServicesRequested, string modal)
+        {
             string specialHandlingTypes = "DANGEROUS_GOODS";
             packageSpecialServicesRequested.SpecialServiceTypes = new String[] { specialHandlingTypes };
             packageSpecialServicesRequested.DangerousGoodsDetail = new DangerousGoodsDetail();
@@ -660,17 +697,20 @@
             return transitDays;
         }
 
-        private Dictionary<string, double> CalculateRatesRatio(List<Item> items) {
+        private Dictionary<string, double> CalculateRatesRatio(List<Item> items)
+        {
             Dictionary<string, double> itemRatesRatio = new Dictionary<string, double>();
 
             double totalWeights = 0;
             double totalVolume = 0;
-            foreach (Item item in items) {
+            foreach (Item item in items)
+            {
                 totalWeights += item.unitDimension.weight * item.quantity;
                 totalVolume += item.unitDimension.length * item.unitDimension.width * item.unitDimension.height * item.quantity;
             }
 
-            foreach (Item item in items) {
+            foreach (Item item in items)
+            {
                 double itemPriceRatio = item.unitDimension.weight / totalWeights;
                 double itemVolumeRatio = item.unitDimension.length * item.unitDimension.width * item.unitDimension.height / totalVolume;
                 itemRatesRatio.Add(item.id, ((itemPriceRatio + itemVolumeRatio)/2) * item.quantity);
