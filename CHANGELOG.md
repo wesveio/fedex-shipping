@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.17.2] - 2022-07-05
+
 ### Added
 
 - Added parallel processing for FedEx API
