@@ -1,6 +1,7 @@
 ﻿namespace FedexShipping.Services
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -113,15 +114,16 @@
                 List<List<Item>> parallelCollectionTest = new List<List<Item>>();
 
                 foreach (KeyValuePair<string, List<Item>> entry in splitItems) {
-                    if (entry.Value.Count > 0) {
-                //     parallelCollectionTest.Add(entry.Value);
-                // }
-                
-                // var tasks = parallelCollectionTest.Select(async itemArr => {
-                //     Console.WriteLine(itemArr.Count);
-                //     if (itemArr.Count > 0) {
+                    parallelCollectionTest.Add(entry.Value);
+                }
+
+                var bag = new ConcurrentBag<GetRatesResponseWrapper>();
+
+                var tasks = parallelCollectionTest.Select(async itemArr => {
+                    if (itemArr.Count > 0) {
+                        GetRatesResponseWrapper cell = new GetRatesResponseWrapper();
                         GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
-                        getRatesRequest.items = entry.Value;
+                        getRatesRequest.items = itemArr;
                         RateRequest request = await CreateRateRequest(getRatesRequest);
                         try
                         {
@@ -134,7 +136,12 @@
                             );
                             Stopwatch stopWatch = new Stopwatch();
                             stopWatch.Start();
+                            
+                            var copyStr = JsonConvert.SerializeObject(getRatesRequest.items);
+                            List<Item> copyItemResult = JsonConvert.DeserializeObject<List<Item>>(copyStr);
+
                             getRatesResponse ratesResponse = await client.getRatesAsync(request);
+
                             stopWatch.Stop();
                             TimeSpan ts = stopWatch.Elapsed;
                             _context.Vtex.Logger.Info("GetRates", "FedEx RatesResponse Time", "Time Spent in MS",
@@ -146,20 +153,20 @@
 
                             getRatesResponseWrapper.timeSpan = ts;
                             RateReply reply = ratesResponse.RateReply;
-                            getRatesResponseWrapperParent.HighestSeverity.Add(reply.HighestSeverity.ToString());
+                            cell.HighestSeverity.Add(reply.HighestSeverity.ToString());
                             if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
                             {
-                                if (!string.Equals(this._environmentVariableProvider.Workspace, "master")) {
-                                    ShowRateReply(reply);
-                                }
+                                // if (!string.Equals(this._environmentVariableProvider.Workspace, "master")) {
+                                //     ShowRateReply(reply);
+                                // }
 
-                                Dictionary<string, double> ratesRatio = CalculateRatesRatio(getRatesRequest.items);
+                                Dictionary<string, double> ratesRatio = CalculateRatesRatio(copyItemResult);
                                 foreach(RateReplyDetail detail in reply.RateReplyDetails)
                                 {
                                     if (!slaMapping[detail.ServiceDescription.Description].Hidden) {
                                         TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
                                         string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
-                                        foreach (Item item in getRatesRequest.items) {
+                                        foreach (Item item in copyItemResult) {
                                             GetRatesResponse rateResponse = new GetRatesResponse
                                             {
                                                 carrierId = "FEDEX",
@@ -200,18 +207,29 @@
                             Console.WriteLine($"Exception: {e.Message}");
                             Console.WriteLine($"Exception: {e.InnerException}");
                             Console.WriteLine($"Exception: {e.StackTrace}");
-                            getRatesResponseWrapperParent.Error.Add(e.Message);
+                            cell.Error.Add(e.Message);
                         }
 
-                        getRatesResponseWrapperParent.GetRatesResponses.AddRange(getRatesResponseWrapper.GetRatesResponses);
-                        getRatesResponseWrapperParent.Notifications.AddRange(getRatesResponseWrapper.Notifications);
-                        getRatesResponseWrapperParent.timeSpan = getRatesResponseWrapper.timeSpan;
-                        getRatesResponseWrapperParent.Success = getRatesResponseWrapperParent.Success && getRatesResponseWrapper.Success;
-                    }
-                }// });
+                        cell.GetRatesResponses.AddRange(getRatesResponseWrapper.GetRatesResponses);
+                        cell.Notifications.AddRange(getRatesResponseWrapper.Notifications);
+                        cell.timeSpan = getRatesResponseWrapper.timeSpan;
+                        cell.Success = cell.Success && getRatesResponseWrapper.Success;
 
-                // await Task.WhenAll(tasks);
+                        bag.Add(cell);
+                    }
+                });
+
+                await Task.WhenAll(tasks);
                 
+                foreach (var elem in bag)
+                {
+                    getRatesResponseWrapperParent.GetRatesResponses.AddRange(elem.GetRatesResponses);
+                    getRatesResponseWrapperParent.Notifications.AddRange(elem.Notifications);
+                    getRatesResponseWrapperParent.Success = elem.Success && getRatesResponseWrapperParent.Success;
+                    getRatesResponseWrapperParent.Error.AddRange(elem.Error);
+                    getRatesResponseWrapperParent.HighestSeverity.AddRange(elem.HighestSeverity);
+                    getRatesResponseWrapperParent.timeSpan = elem.timeSpan;
+                }
                 // Only cache if the response is successful
                 if (getRatesResponseWrapperParent.Success) {
                     await _fedExCacheRespository.SetCache(cacheKey, getRatesResponseWrapperParent);
