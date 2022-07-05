@@ -111,15 +111,15 @@
 
                 // Iterates in parallel through every entry in the different FedEx handling types
 
-                List<List<Item>> parallelCollectionTest = new List<List<Item>>();
+                List<List<Item>> parallelCollection = new List<List<Item>>();
 
                 foreach (KeyValuePair<string, List<Item>> entry in splitItems) {
-                    parallelCollectionTest.Add(entry.Value);
+                    parallelCollection.Add(entry.Value);
                 }
 
                 var bag = new ConcurrentBag<GetRatesResponseWrapper>();
 
-                var tasks = parallelCollectionTest.Select(async itemArr => {
+                var tasks = parallelCollection.Select(async itemArr => {
                     if (itemArr.Count > 0) {
                         GetRatesResponseWrapper cell = new GetRatesResponseWrapper();
                         GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
