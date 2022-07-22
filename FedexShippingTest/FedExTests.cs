@@ -7,6 +7,7 @@ using FedexShipping.Services;
 using System;
 using System.Collections.Generic;
 using TrackServiceReference;
+using Vtex.Api.Context;
 
 namespace FedexShippingTest
 {
@@ -14,11 +15,15 @@ namespace FedexShippingTest
     public class FedExTests
     {
         InMemoryMerchantSettingsRepository merchantSettingsRepository = new InMemoryMerchantSettingsRepository();
-
+        private readonly IIOServiceContext _context;
+        private readonly IMerchantSettingsRepository _merchantSettingsRepository;
+        private readonly IFedExCacheRepository _fedExCacheRespository;
+        private readonly IPackingService _packingService;
+        private readonly IVtexEnvironmentVariableProvider _environmentVariableProvider;
         [TestMethod]
         public void TestMethodGetRates()
         {
-            FedExRateRequest fedExRateRequest = new FedExRateRequest(merchantSettingsRepository);
+            FedExRateRequest fedExRateRequest = new FedExRateRequest(_environmentVariableProvider, merchantSettingsRepository, _context, _fedExCacheRespository, _packingService);
 
             GetRatesRequest getRatesRequest = BuildRequest();
 
