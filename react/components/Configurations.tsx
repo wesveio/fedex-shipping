@@ -26,6 +26,7 @@ import { useQuery, useMutation, useLazyQuery } from 'react-apollo'
 
 import AppSettings from '../queries/getAppSettings.gql'
 import TestKey from '../queries/getTestKey.gql'
+import TestCredentials from '../queries/testCredentials.gql'
 import SaveAppSetting from '../mutations/saveAppSetting.gql'
 import DockConfig from './DockConfig'
 import AdvanceConfigurations from './AdvanceConfigurations'
@@ -87,6 +88,17 @@ const Configurations: FC = () => {
       fetchPolicy: 'no-cache',
     }
   )
+
+  const [
+    testCredentials,
+    {
+      called: testCredentialsCalled,
+      loading: testCredentialsLoading,
+      data: testCredentialsResponse,
+    },
+  ] = useLazyQuery(TestCredentials, {
+    fetchPolicy: 'no-cache',
+  })
 
   const [saveAppSetting] = useMutation(SaveAppSetting)
 
@@ -332,9 +344,25 @@ const Configurations: FC = () => {
               ) : null}
             </Set>
           </Set>
-          <Button variant="primary" onClick={() => mapAndSave()}>
-            {formatMessage({ id: 'admin/fedex-shipping.saveSettings' })}
-          </Button>
+          <Set orientation="horizontal" spacing={3}>
+            <Button variant="primary" onClick={() => mapAndSave()}>
+              {formatMessage({ id: 'admin/fedex-shipping.saveSettings' })}
+            </Button>
+            <Button variant="secondary" onClick={() => testCredentials()}>
+              Test Credentials
+            </Button>
+            {testCredentialsCalled && !testCredentialsLoading ? (
+              <Alert visible tone="info">
+                {formatMessage(
+                  testCredentialsResponse?.testCredentials === true
+                    ? { id: 'admin/fedex-shipping.success' }
+                    : {
+                        id: 'admin/fedex-shipping.badCredentials',
+                      }
+                )}
+              </Alert>
+            ) : null}
+          </Set>
         </TabPanel>
         <TabPanel id="2" csx={{ padding: 3 }}>
           <AdvanceConfigurations
