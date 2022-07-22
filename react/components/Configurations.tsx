@@ -352,7 +352,14 @@ const Configurations: FC = () => {
               Test Credentials
             </Button>
             {testCredentialsCalled && !testCredentialsLoading ? (
-              <Alert visible tone="info">
+              <Alert
+                visible
+                tone={
+                  testCredentialsResponse?.testCredentials === true
+                    ? 'positive'
+                    : 'critical'
+                }
+              >
                 {formatMessage(
                   testCredentialsResponse?.testCredentials === true
                     ? { id: 'admin/fedex-shipping.success' }
