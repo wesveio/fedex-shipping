@@ -30,5 +30,7 @@
   "admin/fedex-shipping.smartPackAlert": "admin/fedex-shipping.smartPackAlert",
   "admin/fedex-shipping.correctKey": "admin/fedex-shipping.correctKey",
   "admin/fedex-shipping.incorrectKey": "admin/fedex-shipping.incorrectKey",
-  "admin/fedex-shipping.testKey": "admin/fedex-shipping.testKey"
+  "admin/fedex-shipping.testKey": "admin/fedex-shipping.testKey",
+  "admin/fedex-shipping.success": "admin/fedex-shipping.success",
+  "admin/fedex-shipping.badCredentials": "admin/fedex-shipping.badCredentials"
 }
