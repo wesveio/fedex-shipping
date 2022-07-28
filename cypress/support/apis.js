@@ -1,10 +1,9 @@
-import { loadDocksAPI, calculateShippingAPI } from './apis.endpoint'
+import { loadDocksAPI, calculateShippingAPI } from './apis_endpoint'
 import { updateRetry } from './common/support'
 import { FAIL_ON_STATUS_CODE } from './common/constants'
 
 export function loadDocks() {
   it('Load all dock connection', updateRetry(3), () => {
-    cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.getAPI(loadDocksAPI(vtex.baseUrl)).then((response) => {
         expect(response.status).to.have.equal(200)
@@ -15,7 +14,6 @@ export function loadDocks() {
 
 export function calculateShipping(data) {
   it('Calculate shipping', updateRetry(3), () => {
-    cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.request({
         method: 'POST',

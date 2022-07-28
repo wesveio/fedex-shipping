@@ -13,7 +13,7 @@ export function graphql(getQuery, validateResponseFn = null) {
   // Define constants
   const manifestFile = path.join('..', 'manifest.json')
   const APP_VERSION = manifestFile.version
-  const APP_NAME = 'vtex.wish-list'
+  const APP_NAME = 'vtex.fedex-shiping'
   const APP = `${APP_NAME}@${APP_VERSION}`
   const CUSTOM_URL = `${vtex.baseUrl}/_v/private/admin-graphql-ide/v0/${APP}`
 
