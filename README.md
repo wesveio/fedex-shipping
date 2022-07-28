@@ -33,11 +33,11 @@ The **FedEx Shipping** app is an integration with the VTEX [Dynamic Rates Hub](h
 - `Modify SLA`: This dropdown has a few settings
     - `Hide SLA`: If this is selected, the SLA will be hidden and not displayed. If all SLAs are hidden, none will be displayed.
     - `Surcharge Flat Rate`: Adds a flat surcharge to the rates. A negative value is not allowed.
-        - > Example: If 2Day is \$150, and a \$20 `Flat Rate Surcharge` was addded, it would be $$\$150 + \$20 = \$170$$
+        - > Example: If 2Day is \$150, and a \$20 `Flat Rate Surcharge` was addded, it would be $$Cost: \$150 + \$20 = \$170$$
     - `Surcharge Percentage`: Adds a percentage surcharge to the rates. A negative value is allowed. To input a negative value, add the numeric values first, then add the negative sign.
-        - > Example: If First Overnight is \$180, and a 30\% `Percent Surcharge` was added, it would be $$\$180 + (\$180) * 30\% = \$234$$
+        - > Example: If First Overnight is \$180, and a 30\% `Percent Surcharge` was added, it would be $$Cost: \$180 + (\$180 * 30\%) = \$234$$
     - Users can have both `Surcharge Flat Rate` and `Surcharge Percentage`. The two surcharges are added independently.
-        - > Example: If Priority Overnight is \$135, and there was a \$10 `Flat Rate Surcharge` and a 15\% `Percentage Surcharge`, it would be $$\$135 + \$10 + (\$135) * 15\% = \$165.25$$
+        - > Example: If Priority Overnight is \$135, and there was a \$10 `Flat Rate Surcharge` and a 15\% `Percentage Surcharge`, it would be $$Cost: \$135 + \$10 + (\$135 * 15\%) = \$165.25$$
 - `Modal Mapping`: This dropdown has a few settings
     - `Ship Alone`: Items with this modal will be shipped indepently regardless of ***FedEx Handling Methods***
     - `FedEx Handling Method`: This is how FedEx will treat this modal. The options available are for FedEx Dangerous Goods handling. Please map the Modals accordingly with the desired ***FedEx Handling Method***. Select `None` if you want this modal to be treated with no special handling. The icon adjacent to the `FedEx Handling Method` dropdown indicates whether the item will be handled as a dangerous good or not. Items with the same `FedEx Handling Method` will be packed together.
@@ -87,14 +87,27 @@ Request Body Examples
 {
     "items": [
         {
-            "id": "880090",
-            "quantity": 1,
+            "id": "8",
+            "quantity": 4,
             "groupId": null,
             "unitPrice": 500.0,
             "modal": "",
             "unitDimension": {
                 "weight": 10.00,
                 "height": 10,
+                "width": 12,
+                "length": 10
+            }
+        },
+        {
+            "id": "4",
+            "quantity": 1,
+            "groupId": null,
+            "unitPrice": 2.0,
+            "modal": "ELECTRONICS",
+            "unitDimension": {
+                "weight": 10.00,
+                "height": 11,
                 "width": 10,
                 "length": 10
             }
@@ -111,13 +124,16 @@ Request Body Examples
     "destination": {
         "zipCode": "00010002",
         "country": "USA",
-        "state": null,
-        "city": null,
+        "state": "NY",
+        "city": "New York",
         "coordinates": null,
         "residential": false
     },
     "shippingDateUTC": "2022-05-31T01:02:45.128577+00:00",
-    "currency": null
+    "currency": null,
+    "shippingRatesProvidersIds": [
+        "vtexus.fedex-shipping"
+    ]
 }
 ```
 
