@@ -75,14 +75,14 @@ The **FedEx Shipping** app is an integration with the VTEX [Dynamic Rates Hub](h
 > Supported Countries: United States, Mexico, Brazil, Great Britain, Canada, France, Italy, Germany
 
 - ### How Shipping Cost is Distributed
-    - $ Let\ individual\ item\ be\ defined\ as \ I\ $
-    - $ Let\ total\ unique\ items\ be\ defined\ as \ N\ $
-    - $ Let\ quantity\ of\ item\ be\ defined\ as \ I_Q\ $
-    - $ Let\ weight\ of\ item\ be\ defined\ as\ W_i $
-    - $ Let\ dimension\ of\ item\ be\ defined\ as\ D_i $
-    - $ Let\ total\ weight\ of\ all\ packages\ be\ defined\ as\ T_w $
-    - $ Let\ total\ dimension\ of\ all\ packages\ be\ defined\ as\ T_d $
-    - >$$Total\ Shipping\ Cost = \sum_{I=1}^N(\frac{W_i}{T_d}+\frac{W_i}{T_d})/2 * I_Q$$
+    -  Let individual item be defined as I 
+    -  Let total unique items be defined as  N 
+    -  Let quantity of item be defined as $I_Q$
+    -  Let weight of item be defined as $W_i$
+    -  Let dimension of item be defined as $D_i$ 
+    -  Let total weight of all packages be defined as $T_w$ 
+    -  Let total dimension of all packages be defined as $T_d$
+    - $$Total\ Shipping\ Cost = \sum_{I=1}^N(\frac{W_i}{T_d}+\frac{W_i}{T_d})/2 * I_Q$$
 
 
 ### Test Calculate Shipping API
