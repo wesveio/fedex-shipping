@@ -17,7 +17,7 @@ base:
   jira:
     enabled: true
     account: vtex-dev
-    board: AVAILABLE
+    board: FEDEXSHIP
     issueType: Bug
     priority: High
     testing: true
@@ -27,7 +27,7 @@ base:
   cypress:
     devMode: true
     runHeaded: false
-    projectId: 32v7vx
+    projectId: 72oi9b
     getCookies: true
     maxJobs: 3
     quiet: true
@@ -55,59 +55,26 @@ workspace:
     logOutput:
       enabled: false
   installApps:
-    # location-availability theme will work only when its peer dependency location-availability is added in the workspace
-    # So, installing location-availability@0.x version
+    # fedex-shipping theme will work only when its peer dependency fedex-shipping is added in the workspace
+    # So, installing fedex-shipping@1.x version
     - vtex.shipping-rates-provider@0.x
     - vtexus.fedex-shipping@1.x
   removeApps: []
   wipe:
-    enabled: true
+    enabled: false
     stopOnFail: false
     specs:
-      - cypress-shared/integration/location-availability/wipe.spec.js
+      - cypress-shared/integration/fedex-shipping/wipe.spec.js
   teardown:
     enabled: true
 
 strategy:
-  redirect_config_and_enable_location_testcase:
+  single_multi_product_testcases:
     enabled: true
     sendDashboard: true
     hardTries: 1
     stopOnFail: true
     parallel: true
     specs:
-      - cypress-shared/integration/shopper-location/2.1-test-locale-redirect-configuration.spec.js
-      - cypress-shared/integration/shopper-location/2.4-enable-Location-via-browser-popup-order-product.spec.js
-      - cypress-shared/integration/shopper-location/2.5-negative-scenarios-with-location.spec.js
-  auto_redirect_config_and_disable_location_testcase:
-    enabled: true
-    sendDashboard: true
-    hardTries: 1
-    stopOnFail: false
-    parallel: true
-    specs:
-      - cypress-shared/integration/shopper-location/2.2-test-locale-with-autoredirect.spec.js
-      - cypress-shared/integration/shopper-location/2.3-disable-location-via-browser-popup-order-product.spec.js
-      - cypress-shared/integration/shopper-location/2.6-negative-scenarios-disable-location.spec.js
-    dependency: 
-      - cypress-shared/integration/shopper-location/2.1-test-locale-redirect-configuration.spec.js
-  location_availability_basic_tests:
-    enabled: true
-    sendDashboard: true
-    hardTries: 1
-    stopOnFail: false
-    parallel: true
-    specs:
-      - cypress-shared/integration/location-availability/2.1-disable-location-and-test.spec.js
-      - cypress-shared/integration/location-availability/2.2-enable-location-and-test.spec.js
-      - cypress-shared/integration/location-availability/2.3-location-availability.spec.js
-      - cypress-shared/integration/location-availability/2.4-location-not-available.spec.js
-  location_availability_props_test:
-    enabled: false
-    sendDashboard: true
-    hardTries: 1
-    stopOnFail: false
-    parallel: false
-    specs:
-      - cypress-shared/integration/location-availability/2.5-Add-multiple-pickuppoint-and-update-shipping.spec.js
-      - cypress-shared/integration/location-availability/2.6-Verify-location-availability props.spec.js
+      - cypress/integration/2.1-single-product-scenarios.spec.js
+      - cypress/integration/2.2-multi-product-scenarios.spec.js
