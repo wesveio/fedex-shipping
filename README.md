@@ -74,8 +74,10 @@ The **FedEx Shipping** app is an integration with the VTEX [Dynamic Rates Hub](h
 
 > Supported Countries: United States, Mexico, Brazil, Great Britain, Canada, France, Italy, Germany
 
-Test Calculate Shipping API
 
+### Test Calculate Shipping API
+
+**With the Rates Hub**
 | Field | Value |
 | --- | ---|
 |URL|https://app.io.vtex.com/vtex.shipping-rates-provider/v0/{account}/{workspace}/shp-rates/calculate|
@@ -137,3 +139,61 @@ Request Body Examples
 }
 ```
 
+**Directly With The FedEx App**
+| Field | Value |
+| --- | ---|
+|URL|https://app.io.vtex.com/vtexus.fedex-shipping/v1/sandboxusdev/master/shp-rates/calculate|
+|METHOD|POST|
+|Headers required|VtexIdclientAutCookie|
+
+Request Body Examples
+```json
+{
+    "items": [
+        {
+            "id": "8",
+            "quantity": 4,
+            "groupId": null,
+            "unitPrice": 500.0,
+            "modal": "",
+            "unitDimension": {
+                "weight": 10.00,
+                "height": 10,
+                "width": 12,
+                "length": 10
+            }
+        },
+        {
+            "id": "4",
+            "quantity": 1,
+            "groupId": null,
+            "unitPrice": 2.0,
+            "modal": "ELECTRONICS",
+            "unitDimension": {
+                "weight": 10.00,
+                "height": 11,
+                "width": 10,
+                "length": 10
+            }
+        }
+    ],
+    "origin": {
+        "zipCode": "33020",
+        "country": "USA",
+        "state": "FL",
+        "city": "Hollywood",
+        "coordinates": null,
+        "residential": false
+    },
+    "destination": {
+        "zipCode": "00010002",
+        "country": "USA",
+        "state": "NY",
+        "city": "New York",
+        "coordinates": null,
+        "residential": false
+    },
+    "shippingDateUTC": "2022-05-31T01:02:45.128577+00:00",
+    "currency": null
+}
+```
