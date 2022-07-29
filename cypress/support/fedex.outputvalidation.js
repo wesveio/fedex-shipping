@@ -1,3 +1,5 @@
+import { PRODUCTS } from './products'
+
 export default {
   appSetting: {
     userCredentialKey: Cypress.env().base.fedex.userCredentialKey,
@@ -16,4 +18,15 @@ export default {
   },
   slaName: 'FedEx Ground',
   dockId: '1',
+  singleProduct: {
+    prefix: 'Single Product',
+    postalCode: '33180',
+    productName: PRODUCTS.apache,
+  },
+  multiProduct: {
+    prefix: 'Multi Product',
+    postalCode: '33180',
+    productName1: PRODUCTS.apache,
+    productName2: PRODUCTS.amacsa,
+  },
 }

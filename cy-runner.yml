@@ -76,5 +76,5 @@ strategy:
     stopOnFail: true
     parallel: true
     specs:
-      - cypress/integration/2.1-single-product-scenarios.spec.js
-      - cypress/integration/2.2-multi-product-scenarios.spec.js
+      - cypress/integration/2.3-single-product-scenarios.spec.js
+      - cypress/integration/2.4-multi-product-scenarios.spec.js
