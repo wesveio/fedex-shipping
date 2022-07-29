@@ -17,7 +17,21 @@ export default {
     packingAccessKey: '',
   },
   slaName: 'FedEx Ground',
-  dockId: '1',
+  docks: {
+    fedexUSDock: {
+      id: 'FD',
+      name: 'Fedex US Dock',
+      shippingRatesProviders: ['vtexus.fedex-shipping'],
+    },
+    fedexBrazilDock: {
+      id: 'S0001-E0001-Dock',
+      name: 'Fedex Brazil Dock',
+      shippingRatesProviders: ['vtexus.fedex-shipping'],
+    },
+  },
+  warehouseId: 'Fedex_WareHouse',
+  Apache2020SkuId: '880330',
+  Amacsa2020SkuId: '880350',
   singleProduct: {
     prefix: 'Single Product',
     postalCode: '33180',

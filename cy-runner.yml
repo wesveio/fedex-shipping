@@ -48,17 +48,18 @@ base:
   stateFiles: []
 
 workspace:
-  name: random
+  name: fedexshipping1646440
   prefix: fedexshipping
   linkApp:
-    enabled: true
+    enabled: false
     logOutput:
       enabled: false
   installApps:
+    []
     # fedex-shipping theme will work only when its peer dependency fedex-shipping is added in the workspace
     # So, installing fedex-shipping@1.x version
-    - vtex.shipping-rates-provider@0.x
-    - vtexus.fedex-shipping@1.x
+    # - vtex.shipping-rates-provider@0.x
+    # - vtexus.fedex-shipping@1.x
   removeApps: []
   wipe:
     enabled: false
@@ -66,7 +67,7 @@ workspace:
     specs:
       - cypress-shared/integration/fedex-shipping/wipe.spec.js
   teardown:
-    enabled: true
+    enabled: false
 
 strategy:
   single_multi_product_testcases:

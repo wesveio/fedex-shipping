@@ -1,14 +1,9 @@
-// Import commands.js using ES2015 syntax:
-import './common/commands'
-import './common/api_commands'
+import './common/commands.js'
+import './common/api_commands.js'
+import './common/env_orders.js'
 import './commands'
-import './common/env_orders'
 
 // Configure it to preserve cookies
 Cypress.Cookies.defaults({
-  preserve: 'VtexIdclientAutCookie',
-})
-
-Cypress.on('uncaught:exception', (_, __) => {
-  return false
+  preserve: /VtexIdclientAutCookie/,
 })

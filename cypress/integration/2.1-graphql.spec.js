@@ -1,47 +1,111 @@
-import {
-  preserveCookie,
-  updateRetry,
-  testSetup,
-} from '../support/common/support'
+import { updateRetry, testSetup } from '../support/common/support'
 import {
   graphql,
   getAppSettings,
-  getDocks,
-  saveAppSetting,
-  updateDockConnection,
   validateGetAppSettingsResponse,
-  validateSaveAppSettingResponse,
-  validateUpdateDockConnectionResponse,
+  getDocks,
   validateGetDockConnectionResponse,
+  saveAppSetting,
+  validateSaveAppSettingResponse,
+  updateDockConnection,
+  validateUpdateDockConnectionResponse,
+  verifyInventoryIsUnlimitedForFedexWareHouse,
+  validateInventory,
+  loadingDock,
+  verifyDockisActive,
+  warehouse,
+  validateWareHouseIsActiveAndLinkedWithDocks,
 } from '../support/fedex.graphql'
-import { appSetting, slaName, dockId } from '../support/fedex.outputvalidation'
+import {
+  appSetting,
+  slaName,
+  docks,
+  warehouseId,
+  Apache2020SkuId,
+  Amacsa2020SkuId,
+} from '../support/fedex.outputvalidation'
+import {
+  FEDEX_SHIPPING_APP,
+  INVENTORY_GRAPHQL_APP,
+  LOGISTICS_CARRIER_GRAPHQL_APP,
+} from '../support/graphql_apps.js'
 
 const prefix = 'Graphql testcase'
 
 describe('FedEx GraphQL Validation', () => {
-  testSetup()
+  testSetup(false)
 
-  it(`${prefix} - Get App Settings`, updateRetry(3), () => {
-    graphql(getAppSettings(), validateGetAppSettingsResponse)
+  it(`${prefix} - Get App Settings`, updateRetry(2), () => {
+    graphql(
+      FEDEX_SHIPPING_APP,
+      getAppSettings(),
+      validateGetAppSettingsResponse
+    )
   })
 
-  it(`${prefix} - save App Settings`, updateRetry(3), () => {
+  it(`${prefix} - save App Settings`, updateRetry(2), () => {
     graphql(
+      FEDEX_SHIPPING_APP,
       saveAppSetting(appSetting, slaName, false),
       validateSaveAppSettingResponse
     )
   })
 
-  it(`${prefix} - Update Dock Connection`, updateRetry(3), () => {
+  it(`${prefix} - Update Dock Connection`, updateRetry(2), () => {
+    for (const { id } of Object.values(docks)) {
+      graphql(
+        FEDEX_SHIPPING_APP,
+        updateDockConnection(id, false),
+        validateUpdateDockConnectionResponse
+      )
+    }
+  })
+
+  it(`${prefix} - Get Docks`, updateRetry(2), () => {
     graphql(
-      updateDockConnection(dockId, false),
-      validateUpdateDockConnectionResponse
+      FEDEX_SHIPPING_APP,
+      getDocks(),
+      validateGetDockConnectionResponse,
+      Object.values(docks)
     )
   })
 
-  it(`${prefix} - Get Docks`, updateRetry(3), () => {
-    graphql(getDocks(), validateGetDockConnectionResponse)
+  it(`Verify by UI - Test Credentials`, () => {
+    cy.visit('/admin/app/fedex-shipping')
+    cy.get('#meter').should('be.visible').should('not.have.value', '')
+    cy.contains('Test Credentials').should('be.visible').click()
+    cy.contains('Success')
   })
 
-  preserveCookie()
+  it(`${prefix} - For fedex docks, verify inventory is set to infinite`, () => {
+    graphql(
+      INVENTORY_GRAPHQL_APP,
+      verifyInventoryIsUnlimitedForFedexWareHouse(warehouseId, Apache2020SkuId),
+      validateInventory
+    )
+    graphql(
+      INVENTORY_GRAPHQL_APP,
+      verifyInventoryIsUnlimitedForFedexWareHouse(warehouseId, Amacsa2020SkuId),
+      validateInventory
+    )
+  })
+
+  it(`${prefix} - Fedex docks should be active`, () => {
+    for (const { id } of Object.values(docks)) {
+      graphql(
+        LOGISTICS_CARRIER_GRAPHQL_APP,
+        loadingDock(id),
+        verifyDockisActive
+      )
+    }
+  })
+
+  it(`${prefix} - Fedex warehouse should be active and linked with fedex docks`, () => {
+    graphql(
+      LOGISTICS_CARRIER_GRAPHQL_APP,
+      warehouse(warehouseId),
+      validateWareHouseIsActiveAndLinkedWithDocks,
+      Object.values(docks)
+    )
+  })
 })
