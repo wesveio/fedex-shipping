@@ -82,7 +82,7 @@ The **FedEx Shipping** app is an integration with the VTEX [Dynamic Rates Hub](h
     -  Let dimension of item be defined as $D_i$ 
     -  Let total weight of all packages be defined as $T_w$ 
     -  Let total dimension of all packages be defined as $T_d$
-    - $$Total\ Shipping\ Cost = \sum_{I=1}^N(\frac{W_i}{T_d}+\frac{W_i}{T_d})/2 * I_Q$$
+    - $$Total\ Shipping\ Cost = \sum_{I=1}^N(\frac{W_i}{T_w}+\frac{D_i}{T_d})/2 * I_Q$$
 
 
 ### Test Calculate Shipping API
