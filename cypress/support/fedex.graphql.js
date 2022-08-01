@@ -1,21 +1,19 @@
 import { FAIL_ON_STATUS_CODE } from './common/constants'
 
+const path = require('path')
+
 const config = Cypress.env()
 
 // Constants
 const { vtex } = config.base
 
-export function graphql(
-  appName,
-  getQuery,
-  validateResponseFn = null,
-  params = null
-) {
+export function graphql(getQuery, validateResponseFn = null) {
   const { query, queryVariables } = getQuery
 
   // Define constants
-  const APP_VERSION = '*.x'
-  const APP_NAME = appName
+  const manifestFile = path.join('..', 'manifest.json')
+  const APP_VERSION = manifestFile.version
+  const APP_NAME = 'vtex.fedex-shiping'
   const APP = `${APP_NAME}@${APP_VERSION}`
   const CUSTOM_URL = `${vtex.baseUrl}/_v/private/admin-graphql-ide/v0/${APP}`
 
@@ -33,7 +31,7 @@ export function graphql(
     cy.get('@RESPONSE').then((response) => {
       expect(response.status).to.equal(200)
       expect(response.body.data).to.not.equal(null)
-      validateResponseFn(response, params)
+      validateResponseFn(response)
     })
   } else {
     return cy.get('@RESPONSE')
@@ -57,20 +55,25 @@ export function getAppSettings() {
     query:
       'query' +
       '{ getAppSettings @context(provider: "vtexus.fedex-shipping")' +
-      '{userCredentialKey,userCredentialPassword,parentCredentialKey,parentCredentialPassword,clientDetailAccountNumber,clientDetailMeterNumber,isLive,residential,optimizeShippingType,unitWeight,unitDimension,packingAccessKey}}',
+      '{userCredentialKey,userCredentialPassword,parentCredentialKey,parentCredentialPassword,clientDetailAccountNumber,clientDetailMeterNumber,isLive,residential,optimizeShippingType,unitWeight,unitDimension,packingAccessKey,slaSettings{sla,hidden,surchargePercent,surchargeFlatRate}}}',
   }
 }
 
 export function getDocks() {
   return {
-    query: 'query' + '{getDocks{docksList{id,name,shippingRatesProviders}}}',
+    query: 'query' + '{  getDocks{docksList{id,name,shippingRatesProviders}}}',
   }
 }
 
-export function saveAppSetting(appDatas, slaName, hide = false) {
-  appDatas.slaSettings = [
-    { sla: slaName, hidden: hide, surchargePercent: 0, surchargeFlatRate: 0 },
-  ]
+export function saveAppSetting(appDatas, allSla, slaName, hide = false) {
+  if (slaName) {
+    appDatas.slaSettings = [
+      { sla: slaName, hidden: hide, surchargePercent: 0, surchargeFlatRate: 0 },
+    ]
+  }
+  if (allSla) {
+    appDatas.slaSettings = allSla
+  }
   const query =
     'mutation' +
     '($userCredentialKey: String, $userCredentialPassword: String, $parentCredentialKey: String, $parentCredentialPassword: String, $clientDetailMeterNumber: String, $clientDetailAccountNumber: String, $isLive: Boolean, $residential: Boolean,$optimizeShippingType: Int,$unitWeight: String,$unitDimension: String,$packingAccessKey: String,$slaSettings:[SlaSettingsInput])' +
@@ -95,82 +98,14 @@ export function updateDockConnection(id, remove = false) {
   }
 }
 
-export function verifyInventoryIsUnlimitedForFedexWareHouse(warehouseId, sku) {
-  const query =
-    'query' +
-    '($sku: ID!, $warehouseId: ID!)' +
-    '{inventoryProduct(sku:$sku,warehouseId:$warehouseId){unlimited}}'
-
-  return {
-    query,
-    queryVariables: { sku, warehouseId },
-  }
-}
-
-export function validateInventory(response) {
-  expect(response.body.data.inventoryProduct.unlimited).to.equal(true)
-}
-
-export function loadingDock(id) {
-  const query = 'query' + '($id: ID!)' + '{loadingDock(id:$id){isActive}}'
-
-  return {
-    query,
-    queryVariables: { id },
-  }
-}
-
-export function verifyDockisActive(response) {
-  expect(response.body.data.loadingDock.isActive).to.equal(true)
-}
-
-export function warehouse(id) {
-  const query =
-    'query' +
-    '($id: ID!)' +
-    '{warehouse(id:$id){isActive,warehouseDocks{dockId}}}'
-
-  return {
-    query,
-    queryVariables: { id },
-  }
-}
-
-export function validateWareHouseIsActiveAndLinkedWithDocks(
-  response,
-  dockValues
-) {
-  const { isActive, warehouseDocks } = response.body.data.warehouse
-
-  expect(isActive).to.equal(true)
-  const [actualDockId1, actualDockId2] = [
-    warehouseDocks[0].dockId,
-    warehouseDocks[1].dockId,
-  ]
-
-  const [expectedDockId1, expectedDockId2] = [
-    dockValues[0].id,
-    dockValues[1].id,
-  ]
-
-  expect(actualDockId1).to.equal(expectedDockId1)
-  expect(actualDockId2).to.equal(expectedDockId2)
-}
-
 export function validateGetAppSettingsResponse(response) {
   expect(response.body.data.getAppSettings).to.not.equal(null)
 }
 
 export function validateGetDockConnectionResponse(response) {
-  const { docksList } = response.body.data.getDocks
-
-  expect(docksList).to.be.an('array').and.to.have.lengthOf.above(0)
-  const results = docksList.filter(
-    ({ shippingRatesProviders, name }) =>
-      shippingRatesProviders.length > 1 && name.includes('Fedex')
-  )
-
-  expect(results.length).to.equal(2)
+  expect(response.body.data.getDocks.docksList)
+    .to.be.an('array')
+    .and.to.have.lengthOf.above(0)
 }
 
 export function validateSaveAppSettingResponse(response) {
