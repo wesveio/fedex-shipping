@@ -40,11 +40,24 @@ export function graphql(
   }
 }
 
+/* 
+vtexus.fedex-shipping and vtex.packing-optimization uses same graphql name
+eg: getAppSettings(), saveAppSetting()
+
+If we run getAppSettings() or saveAppSetting(). It throws Error
+Invalid GraphQL query. Multiple app dependencies have defined \"getAppSettings\". 
+To fix this ambiguity you can use the @context directive to specify the app you need this data from
+
+
+To solve this error use @context(provider: "vtexus.fedex-shipping")
+*/
+
 export function getAppSettings() {
   return {
     query:
       'query' +
-      '{ getAppSettings{userCredentialKey,userCredentialPassword,parentCredentialKey,parentCredentialPassword,clientDetailAccountNumber,clientDetailMeterNumber,isLive,residential,optimizeShippingType,unitWeight,unitDimension,packingAccessKey}}',
+      '{ getAppSettings @context(provider: "vtexus.fedex-shipping")' +
+      '{userCredentialKey,userCredentialPassword,parentCredentialKey,parentCredentialPassword,clientDetailAccountNumber,clientDetailMeterNumber,isLive,residential,optimizeShippingType,unitWeight,unitDimension,packingAccessKey}}',
   }
 }
 
@@ -61,7 +74,8 @@ export function saveAppSetting(appDatas, slaName, hide = false) {
   const query =
     'mutation' +
     '($userCredentialKey: String, $userCredentialPassword: String, $parentCredentialKey: String, $parentCredentialPassword: String, $clientDetailMeterNumber: String, $clientDetailAccountNumber: String, $isLive: Boolean, $residential: Boolean,$optimizeShippingType: Int,$unitWeight: String,$unitDimension: String,$packingAccessKey: String,$slaSettings:[SlaSettingsInput])' +
-    '{saveAppSetting(appSetting: {userCredentialKey:$userCredentialKey,userCredentialPassword:$userCredentialPassword,parentCredentialKey:$parentCredentialKey,parentCredentialPassword:$parentCredentialPassword,clientDetailMeterNumber:$clientDetailMeterNumber,clientDetailAccountNumber:$clientDetailAccountNumber,isLive:$isLive,residential:$residential,optimizeShippingType:$optimizeShippingType,unitWeight:$unitWeight,unitDimension:$unitDimension,packingAccessKey:$packingAccessKey,slaSettings:$slaSettings})}'
+    '{saveAppSetting(appSetting: {userCredentialKey:$userCredentialKey,userCredentialPassword:$userCredentialPassword,parentCredentialKey:$parentCredentialKey,parentCredentialPassword:$parentCredentialPassword,clientDetailMeterNumber:$clientDetailMeterNumber,clientDetailAccountNumber:$clientDetailAccountNumber,isLive:$isLive,residential:$residential,optimizeShippingType:$optimizeShippingType,unitWeight:$unitWeight,unitDimension:$unitDimension,packingAccessKey:$packingAccessKey,slaSettings:$slaSettings})' +
+    '@context(provider: "vtexus.fedex-shipping")}'
 
   return {
     query,
