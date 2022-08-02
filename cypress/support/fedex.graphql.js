@@ -67,13 +67,7 @@ export function getDocks() {
   }
 }
 
-export function saveAppSetting(appDatas, allSla, slaName, hide = false) {
-  if (slaName) {
-    appDatas.slaSettings = [
-      { sla: slaName, hidden: hide, surchargePercent: 0, surchargeFlatRate: 0 },
-    ]
-  }
-
+export function saveAppSetting(appDatas, allSla) {
   if (allSla) {
     appDatas.slaSettings = allSla
   }
@@ -102,14 +96,29 @@ export function updateDockConnection(id, remove = false) {
   }
 }
 
+export function loadingDock(id) {
+  const query = 'query' + '($id: ID!)' + '{loadingDock(id:$id){isActive}}'
+
+  return {
+    query,
+    queryVariables: { id },
+  }
+}
+
 export function validateGetAppSettingsResponse(response) {
   expect(response.body.data.getAppSettings).to.not.equal(null)
 }
 
 export function validateGetDockConnectionResponse(response) {
-  expect(response.body.data.getDocks.docksList)
-    .to.be.an('array')
-    .and.to.have.lengthOf.above(0)
+  const { docksList } = response.body.data.getDocks
+
+  expect(docksList).to.be.an('array').and.to.have.lengthOf.above(0)
+  const results = docksList.filter(
+    ({ shippingRatesProviders, name }) =>
+      shippingRatesProviders.length > 1 && name.includes('Fedex')
+  )
+
+  expect(results.length).to.equal(2)
 }
 
 export function validateSaveAppSettingResponse(response) {
@@ -134,15 +143,6 @@ export function verifyInventoryIsUnlimitedForFedexWareHouse(warehouseId, sku) {
 
 export function validateInventory(response) {
   expect(response.body.data.inventoryProduct.unlimited).to.equal(true)
-}
-
-export function loadingDock(id) {
-  const query = 'query' + '($id: ID!)' + '{loadingDock(id:$id){isActive}}'
-
-  return {
-    query,
-    queryVariables: { id },
-  }
 }
 
 export function verifyDockisActive(response) {

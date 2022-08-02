@@ -4,11 +4,10 @@ import {
   testSetup,
 } from '../support/common/support'
 import { appSetting } from '../support/fedex.outputvalidation'
+import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 import {
   graphql,
-  getAppSettings,
   saveAppSetting,
-  validateGetAppSettingsResponse,
   validateSaveAppSettingResponse,
 } from '../support/fedex.graphql'
 import { data } from '../fixtures/shippingRatePayload.json'
@@ -17,16 +16,13 @@ import { calculateShipping } from '../support/apis'
 describe('FedEx UnHide sla scenarios', () => {
   testSetup()
 
-  it(`Get App Settings`, updateRetry(2), () => {
-    graphql(getAppSettings(), (response) => {
-      validateGetAppSettingsResponse(response)
-      cy.getSettings(response.body)
-    })
-  })
-
   it(`Unhide sla`, updateRetry(3), () => {
     cy.hideSla(false).then((sla) => {
-      graphql(saveAppSetting(appSetting, sla), validateSaveAppSettingResponse)
+      graphql(
+        FEDEX_SHIPPING_APP,
+        saveAppSetting(appSetting, sla),
+        validateSaveAppSettingResponse
+      )
     })
   })
 

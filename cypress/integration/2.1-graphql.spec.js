@@ -18,7 +18,6 @@ import {
 } from '../support/fedex.graphql'
 import {
   appSetting,
-  slaName,
   docks,
   warehouseId,
   Apache2020SkuId,
@@ -36,17 +35,16 @@ describe('FedEx GraphQL Validation', () => {
   testSetup(false)
 
   it(`${prefix} - Get App Settings`, updateRetry(2), () => {
-    graphql(
-      FEDEX_SHIPPING_APP,
-      getAppSettings(),
-      validateGetAppSettingsResponse
-    )
+    graphql(FEDEX_SHIPPING_APP, getAppSettings(), (response) => {
+      validateGetAppSettingsResponse(response)
+      cy.getSettings(response.body)
+    })
   })
 
   it(`${prefix} - save App Settings`, updateRetry(2), () => {
     graphql(
       FEDEX_SHIPPING_APP,
-      saveAppSetting(appSetting, slaName, false),
+      saveAppSetting(appSetting),
       validateSaveAppSettingResponse
     )
   })
