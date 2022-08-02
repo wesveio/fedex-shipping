@@ -4,4 +4,6 @@ export default {
   CurrentShippingPrice: 'div[class*=current-many__price]',
   CurrentShippingSLA: '.srp-delivery-current-many__sla',
   ShippingSummary: '.srp-summary-result',
+  SmartPackingAccessKey: '#accessKey',
+  PickingOptimizeAlert: 'div[role="alert"] p',
 }

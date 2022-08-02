@@ -9,6 +9,7 @@ import {
 import { appSetting } from '../support/fedex.outputvalidation.js'
 import { data } from '../fixtures/shippingRatePayload.json'
 import { loadCalculateShippingAPI } from '../support/apis.js'
+import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 
 const prefix = 'Ship To Residential'
 
@@ -17,7 +18,7 @@ describe(`${prefix} Scenarios`, () => {
   testSetup()
 
   it(`Get App Settings`, updateRetry(2), () => {
-    graphql(getAppSettings(), (response) => {
+    graphql(FEDEX_SHIPPING_APP, getAppSettings(), (response) => {
       validateGetAppSettingsResponse(response)
       cy.getSettings(response.body)
     })
@@ -26,7 +27,11 @@ describe(`${prefix} Scenarios`, () => {
   it(`${prefix} - Disable Ship to Residential`, updateRetry(3), () => {
     appSetting.residential = false
     cy.readAppSettingsFromJSON().then((sla) => {
-      graphql(saveAppSetting(appSetting, sla), validateSaveAppSettingResponse)
+      graphql(
+        FEDEX_SHIPPING_APP,
+        saveAppSetting(appSetting, sla),
+        validateSaveAppSettingResponse
+      )
     })
     loadCalculateShippingAPI(data).then((response) => {
       const filtershippingMethod = response.body.filter(
@@ -42,7 +47,11 @@ describe(`${prefix} Scenarios`, () => {
   it(`${prefix} - Enable Ship to Residential`, updateRetry(3), () => {
     appSetting.residential = true
     cy.readAppSettingsFromJSON().then((sla) => {
-      graphql(saveAppSetting(appSetting, sla), validateSaveAppSettingResponse)
+      graphql(
+        FEDEX_SHIPPING_APP,
+        saveAppSetting(appSetting, sla),
+        validateSaveAppSettingResponse
+      )
     })
     loadCalculateShippingAPI(data).then((response) => {
       const filtershippingMethod = response.body.filter(
