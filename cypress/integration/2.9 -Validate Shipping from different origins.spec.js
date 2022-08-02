@@ -30,6 +30,7 @@ describe('Validate Shipping from different origins', () => {
           const filtershippingMethod = response.body.filter(
             (b) => b.shippingMethod === 'International Economy'
           )
+
           expect(filtershippingMethod)
             .to.be.an('array')
             .and.to.have.lengthOf.above(0)
@@ -61,6 +62,7 @@ describe('Validate Shipping from different origins', () => {
           const filtershippingMethod = response.body.filter(
             (b) => b.shippingMethod === 'First Overnight'
           )
+
           expect(filtershippingMethod)
             .to.be.an('array')
             .and.to.have.lengthOf.above(0)
