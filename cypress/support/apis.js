@@ -32,3 +32,21 @@ export function calculateShipping(data) {
     })
   })
 }
+
+export function loadCalculateShippingAPI(data) {
+  return cy.getVtexItems().then((vtex) => {
+    cy.request({
+      method: 'POST',
+      url: calculateShippingAPI(vtex.account, Cypress.env('workspace').name),
+      headers: { VtexIdclientAutCookie: vtex.userAuthCookieValue },
+      ...FAIL_ON_STATUS_CODE,
+      body: data,
+    }).as('RESPONSE')
+    cy.get('@RESPONSE').then((response) => {
+      expect(response.status).to.have.equal(200)
+      expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
+
+      return cy.get('@RESPONSE')
+    })
+  })
+}
