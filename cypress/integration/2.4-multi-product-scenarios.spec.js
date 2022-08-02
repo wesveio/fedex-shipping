@@ -1,60 +1,90 @@
-import selectors from '../support/common/selectors.js'
 import { testSetup, updateRetry } from '../support/common/support.js'
 import { multiProduct } from '../support/fedex.outputvalidation.js'
-import { HomeFedex } from '../support/sla'
-import fedexSelectors from '../support/fedex.selectors.js'
+import { data } from '../fixtures/shippingRatePayload.json'
+import { calculateShippingAPI } from '../support/apis_endpoint'
+import { FAIL_ON_STATUS_CODE } from '../support/common/constants.js'
 
-const { productName1, productName2, prefix } = multiProduct
-const { ShippingName, ShippingDeliveryTime } = HomeFedex
+const { prefix } = multiProduct
 let amount = ''
 
 describe(`${prefix} Scenarios`, () => {
   // Load test setup
   testSetup()
 
-  it(`${prefix} - Adding Product to Cart`, updateRetry(1), () => {
-    // Search the product
-    cy.searchProduct(productName1)
-    // Add product to cart
-    cy.addProduct(productName1, {
-      proceedtoCheckout: false,
-    })
-    // Search the product
-    cy.searchProduct(productName2)
-    // Add product to cart
-    cy.addProduct(productName2, {
-      proceedtoCheckout: true,
-    })
-  })
-
   it(`${prefix} - Increase product quantity`, updateRetry(3), () => {
-    cy.get(fedexSelectors.ShippingSelectContainer).should('be.visible')
-    cy.get(fedexSelectors.ShippingSelectContainerSelect).select(ShippingName)
-    cy.get(fedexSelectors.CurrentShippingPrice)
-      .should('be.visible')
-      .invoke('text')
-      .then((text) => {
-        amount = text.split(' ')
-        cy.get(selectors.ProductQuantityInCheckout(2), { timeout: 15000 })
-          .should('be.visible')
-          .should('not.be.disabled')
-          .focus()
-          .type(`{backspace}${3}{enter}`)
-        cy.get(fedexSelectors.CurrentShippingSLA).contains(ShippingDeliveryTime)
+    data.items = []
+    data.items.push({
+      id: '880350',
+      quantity: 1,
+      groupId: null,
+      unitPrice: 94.0,
+      modal: '',
+      unitDimension: {
+        weight: 10,
+        height: 10,
+        width: 10,
+        length: 10,
+      },
+    })
+    data.items.push({
+      id: '880330',
+      quantity: 1,
+      groupId: null,
+      unitPrice: 94.0,
+      modal: '',
+      unitDimension: {
+        weight: 10,
+        height: 10,
+        width: 10,
+        length: 10,
+      },
+    })
+    cy.getVtexItems().then((vtex) => {
+      cy.request({
+        method: 'POST',
+        url: calculateShippingAPI(vtex.account, Cypress.env('workspace').name),
+        headers: { VtexIdclientAutCookie: vtex.userAuthCookieValue },
+        ...FAIL_ON_STATUS_CODE,
+        body: data,
+      }).then((response) => {
+        expect(response.status).to.have.equal(200)
+        expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
+        const filtershippingMethod = response.body.filter(
+          (b) => b.shippingMethod === 'First Overnight'
+        )
+
+        amount = filtershippingMethod[1].price
       })
+    })
   })
 
   it(
     `${prefix} - Verify product shipping price increase`,
     updateRetry(3),
     () => {
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(10000)
-      cy.get(fedexSelectors.ShippingSummary, { timeout: 10000 })
-        .should('be.visible')
-        .contains('Shipping', { timeout: 6000 })
-        .siblings('td.monetary', { timeout: 3000 })
-        .should('have.text', `$ ${(parseFloat(amount[1]) / 2) * 4}`)
+      data.items[1].quantity = 2
+      cy.getVtexItems().then((vtex) => {
+        cy.request({
+          method: 'POST',
+          url: calculateShippingAPI(
+            vtex.account,
+            Cypress.env('workspace').name
+          ),
+          headers: { VtexIdclientAutCookie: vtex.userAuthCookieValue },
+          ...FAIL_ON_STATUS_CODE,
+          body: data,
+        }).then((response) => {
+          expect(response.status).to.have.equal(200)
+          expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
+          const filtershippingMethod = response.body.filter(
+            (b) => b.shippingMethod === 'First Overnight'
+          )
+
+          expect(parseFloat(filtershippingMethod[1].price.toFixed(2))).to.equal(
+            parseFloat(amount) * 2
+          )
+        })
+      })
     }
   )
 
@@ -62,18 +92,27 @@ describe(`${prefix} Scenarios`, () => {
     `${prefix} - Verify product shipping price decreases`,
     updateRetry(3),
     () => {
-      cy.get(selectors.ProductQuantityInCheckout(2), { timeout: 15000 })
-        .should('be.visible')
-        .should('not.be.disabled')
-        .focus()
-        .type(`{backspace}${2}{enter}`)
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(10000)
-      cy.get(fedexSelectors.ShippingSummary, { timeout: 10000 })
-        .should('be.visible')
-        .contains('Shipping', { timeout: 6000 })
-        .siblings('td.monetary', { timeout: 3000 })
-        .should('have.text', `$ ${(parseFloat(amount[1]) / 2) * 3}`)
+      data.items[1].quantity = 1
+      cy.getVtexItems().then((vtex) => {
+        cy.request({
+          method: 'POST',
+          url: calculateShippingAPI(
+            vtex.account,
+            Cypress.env('workspace').name
+          ),
+          headers: { VtexIdclientAutCookie: vtex.userAuthCookieValue },
+          ...FAIL_ON_STATUS_CODE,
+          body: data,
+        }).then((response) => {
+          expect(response.status).to.have.equal(200)
+          expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
+          const filtershippingMethod = response.body.filter(
+            (b) => b.shippingMethod === 'First Overnight'
+          )
+
+          expect(amount).to.equal(parseFloat(filtershippingMethod[1].price))
+        })
+      })
     }
   )
 })
