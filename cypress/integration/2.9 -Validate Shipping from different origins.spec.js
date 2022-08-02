@@ -11,8 +11,14 @@ describe('Validate Shipping from different origins', () => {
     'Shipment USA to Italy ( Origin -> destination = USA -> ITA)',
     updateRetry(3),
     () => {
-      data.destination.zipCode = '06010'
-      data.destination.country = 'ITA'
+      data.destination = {
+        zipCode: '06010',
+        country: 'ITA',
+        state: null,
+        city: null,
+        coordinates: null,
+        residential: false,
+      }
 
       cy.getVtexItems().then((vtex) => {
         cy.request({
@@ -43,8 +49,22 @@ describe('Validate Shipping from different origins', () => {
     'Shipment Italy to USA ( Origin -> destination = ITA -> USA)',
     updateRetry(3),
     () => {
-      data.destination.zipCode = '33301'
-      data.destination.country = 'USA'
+      data.destination = {
+        zipCode: '33301',
+        country: 'USA',
+        state: null,
+        city: null,
+        coordinates: null,
+        residential: false,
+      }
+      data.origin = {
+        zipCode: '06010',
+        country: 'ITA',
+        state: null,
+        city: null,
+        coordinates: null,
+        residential: false,
+      }
 
       cy.getVtexItems().then((vtex) => {
         cy.request({
@@ -60,7 +80,7 @@ describe('Validate Shipping from different origins', () => {
           expect(response.status).to.have.equal(200)
           expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
           const filtershippingMethod = response.body.filter(
-            (b) => b.shippingMethod === 'First Overnight'
+            (b) => b.shippingMethod === 'International Economy'
           )
 
           expect(filtershippingMethod)
@@ -75,8 +95,14 @@ describe('Validate Shipping from different origins', () => {
     'Use Poland shipment and verify error message displays ',
     updateRetry(3),
     () => {
-      data.destination.zipCode = '00-005'
-      data.destination.country = 'PL'
+      data.destination = {
+        zipCode: '00-005',
+        country: 'PL',
+        state: null,
+        city: null,
+        coordinates: null,
+        residential: false,
+      }
 
       cy.getVtexItems().then((vtex) => {
         cy.request({
