@@ -221,7 +221,7 @@
                         cell.GetRatesResponses.AddRange(getRatesResponseWrapper.GetRatesResponses);
                         cell.Notifications.AddRange(getRatesResponseWrapper.Notifications);
                         cell.timeSpan = getRatesResponseWrapper.timeSpan;
-                        cell.Success = cell.Success && getRatesResponseWrapper.Success;
+                        cell.Success = getRatesResponseWrapper.Success;
 
                         bag.Add(cell);
                     }
