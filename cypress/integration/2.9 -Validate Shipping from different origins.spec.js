@@ -8,7 +8,7 @@ describe('Validate Shipping from different origins', () => {
   testSetup()
 
   it(
-    'Use brazil shipment and verify we can able to place the order',
+    'Shipment USA to Italy ( Origin -> destination = USA -> ITA)',
     updateRetry(3),
     () => {
       data.destination.zipCode = '06010'
@@ -29,6 +29,37 @@ describe('Validate Shipping from different origins', () => {
           expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
           const filtershippingMethod = response.body.filter(
             (b) => b.shippingMethod === 'International Economy'
+          )
+          expect(filtershippingMethod)
+            .to.be.an('array')
+            .and.to.have.lengthOf.above(0)
+        })
+      })
+    }
+  )
+
+  it(
+    'Shipment Italy to USA ( Origin -> destination = ITA -> USA)',
+    updateRetry(3),
+    () => {
+      data.destination.zipCode = '33301'
+      data.destination.country = 'USA'
+
+      cy.getVtexItems().then((vtex) => {
+        cy.request({
+          method: 'POST',
+          url: calculateShippingAPI(
+            vtex.account,
+            Cypress.env('workspace').name
+          ),
+          headers: { VtexIdclientAutCookie: vtex.userAuthCookieValue },
+          ...FAIL_ON_STATUS_CODE,
+          body: data,
+        }).then((response) => {
+          expect(response.status).to.have.equal(200)
+          expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
+          const filtershippingMethod = response.body.filter(
+            (b) => b.shippingMethod === 'First Overnight'
           )
           expect(filtershippingMethod)
             .to.be.an('array')
