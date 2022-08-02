@@ -9,6 +9,6 @@ namespace FedexShipping.Data
         void RemoveCacheKey(int cacheKey);
         int ListExpiredKeys();
         OrderedDictionary GetOrderedDictionary();
-        int BinarySearch(OrderedDictionary orderedDictionary, DateTime currentTime);
+        int BinarySearch(DateTime currentTime);
     }
 }

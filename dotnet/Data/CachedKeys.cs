@@ -18,17 +18,17 @@ namespace FedexShipping.Data
             this._orderedCacheKeys.Add(cacheKey, DateTime.Now);
         }
 
-        public void RemoveCacheKey(int cacheKey)
+        public void RemoveCacheKey(int index)
         {
             // Removes element at index
-            this._orderedCacheKeys.RemoveAt(cacheKey);
+            this._orderedCacheKeys.RemoveAt(index);
         }
 
         // Example: [1,2,5,9,10,11,23,44,68,90] and if the lookup is 50
         // Then all elements from index 0 to 7 will be removed
         public int ListExpiredKeys()
         {
-            int removalIndex = BinarySearch(_orderedCacheKeys, DateTime.Now.AddMinutes(-10));
+            int removalIndex = this.BinarySearch(DateTime.Now.AddMinutes(-10));
             return removalIndex;
         }
 
@@ -39,17 +39,17 @@ namespace FedexShipping.Data
 
         // Binary searches the list to find the maximum element
         // Which is less than or equal to the searching element
-        public int BinarySearch(OrderedDictionary orderedDictionary, DateTime searchTime)
+        public int BinarySearch(DateTime searchTime)
         {
             int left = 0;
-            int right = orderedDictionary.Count - 1;
+            int right = this._orderedCacheKeys.Count - 1;
             
             while (left <= right) {
                 int mid = left + ((right - left) / 2);
                 
-                if ((DateTime) orderedDictionary[mid] == searchTime) {
+                if ((DateTime) this._orderedCacheKeys[mid] == searchTime) {
                     return mid;
-                } else if ((DateTime) orderedDictionary[mid] < searchTime) {
+                } else if ((DateTime) this._orderedCacheKeys[mid] < searchTime) {
                     left = mid + 1;
                 } else {
                     right = mid - 1;
