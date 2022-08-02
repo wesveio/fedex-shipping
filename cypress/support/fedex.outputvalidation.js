@@ -16,6 +16,7 @@ export default {
     unitDimension: 'CM',
     packingAccessKey: '',
   },
+  smartPackingAccessKey: 'fedexdev',
   slaName: 'FedEx Ground',
   docks: {
     fedexUSDock: {

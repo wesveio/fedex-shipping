@@ -26,10 +26,7 @@ describe('FedEx Hide sla scenarios', () => {
 
   it(`Hide sla`, updateRetry(3), () => {
     cy.hideSla(true).then((sla) => {
-      graphql(
-        saveAppSetting(appSetting, sla),
-        validateSaveAppSettingResponse
-      )
+      graphql(saveAppSetting(appSetting, sla), validateSaveAppSettingResponse)
     })
   })
 

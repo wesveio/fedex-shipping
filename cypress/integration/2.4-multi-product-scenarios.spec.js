@@ -1,6 +1,6 @@
 import { testSetup, updateRetry } from '../support/common/support.js'
 import { multiProduct } from '../support/fedex.outputvalidation.js'
-import { data } from '../fixtures/shippingRatePayload.json'
+import { data } from '../fixtures/multiProductPayload.json'
 import { calculateShippingAPI } from '../support/apis_endpoint'
 import { FAIL_ON_STATUS_CODE } from '../support/common/constants.js'
 
@@ -12,33 +12,6 @@ describe(`${prefix} Scenarios`, () => {
   testSetup()
 
   it(`${prefix} - Increase product quantity`, updateRetry(3), () => {
-    data.items = []
-    data.items.push({
-      id: '880350',
-      quantity: 1,
-      groupId: null,
-      unitPrice: 94.0,
-      modal: '',
-      unitDimension: {
-        weight: 10,
-        height: 10,
-        width: 10,
-        length: 10,
-      },
-    })
-    data.items.push({
-      id: '880330',
-      quantity: 1,
-      groupId: null,
-      unitPrice: 94.0,
-      modal: '',
-      unitDimension: {
-        weight: 10,
-        height: 10,
-        width: 10,
-        length: 10,
-      },
-    })
     cy.getVtexItems().then((vtex) => {
       cy.request({
         method: 'POST',
