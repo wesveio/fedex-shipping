@@ -1,8 +1,4 @@
-import {
-  preserveCookie,
-  testSetup,
-  updateRetry,
-} from '../support/common/support.js'
+import { testSetup, updateRetry } from '../support/common/support.js'
 import {
   getAppSettings,
   graphql,
@@ -15,8 +11,7 @@ import {
   smartPackingAccessKey,
 } from '../support/fedex.outputvalidation.js'
 import { data } from '../fixtures/shippingOptimizePayload.json'
-import { calculateShippingAPI } from '../support/apis_endpoint'
-import { FAIL_ON_STATUS_CODE } from '../support/common/constants.js'
+import { loadCalculateShippingAPI } from '../support/apis.js'
 
 const prefix = 'Shipping Optimize'
 
@@ -46,30 +41,17 @@ describe(`${prefix} Scenarios`, () => {
     updateRetry(3),
     () => {
       appSetting.optimizeShippingType = 0
-      cy.hideSla(false).then((sla) => {
+      cy.readAppSettingsFromJSON().then((sla) => {
         graphql(saveAppSetting(appSetting, sla), validateSaveAppSettingResponse)
       })
-      cy.getVtexItems().then((vtex) => {
-        cy.request({
-          method: 'POST',
-          url: calculateShippingAPI(
-            vtex.account,
-            Cypress.env('workspace').name
-          ),
-          headers: { VtexIdclientAutCookie: vtex.userAuthCookieValue },
-          ...FAIL_ON_STATUS_CODE,
-          body: data,
-        }).then((response) => {
-          expect(response.status).to.have.equal(200)
-          expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
-          const filtershippingMethod = response.body.filter(
-            (b) => b.shippingMethod === 'First Overnight'
-          )
+      loadCalculateShippingAPI(data).then((response) => {
+        const filtershippingMethod = response.body.filter(
+          (b) => b.shippingMethod === 'First Overnight'
+        )
 
-          expect(filtershippingMethod)
-            .to.be.an('array')
-            .and.to.have.lengthOf.above(0)
-        })
+        expect(filtershippingMethod)
+          .to.be.an('array')
+          .and.to.have.lengthOf.above(0)
       })
     }
   )
@@ -79,30 +61,17 @@ describe(`${prefix} Scenarios`, () => {
     updateRetry(3),
     () => {
       appSetting.optimizeShippingType = 1
-      cy.hideSla(false).then((sla) => {
+      cy.readAppSettingsFromJSON().then((sla) => {
         graphql(saveAppSetting(appSetting, sla), validateSaveAppSettingResponse)
       })
-      cy.getVtexItems().then((vtex) => {
-        cy.request({
-          method: 'POST',
-          url: calculateShippingAPI(
-            vtex.account,
-            Cypress.env('workspace').name
-          ),
-          headers: { VtexIdclientAutCookie: vtex.userAuthCookieValue },
-          ...FAIL_ON_STATUS_CODE,
-          body: data,
-        }).then((response) => {
-          expect(response.status).to.have.equal(200)
-          expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
-          const filtershippingMethod = response.body.filter(
-            (b) => b.shippingMethod === 'First Overnight'
-          )
+      loadCalculateShippingAPI(data).then((response) => {
+        const filtershippingMethod = response.body.filter(
+          (b) => b.shippingMethod === 'First Overnight'
+        )
 
-          expect(filtershippingMethod)
-            .to.be.an('array')
-            .and.to.have.lengthOf.above(0)
-        })
+        expect(filtershippingMethod)
+          .to.be.an('array')
+          .and.to.have.lengthOf.above(0)
       })
     }
   )
@@ -113,33 +82,18 @@ describe(`${prefix} Scenarios`, () => {
     () => {
       appSetting.optimizeShippingType = 2
       appSetting.packingAccessKey = smartPackingAccessKey
-      cy.hideSla(false).then((sla) => {
+      cy.readAppSettingsFromJSON().then((sla) => {
         graphql(saveAppSetting(appSetting, sla), validateSaveAppSettingResponse)
       })
-      cy.getVtexItems().then((vtex) => {
-        cy.request({
-          method: 'POST',
-          url: calculateShippingAPI(
-            vtex.account,
-            Cypress.env('workspace').name
-          ),
-          headers: { VtexIdclientAutCookie: vtex.userAuthCookieValue },
-          ...FAIL_ON_STATUS_CODE,
-          body: data,
-        }).then((response) => {
-          expect(response.status).to.have.equal(200)
-          expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
-          const filtershippingMethod = response.body.filter(
-            (b) => b.shippingMethod === 'First Overnight'
-          )
+      loadCalculateShippingAPI(data).then((response) => {
+        const filtershippingMethod = response.body.filter(
+          (b) => b.shippingMethod === 'First Overnight'
+        )
 
-          expect(filtershippingMethod)
-            .to.be.an('array')
-            .and.to.have.lengthOf.above(0)
-        })
+        expect(filtershippingMethod)
+          .to.be.an('array')
+          .and.to.have.lengthOf.above(0)
       })
     }
   )
-
-  preserveCookie()
 })
