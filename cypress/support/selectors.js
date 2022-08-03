@@ -6,4 +6,8 @@ export default {
   ShippingSummary: '.srp-summary-result',
   SmartPackingAccessKey: '#accessKey',
   PickingOptimizeAlert: 'div[role="alert"] p',
+  PackingBoxLength: '#length',
+  PackingBoxHeight: '#height',
+  PackingBoxWidth: '#width',
+  PackingBoxTable: 'table[class*=packing-optimization] > tbody > tr',
 }

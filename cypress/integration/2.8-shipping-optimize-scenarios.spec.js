@@ -28,7 +28,7 @@ describe(`${prefix} Scenarios`, () => {
     })
   })
 
-  it.skip(`${prefix} - Generate access key`, updateRetry(2), () => {
+  it(`${prefix} - Generate access key`, updateRetry(2), () => {
     cy.visit('/admin/app/packing-optimization')
     cy.get(fedexSelectors.SmartPackingAccessKey)
       .should('be.visible')
@@ -39,6 +39,12 @@ describe(`${prefix} Scenarios`, () => {
       'have.text',
       'Successfully Saved'
     )
+    cy.get(fedexSelectors.PackingBoxLength).clear().type(20)
+    cy.get(fedexSelectors.PackingBoxHeight).clear().type(20)
+    cy.get(fedexSelectors.PackingBoxWidth).clear().type(20)
+    // cy.get('#description').type('test')
+    cy.contains('Add To Table').click()
+    cy.get(fedexSelectors.PackingBoxTable).should('be.exist')
   })
 
   it(
@@ -89,7 +95,7 @@ describe(`${prefix} Scenarios`, () => {
     }
   )
 
-  it.skip(
+  it(
     `${prefix} - Select shipping optiomize type Smart Packing and validate`,
     updateRetry(3),
     () => {
