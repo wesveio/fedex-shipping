@@ -5,10 +5,10 @@ import {
   saveAppSetting,
   validateGetAppSettingsResponse,
   validateSaveAppSettingResponse,
-} from '../support/fedex.graphql.js'
-import { appSetting } from '../support/fedex.outputvalidation.js'
+} from '../support/graphql_testcase.js'
+import { appSetting } from '../support/outputvalidation.js'
 import { data } from '../fixtures/shippingRatePayload.json'
-import { loadCalculateShippingAPI } from '../support/apis.js'
+import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 
 const prefix = 'Ship To Residential'

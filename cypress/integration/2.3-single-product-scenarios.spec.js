@@ -1,15 +1,12 @@
 import { testSetup, updateRetry } from '../support/common/support.js'
-import {
-  singleProduct,
-  warehouseId,
-} from '../support/fedex.outputvalidation.js'
+import { singleProduct, warehouseId } from '../support/outputvalidation.js'
 import { data } from '../fixtures/shippingRatePayload.json'
-import { loadCalculateShippingAPI } from '../support/apis.js'
+import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 import {
   graphql,
   verifyInventoryIsUnlimitedForFedexWareHouse,
   validateInventory,
-} from '../support/fedex.graphql.js'
+} from '../support/graphql_testcase.js'
 import { INVENTORY_GRAPHQL_APP } from '../support/graphql_apps.js'
 
 const { prefix } = singleProduct

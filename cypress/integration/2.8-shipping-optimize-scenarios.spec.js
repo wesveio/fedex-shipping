@@ -5,15 +5,15 @@ import {
   saveAppSetting,
   validateGetAppSettingsResponse,
   validateSaveAppSettingResponse,
-} from '../support/fedex.graphql.js'
+} from '../support/graphql_testcase.js'
 import {
   appSetting,
   smartPackingAccessKey,
-} from '../support/fedex.outputvalidation.js'
+} from '../support/outputvalidation.js'
 import { data } from '../fixtures/shippingOptimizePayload.json'
-import { loadCalculateShippingAPI } from '../support/apis.js'
+import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
-import fedexSelectors from '../support/fedex.selectors.js'
+import fedexSelectors from '../support/selectors.js'
 
 const prefix = 'Shipping Optimize'
 

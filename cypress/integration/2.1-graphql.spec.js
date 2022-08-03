@@ -15,14 +15,14 @@ import {
   verifyDockisActive,
   warehouse,
   validateWareHouseIsActiveAndLinkedWithDocks,
-} from '../support/fedex.graphql'
+} from '../support/graphql_testcase.js'
 import {
   appSetting,
   docks,
   warehouseId,
   Apache2020SkuId,
   Amacsa2020SkuId,
-} from '../support/fedex.outputvalidation'
+} from '../support/outputvalidation'
 import {
   FEDEX_SHIPPING_APP,
   INVENTORY_GRAPHQL_APP,

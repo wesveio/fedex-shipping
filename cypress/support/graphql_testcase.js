@@ -33,6 +33,8 @@ export function graphql(
     cy.get('@RESPONSE').then((response) => {
       expect(response.status).to.equal(200)
       expect(response.body.data).to.not.equal(null)
+      expect(response.body).to.not.have.own.property('errors')
+      expect(response.body).to.not.equal('OK')
       validateResponseFn(response, params)
     })
   } else {

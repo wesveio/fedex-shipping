@@ -1,6 +1,6 @@
 import { testSetup, updateRetry } from '../support/common/support.js'
 import { data } from '../fixtures/shippingRatePayload.json'
-import { calculateShippingAPI } from '../support/apis_endpoint'
+import { calculateShippingAPI } from '../support/apis.js'
 import { FAIL_ON_STATUS_CODE } from '../support/common/constants.js'
 
 describe('Validate Shipping from different origins', () => {

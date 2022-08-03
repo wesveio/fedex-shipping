@@ -3,15 +3,15 @@ import {
   updateRetry,
   testSetup,
 } from '../support/common/support'
-import { appSetting } from '../support/fedex.outputvalidation'
+import { appSetting } from '../support/outputvalidation'
 import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 import {
   graphql,
   saveAppSetting,
   validateSaveAppSettingResponse,
-} from '../support/fedex.graphql'
+} from '../support/graphql_testcase.js'
 import { data } from '../fixtures/shippingRatePayload.json'
-import { calculateShipping } from '../support/apis'
+import { calculateShipping } from '../support/api_testcase.js'
 
 describe('FedEx Hide sla scenarios', () => {
   testSetup()

@@ -1,7 +1,7 @@
 import { testSetup, updateRetry } from '../support/common/support.js'
-import { multiProduct } from '../support/fedex.outputvalidation.js'
+import { multiProduct } from '../support/outputvalidation.js'
 import { data } from '../fixtures/multiProductPayload.json'
-import { loadCalculateShippingAPI } from '../support/apis.js'
+import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 
 const { prefix } = multiProduct
 let amount = ''
