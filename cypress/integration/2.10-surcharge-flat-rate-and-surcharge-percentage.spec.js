@@ -6,9 +6,9 @@ import {
 } from '../support/fedex.graphql.js'
 import { appSetting } from '../support/fedex.outputvalidation.js'
 import { data } from '../fixtures/shippingRatePayload.json'
-import { loadCalculateShippingAPI } from '../support/apis.js'
 import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 import { updateSurchargeRateAndPercentage } from '../support/common.js'
+import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 
 const prefix = 'Update SLA - Surcharge Flat Rate & Surcharge Percentage'
 let amount = ''
