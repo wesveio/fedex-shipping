@@ -3,8 +3,8 @@ import {
   graphql,
   saveAppSetting,
   validateSaveAppSettingResponse,
-} from '../support/fedex.graphql.js'
-import { appSetting } from '../support/fedex.outputvalidation.js'
+} from '../support/graphql_testcase'
+import { appSetting } from '../support/outputvalidation'
 import { data } from '../fixtures/shippingRatePayload.json'
 import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 import { updateSurchargeRateAndPercentage } from '../support/common.js'
