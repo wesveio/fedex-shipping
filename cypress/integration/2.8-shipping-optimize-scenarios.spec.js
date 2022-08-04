@@ -16,6 +16,9 @@ import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 import fedexSelectors from '../support/selectors.js'
 
 const prefix = 'Shipping Optimize'
+let NonePackingShippingPrice = ''
+let PackAllInOneShippingPrice = ''
+let SmartPackingShippingPrice = ''
 
 describe(`${prefix} Scenarios`, () => {
   // Load test setup
@@ -39,9 +42,9 @@ describe(`${prefix} Scenarios`, () => {
       'have.text',
       'Successfully Saved'
     )
-    cy.get(fedexSelectors.PackingBoxLength).clear().type(20)
-    cy.get(fedexSelectors.PackingBoxHeight).clear().type(20)
-    cy.get(fedexSelectors.PackingBoxWidth).clear().type(20)
+    cy.get(fedexSelectors.PackingBoxLength).clear().type(30)
+    cy.get(fedexSelectors.PackingBoxHeight).clear().type(30)
+    cy.get(fedexSelectors.PackingBoxWidth).clear().type(30)
     // cy.get('#description').type('test')
     cy.contains('Add To Table').click()
     cy.get(fedexSelectors.PackingBoxTable).should('be.exist')
@@ -67,6 +70,7 @@ describe(`${prefix} Scenarios`, () => {
         expect(filtershippingMethod)
           .to.be.an('array')
           .and.to.have.lengthOf.above(0)
+        NonePackingShippingPrice = filtershippingMethod[0].price
       })
     }
   )
@@ -91,6 +95,7 @@ describe(`${prefix} Scenarios`, () => {
         expect(filtershippingMethod)
           .to.be.an('array')
           .and.to.have.lengthOf.above(0)
+        PackAllInOneShippingPrice = filtershippingMethod[0].price
       })
     }
   )
@@ -116,7 +121,34 @@ describe(`${prefix} Scenarios`, () => {
         expect(filtershippingMethod)
           .to.be.an('array')
           .and.to.have.lengthOf.above(0)
+        SmartPackingShippingPrice = filtershippingMethod[0].price
       })
+    }
+  )
+
+  it(
+    `${prefix} - Verify None shipping price is higher than Pack all in one box and Smart packing`,
+    updateRetry(1),
+    () => {
+      expect(NonePackingShippingPrice).to.be.gt(PackAllInOneShippingPrice)
+      expect(NonePackingShippingPrice).to.be.gt(SmartPackingShippingPrice)
+    }
+  )
+
+  it(
+    `${prefix} - Verify Pack all in one box shipping price is higher than None`,
+    updateRetry(1),
+    () => {
+      expect(PackAllInOneShippingPrice).to.be.lt(NonePackingShippingPrice)
+    }
+  )
+
+  it(
+    `${prefix} - Verify Smart Packig shipping price is higher than None`,
+    updateRetry(1),
+    () => {
+      expect(SmartPackingShippingPrice).to.be.lt(NonePackingShippingPrice)
+      expect(SmartPackingShippingPrice).to.be.lte(PackAllInOneShippingPrice)
     }
   )
 })

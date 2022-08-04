@@ -72,7 +72,6 @@ describe(`${prefix} Scenarios`, () => {
       expect(filtershippingMethod[0].price).to.equal(
         calculatePercentage + calculateFlatRate
       )
-      amount = filtershippingMethod[0].price
     })
   })
 })
