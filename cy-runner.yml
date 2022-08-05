@@ -15,7 +15,7 @@ base:
   twilio:
     enabled: true
   jira:
-    enabled: true
+    enabled: false
     account: vtex-dev
     board: FEDEXSHIP
     issueType: Bug
@@ -69,12 +69,53 @@ workspace:
     enabled: true
 
 strategy:
-  single_multi_product_testcases:
+  graphql_api_testcases:
     enabled: true
     sendDashboard: true
     hardTries: 1
     stopOnFail: true
     parallel: true
     specs:
+      - cypress/integration/2.1-graphql.spec.js
+      - cypress/integration/2.2-rest-apis.spec.js
+  single_multi_product_testcases:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: true
+    specs:
       - cypress/integration/2.3-single-product-scenarios.spec.js
       - cypress/integration/2.4-multi-product-scenarios.spec.js
+    dependency:
+      - cypress/integration/2.1-graphql.spec.js
+  ship_to_residential_config_testcase:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: false
+    specs:
+      - cypress/integration/2.7-enable-disable-ship-to-residential-toggle.spec.js
+  common_config_testcase:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: true
+    specs:
+      - cypress/integration/2.8-shipping-optimize-scenarios.spec.js
+      - cypress/integration/2.9-validate-shipping-from-different-origins.spec.js
+  sla_config_testcases:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: false
+    specs:
+      - cypress/integration/2.5-hide-sla-scenarios.spec.js
+      - cypress/integration/2.6-show-sla-scenarios.spec.js
+      - cypress/integration/2.10-validate-surcharge-flat-rate.spec.js
+      - cypress/integration/2.11-validate-surcharge-percentage.spec.js
+      - cypress/integration/2.12-surcharge-flat-rate-and-surcharge-percentage.spec.js
+  
