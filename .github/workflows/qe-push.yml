@@ -13,9 +13,11 @@ jobs:
     with:
       nodeLint: true
       nodeTest: false
+      nodeSonarProjectKey: vtex-apps_fedex-shipping-ts
+      nodeSonarOrganization: vtex-apps
       dotnetLint: true
       dotnetSonar: true
-      dotnetSonarProjectKey: vtex-apps_fedex-shipping
+      dotnetSonarProjectKey: vtex-apps_fedex-shipping-dotnet
       dotnetSonarOrganization: vtex-apps
     secrets:
       githubToken: ${{ secrets.GITHUB_TOKEN }}
