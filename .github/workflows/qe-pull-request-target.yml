@@ -19,7 +19,7 @@ jobs:
       nodeTest: false
       nodeSonar: true
       nodeSonarProjectKey: vtex-apps_fedex-shipping-ts
-      dotnetSonarOrganization: vtex-apps
+      nodeSonarOrganization: vtex-apps
       dotnetLint: true
       dotnetSonar: true
       dotnetSonarProjectKey: vtex-apps_fedex-shipping-dotnet
