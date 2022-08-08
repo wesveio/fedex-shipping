@@ -60,7 +60,6 @@ describe('Modify SLA - Validate Surcharge Flat Rate in checkout', () => {
       const calculateFlatRate = amount + surchargeFlatRate
 
       expect(filtershippingMethod[0].price).to.equal(calculateFlatRate)
-      amount = filtershippingMethod[0].price
     })
   })
 
