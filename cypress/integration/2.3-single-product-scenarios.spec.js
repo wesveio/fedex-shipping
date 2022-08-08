@@ -38,7 +38,7 @@ describe(`${prefix} Scenarios`, () => {
   })
 
   it(
-    `${prefix} - Verify product shipping price increase`,
+    `${prefix} - Set product quantity to 2 and verify shipping price via API`,
     updateRetry(3),
     () => {
       data.items[0].quantity = 2

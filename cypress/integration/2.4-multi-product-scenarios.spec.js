@@ -10,7 +10,7 @@ let amount = ''
 describe(`${prefix} Scenarios`, () => {
   loginViaCookies()
 
-  it(`${prefix} - Increase product quantity`, updateRetry(3), () => {
+  it(`${prefix} - Verify multi product shipping price`, updateRetry(3), () => {
     loadCalculateShippingAPI(data).then((response) => {
       const filtershippingMethod = response.body.filter(
         (b) => b.shippingMethod === sla.FirstOvernight
@@ -21,7 +21,7 @@ describe(`${prefix} Scenarios`, () => {
   })
 
   it(
-    `${prefix} - Verify product shipping price increase`,
+    `${prefix} - Set product quantity to 2 and verify shipping price via API`,
     updateRetry(3),
     () => {
       data.items[1].quantity = 2
@@ -38,7 +38,7 @@ describe(`${prefix} Scenarios`, () => {
   )
 
   it(
-    `${prefix} - Verify product shipping price decreases`,
+    `${prefix} - Change product quantity to 1 and verify shipping price via API`,
     updateRetry(3),
     () => {
       data.items[1].quantity = 1

@@ -12,7 +12,7 @@ import { calculateShipping } from '../support/api_testcase.js'
 describe('FedEx UnHide sla scenarios', () => {
   loginViaCookies()
 
-  it(`Unhide sla`, updateRetry(3), () => {
+  it(`Unhide all sla's`, updateRetry(3), () => {
     cy.hideSla(false).then((sla) => {
       graphql(
         FEDEX_SHIPPING_APP,
