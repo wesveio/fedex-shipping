@@ -14,6 +14,7 @@ import { data } from '../fixtures/shippingOptimizePayload.json'
 import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 import fedexSelectors from '../support/selectors.js'
+import sla from '../support/sla.js'
 
 const prefix = 'Shipping Optimize'
 let NonePackingShippingPrice = ''
@@ -55,16 +56,16 @@ describe(`${prefix} Scenarios`, () => {
     updateRetry(3),
     () => {
       appSetting.optimizeShippingType = 0
-      cy.readAppSettingsFromJSON().then((sla) => {
+      cy.readAppSettingsFromJSON().then((sl) => {
         graphql(
           FEDEX_SHIPPING_APP,
-          saveAppSetting(appSetting, sla),
+          saveAppSetting(appSetting, sl),
           validateSaveAppSettingResponse
         )
       })
       loadCalculateShippingAPI(data).then((response) => {
         const filtershippingMethod = response.body.filter(
-          (b) => b.shippingMethod === 'First Overnight'
+          (b) => b.shippingMethod === sla.FirstOvernight
         )
 
         expect(filtershippingMethod)
@@ -80,16 +81,16 @@ describe(`${prefix} Scenarios`, () => {
     updateRetry(3),
     () => {
       appSetting.optimizeShippingType = 1
-      cy.readAppSettingsFromJSON().then((sla) => {
+      cy.readAppSettingsFromJSON().then((sl) => {
         graphql(
           FEDEX_SHIPPING_APP,
-          saveAppSetting(appSetting, sla),
+          saveAppSetting(appSetting, sl),
           validateSaveAppSettingResponse
         )
       })
       loadCalculateShippingAPI(data).then((response) => {
         const filtershippingMethod = response.body.filter(
-          (b) => b.shippingMethod === 'First Overnight'
+          (b) => b.shippingMethod === sla.FirstOvernight
         )
 
         expect(filtershippingMethod)
@@ -106,16 +107,16 @@ describe(`${prefix} Scenarios`, () => {
     () => {
       appSetting.optimizeShippingType = 2
       appSetting.packingAccessKey = smartPackingAccessKey
-      cy.readAppSettingsFromJSON().then((sla) => {
+      cy.readAppSettingsFromJSON().then((sl) => {
         graphql(
           FEDEX_SHIPPING_APP,
-          saveAppSetting(appSetting, sla),
+          saveAppSetting(appSetting, sl),
           validateSaveAppSettingResponse
         )
       })
       loadCalculateShippingAPI(data).then((response) => {
         const filtershippingMethod = response.body.filter(
-          (b) => b.shippingMethod === 'First Overnight'
+          (b) => b.shippingMethod === sla.FirstOvernight
         )
 
         expect(filtershippingMethod)

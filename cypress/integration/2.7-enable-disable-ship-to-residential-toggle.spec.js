@@ -10,6 +10,7 @@ import { appSetting } from '../support/outputvalidation.js'
 import { data } from '../fixtures/shippingRatePayload.json'
 import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
+import sla from '../support/sla.js'
 
 const prefix = 'Ship To Residential'
 
@@ -26,16 +27,16 @@ describe(`${prefix} Scenarios`, () => {
 
   it(`${prefix} - Disable Ship to Residential`, updateRetry(3), () => {
     appSetting.residential = false
-    cy.readAppSettingsFromJSON().then((sla) => {
+    cy.readAppSettingsFromJSON().then((sl) => {
       graphql(
         FEDEX_SHIPPING_APP,
-        saveAppSetting(appSetting, sla),
+        saveAppSetting(appSetting, sl),
         validateSaveAppSettingResponse
       )
     })
     loadCalculateShippingAPI(data).then((response) => {
       const filtershippingMethod = response.body.filter(
-        (b) => b.shippingMethod === 'FedEx Ground'
+        (b) => b.shippingMethod === sla.FedexGroundDelivery
       )
 
       expect(filtershippingMethod)
@@ -46,16 +47,16 @@ describe(`${prefix} Scenarios`, () => {
 
   it(`${prefix} - Enable Ship to Residential`, updateRetry(3), () => {
     appSetting.residential = true
-    cy.readAppSettingsFromJSON().then((sla) => {
+    cy.readAppSettingsFromJSON().then((sl) => {
       graphql(
         FEDEX_SHIPPING_APP,
-        saveAppSetting(appSetting, sla),
+        saveAppSetting(appSetting, sl),
         validateSaveAppSettingResponse
       )
     })
     loadCalculateShippingAPI(data).then((response) => {
       const filtershippingMethod = response.body.filter(
-        (b) => b.shippingMethod === 'FedEx Home Delivery'
+        (b) => b.shippingMethod === sla.FedexHomeDelivery
       )
 
       expect(filtershippingMethod)

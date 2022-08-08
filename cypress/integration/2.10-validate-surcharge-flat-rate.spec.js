@@ -13,6 +13,7 @@ import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 import { data } from '../fixtures/shippingRatePayload.json'
 import { updateSurchargeRateAndPercentage } from '../support/common.js'
 import { loadCalculateShippingAPI } from '../support/api_testcase'
+import sla from '../support/sla'
 
 const prefix = 'Shipping Optimize'
 let amount = ''
@@ -34,7 +35,7 @@ describe('Modify SLA - Validate Surcharge Flat Rate in checkout', () => {
   it(`${prefix} - Verify shipping price`, updateRetry(3), () => {
     loadCalculateShippingAPI(data).then((response) => {
       const filtershippingMethod = response.body.filter(
-        (b) => b.shippingMethod === 'First Overnight'
+        (b) => b.shippingMethod === sla.FirstOvernight
       )
 
       amount = filtershippingMethod[0].price
@@ -54,7 +55,7 @@ describe('Modify SLA - Validate Surcharge Flat Rate in checkout', () => {
   it(`${prefix} - Validate Surcharge Flat Rate Changes`, updateRetry(3), () => {
     loadCalculateShippingAPI(data).then((response) => {
       const filtershippingMethod = response.body.filter(
-        (b) => b.shippingMethod === 'First Overnight'
+        (b) => b.shippingMethod === sla.FirstOvernight
       )
 
       const calculateFlatRate = amount + surchargeFlatRate

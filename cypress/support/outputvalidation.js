@@ -17,7 +17,6 @@ export default {
     packingAccessKey: '',
   },
   smartPackingAccessKey: 'fedexdev',
-  slaName: 'FedEx Ground',
   docks: {
     fedexUSDock: {
       id: 'FD',

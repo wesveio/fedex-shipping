@@ -2,6 +2,7 @@ import { testSetup, updateRetry } from '../support/common/support.js'
 import { multiProduct } from '../support/outputvalidation.js'
 import { data } from '../fixtures/multiProductPayload.json'
 import { loadCalculateShippingAPI } from '../support/api_testcase.js'
+import sla from '../support/sla.js'
 
 const { prefix } = multiProduct
 let amount = ''
@@ -13,7 +14,7 @@ describe(`${prefix} Scenarios`, () => {
   it(`${prefix} - Increase product quantity`, updateRetry(3), () => {
     loadCalculateShippingAPI(data).then((response) => {
       const filtershippingMethod = response.body.filter(
-        (b) => b.shippingMethod === 'First Overnight'
+        (b) => b.shippingMethod === sla.FirstOvernight
       )
 
       amount = filtershippingMethod[1].price
@@ -27,7 +28,7 @@ describe(`${prefix} Scenarios`, () => {
       data.items[1].quantity = 2
       loadCalculateShippingAPI(data).then((response) => {
         const filtershippingMethod = response.body.filter(
-          (b) => b.shippingMethod === 'First Overnight'
+          (b) => b.shippingMethod === sla.FirstOvernight
         )
 
         expect(parseFloat(filtershippingMethod[1].price.toFixed(2))).to.equal(
@@ -45,7 +46,7 @@ describe(`${prefix} Scenarios`, () => {
 
       loadCalculateShippingAPI(data).then((response) => {
         const filtershippingMethod = response.body.filter(
-          (b) => b.shippingMethod === 'First Overnight'
+          (b) => b.shippingMethod === sla.FirstOvernight
         )
 
         expect(amount).to.equal(parseFloat(filtershippingMethod[1].price))

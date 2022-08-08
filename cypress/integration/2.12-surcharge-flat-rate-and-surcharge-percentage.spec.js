@@ -9,6 +9,7 @@ import { data } from '../fixtures/shippingRatePayload.json'
 import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 import { updateSurchargeRateAndPercentage } from '../support/common.js'
 import { loadCalculateShippingAPI } from '../support/api_testcase.js'
+import sla from '../support/sla.js'
 
 const prefix = 'Update SLA - Surcharge Flat Rate & Surcharge Percentage'
 let amount = ''
@@ -36,7 +37,7 @@ describe(`${prefix} Scenarios`, () => {
   it(`${prefix} - Verify single product shipping price`, updateRetry(3), () => {
     loadCalculateShippingAPI(data).then((response) => {
       const filtershippingMethod = response.body.filter(
-        (b) => b.shippingMethod === 'FedEx Home Delivery'
+        (b) => b.shippingMethod === sla.FedexHomeDelivery
       )
 
       amount = filtershippingMethod[0].price
@@ -63,7 +64,7 @@ describe(`${prefix} Scenarios`, () => {
   it(`${prefix} - Validate Surcharge Changes`, updateRetry(3), () => {
     loadCalculateShippingAPI(data).then((response) => {
       const filtershippingMethod = response.body.filter(
-        (b) => b.shippingMethod === 'FedEx Home Delivery'
+        (b) => b.shippingMethod === sla.FedexHomeDelivery
       )
 
       const calculatePercentage = (amount * surchargePercent) / 100

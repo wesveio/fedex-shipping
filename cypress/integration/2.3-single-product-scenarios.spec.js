@@ -8,6 +8,7 @@ import {
   validateInventory,
 } from '../support/graphql_testcase.js'
 import { INVENTORY_GRAPHQL_APP } from '../support/graphql_apps.js'
+import sla from '../support/sla.js'
 
 const { prefix } = singleProduct
 let amount = ''
@@ -30,7 +31,7 @@ describe(`${prefix} Scenarios`, () => {
   it(`${prefix} - Verify single product shipping price`, updateRetry(3), () => {
     loadCalculateShippingAPI(data).then((response) => {
       const filtershippingMethod = response.body.filter(
-        (b) => b.shippingMethod === 'First Overnight'
+        (b) => b.shippingMethod === sla.FirstOvernight
       )
 
       amount = filtershippingMethod[0].price
@@ -44,7 +45,7 @@ describe(`${prefix} Scenarios`, () => {
       data.items[0].quantity = 2
       loadCalculateShippingAPI(data).then((response) => {
         const filtershippingMethod = response.body.filter(
-          (b) => b.shippingMethod === 'First Overnight'
+          (b) => b.shippingMethod === sla.FirstOvernight
         )
 
         expect(filtershippingMethod[0].price).to.equal(amount * 2)
