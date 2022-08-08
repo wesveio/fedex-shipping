@@ -1,8 +1,4 @@
-import {
-  preserveCookie,
-  updateRetry,
-  loginViaCookies,
-} from '../support/common/support.js'
+import { updateRetry, loginViaCookies } from '../support/common/support.js'
 import { appSetting } from '../support/outputvalidation.js'
 import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 import {
@@ -28,6 +24,4 @@ describe('FedEx UnHide sla scenarios', () => {
 
   // Adding Product to Cart & Verifying shipping method shows
   calculateShipping(data)
-
-  preserveCookie()
 })

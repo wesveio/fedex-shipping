@@ -1,8 +1,4 @@
-import {
-  preserveCookie,
-  updateRetry,
-  loginViaCookies,
-} from '../support/common/support'
+import { updateRetry, loginViaCookies } from '../support/common/support'
 import { appSetting } from '../support/outputvalidation'
 import {
   graphql,
@@ -73,6 +69,4 @@ describe('Modify SLA - Validate Surcharge Percentage in checkout', () => {
       })
     }
   )
-
-  preserveCookie()
 })

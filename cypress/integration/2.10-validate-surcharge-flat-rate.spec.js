@@ -1,8 +1,4 @@
-import {
-  preserveCookie,
-  updateRetry,
-  loginViaCookies,
-} from '../support/common/support'
+import { updateRetry, loginViaCookies } from '../support/common/support'
 import { appSetting } from '../support/outputvalidation'
 import {
   graphql,
@@ -63,6 +59,4 @@ describe('Modify SLA - Validate Surcharge Flat Rate in checkout', () => {
       expect(filtershippingMethod[0].price).to.equal(calculateFlatRate)
     })
   })
-
-  preserveCookie()
 })
