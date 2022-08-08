@@ -1,7 +1,7 @@
 import {
   preserveCookie,
   updateRetry,
-  testSetup,
+  loginViaCookies,
 } from '../support/common/support.js'
 import { appSetting } from '../support/outputvalidation.js'
 import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
@@ -14,7 +14,7 @@ import { data } from '../fixtures/shippingRatePayload.json'
 import { calculateShipping } from '../support/api_testcase.js'
 
 describe('FedEx UnHide sla scenarios', () => {
-  testSetup()
+  loginViaCookies()
 
   it(`Unhide sla`, updateRetry(3), () => {
     cy.hideSla(false).then((sla) => {

@@ -1,4 +1,4 @@
-import { testSetup, updateRetry } from '../support/common/support.js'
+import { loginViaCookies, updateRetry } from '../support/common/support.js'
 import {
   graphql,
   saveAppSetting,
@@ -17,8 +17,7 @@ const surchargeFlatRate = 10
 const surchargePercent = 15
 
 describe(`${prefix} Scenarios`, () => {
-  // Load test setup
-  testSetup()
+  loginViaCookies()
 
   it(
     `${prefix} - Update Surcharge Flat Rate and Surcharge Percentage`,

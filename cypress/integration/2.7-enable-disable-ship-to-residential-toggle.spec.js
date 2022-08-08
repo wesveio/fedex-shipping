@@ -1,4 +1,4 @@
-import { testSetup, updateRetry } from '../support/common/support.js'
+import { loginViaCookies, updateRetry } from '../support/common/support.js'
 import {
   getAppSettings,
   graphql,
@@ -15,8 +15,7 @@ import sla from '../support/sla.js'
 const prefix = 'Ship To Residential'
 
 describe(`${prefix} Scenarios`, () => {
-  // Load test setup
-  testSetup()
+  loginViaCookies()
 
   it(`Get App Settings`, updateRetry(2), () => {
     graphql(FEDEX_SHIPPING_APP, getAppSettings(), (response) => {

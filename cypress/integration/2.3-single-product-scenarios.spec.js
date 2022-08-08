@@ -1,4 +1,4 @@
-import { testSetup, updateRetry } from '../support/common/support.js'
+import { loginViaCookies, updateRetry } from '../support/common/support.js'
 import { singleProduct, warehouseId } from '../support/outputvalidation.js'
 import { data } from '../fixtures/shippingRatePayload.json'
 import { loadCalculateShippingAPI } from '../support/api_testcase.js'
@@ -14,8 +14,7 @@ const { prefix } = singleProduct
 let amount = ''
 
 describe(`${prefix} Scenarios`, () => {
-  // Load test setup
-  testSetup()
+  loginViaCookies()
 
   it(`${prefix} - For fedex docks, verify inventory is set to infinite`, () => {
     graphql(

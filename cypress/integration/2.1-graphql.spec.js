@@ -1,4 +1,4 @@
-import { updateRetry, testSetup } from '../support/common/support'
+import { updateRetry, loginViaCookies } from '../support/common/support'
 import {
   graphql,
   getAppSettings,
@@ -32,7 +32,7 @@ import {
 const prefix = 'Graphql testcase'
 
 describe('FedEx GraphQL Validation', () => {
-  testSetup(false)
+  loginViaCookies({ storeFrontCookie: true })
 
   it(`${prefix} - Get App Settings`, updateRetry(2), () => {
     graphql(FEDEX_SHIPPING_APP, getAppSettings(), (response) => {

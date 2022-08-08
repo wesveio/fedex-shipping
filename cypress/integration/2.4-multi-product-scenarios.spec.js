@@ -1,4 +1,4 @@
-import { testSetup, updateRetry } from '../support/common/support.js'
+import { loginViaCookies, updateRetry } from '../support/common/support.js'
 import { multiProduct } from '../support/outputvalidation.js'
 import { data } from '../fixtures/multiProductPayload.json'
 import { loadCalculateShippingAPI } from '../support/api_testcase.js'
@@ -8,8 +8,7 @@ const { prefix } = multiProduct
 let amount = ''
 
 describe(`${prefix} Scenarios`, () => {
-  // Load test setup
-  testSetup()
+  loginViaCookies()
 
   it(`${prefix} - Increase product quantity`, updateRetry(3), () => {
     loadCalculateShippingAPI(data).then((response) => {

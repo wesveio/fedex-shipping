@@ -1,7 +1,7 @@
 import {
   preserveCookie,
   updateRetry,
-  testSetup,
+  loginViaCookies,
 } from '../support/common/support'
 import { appSetting } from '../support/outputvalidation'
 import {
@@ -20,7 +20,7 @@ let amount = ''
 const surchargeFlatRate = 20
 
 describe('Modify SLA - Validate Surcharge Flat Rate in checkout', () => {
-  testSetup()
+  loginViaCookies()
 
   it(`${prefix} - Update Surcharge Flat Rate`, updateRetry(3), () => {
     updateSurchargeRateAndPercentage().then((slaSettings) => {
