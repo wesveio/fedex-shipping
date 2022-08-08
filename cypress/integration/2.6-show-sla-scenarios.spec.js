@@ -22,6 +22,5 @@ describe('FedEx UnHide sla scenarios', () => {
     })
   })
 
-  // Adding Product to Cart & Verifying shipping method shows
   calculateShipping(data)
 })
