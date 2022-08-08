@@ -1,9 +1,7 @@
 import { loginViaCookies, updateRetry } from '../support/common/support.js'
 import {
-  getAppSettings,
   graphql,
   saveAppSetting,
-  validateGetAppSettingsResponse,
   validateSaveAppSettingResponse,
 } from '../support/graphql_testcase.js'
 import {
@@ -23,13 +21,6 @@ let SmartPackingShippingPrice = ''
 
 describe(`${prefix} Scenarios`, () => {
   loginViaCookies()
-
-  it(`Get App Settings`, updateRetry(2), () => {
-    graphql(FEDEX_SHIPPING_APP, getAppSettings(), (response) => {
-      validateGetAppSettingsResponse(response)
-      cy.getSettings(response.body)
-    })
-  })
 
   it(`${prefix} - Generate access key`, updateRetry(2), () => {
     cy.visit('/admin/app/packing-optimization')

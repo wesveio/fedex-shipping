@@ -1,9 +1,7 @@
 import { loginViaCookies, updateRetry } from '../support/common/support.js'
 import {
-  getAppSettings,
   graphql,
   saveAppSetting,
-  validateGetAppSettingsResponse,
   validateSaveAppSettingResponse,
 } from '../support/graphql_testcase.js'
 import { appSetting } from '../support/outputvalidation.js'
@@ -16,13 +14,6 @@ const prefix = 'Ship To Residential'
 
 describe(`${prefix} Scenarios`, () => {
   loginViaCookies()
-
-  it(`Get App Settings`, updateRetry(2), () => {
-    graphql(FEDEX_SHIPPING_APP, getAppSettings(), (response) => {
-      validateGetAppSettingsResponse(response)
-      cy.getSettings(response.body)
-    })
-  })
 
   it(`${prefix} - Disable Ship to Residential`, updateRetry(3), () => {
     appSetting.residential = false

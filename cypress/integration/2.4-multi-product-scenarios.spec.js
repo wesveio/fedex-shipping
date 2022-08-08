@@ -36,20 +36,4 @@ describe(`${prefix} Scenarios`, () => {
       })
     }
   )
-
-  it(
-    `${prefix} - Change product quantity to 1 and verify shipping price via API`,
-    updateRetry(3),
-    () => {
-      data.items[1].quantity = 1
-
-      loadCalculateShippingAPI(data).then((response) => {
-        const filtershippingMethod = response.body.filter(
-          (b) => b.shippingMethod === sla.FirstOvernight
-        )
-
-        expect(amount).to.equal(parseFloat(filtershippingMethod[1].price))
-      })
-    }
-  )
 })
