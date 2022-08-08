@@ -22,7 +22,10 @@ export function calculateShipping(data) {
         ...FAIL_ON_STATUS_CODE,
         body: data,
       }).then((response) => {
+        // If we receive statusCode 200 then our fedex shipping configuration is fine
         expect(response.status).to.have.equal(200)
+
+        // If we receive empty array with valid payload then we can assume that fedex shipping site is down
         if (response.body.length === 0) {
           expect(response.body).to.be.an('array').and.to.have.lengthOf(0)
         } else {
