@@ -4,7 +4,7 @@ namespace FedexShipping.Data
     using System;
     using System.Text;
     using System.Net.Http;
-    using System.Collections.Generic;
+    using System.Collections;
     using System.Threading.Tasks;
     using Vtex.Api.Context;
     using FedexShipping.Models;
@@ -55,11 +55,11 @@ namespace FedexShipping.Data
             {
                 _context.Vtex.Logger.Error("TryGetCache", null, "Error getting cache", ex);
             }
-
             return success;
         }
 
-        public async Task<bool> SetCache(int cacheKey, GetRatesResponseWrapper fedexRatesCache) {
+        public async Task<bool> SetCache(int cacheKey, GetRatesResponseWrapper fedexRatesCache)
+        {
             bool success = false;
 
             try
@@ -70,11 +70,24 @@ namespace FedexShipping.Data
                     _cachedKeys.AddCacheKey(cacheKey);
                 }
 
-                List<int> keysToRemove = _cachedKeys.ListExpiredKeys();
-                foreach (int cacheKeyToRemove in keysToRemove)
+                int removeKeyMax = _cachedKeys.ListExpiredKeys();
+                int removeCount = 0;
+                if (removeKeyMax >= 0)
                 {
-                    await CacheRatesResponse(cacheKey, null);
-                    _cachedKeys.RemoveCacheKey(cacheKey);
+                    foreach (DictionaryEntry entry in _cachedKeys.GetOrderedDictionary())
+                    {
+                        // Once removeCount reaches removeKeyMax, we stop the iteration
+                        if (removeCount == removeKeyMax) {
+                            break;
+                        }
+                        await CacheRatesResponse((int) entry.Key, null);
+                        removeCount += 1;
+                    }
+
+                    // Removes all elements of index keysToRemove to 0
+                    for (int index = removeKeyMax; index >= 0; index--) {
+                        _cachedKeys.RemoveCacheKey(index);
+                    }
                 }
             }
             catch (Exception ex)

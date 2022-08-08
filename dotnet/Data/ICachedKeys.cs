@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+using System.Collections.Specialized;
+using System;
 
 namespace FedexShipping.Data
 {
@@ -6,6 +7,8 @@ namespace FedexShipping.Data
     {
         void AddCacheKey(int cacheKey);
         void RemoveCacheKey(int cacheKey);
-        List<int> ListExpiredKeys();
+        int ListExpiredKeys();
+        OrderedDictionary GetOrderedDictionary();
+        int BinarySearch(DateTime currentTime);
     }
 }

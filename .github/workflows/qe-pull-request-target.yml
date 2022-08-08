@@ -17,9 +17,12 @@ jobs:
       dangerRequireChangelog: false
       nodeLint: true
       nodeTest: false
+      nodeSonar: true
+      nodeSonarProjectKey: vtex-apps_fedex-shipping-ts
+      nodeSonarOrganization: vtex-apps
       dotnetLint: true
       dotnetSonar: true
-      dotnetSonarProjectKey: vtex-apps_fedex-shipping
+      dotnetSonarProjectKey: vtex-apps_fedex-shipping-dotnet
       dotnetSonarOrganization: vtex-apps
       cypress: true
     secrets:

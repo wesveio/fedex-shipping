@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.18.2] - 2022-08-03
+
+### Fixed
+
+- Fixed a bug where cache was never saving
+
+### Added
+
+- Redid caching
+- Improved Cache invalidation strategy to O(log(N))
+
 ## [1.18.1] - 2022-07-29
 
 ### Addeed
