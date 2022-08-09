@@ -1,6 +1,7 @@
 import { loadDocksAPI, calculateShippingAPI } from './apis.js'
 import { updateRetry } from './common/support'
 import { FAIL_ON_STATUS_CODE } from './common/constants'
+import sla from './sla.js'
 
 export function loadDocks() {
   it('Load all dock connection', updateRetry(3), () => {
@@ -36,7 +37,7 @@ export function calculateShipping(data) {
   })
 }
 
-export function loadCalculateShippingAPI(data) {
+export function loadCalculateShippingAPI(data, validateResponseFn) {
   return cy.getVtexItems().then((vtex) => {
     cy.request({
       method: 'POST',
@@ -45,11 +46,23 @@ export function loadCalculateShippingAPI(data) {
       ...FAIL_ON_STATUS_CODE,
       body: data,
     }).as('RESPONSE')
-    cy.get('@RESPONSE').then((response) => {
-      expect(response.status).to.have.equal(200)
-      expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
 
+    if (validateResponseFn) {
+      cy.get('@RESPONSE').then((response) => {
+        expect(response.status).to.have.equal(200)
+        expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
+        validateResponseFn(response)
+      })
+    } else {
       return cy.get('@RESPONSE')
-    })
+    }
   })
+}
+
+export function validateInternationEconomyShipping(response) {
+  const filtershippingMethod = response.body.filter(
+    (b) => b.shippingMethod === sla.InternationalEconomy
+  )
+
+  expect(filtershippingMethod).to.be.an('array').and.to.have.lengthOf.above(0)
 }
