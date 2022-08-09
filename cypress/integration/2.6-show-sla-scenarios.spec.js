@@ -7,12 +7,17 @@ import {
   validateSaveAppSettingResponse,
 } from '../support/graphql_testcase.js'
 import { data } from '../fixtures/shippingRatePayload.json'
-import { calculateShipping } from '../support/api_testcase.js'
+import {
+  loadCalculateShippingAPI,
+  validateCalculateShipping,
+} from '../support/api_testcase.js'
+
+const prefix = `UnHide sla`
 
 describe('FedEx UnHide sla scenarios', () => {
   loginViaCookies()
 
-  it(`Unhide all sla's`, updateRetry(3), () => {
+  it(`${prefix} - Unhide all sla's`, updateRetry(3), () => {
     cy.hideSla(false).then((sla) => {
       graphql(
         FEDEX_SHIPPING_APP,
@@ -22,5 +27,7 @@ describe('FedEx UnHide sla scenarios', () => {
     })
   })
 
-  calculateShipping(data)
+  it(`${prefix} - Calculate shipping price`, updateRetry(2), () => {
+    loadCalculateShippingAPI(data, validateCalculateShipping)
+  })
 })

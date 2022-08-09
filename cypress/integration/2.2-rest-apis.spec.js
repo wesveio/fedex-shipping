@@ -1,4 +1,8 @@
-import { loginViaCookies, preserveCookie } from '../support/common/support.js'
+import {
+  loginViaCookies,
+  preserveCookie,
+  updateRetry,
+} from '../support/common/support.js'
 import {
   loadDocks,
   loadCalculateShippingAPI,
@@ -6,12 +10,16 @@ import {
 } from '../support/api_testcase.js'
 import { data } from '../fixtures/shippingRatePayload.json'
 
+const prefix = 'Rest API'
+
 describe('Rest-api-testcases', () => {
   loginViaCookies()
 
   loadDocks()
 
-  loadCalculateShippingAPI(data, validateCalculateShipping)
+  it(`${prefix} - Calculate shipping price`, updateRetry(2), () => {
+    loadCalculateShippingAPI(data, validateCalculateShipping)
+  })
 
   preserveCookie()
 })

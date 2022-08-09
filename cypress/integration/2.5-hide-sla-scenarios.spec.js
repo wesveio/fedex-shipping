@@ -9,10 +9,12 @@ import {
 import { data } from '../fixtures/shippingRatePayload.json'
 import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 
+const prefix = 'Hide Sla'
+
 describe('FedEx Hide sla scenarios', () => {
   loginViaCookies()
 
-  it(`Hide all Sla's`, updateRetry(3), () => {
+  it(`${prefix} - Hide all Sla's`, updateRetry(3), () => {
     cy.hideSla(true).then((sla) => {
       graphql(
         FEDEX_SHIPPING_APP,
@@ -22,7 +24,7 @@ describe('FedEx Hide sla scenarios', () => {
     })
   })
 
-  it(`Verify all sla's are not displaying`, updateRetry(2), () => {
+  it(`${prefix} - Verify all sla's are not displaying`, updateRetry(2), () => {
     loadCalculateShippingAPI(data).then((response) => {
       expect(response.body).to.be.an('array').and.to.have.lengthOf(0)
     })
