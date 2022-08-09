@@ -1,13 +1,7 @@
 import { loginViaCookies, updateRetry } from '../support/common/support.js'
-import {
-  graphql,
-  saveAppSetting,
-  validateSaveAppSettingResponse,
-} from '../support/graphql_testcase'
 import { appSetting } from '../support/outputvalidation'
 import { data } from '../fixtures/shippingRatePayload.json'
-import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
-import { updateSurchargeRateAndPercentage } from '../support/common.js'
+import { updateSLASettings } from '../support/common.js'
 import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 import sla from '../support/sla.js'
 
@@ -23,13 +17,7 @@ describe(`${prefix} Scenarios`, () => {
     `${prefix} - Update Surcharge Flat Rate and Surcharge Percentage`,
     updateRetry(3),
     () => {
-      updateSurchargeRateAndPercentage().then((slaSettings) => {
-        graphql(
-          FEDEX_SHIPPING_APP,
-          saveAppSetting(appSetting, slaSettings),
-          validateSaveAppSettingResponse
-        )
-      })
+      updateSLASettings(appSetting)
     }
   )
 
@@ -47,16 +35,7 @@ describe(`${prefix} Scenarios`, () => {
     ` ${prefix} - Update Surcharge Flat Rate and Surcharge Percentage`,
     updateRetry(3),
     () => {
-      updateSurchargeRateAndPercentage(
-        surchargeFlatRate,
-        surchargePercent
-      ).then((slaSetting) => {
-        graphql(
-          FEDEX_SHIPPING_APP,
-          saveAppSetting(appSetting, slaSetting),
-          validateSaveAppSettingResponse
-        )
-      })
+      updateSLASettings(appSetting, surchargeFlatRate, surchargePercent)
     }
   )
 
