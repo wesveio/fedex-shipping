@@ -101,190 +101,207 @@
 
         public async Task<GetRatesResponseWrapper> GetRates(GetRatesRequest getRatesRequest)
         {
-            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
-            GetRatesResponseWrapper getRatesResponseWrapperParent = new GetRatesResponseWrapper();
-            getRatesResponseWrapperParent.Success = true;
-            
             GetRatesResponseWrapper fedexCachedResponse;
-            int cacheKey = $@"
-                {_context.Vtex.App.Version}
-                {JsonConvert.SerializeObject(this._merchantSettings)}
-                {getRatesRequest.origin.zipCode}
-                {getRatesRequest.destination.zipCode}
-                {JsonConvert.SerializeObject(getRatesRequest.items)}"
-                .GetHashCode();
+            GetRatesResponseWrapper getRatesResponseWrapperParent = new GetRatesResponseWrapper();
 
-            if (_fedExCacheRespository.TryGetCache(cacheKey, out fedexCachedResponse))
+            try
             {
-                getRatesResponseWrapperParent = fedexCachedResponse;
-                _context.Vtex.Logger.Info("GetRates", "Cache Used", 
-                    "Cached Result", 
-                    new[]
-                    {
-                        ( "entireObject", JsonConvert.SerializeObject(fedexCachedResponse)),
-                    }
-                );
-            }
-            else
-            {
-                Dictionary<string, List<Item>> splitItems = SplitRequestItemsByModal(getRatesRequest);
+                this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
+                getRatesResponseWrapperParent.Success = true;
+
+                getRatesResponseWrapperParent.IsValidCountry = 
+                    Constants.POSTAL_CODE_REGEX.ContainsKey(getRatesRequest.destination.country);
                 
-                RatePortTypeClient client;
-                if (this._merchantSettings.IsLive)
+                int cacheKey = $@"
+                    {_context.Vtex.App.Version}
+                    {JsonConvert.SerializeObject(this._merchantSettings)}
+                    {getRatesRequest.origin.zipCode}
+                    {getRatesRequest.destination.zipCode}
+                    {JsonConvert.SerializeObject(getRatesRequest.items)}"
+                    .GetHashCode();
+
+                if (_fedExCacheRespository.TryGetCache(cacheKey, out fedexCachedResponse))
                 {
-                    string remoteAddress = "https://ws.fedex.com:443/web-services";
-                    client = new RatePortTypeClient(RatePortTypeClient.EndpointConfiguration.RateServicePort, remoteAddress);
+                    getRatesResponseWrapperParent = fedexCachedResponse;
+                    _context.Vtex.Logger.Info("GetRates", "Cache Used", 
+                        "Cached Result", 
+                        new[]
+                        {
+                            ( "entireObject", JsonConvert.SerializeObject(fedexCachedResponse)),
+                        }
+                    );
                 }
                 else
                 {
-                    client = new RatePortTypeClient();
-                }
-
-                Dictionary<string, SlaSettings> slaMapping = new Dictionary<string, SlaSettings>();
-
-                foreach (SlaSettings slaSettings in this._merchantSettings.SlaSettings)
-                {
-                    slaMapping.Add(slaSettings.Sla, slaSettings);
-                }
-
-                BusinessHour[] carrierBusinessHours = new BusinessHour[7];
-                for (int day = 0; day < 7; day++)
-                {
-                    carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, new TimeSpan(0, 0, 0).ToString(), new TimeSpan(23, 59, 59).ToString());
-                }
-
-                // Iterates in parallel through every entry in the different FedEx handling types
-
-                List<List<Item>> parallelCollection = new List<List<Item>>();
-
-                foreach (KeyValuePair<string, List<Item>> entry in splitItems)
-                {
-                    parallelCollection.Add(entry.Value);
-                }
-
-                var bag = new ConcurrentBag<GetRatesResponseWrapper>();
-
-                var tasks = parallelCollection.Select(async itemArr => {
-                    if (itemArr.Count > 0)
+                    Dictionary<string, List<Item>> splitItems = SplitRequestItemsByModal(getRatesRequest);
+                    
+                    RatePortTypeClient client;
+                    if (this._merchantSettings.IsLive)
                     {
-                        GetRatesResponseWrapper cell = new GetRatesResponseWrapper();
-                        GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
-                        getRatesRequest.items = itemArr;
-                        RateRequest request = await CreateRateRequest(getRatesRequest);
-                        try
+                        string remoteAddress = "https://ws.fedex.com:443/web-services";
+                        client = new RatePortTypeClient(RatePortTypeClient.EndpointConfiguration.RateServicePort, remoteAddress);
+                    }
+                    else
+                    {
+                        client = new RatePortTypeClient();
+                    }
+
+                    Dictionary<string, SlaSettings> slaMapping = new Dictionary<string, SlaSettings>();
+
+                    foreach (SlaSettings slaSettings in this._merchantSettings.SlaSettings)
+                    {
+                        slaMapping.Add(slaSettings.Sla, slaSettings);
+                    }
+
+                    BusinessHour[] carrierBusinessHours = new BusinessHour[7];
+                    for (int day = 0; day < 7; day++)
+                    {
+                        carrierBusinessHours[day] = new BusinessHour((DayOfWeek) day, new TimeSpan(0, 0, 0).ToString(), new TimeSpan(23, 59, 59).ToString());
+                    }
+
+                    // Iterates in parallel through every entry in the different FedEx handling types
+
+                    List<List<Item>> parallelCollection = new List<List<Item>>();
+
+                    foreach (KeyValuePair<string, List<Item>> entry in splitItems)
+                    {
+                        parallelCollection.Add(entry.Value);
+                    }
+
+                    var bag = new ConcurrentBag<GetRatesResponseWrapper>();
+
+                    var tasks = parallelCollection.Select(async itemArr => {
+                        if (itemArr.Count > 0)
                         {
-                            _context.Vtex.Logger.Info("GetRates", "FedEx RatesRequest", 
-                                "Mapped RequestedShipment of RateRequest To FedEx", 
-                                new[]
-                                {
-                                    ( "entireObject", JsonConvert.SerializeObject(request.RequestedShipment)),
-                                }
-                            );
-                            Stopwatch stopWatch = new Stopwatch();
-                            stopWatch.Start();
-                            
-                            var copyStr = JsonConvert.SerializeObject(getRatesRequest.items);
-                            List<Item> copyItemResult = JsonConvert.DeserializeObject<List<Item>>(copyStr);
-
-                            getRatesResponse ratesResponse = await client.getRatesAsync(request);
-
-                            stopWatch.Stop();
-                            TimeSpan ts = stopWatch.Elapsed;
-                            _context.Vtex.Logger.Info("GetRates", "FedEx RatesResponse Time", "Time Spent in MS",
-                                new[]
-                                {
-                                    ( "timeLapsed", ts.TotalMilliseconds.ToString()),
-                                }
-                            );
-
-                            getRatesResponseWrapper.timeSpan = ts;
-                            RateReply reply = ratesResponse.RateReply;
-                            cell.HighestSeverity.Add(reply.HighestSeverity.ToString());
-                            if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
+                            GetRatesResponseWrapper cell = new GetRatesResponseWrapper();
+                            GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
+                            getRatesRequest.items = itemArr;
+                            RateRequest request = await CreateRateRequest(getRatesRequest);
+                            try
                             {
-                                // if (!string.Equals(this._environmentVariableProvider.Workspace, "master")) {
-                                //     ShowRateReply(reply);
-                                // }
-
-                                Dictionary<string, double> ratesRatio = CalculateRatesRatio(copyItemResult);
-                                foreach(RateReplyDetail detail in reply.RateReplyDetails)
-                                {
-                                    if (!slaMapping[detail.ServiceDescription.Description].Hidden)
+                                _context.Vtex.Logger.Info("GetRates", "FedEx RatesRequest", 
+                                    "Mapped RequestedShipment of RateRequest To FedEx", 
+                                    new[]
                                     {
-                                        TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
-                                        string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
-                                        foreach (Item item in copyItemResult)
+                                        ( "entireObject", JsonConvert.SerializeObject(request.RequestedShipment)),
+                                    }
+                                );
+                                Stopwatch stopWatch = new Stopwatch();
+                                stopWatch.Start();
+                                
+                                var copyStr = JsonConvert.SerializeObject(getRatesRequest.items);
+                                List<Item> copyItemResult = JsonConvert.DeserializeObject<List<Item>>(copyStr);
+
+                                getRatesResponse ratesResponse = await client.getRatesAsync(request);
+
+                                stopWatch.Stop();
+                                TimeSpan ts = stopWatch.Elapsed;
+                                _context.Vtex.Logger.Info("GetRates", "FedEx RatesResponse Time", "Time Spent in MS",
+                                    new[]
+                                    {
+                                        ( "timeLapsed", ts.TotalMilliseconds.ToString()),
+                                    }
+                                );
+
+                                getRatesResponseWrapper.timeSpan = ts;
+                                RateReply reply = ratesResponse.RateReply;
+                                cell.HighestSeverity.Add(reply.HighestSeverity.ToString());
+                                if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
+                                {
+                                    // if (!string.Equals(this._environmentVariableProvider.Workspace, "master")) {
+                                    //     ShowRateReply(reply);
+                                    // }
+
+                                    Dictionary<string, double> ratesRatio = CalculateRatesRatio(copyItemResult);
+                                    foreach(RateReplyDetail detail in reply.RateReplyDetails)
+                                    {
+                                        if (!slaMapping[detail.ServiceDescription.Description].Hidden)
                                         {
-                                            GetRatesResponse rateResponse = new GetRatesResponse
+                                            TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
+                                            string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
+                                            foreach (Item item in copyItemResult)
                                             {
-                                                carrierId = "FEDEX",
-                                                itemId = item.id,
-                                                price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount * Convert.ToDecimal(ratesRatio[item.id]),
-                                                numberOfPackages = item.quantity,
-                                                estimateDate = detail.DeliveryTimestamp,
-                                                shippingMethod = detail.ServiceDescription.Description,
-                                                transitTime = transitString,
-                                                carrierSchedule = new List<Schedule>(),
-                                                deliveryChannel = "delivery",
-                                                weekendAndHolidays = new WeekendAndHolidays(),
-                                                pickupAddress = null,
-                                            };
+                                                GetRatesResponse rateResponse = new GetRatesResponse
+                                                {
+                                                    carrierId = "FEDEX",
+                                                    itemId = item.id,
+                                                    price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount * Convert.ToDecimal(ratesRatio[item.id]),
+                                                    numberOfPackages = item.quantity,
+                                                    estimateDate = detail.DeliveryTimestamp,
+                                                    shippingMethod = detail.ServiceDescription.Description,
+                                                    transitTime = transitString,
+                                                    carrierSchedule = new List<Schedule>(),
+                                                    deliveryChannel = "delivery",
+                                                    weekendAndHolidays = new WeekendAndHolidays(),
+                                                    pickupAddress = null,
+                                                };
 
-                                            rateResponse.price += Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargePercent / 100) * rateResponse.price + Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargeFlatRate);
+                                                rateResponse.price += Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargePercent / 100) * rateResponse.price + Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargeFlatRate);
 
-                                            rateResponse.carrierBusinessHours = carrierBusinessHours;
-                                            getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
+                                                rateResponse.carrierBusinessHours = carrierBusinessHours;
+                                                getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
+                                            }
                                         }
                                     }
+
+                                    getRatesResponseWrapper.Success = true;
                                 }
 
-                                getRatesResponseWrapper.Success = true;
-                            }
+                                if (!string.Equals(this._environmentVariableProvider.Workspace, "master"))
+                                {
+                                    ShowNotifications(reply);
+                                }
 
-                            if (!string.Equals(this._environmentVariableProvider.Workspace, "master"))
+                                foreach(Notification notification in reply.Notifications)
+                                {
+                                    getRatesResponseWrapper.Notifications.Add(notification);
+                                }
+                            }
+                            catch (Exception e)
                             {
-                                ShowNotifications(reply);
+                                Console.WriteLine($"Exception: {e.Message}");
+                                Console.WriteLine($"Exception: {e.InnerException}");
+                                Console.WriteLine($"Exception: {e.StackTrace}");
+                                cell.Error.Add(e.Message);
                             }
 
-                            foreach(Notification notification in reply.Notifications)
-                            {
-                                getRatesResponseWrapper.Notifications.Add(notification);
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine($"Exception: {e.Message}");
-                            Console.WriteLine($"Exception: {e.InnerException}");
-                            Console.WriteLine($"Exception: {e.StackTrace}");
-                            cell.Error.Add(e.Message);
-                        }
+                            cell.GetRatesResponses.AddRange(getRatesResponseWrapper.GetRatesResponses);
+                            cell.Notifications.AddRange(getRatesResponseWrapper.Notifications);
+                            cell.timeSpan = getRatesResponseWrapper.timeSpan;
+                            cell.Success = getRatesResponseWrapper.Success;
 
-                        cell.GetRatesResponses.AddRange(getRatesResponseWrapper.GetRatesResponses);
-                        cell.Notifications.AddRange(getRatesResponseWrapper.Notifications);
-                        cell.timeSpan = getRatesResponseWrapper.timeSpan;
-                        cell.Success = getRatesResponseWrapper.Success;
+                            bag.Add(cell);
+                        }
+                    });
 
-                        bag.Add(cell);
+                    await Task.WhenAll(tasks);
+                    
+                    foreach (var elem in bag)
+                    {
+                        getRatesResponseWrapperParent.GetRatesResponses.AddRange(elem.GetRatesResponses);
+                        getRatesResponseWrapperParent.Notifications.AddRange(elem.Notifications);
+                        getRatesResponseWrapperParent.Success = elem.Success && getRatesResponseWrapperParent.Success;
+                        getRatesResponseWrapperParent.Error.AddRange(elem.Error);
+                        getRatesResponseWrapperParent.HighestSeverity.AddRange(elem.HighestSeverity);
+                        getRatesResponseWrapperParent.timeSpan = elem.timeSpan;
                     }
-                });
-
-                await Task.WhenAll(tasks);
-                
-                foreach (var elem in bag)
-                {
-                    getRatesResponseWrapperParent.GetRatesResponses.AddRange(elem.GetRatesResponses);
-                    getRatesResponseWrapperParent.Notifications.AddRange(elem.Notifications);
-                    getRatesResponseWrapperParent.Success = elem.Success && getRatesResponseWrapperParent.Success;
-                    getRatesResponseWrapperParent.Error.AddRange(elem.Error);
-                    getRatesResponseWrapperParent.HighestSeverity.AddRange(elem.HighestSeverity);
-                    getRatesResponseWrapperParent.timeSpan = elem.timeSpan;
-                }
-                // Only cache if the response is successful
-                if (getRatesResponseWrapperParent.Success)
-                {
-                    await _fedExCacheRespository.SetCache(cacheKey, getRatesResponseWrapperParent);
+                    // Only cache if the response is successful
+                    if (getRatesResponseWrapperParent.Success)
+                    {
+                        await _fedExCacheRespository.SetCache(cacheKey, getRatesResponseWrapperParent);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                _context.Vtex.Logger.Error("GetRates", null, 
+                "Error:", ex,
+                new[]
+                {
+                    ( "items", JsonConvert.SerializeObject(getRatesRequest) ),
+                });
+            }
+
             return getRatesResponseWrapperParent;
         }
 
@@ -340,7 +357,22 @@
             
             request.ReturnTransitAndCommit = true;
             request.ReturnTransitAndCommitSpecified = true;
-            await SetShipmentDetails(request, getRatesRequest);
+
+            try
+            {
+                await SetShipmentDetails(request, getRatesRequest);
+            }
+            catch (Exception ex)
+            {
+                _context.Vtex.Logger.Error("CreateRateRequest-SetShipmentDetails", null, 
+                "Error:", ex,
+                new[]
+                {
+                    ( "request", JsonConvert.SerializeObject(request) ),
+                    ( "getRatesRequest", JsonConvert.SerializeObject(getRatesRequest) )
+                });
+            }
+
             return request;
         }
 
@@ -349,7 +381,22 @@
             request.RequestedShipment = new RequestedShipment();
             SetOrigin(request, getRatesRequest);
             SetDestination(request, getRatesRequest);
-            await SetPackageLineItems(request, getRatesRequest);
+
+            try
+            {
+                await SetPackageLineItems(request, getRatesRequest);
+            }
+            catch (Exception ex)
+            {
+                _context.Vtex.Logger.Error("SetShipmentDetails", null, 
+                "Error:", ex,
+                new[]
+                {
+                    ( "request", JsonConvert.SerializeObject(request) ),
+                    ( "getRatesRequest", JsonConvert.SerializeObject(getRatesRequest) )
+                });
+            }
+
             request.RequestedShipment.PackageCount = getRatesRequest.items.Sum(x => x.quantity).ToString();
             request.RequestedShipment.PreferredCurrency = getRatesRequest.currency;
             request.RequestedShipment.ShipTimestampSpecified = true;
@@ -369,7 +416,8 @@
             request.RequestedShipment.Shipper.Address.Residential = getRatesRequest.origin.residential;
         }
 
-        private void SetDestination(RateRequest request, GetRatesRequest getRatesRequest)
+        // XXX
+        private bool SetDestination(RateRequest request, GetRatesRequest getRatesRequest)
         {
             request.RequestedShipment.Recipient = new Party();
             request.RequestedShipment.Recipient.Address = new Address();
@@ -386,6 +434,10 @@
             request.RequestedShipment.Recipient.Address.StreetLines = new string[] { getRatesRequest.destination.street };
             request.RequestedShipment.Recipient.Address.ResidentialSpecified = this._merchantSettings.Residential;
             request.RequestedShipment.Recipient.Address.Residential = this._merchantSettings.Residential;
+
+            Console.WriteLine($"match:: {JsonConvert.SerializeObject(match)} ");
+
+            return false;
         }
 
         // Creates a set for modals with shipAlone
@@ -489,27 +541,40 @@
                 }
                 else if (smartPackingList.Capacity > 0)
                 { // For smart packing
-                    List<Item> packedResponse = await this._packingService.packingMap(smartPackingList);
-                    foreach (Item box in packedResponse)
+
+                    try
                     {
-                        packageLines.Add(new RequestedPackageLineItem());
-                        packageLines.Last().SequenceNumber = box.id;
-                        packageLines.Last().GroupPackageCount = box.quantity.ToString();
+                        List<Item> packedResponse = await this._packingService.packingMap(smartPackingList);
+                        foreach (Item box in packedResponse)
+                        {
+                            packageLines.Add(new RequestedPackageLineItem());
+                            packageLines.Last().SequenceNumber = box.id;
+                            packageLines.Last().GroupPackageCount = box.quantity.ToString();
 
-                        packageLines.Last().Weight = new Weight();
-                        setWeight(packageLines.Last().Weight, box.unitDimension.weight);
+                            packageLines.Last().Weight = new Weight();
+                            setWeight(packageLines.Last().Weight, box.unitDimension.weight);
 
-                        packageLines.Last().Dimensions = new Dimensions();
-                        setDimensions(packageLines.Last().Dimensions, box.unitDimension.length, box.unitDimension.width, box.unitDimension.height);
-                        setDimensionUnits(packageLines.Last().Dimensions);
-                        
-                        // Special Handling goods
-                        // Checks if the modal is in the options and there is available mapping
-                        if (!string.IsNullOrEmpty(box.modal) && !modalOptionsMap[box.modal].Equals("NONE")) {
-                            packageLines.Last().SpecialServicesRequested = new PackageSpecialServicesRequested();
-                            setDangerousGoodsDetail(packageLines.Last().SpecialServicesRequested, modalOptionsMap[box.modal]);
+                            packageLines.Last().Dimensions = new Dimensions();
+                            setDimensions(packageLines.Last().Dimensions, box.unitDimension.length, box.unitDimension.width, box.unitDimension.height);
+                            setDimensionUnits(packageLines.Last().Dimensions);
+                            
+                            // Special Handling goods
+                            // Checks if the modal is in the options and there is available mapping
+                            if (!string.IsNullOrEmpty(box.modal) && !modalOptionsMap[box.modal].Equals("NONE")) {
+                                packageLines.Last().SpecialServicesRequested = new PackageSpecialServicesRequested();
+                                setDangerousGoodsDetail(packageLines.Last().SpecialServicesRequested, modalOptionsMap[box.modal]);
+                            }
+
                         }
-
+                    }
+                    catch (Exception ex)
+                    {
+                        _context.Vtex.Logger.Error("packingMap", null, 
+                        "Error:", ex,
+                        new[]
+                        {
+                            ( "smartPackingList", JsonConvert.SerializeObject(smartPackingList) )
+                        });
                     }
                 }
 

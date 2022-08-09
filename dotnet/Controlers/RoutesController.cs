@@ -45,43 +45,56 @@
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             GetRatesResponseWrapper getRatesResponseWrapper = new GetRatesResponseWrapper();
-            var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-            GetRatesRequest getRatesRequest = JsonConvert.DeserializeObject<GetRatesRequest>(bodyAsText);
-            _context.Vtex.Logger.Info("GetRates", "GetRatesRequest", 
-                "Get Rates Request", 
-                new[]
-                {
-                    ( "Origin ZipCode", getRatesRequest.origin.zipCode),
-                    ( "Destination ZipCode", getRatesRequest.destination.zipCode),
-                    ( "Unique Item Count", getRatesRequest.items.Count.ToString()),
-                    ( "entireObject", JsonConvert.SerializeObject(getRatesRequest)),
+
+            try
+            {
+                var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+                GetRatesRequest getRatesRequest = JsonConvert.DeserializeObject<GetRatesRequest>(bodyAsText);
+
+                _context.Vtex.Logger.Info("GetRates", "GetRatesRequest", 
+                    "Get Rates Request", 
+                    new[]
+                    {
+                        ( "Origin ZipCode", getRatesRequest.origin.zipCode),
+                        ( "Destination ZipCode", getRatesRequest.destination.zipCode),
+                        ( "Unique Item Count", getRatesRequest.items.Count.ToString()),
+                        ( "entireObject", JsonConvert.SerializeObject(getRatesRequest)),
+                    }
+                );
+
+                getRatesResponseWrapper = await this._fedExRateRequest.GetRates(getRatesRequest); 
+
+                if (!getRatesResponseWrapper.IsValidCountry) {
+                    Response.StatusCode = 404;
                 }
-            );
 
-            getRatesResponseWrapper = await this._fedExRateRequest.GetRates(getRatesRequest);            
+                Response.Headers.Add("Cache-Control", "private");
+                Response.Headers.Add("Timespan", getRatesResponseWrapper.timeSpan.TotalSeconds.ToString());
 
-            Response.Headers.Add("Cache-Control", "private");
-            Response.Headers.Add("Timespan", getRatesResponseWrapper.timeSpan.TotalSeconds.ToString());
+                _context.Vtex.Logger.Info("GetRates", "GetRatesResponse", 
+                    "Get Rates Response", 
+                    new[]
+                    {
+                        ( "HighestSeverity", string.Join(",", getRatesResponseWrapper.HighestSeverity)),
+                        ( "Success", getRatesResponseWrapper.Success.ToString()),
+                        ( "Error", string.Join(",", getRatesResponseWrapper.Error)),
+                        ( "entireObject", JsonConvert.SerializeObject(getRatesResponseWrapper)),
+                    }
+                );
 
-            _context.Vtex.Logger.Info("GetRates", "GetRatesResponse", 
-                "Get Rates Response", 
-                new[]
-                {
-                    ( "HighestSeverity", string.Join(",", getRatesResponseWrapper.HighestSeverity)),
-                    ( "Success", getRatesResponseWrapper.Success.ToString()),
-                    ( "Error", string.Join(",", getRatesResponseWrapper.Error)),
-                    ( "entireObject", JsonConvert.SerializeObject(getRatesResponseWrapper)),
-                }
-            );
-
-            stopWatch.Stop();
-            TimeSpan ts = stopWatch.Elapsed;
-            _context.Vtex.Logger.Info("GetRates", "GetRates Time", "Time Spent in MS",
-                new[]
-                {
-                    ( "timeLapsed", ts.TotalMilliseconds.ToString()),
-                }
-            );
+                stopWatch.Stop();
+                TimeSpan ts = stopWatch.Elapsed;
+                _context.Vtex.Logger.Info("GetRates", "GetRates Time", "Time Spent in MS",
+                    new[]
+                    {
+                        ( "timeLapsed", ts.TotalMilliseconds.ToString()),
+                    }
+                );
+            }
+            catch (Exception ex)
+            {
+                _context.Vtex.Logger.Error("GetRates", null, "Error:", ex);
+            }
 
             return Json(getRatesResponseWrapper.GetRatesResponses);
         }
@@ -123,12 +136,21 @@
 
         public async Task<IActionResult> GetEstimateDate()
         {
-            var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-            GetEstimateDeliveryRequest getEstDateReq = JsonConvert.DeserializeObject<GetEstimateDeliveryRequest>(bodyAsText);
+            GetEstimateDeliveryResponse result = null;
 
-            this._fedExEstimateDeliveryRequest.getEstimateDelivery(getEstDateReq);
-            GetEstimateDeliveryResponse result = this._fedExEstimateDeliveryRequest.getEstimateDelivery(getEstDateReq);
-            Response.Headers.Add("Cache-Control", "private");
+            try
+            {
+                var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+                GetEstimateDeliveryRequest getEstDateReq = JsonConvert.DeserializeObject<GetEstimateDeliveryRequest>(bodyAsText);
+
+                this._fedExEstimateDeliveryRequest.getEstimateDelivery(getEstDateReq);
+                result = this._fedExEstimateDeliveryRequest.getEstimateDelivery(getEstDateReq);
+                Response.Headers.Add("Cache-Control", "private");
+            }
+            catch (Exception ex)
+            {
+                _context.Vtex.Logger.Error("GetEstimateDate", null, "Error:", ex);
+            }
 
             return Json(result);
         }

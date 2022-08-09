@@ -3,6 +3,8 @@ using FedexShipping.Models;
 using System;
 using System.Threading.Tasks;
 using TrackServiceReference;
+using Vtex.Api.Context;
+using Newtonsoft.Json;
 
 namespace FedexShipping.Services
 {
@@ -10,34 +12,40 @@ namespace FedexShipping.Services
     {
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private MerchantSettings _merchantSettings;
+        private readonly IIOServiceContext _context;
 
-        public FedExTrackRequest(IMerchantSettingsRepository merchantSettingsRepository)
+        public FedExTrackRequest(IMerchantSettingsRepository merchantSettingsRepository, IIOServiceContext context)
         {
             this._merchantSettingsRepository = merchantSettingsRepository ??
                                             throw new ArgumentNullException(nameof(merchantSettingsRepository));
+
+            this._context = context ??
+                throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<TrackReply> Track(string trackingNumber)
         {
-            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
-            TrackRequest request = CreateTrackRequest(trackingNumber);
-
-            //TrackService service = new TrackService();
-            TrackPortTypeClient client;
             TrackReply reply = new TrackReply();
 
-            if (this._merchantSettings.IsLive)
-            {
-                string remoteAddress = "https://ws.fedex.com:443/web-services";
-                client = new TrackPortTypeClient(TrackPortTypeClient.EndpointConfiguration.TrackServicePort, remoteAddress);
-            }
-            else
-            {
-                client = new TrackPortTypeClient();
-            }
 
             try
             {
+                this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
+                TrackRequest request = CreateTrackRequest(trackingNumber);
+
+                //TrackService service = new TrackService();
+                TrackPortTypeClient client;
+
+                if (this._merchantSettings.IsLive)
+                {
+                    string remoteAddress = "https://ws.fedex.com:443/web-services";
+                    client = new TrackPortTypeClient(TrackPortTypeClient.EndpointConfiguration.TrackServicePort, remoteAddress);
+                }
+                else
+                {
+                    client = new TrackPortTypeClient();
+                }
+
                 // Call the Track web service passing in a TrackRequest and returning a TrackReply
                 trackResponse response = await client.trackAsync(request);
                 reply = response.TrackReply;
@@ -49,9 +57,14 @@ namespace FedexShipping.Services
 
                 ShowNotifications(reply);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine($"ERROR: {e.Message} {e.StackTrace}");
+                _context.Vtex.Logger.Error("Track", null, 
+                "Error:", ex,
+                new[]
+                {
+                    ( "trackingNumber", trackingNumber ),
+                });
             }
 
             return reply;

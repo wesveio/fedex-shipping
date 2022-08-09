@@ -3,18 +3,23 @@ using FedexShipping.Data;
 using FedexShipping.Models;
 using System;
 using System.Threading.Tasks;
+using Vtex.Api.Context;
 
 namespace FedexShipping.Services
 {
     public class FedExAvailabilityRequest : IFedExAvailabilityRequest
     {
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
+        private readonly IIOServiceContext _context;
         private MerchantSettings _merchantSettings;
 
-        public FedExAvailabilityRequest(IMerchantSettingsRepository merchantSettingsRepository)
+        public FedExAvailabilityRequest(IMerchantSettingsRepository merchantSettingsRepository, IIOServiceContext context)
         {
-            this._merchantSettingsRepository = merchantSettingsRepository ??
-                                            throw new ArgumentNullException(nameof(merchantSettingsRepository));
+            this._merchantSettingsRepository = merchantSettingsRepository 
+                ?? throw new ArgumentNullException(nameof(merchantSettingsRepository));
+
+            this._context = context 
+                ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<serviceAvailabilityResponse> GetAvailability()
@@ -46,11 +51,9 @@ namespace FedexShipping.Services
 
                 ShowServiceAvailabilityReply(reply);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine($"Exception: {e.Message}");
-                Console.WriteLine($"Exception: {e.InnerException}");
-                Console.WriteLine($"Exception: {e.StackTrace}");
+                _context.Vtex.Logger.Error("GetAvailability", null, "Error:", ex);
             }
 
             return reply;

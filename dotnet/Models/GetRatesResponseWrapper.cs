@@ -11,6 +11,7 @@ namespace FedexShipping.Models
         public List<Notification>  Notifications { get; set; }
         public List<string> Error { get; set; } = new List<string>();
         public bool Success { get; set; }
+        public bool IsValidCountry { get; set; }
         public TimeSpan timeSpan { get; set; }
 
         public GetRatesResponseWrapper()
@@ -18,6 +19,7 @@ namespace FedexShipping.Models
             this.GetRatesResponses = new List<GetRatesResponse>();
             this.Notifications = new List<Notification>();
             this.Success = false;
+            this.IsValidCountry = false;
         }
     }
 }

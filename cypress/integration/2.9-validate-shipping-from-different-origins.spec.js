@@ -22,7 +22,7 @@ describe('Validate Ship Rates API from different origins', () => {
         residential: false,
       }
       loadCalculateShippingAPI(data).then((response) => {
-        expect(response.status).to.have.equal(500)
+        expect(response.status).to.have.equal(404)
       })
     }
   )

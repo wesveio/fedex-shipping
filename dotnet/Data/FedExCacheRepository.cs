@@ -116,11 +116,24 @@ namespace FedexShipping.Data
             }
 
             var client = _clientFactory.CreateClient();
-            var response = await client.SendAsync(request);
-            string responseContent = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
+
+            try
             {
-                getRatesResponseWrapper = JsonConvert.DeserializeObject<GetRatesResponseWrapper>(responseContent);
+                var response = await client.SendAsync(request);
+                string responseContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    getRatesResponseWrapper = JsonConvert.DeserializeObject<GetRatesResponseWrapper>(responseContent);
+                }
+            }
+            catch (Exception ex)
+            {
+                _context.Vtex.Logger.Error("GetCachedRatesResponse", null,
+                "Error:", ex,
+                new[]
+                {
+                    ( "cacheKey", cacheKey.ToString() ),
+                });
             }
 
             return getRatesResponseWrapper;
