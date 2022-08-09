@@ -54,6 +54,7 @@ describe(`${prefix} Scenarios`, () => {
           validateSaveAppSettingResponse
         )
       })
+      cy.addDelayBetweenRetries(3000)
       loadCalculateShippingAPI(data).then((response) => {
         const filtershippingMethod = response.body.filter(
           (b) => b.shippingMethod === sla.FirstOvernight
@@ -80,6 +81,7 @@ describe(`${prefix} Scenarios`, () => {
           validateSaveAppSettingResponse
         )
       })
+      cy.addDelayBetweenRetries(3000)
       loadCalculateShippingAPI(data).then((response) => {
         const filtershippingMethod = response.body.filter(
           (b) => b.shippingMethod === sla.FirstOvernight
@@ -108,6 +110,7 @@ describe(`${prefix} Scenarios`, () => {
           validateSaveAppSettingResponse
         )
       })
+      cy.addDelayBetweenRetries(3000)
       loadCalculateShippingAPI(data).then((response) => {
         const filtershippingMethod = response.body.filter(
           (b) => b.shippingMethod === sla.FirstOvernight

@@ -21,7 +21,7 @@ describe('Validate Shipping from different origins', () => {
         coordinates: null,
         residential: false,
       }
-
+      cy.addDelayBetweenRetries(3000)
       loadCalculateShippingAPI(data).then((response) => {
         expect(response.status).to.have.equal(200)
         expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
@@ -56,7 +56,7 @@ describe('Validate Shipping from different origins', () => {
         coordinates: null,
         residential: false,
       }
-
+      cy.addDelayBetweenRetries(3000)
       loadCalculateShippingAPI(data, validateInternationEconomyShipping)
     }
   )
@@ -73,7 +73,7 @@ describe('Validate Shipping from different origins', () => {
         coordinates: null,
         residential: false,
       }
-
+      cy.addDelayBetweenRetries(3000)
       loadCalculateShippingAPI(data).then((response) => {
         expect(response.status).to.have.equal(500)
       })
