@@ -50,10 +50,10 @@ describe(`${prefix} Scenarios`, () => {
       updateSurchargeRateAndPercentage(
         surchargeFlatRate,
         surchargePercent
-      ).then((slaSettings) => {
+      ).then((slaSetting) => {
         graphql(
           FEDEX_SHIPPING_APP,
-          saveAppSetting(appSetting, slaSettings),
+          saveAppSetting(appSetting, slaSetting),
           validateSaveAppSettingResponse
         )
       })

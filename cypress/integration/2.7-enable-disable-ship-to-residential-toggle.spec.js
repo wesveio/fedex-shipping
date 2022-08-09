@@ -37,10 +37,10 @@ describe(`${prefix} Scenarios`, () => {
 
   it(`${prefix} - Enable Ship to Residential`, updateRetry(3), () => {
     appSetting.residential = true
-    cy.readAppSettingsFromJSON().then((sl) => {
+    cy.readAppSettingsFromJSON().then((s) => {
       graphql(
         FEDEX_SHIPPING_APP,
-        saveAppSetting(appSetting, sl),
+        saveAppSetting(appSetting, s),
         validateSaveAppSettingResponse
       )
     })

@@ -39,10 +39,10 @@ describe('Modify SLA - Validate Surcharge Flat Rate in checkout', () => {
   })
 
   it(` ${prefix} - Update Surcharge Flat Rate`, updateRetry(3), () => {
-    updateSurchargeRateAndPercentage(surchargeFlatRate).then((slaSettings) => {
+    updateSurchargeRateAndPercentage(surchargeFlatRate).then((slaSetting) => {
       graphql(
         FEDEX_SHIPPING_APP,
-        saveAppSetting(appSetting, slaSettings),
+        saveAppSetting(appSetting, slaSetting),
         validateSaveAppSettingResponse
       )
     })
