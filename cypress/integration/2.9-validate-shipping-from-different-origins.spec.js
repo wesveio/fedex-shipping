@@ -1,7 +1,6 @@
 import { loginViaCookies, updateRetry } from '../support/common/support.js'
 import { data } from '../fixtures/shippingRatePayload.json'
-import { calculateShippingAPI } from '../support/apis.js'
-import { FAIL_ON_STATUS_CODE } from '../support/common/constants.js'
+import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 
 describe('Validate Shipping from different origins', () => {
   loginViaCookies()
@@ -19,27 +18,16 @@ describe('Validate Shipping from different origins', () => {
         residential: false,
       }
 
-      cy.getVtexItems().then((vtex) => {
-        cy.request({
-          method: 'POST',
-          url: calculateShippingAPI(
-            vtex.account,
-            Cypress.env('workspace').name
-          ),
-          headers: { VtexIdclientAutCookie: vtex.userAuthCookieValue },
-          ...FAIL_ON_STATUS_CODE,
-          body: data,
-        }).then((response) => {
-          expect(response.status).to.have.equal(200)
-          expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
-          const filtershippingMethod = response.body.filter(
-            (b) => b.shippingMethod === 'International Economy'
-          )
+      loadCalculateShippingAPI(data).then((response) => {
+        expect(response.status).to.have.equal(200)
+        expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
+        const filtershippingMethod = response.body.filter(
+          (b) => b.shippingMethod === 'International Economy'
+        )
 
-          expect(filtershippingMethod)
-            .to.be.an('array')
-            .and.to.have.lengthOf.above(0)
-        })
+        expect(filtershippingMethod)
+          .to.be.an('array')
+          .and.to.have.lengthOf.above(0)
       })
     }
   )
@@ -65,27 +53,16 @@ describe('Validate Shipping from different origins', () => {
         residential: false,
       }
 
-      cy.getVtexItems().then((vtex) => {
-        cy.request({
-          method: 'POST',
-          url: calculateShippingAPI(
-            vtex.account,
-            Cypress.env('workspace').name
-          ),
-          headers: { VtexIdclientAutCookie: vtex.userAuthCookieValue },
-          ...FAIL_ON_STATUS_CODE,
-          body: data,
-        }).then((response) => {
-          expect(response.status).to.have.equal(200)
-          expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
-          const filtershippingMethod = response.body.filter(
-            (b) => b.shippingMethod === 'International Economy'
-          )
+      loadCalculateShippingAPI(data).then((response) => {
+        expect(response.status).to.have.equal(200)
+        expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
+        const filtershippingMethod = response.body.filter(
+          (b) => b.shippingMethod === 'International Economy'
+        )
 
-          expect(filtershippingMethod)
-            .to.be.an('array')
-            .and.to.have.lengthOf.above(0)
-        })
+        expect(filtershippingMethod)
+          .to.be.an('array')
+          .and.to.have.lengthOf.above(0)
       })
     }
   )
@@ -103,19 +80,8 @@ describe('Validate Shipping from different origins', () => {
         residential: false,
       }
 
-      cy.getVtexItems().then((vtex) => {
-        cy.request({
-          method: 'POST',
-          url: calculateShippingAPI(
-            vtex.account,
-            Cypress.env('workspace').name
-          ),
-          headers: { VtexIdclientAutCookie: vtex.userAuthCookieValue },
-          ...FAIL_ON_STATUS_CODE,
-          body: data,
-        }).then((response) => {
-          expect(response.status).to.have.equal(500)
-        })
+      loadCalculateShippingAPI(data).then((response) => {
+        expect(response.status).to.have.equal(500)
       })
     }
   )

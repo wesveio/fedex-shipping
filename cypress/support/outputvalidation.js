@@ -35,12 +35,9 @@ export default {
   singleProduct: {
     prefix: 'Single Product',
     postalCode: '33180',
-    productName: PRODUCTS.apache,
   },
   multiProduct: {
     prefix: 'Multi Product',
     postalCode: '33180',
-    productName1: PRODUCTS.apache,
-    productName2: PRODUCTS.amacsa,
   },
 }

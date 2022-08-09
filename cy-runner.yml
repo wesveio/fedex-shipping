@@ -15,7 +15,7 @@ base:
   twilio:
     enabled: true
   jira:
-    enabled: false
+    enabled: true
     account: vtex-dev
     board: FEDEXSHIP
     issueType: Bug

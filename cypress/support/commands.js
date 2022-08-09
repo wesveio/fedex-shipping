@@ -1,6 +1,6 @@
 const fedexJson = '.fedexPayload.json'
 
-Cypress.Commands.add('getSettings', (data) => {
+Cypress.Commands.add('writeAppSettingstoJSON', (data) => {
   cy.writeFile(fedexJson, data)
 })
 

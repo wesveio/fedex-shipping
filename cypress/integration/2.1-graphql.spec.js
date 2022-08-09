@@ -37,7 +37,7 @@ describe('FedEx GraphQL Validation', () => {
   it(`${prefix} - Get App Settings`, updateRetry(2), () => {
     graphql(FEDEX_SHIPPING_APP, getAppSettings(), (response) => {
       validateGetAppSettingsResponse(response)
-      cy.getSettings(response.body)
+      cy.writeAppSettingstoJSON(response.body)
     })
   })
 
