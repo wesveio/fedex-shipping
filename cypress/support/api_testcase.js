@@ -59,6 +59,10 @@ export function loadCalculateShippingAPI(data, validateResponseFn) {
   })
 }
 
+export function validateCalculateShipping(response) {
+  expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
+}
+
 export function validateInternationEconomyShipping(response) {
   const filtershippingMethod = response.body.filter(
     (b) => b.shippingMethod === sla.InternationalEconomy

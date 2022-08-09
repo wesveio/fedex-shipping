@@ -1,5 +1,3 @@
-import { PRODUCTS } from './products'
-
 export default {
   appSetting: {
     userCredentialKey: Cypress.env().base.fedex.userCredentialKey,

@@ -7,7 +7,7 @@ import {
   validateSaveAppSettingResponse,
 } from '../support/graphql_testcase.js'
 import { data } from '../fixtures/shippingRatePayload.json'
-import { calculateShipping } from '../support/api_testcase.js'
+import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 
 describe('FedEx Hide sla scenarios', () => {
   loginViaCookies()
@@ -22,5 +22,9 @@ describe('FedEx Hide sla scenarios', () => {
     })
   })
 
-  calculateShipping(data)
+  it(`Verify all sla's are not displaying`, updateRetry(2), () => {
+    loadCalculateShippingAPI(data).then((response) => {
+      expect(response.body).to.be.an('array').and.to.have.lengthOf(0)
+    })
+  })
 })
