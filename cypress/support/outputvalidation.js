@@ -23,7 +23,7 @@ export default {
     },
     fedexBrazilDock: {
       id: 'S0001-E0001-Dock',
-      name: 'Fedex Brazil Dock',
+      name: 'Fedex Italy Dock',
       shippingRatesProviders: ['vtexus.fedex-shipping'],
     },
   },

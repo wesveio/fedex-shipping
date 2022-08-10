@@ -1,10 +1,6 @@
 import { loginViaCookies, updateRetry } from '../support/common/support.js'
 import { data } from '../fixtures/shippingRatePayload.json'
-import {
-  loadCalculateShippingAPI,
-  validateInternationEconomyShipping,
-} from '../support/api_testcase.js'
-import sla from '../support/sla.js'
+import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 
 describe('Validate Shipping from different origins', () => {
   loginViaCookies()
@@ -49,7 +45,7 @@ describe('Validate Shipping from different origins', () => {
         coordinates: null,
         residential: false,
       }
-      loadCalculateShippingAPI(data, validateInternationEconomyShipping)
+      loadCalculateShippingAPI(data)
     }
   )
 
@@ -66,17 +62,7 @@ describe('Validate Shipping from different origins', () => {
         coordinates: null,
         residential: false,
       }
-      loadCalculateShippingAPI(data).then((response) => {
-        expect(response.status).to.have.equal(200)
-        expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
-        const filtershippingMethod = response.body.filter(
-          (b) => b.shippingMethod === sla.InternationalEconomy
-        )
-
-        expect(filtershippingMethod)
-          .to.be.an('array')
-          .and.to.have.lengthOf.above(0)
-      })
+      loadCalculateShippingAPI(data)
     }
   )
 })

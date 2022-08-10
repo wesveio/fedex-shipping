@@ -1,7 +1,6 @@
 import { loadDocksAPI, calculateShippingAPI } from './apis.js'
 import { updateRetry } from './common/support'
 import { FAIL_ON_STATUS_CODE } from './common/constants'
-import sla from './sla.js'
 
 export function loadDocks() {
   it('Load all dock connection', updateRetry(3), () => {
@@ -26,14 +25,7 @@ export function loadCalculateShippingAPI(data, validateResponseFn) {
     if (validateResponseFn) {
       cy.get('@RESPONSE').then((response) => {
         expect(response.status).to.have.equal(200)
-
-        // If we receive empty array with valid payload then we can assume that fedex shipping site is down
-        if (response.body.length === 0) {
-          expect(response.body).to.be.an('array').and.to.have.lengthOf(0)
-        } else {
-          expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
-        }
-
+        expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
         validateResponseFn(response)
       })
     } else {
@@ -43,13 +35,6 @@ export function loadCalculateShippingAPI(data, validateResponseFn) {
 }
 
 export function validateCalculateShipping(response) {
+  // If we receive empty array with valid payload then we can assume that fedex shipping site is down
   expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
-}
-
-export function validateInternationEconomyShipping(response) {
-  const filtershippingMethod = response.body.filter(
-    (b) => b.shippingMethod === sla.InternationalEconomy
-  )
-
-  expect(filtershippingMethod).to.be.an('array').and.to.have.lengthOf.above(0)
 }
