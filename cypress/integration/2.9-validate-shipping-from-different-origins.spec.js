@@ -2,11 +2,11 @@ import { loginViaCookies, updateRetry } from '../support/common/support.js'
 import { data } from '../fixtures/shippingRatePayload.json'
 import { loadCalculateShippingAPI } from '../support/api_testcase.js'
 
-describe('Validate Shipping from different origins', () => {
+describe('Validate Ship Rates API from different origins', () => {
   loginViaCookies()
 
   it(
-    'Use Poland shipment and verify error message displays ',
+    'For Non Supported Country - eg: Poland should get response with status code 500',
     updateRetry(3),
     () => {
       cy.addDelayBetweenRetries(3000)
@@ -25,7 +25,7 @@ describe('Validate Shipping from different origins', () => {
   )
 
   it(
-    'Shipment Italy to USA ( Origin -> destination = ITA -> USA)',
+    'Use Shipment from Italy to USA(Supported country) ( Origin -> destination = ITA -> USA)',
     updateRetry(3),
     () => {
       cy.addDelayBetweenRetries(3000)
@@ -50,7 +50,7 @@ describe('Validate Shipping from different origins', () => {
   )
 
   it(
-    'Shipment USA to Italy ( Origin -> destination = USA -> ITA)',
+    'Use Shipment From USA(Supported country) to Italy ( Origin -> destination = USA -> ITA)',
     updateRetry(3),
     () => {
       cy.addDelayBetweenRetries(3000)
