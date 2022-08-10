@@ -10,28 +10,20 @@ describe('Validate Shipping from different origins', () => {
   loginViaCookies()
 
   it(
-    'Shipment USA to Italy ( Origin -> destination = USA -> ITA)',
+    'Use Poland shipment and verify error message displays ',
     updateRetry(3),
     () => {
+      cy.addDelayBetweenRetries(3000)
       data.destination = {
-        zipCode: '06010',
-        country: 'ITA',
+        zipCode: '00-005',
+        country: 'PL',
         state: null,
         city: null,
         coordinates: null,
         residential: false,
       }
-      cy.addDelayBetweenRetries(3000)
       loadCalculateShippingAPI(data).then((response) => {
-        expect(response.status).to.have.equal(200)
-        expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
-        const filtershippingMethod = response.body.filter(
-          (b) => b.shippingMethod === sla.InternationalEconomy
-        )
-
-        expect(filtershippingMethod)
-          .to.be.an('array')
-          .and.to.have.lengthOf.above(0)
+        expect(response.status).to.have.equal(500)
       })
     }
   )
@@ -40,6 +32,7 @@ describe('Validate Shipping from different origins', () => {
     'Shipment Italy to USA ( Origin -> destination = ITA -> USA)',
     updateRetry(3),
     () => {
+      cy.addDelayBetweenRetries(3000)
       data.destination = {
         zipCode: '33301',
         country: 'USA',
@@ -56,26 +49,33 @@ describe('Validate Shipping from different origins', () => {
         coordinates: null,
         residential: false,
       }
-      cy.addDelayBetweenRetries(3000)
       loadCalculateShippingAPI(data, validateInternationEconomyShipping)
     }
   )
 
   it(
-    'Use Poland shipment and verify error message displays ',
+    'Shipment USA to Italy ( Origin -> destination = USA -> ITA)',
     updateRetry(3),
     () => {
+      cy.addDelayBetweenRetries(3000)
       data.destination = {
-        zipCode: '00-005',
-        country: 'PL',
+        zipCode: '06010',
+        country: 'ITA',
         state: null,
         city: null,
         coordinates: null,
         residential: false,
       }
-      cy.addDelayBetweenRetries(3000)
       loadCalculateShippingAPI(data).then((response) => {
-        expect(response.status).to.have.equal(500)
+        expect(response.status).to.have.equal(200)
+        expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
+        const filtershippingMethod = response.body.filter(
+          (b) => b.shippingMethod === sla.InternationalEconomy
+        )
+
+        expect(filtershippingMethod)
+          .to.be.an('array')
+          .and.to.have.lengthOf.above(0)
       })
     }
   )
