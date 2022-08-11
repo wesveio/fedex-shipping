@@ -1,0 +1,121 @@
+---
+base:
+  secrets:
+    enabled: true
+    name: VTEX_QE
+  vtex:
+    account: productusqa
+    id: 2001459804
+    domain: myvtex.com
+    vtexIdUrl: https://vtexid.vtex.com.br/api/vtexid/pub/authenticate/default
+    deployCli:
+      enabled: true
+      git: https://github.com/vtex/toolbelt.git
+      branch: qe/cypress
+  twilio:
+    enabled: true
+  jira:
+    enabled: true
+    account: vtex-dev
+    board: FEDEXSHIP
+    issueType: Bug
+    priority: High
+    testing: true
+  slack:
+    enabled: false
+    channel: some-channel
+  cypress:
+    devMode: false
+    runHeaded: false
+    projectId: 72oi9b
+    getCookies: true
+    maxJobs: 3
+    quiet: true
+    video: false
+    videoCompression: false
+    videoUploadOnPasses: false
+    screenshotOnRunFailure: true
+    trashAssetsBeforeRuns: false
+    viewportWidth: 1440
+    viewportHeight: 1500
+    defaultCommandTimeout: 25000
+    requestTimeout: 25000
+    watchForFileChanges: false
+    pageLoadTimeout: 45000
+    browser: chrome
+    chromeWebSecurity: false
+    sorry: false
+  stateFiles: [fedexPayload.json]
+
+workspace:
+  name: random
+  prefix: fedexshipping
+  linkApp:
+    enabled: true
+    logOutput:
+      enabled: false
+  installApps:
+    # In fedex-shipping app, smart packing requires shipping-rates-provider app
+    # So, installing shipping-rates-provider version
+    - vtex.shipping-rates-provider@0.x
+    - vtexus.fedex-shipping@1.x
+  removeApps: []
+  wipe:
+    enabled: false
+    stopOnFail: false
+    specs:
+      - cypress-shared/integration/fedex-shipping/wipe.spec.js
+  teardown:
+    enabled: true
+
+strategy:
+  graphql_api_testcases:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: true
+    parallel: true
+    specs:
+      - cypress/integration/2.1-graphql.spec.js
+      - cypress/integration/2.2-rest-apis.spec.js
+  single_multi_product_testcases:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: true
+    specs:
+      - cypress/integration/2.3-single-product-scenarios.spec.js
+      - cypress/integration/2.4-multi-product-scenarios.spec.js
+    dependency:
+      - cypress/integration/2.1-graphql.spec.js
+  ship_to_residential_config_testcase:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: false
+    specs:
+      - cypress/integration/2.7-enable-disable-ship-to-residential-toggle.spec.js
+  sla_config_testcases:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: false
+    specs:
+      - cypress/integration/2.5-hide-sla-scenarios.spec.js
+      - cypress/integration/2.6-show-sla-scenarios.spec.js
+      - cypress/integration/2.10-validate-surcharge-flat-rate.spec.js
+      - cypress/integration/2.11-validate-surcharge-percentage.spec.js
+      - cypress/integration/2.12-surcharge-flat-rate-and-surcharge-percentage.spec.js
+  Shipping_Optimization_and_Shipping_from_different_origin_testcases:
+    enabled: true
+    sendDashboard: true
+    hardTries: 2
+    stopOnFail: false
+    parallel: false
+    specs:
+      - cypress/integration/2.8-shipping-optimize-scenarios.spec.js
+      - cypress/integration/2.9-validate-shipping-from-different-origins.spec.js
+  
