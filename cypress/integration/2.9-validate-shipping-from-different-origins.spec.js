@@ -10,7 +10,7 @@ describe('Validate Ship Rates API from different origins', () => {
 
   it(
     'For Non Supported Country - eg: Poland should get response with status code 500',
-    updateRetry(3),
+    updateRetry(5),
     () => {
       cy.addDelayBetweenRetries(3000)
       data.destination = {
@@ -29,9 +29,9 @@ describe('Validate Ship Rates API from different origins', () => {
 
   it(
     'Use Shipment from Italy to USA(Supported country) ( Origin -> destination = ITA -> USA)',
-    updateRetry(3),
+    updateRetry(5),
     () => {
-      cy.addDelayBetweenRetries(3000)
+      cy.addDelayBetweenRetries(5000)
       data.destination = {
         zipCode: '33301',
         country: 'USA',
@@ -54,9 +54,9 @@ describe('Validate Ship Rates API from different origins', () => {
 
   it(
     'Use Shipment From USA(Supported country) to Italy ( Origin -> destination = USA -> ITA)',
-    updateRetry(3),
+    updateRetry(5),
     () => {
-      cy.addDelayBetweenRetries(3000)
+      cy.addDelayBetweenRetries(5000)
       data.destination = {
         zipCode: '06010',
         country: 'ITA',
