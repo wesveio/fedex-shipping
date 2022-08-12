@@ -6,7 +6,10 @@ import {
 } from '../support/graphql_testcase.js'
 import { appSetting } from '../support/outputvalidation.js'
 import { data } from '../fixtures/shippingRatePayload.json'
-import { loadCalculateShippingAPI } from '../support/api_testcase.js'
+import {
+  loadCalculateShippingAPI,
+  validateCalculateShipping,
+} from '../support/api_testcase.js'
 import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 import sla from '../support/sla.js'
 
@@ -25,6 +28,7 @@ describe(`${prefix} Scenarios`, () => {
       )
     })
     loadCalculateShippingAPI(data).then((response) => {
+      validateCalculateShipping(response)
       const filtershippingMethod = response.body.filter(
         (b) => b.shippingMethod === sla.FedexGroundDelivery
       )
@@ -45,6 +49,7 @@ describe(`${prefix} Scenarios`, () => {
       )
     })
     loadCalculateShippingAPI(data).then((response) => {
+      validateCalculateShipping(response)
       const filtershippingMethod = response.body.filter(
         (b) => b.shippingMethod === sla.FedexHomeDelivery
       )

@@ -26,6 +26,7 @@ describe('FedEx Hide sla scenarios', () => {
 
   it(`${prefix} - Verify all sla's are not displaying`, updateRetry(2), () => {
     loadCalculateShippingAPI(data).then((response) => {
+      expect(response.status).to.have.equal(200)
       expect(response.body).to.be.an('array').and.to.have.lengthOf(0)
     })
   })

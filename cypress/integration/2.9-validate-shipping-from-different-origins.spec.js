@@ -1,6 +1,9 @@
 import { loginViaCookies, updateRetry } from '../support/common/support.js'
 import { data } from '../fixtures/shippingRatePayload.json'
-import { loadCalculateShippingAPI } from '../support/api_testcase.js'
+import {
+  loadCalculateShippingAPI,
+  validateCalculateShipping,
+} from '../support/api_testcase.js'
 
 describe('Validate Ship Rates API from different origins', () => {
   loginViaCookies()
@@ -45,7 +48,7 @@ describe('Validate Ship Rates API from different origins', () => {
         coordinates: null,
         residential: false,
       }
-      loadCalculateShippingAPI(data)
+      loadCalculateShippingAPI(data, validateCalculateShipping)
     }
   )
 
@@ -62,7 +65,7 @@ describe('Validate Ship Rates API from different origins', () => {
         coordinates: null,
         residential: false,
       }
-      loadCalculateShippingAPI(data)
+      loadCalculateShippingAPI(data, validateCalculateShipping)
     }
   )
 })

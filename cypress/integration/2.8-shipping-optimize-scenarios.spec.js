@@ -9,7 +9,10 @@ import {
   smartPackingAccessKey,
 } from '../support/outputvalidation.js'
 import { data } from '../fixtures/shippingOptimizePayload.json'
-import { loadCalculateShippingAPI } from '../support/api_testcase.js'
+import {
+  loadCalculateShippingAPI,
+  validateCalculateShipping,
+} from '../support/api_testcase.js'
 import { FEDEX_SHIPPING_APP } from '../support/graphql_apps.js'
 import fedexSelectors from '../support/selectors.js'
 import sla from '../support/sla.js'
@@ -56,6 +59,7 @@ describe(`${prefix} Scenarios`, () => {
       })
       cy.addDelayBetweenRetries(3000)
       loadCalculateShippingAPI(data).then((response) => {
+        validateCalculateShipping(response)
         const filtershippingMethod = response.body.filter(
           (b) => b.shippingMethod === sla.FirstOvernight
         )
@@ -83,6 +87,7 @@ describe(`${prefix} Scenarios`, () => {
       })
       cy.addDelayBetweenRetries(3000)
       loadCalculateShippingAPI(data).then((response) => {
+        validateCalculateShipping(response)
         const filtershippingMethod = response.body.filter(
           (b) => b.shippingMethod === sla.FirstOvernight
         )
@@ -112,6 +117,7 @@ describe(`${prefix} Scenarios`, () => {
       })
       cy.addDelayBetweenRetries(3000)
       loadCalculateShippingAPI(data).then((response) => {
+        validateCalculateShipping(response)
         const filtershippingMethod = response.body.filter(
           (b) => b.shippingMethod === sla.FirstOvernight
         )
