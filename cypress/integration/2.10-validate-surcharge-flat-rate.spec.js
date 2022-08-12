@@ -2,7 +2,10 @@ import { updateRetry, loginViaCookies } from '../support/common/support'
 import { appSetting } from '../support/outputvalidation'
 import { data } from '../fixtures/shippingRatePayload.json'
 import { updateSLASettings } from '../support/common.js'
-import { loadCalculateShippingAPI } from '../support/api_testcase'
+import {
+  loadCalculateShippingAPI,
+  validateCalculateShipping,
+} from '../support/api_testcase'
 import sla from '../support/sla'
 
 const prefix = 'Shipping Optimize'
@@ -19,6 +22,7 @@ describe('Modify SLA - Validate Surcharge Flat Rate in checkout', () => {
 
   it(`${prefix} - Verify shipping price`, updateRetry(3), () => {
     loadCalculateShippingAPI(data).then((response) => {
+      validateCalculateShipping(response)
       const filtershippingMethod = response.body.filter(
         (b) => b.shippingMethod === sla.FirstOvernight
       )
@@ -33,6 +37,7 @@ describe('Modify SLA - Validate Surcharge Flat Rate in checkout', () => {
 
   it(`${prefix} - Validate Surcharge Flat Rate Changes`, updateRetry(3), () => {
     loadCalculateShippingAPI(data).then((response) => {
+      validateCalculateShipping(response)
       const filtershippingMethod = response.body.filter(
         (b) => b.shippingMethod === sla.FirstOvernight
       )

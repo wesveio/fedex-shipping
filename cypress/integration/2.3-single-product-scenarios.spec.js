@@ -1,7 +1,10 @@
 import { loginViaCookies, updateRetry } from '../support/common/support.js'
 import { singleProduct, warehouseId } from '../support/outputvalidation.js'
 import { data } from '../fixtures/shippingRatePayload.json'
-import { loadCalculateShippingAPI } from '../support/api_testcase.js'
+import {
+  loadCalculateShippingAPI,
+  validateCalculateShipping,
+} from '../support/api_testcase.js'
 import {
   graphql,
   verifyInventoryIsUnlimitedForFedexWareHouse,
@@ -29,6 +32,7 @@ describe(`${prefix} Scenarios`, () => {
 
   it(`${prefix} - Verify single product shipping price`, updateRetry(3), () => {
     loadCalculateShippingAPI(data).then((response) => {
+      validateCalculateShipping(response)
       const filtershippingMethod = response.body.filter(
         (b) => b.shippingMethod === sla.FirstOvernight
       )
@@ -43,6 +47,7 @@ describe(`${prefix} Scenarios`, () => {
     () => {
       data.items[0].quantity = 2
       loadCalculateShippingAPI(data).then((response) => {
+        validateCalculateShipping(response)
         const filtershippingMethod = response.body.filter(
           (b) => b.shippingMethod === sla.FirstOvernight
         )

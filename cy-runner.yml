@@ -74,7 +74,7 @@ strategy:
     sendDashboard: true
     hardTries: 1
     stopOnFail: true
-    parallel: true
+    parallel: false
     specs:
       - cypress/integration/2.1-graphql.spec.js
       - cypress/integration/2.2-rest-apis.spec.js

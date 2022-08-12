@@ -1,7 +1,10 @@
 import { loginViaCookies, updateRetry } from '../support/common/support.js'
 import { multiProduct } from '../support/outputvalidation.js'
 import { data } from '../fixtures/multiProductPayload.json'
-import { loadCalculateShippingAPI } from '../support/api_testcase.js'
+import {
+  loadCalculateShippingAPI,
+  validateCalculateShipping,
+} from '../support/api_testcase.js'
 import sla from '../support/sla.js'
 
 const { prefix } = multiProduct
@@ -12,6 +15,7 @@ describe(`${prefix} Scenarios`, () => {
 
   it(`${prefix} - Verify multi product shipping price`, updateRetry(3), () => {
     loadCalculateShippingAPI(data).then((response) => {
+      validateCalculateShipping(response)
       const filtershippingMethod = response.body.filter(
         (b) => b.shippingMethod === sla.FirstOvernight
       )
@@ -26,6 +30,7 @@ describe(`${prefix} Scenarios`, () => {
     () => {
       data.items[1].quantity = 2
       loadCalculateShippingAPI(data).then((response) => {
+        validateCalculateShipping(response)
         const filtershippingMethod = response.body.filter(
           (b) => b.shippingMethod === sla.FirstOvernight
         )

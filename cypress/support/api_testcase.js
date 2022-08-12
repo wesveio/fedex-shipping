@@ -35,6 +35,7 @@ export function loadCalculateShippingAPI(data, validateResponseFn) {
 }
 
 export function validateCalculateShipping(response) {
+  expect(response.status).to.have.equal(200)
   // If we receive empty array with valid payload then we can assume that fedex shipping site is down
   expect(response.body).to.be.an('array').and.to.have.lengthOf.above(0)
 }
