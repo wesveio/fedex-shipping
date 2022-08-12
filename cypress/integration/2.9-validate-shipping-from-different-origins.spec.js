@@ -65,6 +65,14 @@ describe('Validate Ship Rates API from different origins', () => {
         coordinates: null,
         residential: false,
       }
+      data.origin = {
+        zipCode: '33301',
+        country: 'USA',
+        state: null,
+        city: null,
+        coordinates: null,
+        residential: false,
+      }
       loadCalculateShippingAPI(data, validateCalculateShipping)
     }
   )
