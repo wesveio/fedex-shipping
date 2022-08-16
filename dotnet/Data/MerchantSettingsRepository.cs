@@ -64,9 +64,18 @@
                 merchantSettings.ItemModals.Add(new ModalMap("WHITE_GOODS", "NONE", false));
                 merchantSettings.ItemModals.Add(new ModalMap("FIREARMS", "ORM_D", false));
             }
-            if (merchantSettings.SlaSettings.Count != 19)
+
+            if (merchantSettings.SlaSettings.Count == 19)
+            {
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Economy Freight", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Priority", false, 0, 0));
+            }
+
+            if (merchantSettings.SlaSettings.Count < 19)
             {
                 merchantSettings.SlaSettings = new List<SlaSettings>();
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Economy Freight", false, 0, 0));
+                merchantSettings.SlaSettings.Add(new SlaSettings("International Priority", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("FedEx Ground", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("Priority Overnight", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("Express Saver", false, 0, 0));
@@ -87,10 +96,12 @@
                 merchantSettings.SlaSettings.Add(new SlaSettings("International Two Day", false, 0, 0));
                 merchantSettings.SlaSettings.Add(new SlaSettings("International Priority Freight", false, 0, 0));
             }
+
             if (merchantSettings.PackingAccessKey == null) 
             {
                 merchantSettings.PackingAccessKey = "";
             }
+
             return merchantSettings;
         }
 
