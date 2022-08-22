@@ -11,14 +11,13 @@
     using System.Collections.Generic;
     using Vtex.Api.Context;
 
-
     public class MerchantSettingsRepository : IMerchantSettingsRepository
     {
         private readonly IVtexEnvironmentVariableProvider _environmentVariableProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IHttpClientFactory _clientFactory;
-        private readonly IIOServiceContext _context;
         private readonly string _applicationName;
+        private readonly IIOServiceContext _context;
 
         public MerchantSettingsRepository(IVtexEnvironmentVariableProvider environmentVariableProvider, IHttpContextAccessor httpContextAccessor, IHttpClientFactory clientFactory, IIOServiceContext context)
         {
@@ -33,7 +32,6 @@
 
             this._applicationName =
                 $"{this._environmentVariableProvider.ApplicationVendor}.{this._environmentVariableProvider.ApplicationName}";
-            
             this._context = context 
                 ?? throw new ArgumentNullException(nameof(context));
 
@@ -41,7 +39,7 @@
 
         public async Task<MerchantSettings> GetMerchantSettings()
         {
-            MerchantSettings merchantSettings = null;
+            MerchantSettings merchantSettings = new MerchantSettings();
 
             try
             {
@@ -52,7 +50,6 @@
                 };
 
                 string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
-
                 if (authToken != null)
                 {
                     request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
@@ -61,7 +58,7 @@
                 var client = _clientFactory.CreateClient();
                 var response = await client.SendAsync(request);
                 string responseContent = await response.Content.ReadAsStringAsync();
-                MerchantSettings merchantSettings = JsonConvert.DeserializeObject<MerchantSettings>(responseContent);
+                merchantSettings = JsonConvert.DeserializeObject<MerchantSettings>(responseContent);
                 if (merchantSettings.ItemModals.Count == 0)
                 {
                     merchantSettings.ItemModals.Add(new ModalMap("CHEMICALS", "HAZARDOUS_MATERIALS", false));
@@ -107,7 +104,6 @@
                     merchantSettings.SlaSettings.Add(new SlaSettings("International Two Day", false, 0, 0));
                     merchantSettings.SlaSettings.Add(new SlaSettings("International Priority Freight", false, 0, 0));
                 }
-
                 if (merchantSettings.PackingAccessKey == null) 
                 {
                     merchantSettings.PackingAccessKey = "";
@@ -124,6 +120,7 @@
 
         public async Task<bool> SetMerchantSettings(MerchantSettings merchantSettings)
         {
+
             bool IsSuccess = false;
 
             try
@@ -134,7 +131,6 @@
                 }
 
                 var jsonSerializedMerchantSettings = JsonConvert.SerializeObject(merchantSettings);
-
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Put,
@@ -143,7 +139,6 @@
                 };
 
                 string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
-
                 if (authToken != null)
                 {
                     request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
@@ -151,7 +146,6 @@
 
                 var client = _clientFactory.CreateClient();
                 var response = await client.SendAsync(request);
-
                 IsSuccess = response.IsSuccessStatusCode;
             }
             catch (Exception ex)
@@ -165,7 +159,6 @@
             }
 
             return IsSuccess;
-
         }
     }
 }

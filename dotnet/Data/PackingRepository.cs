@@ -36,42 +36,28 @@ namespace FedexShipping.Data
         {
             PackingResponseWrapper packingResponse = new PackingResponseWrapper();
 
-            try
+            var request = new HttpRequestMessage
             {
-                var request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Post,
-                    RequestUri = new Uri($"http://{this._environmentVariableProvider.Workspace}--{this._context.Vtex.Account}.myvtex.com/packAll"),
-                    Content = new StringContent(JsonConvert.SerializeObject(packingRequest), Encoding.UTF8, Constants.APPLICATION_JSON),
-                };
+                Method = HttpMethod.Post,
+                RequestUri = new Uri($"http://{this._environmentVariableProvider.Workspace}--{this._context.Vtex.Account}.myvtex.com/packAll"),
+                Content = new StringContent(JsonConvert.SerializeObject(packingRequest), Encoding.UTF8, Constants.APPLICATION_JSON),
+            };
 
-                string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
-                if (authToken != null)
-                {
-                    request.Headers.Add(Constants.PACKING_ACCESS_KEY, accessKey);
-                    request.Headers.Add(Constants.VTEX_ID_HEADER_NAME, authToken);
-                    request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
-                }
-
-                var client = _clientFactory.CreateClient();
-                var response = await client.SendAsync(request);
-                string responseContent = await response.Content.ReadAsStringAsync();
-                if (response.IsSuccessStatusCode)
-                {
-                    packingResponse = JsonConvert.DeserializeObject<PackingResponseWrapper>(responseContent);
-                }
-            }
-            catch (Exception ex)
+            string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
+            if (authToken != null)
             {
-                _context.Vtex.Logger.Error("PackItems", null, 
-                "Error:", ex,
-                new[]
-                {
-                    ( "packingRequest", JsonConvert.SerializeObject(packingRequest) ),
-                    ( "accessKey", accessKey )
-                });
+                request.Headers.Add(Constants.PACKING_ACCESS_KEY, accessKey);
+                request.Headers.Add(Constants.VTEX_ID_HEADER_NAME, authToken);
+                request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
             }
 
+            var client = _clientFactory.CreateClient();
+            var response = await client.SendAsync(request);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                packingResponse = JsonConvert.DeserializeObject<PackingResponseWrapper>(responseContent);
+            }
 
             return packingResponse;
         }

@@ -10,20 +10,18 @@ namespace FedexShipping.Services
 
     public class PackingService : IPackingService
     {
+        private readonly IIOServiceContext _context;
         private readonly IPackingRepository _packingRepository;
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private MerchantSettings _merchantSettings;
-        private readonly IIOServiceContext _context;
 
         public PackingService(IPackingRepository packingRepository, IMerchantSettingsRepository merchantSettingsRepository, IIOServiceContext context)
         {
             this._packingRepository = packingRepository ?? throw new ArgumentException(nameof(packingRepository));
-
             this._merchantSettingsRepository = merchantSettingsRepository ??
                 throw new ArgumentNullException(nameof(merchantSettingsRepository));
 
-            this._context = context ??
-                throw new ArgumentNullException(nameof(context));
+            this._context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<List<Item>> packingMap(List<Item> items)
@@ -92,7 +90,6 @@ namespace FedexShipping.Services
 
                     containerizedItems.Add(newBox);
                 }
-                
             }
             catch (Exception ex)
             {
@@ -103,10 +100,8 @@ namespace FedexShipping.Services
                     ( "items", JsonConvert.SerializeObject(items) ),
                 });
             }
-
+            
             return containerizedItems;
-
-
         }
     }
 }

@@ -18,7 +18,6 @@
         private readonly IIOServiceContext _context;
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private readonly IFedExRateRequest _fedExRateRequest;
-        private readonly IFedExAvailabilityRequest _fedExAvailabilityRequest;
         private readonly IFedExTrackRequest _fedExTrackRequest;
         private readonly IFedExEstimateDeliveryRequest _fedExEstimateDeliveryRequest;
         private readonly IPackingService _packingService;
@@ -30,8 +29,6 @@
                                             throw new ArgumentNullException(nameof(merchantSettingsRepository));
             this._fedExRateRequest = fedExRateRequest ??
                                             throw new ArgumentNullException(nameof(fedExRateRequest));
-            this._fedExAvailabilityRequest = fedExAvailabilityRequest ??
-                                            throw new ArgumentNullException(nameof(fedExAvailabilityRequest));
             this._fedExTrackRequest = fedExTrackRequest ??
                                             throw new ArgumentNullException(nameof(fedExTrackRequest));
             this._fedExEstimateDeliveryRequest = fedExEstimateDeliveryRequest ??
@@ -50,7 +47,6 @@
             {
                 var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
                 GetRatesRequest getRatesRequest = JsonConvert.DeserializeObject<GetRatesRequest>(bodyAsText);
-
                 _context.Vtex.Logger.Info("GetRates", "GetRatesRequest", 
                     "Get Rates Request", 
                     new[]
@@ -62,9 +58,10 @@
                     }
                 );
 
-                getRatesResponseWrapper = await this._fedExRateRequest.GetRates(getRatesRequest); 
+                getRatesResponseWrapper = await this._fedExRateRequest.GetRates(getRatesRequest);
 
-                if (!getRatesResponseWrapper.IsValidCountry) {
+                if (!getRatesResponseWrapper.IsValidCountry) 
+                {
                     Response.StatusCode = 404;
                 }
 
@@ -101,23 +98,47 @@
 
         public async Task<IActionResult> TestPack()
         {
-            var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-            List<Item> packingRequest = JsonConvert.DeserializeObject<List<Item>>(bodyAsText);
-            List<Item> response = await this._packingService.packingMap(packingRequest);
+            List<Item> response = null;
+
+            try
+            {
+                var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+                List<Item> packingRequest = JsonConvert.DeserializeObject<List<Item>>(bodyAsText);
+                response = await this._packingService.packingMap(packingRequest);
+            }
+            catch (Exception ex)
+            {
+                _context.Vtex.Logger.Error("TestPack", null, "Error:", ex);
+            }
+
             return Json(response);
         }
 
         public async Task<IActionResult> Track(string carrier, string trackingNumber)
         {
             TrackReply reply = new TrackReply();
-            switch (carrier.ToUpper())
-            {
-                case FEDEX:
-                    reply = await this._fedExTrackRequest.Track(trackingNumber);
-                    break;
-            }
 
-            Response.Headers.Add("Cache-Control", "private");
+            try
+            {
+                switch (carrier.ToUpper())
+                {
+                    case FEDEX:
+                        reply = await this._fedExTrackRequest.Track(trackingNumber);
+                        break;
+                }
+
+                Response.Headers.Add("Cache-Control", "private");
+            }
+            catch (Exception ex)
+            {
+                _context.Vtex.Logger.Error("Track", null, 
+                "Error:", ex,
+                new[]
+                {
+                    ( "carrier", carrier ),
+                    ( "trackingNumber", trackingNumber )
+                });
+            }
 
             return Json(reply);
         }
@@ -129,14 +150,24 @@
 
         public async Task<IActionResult> GetMerchantSettings()
         {
-            var authenticationResponse = await this._merchantSettingsRepository.GetMerchantSettings();
-            Response.Headers.Add("Cache-Control", "no-cache");
+            var authenticationResponse = new MerchantSettings();
+
+            try
+            {
+                authenticationResponse = await this._merchantSettingsRepository.GetMerchantSettings();
+                Response.Headers.Add("Cache-Control", "no-cache");
+            }
+            catch (Exception ex)
+            {
+                _context.Vtex.Logger.Error("GetMerchantSettings", null, "Error:", ex);
+            }
+
             return Json(authenticationResponse);
         }
 
         public async Task<IActionResult> GetEstimateDate()
         {
-            GetEstimateDeliveryResponse result = null;
+            GetEstimateDeliveryResponse result =  null;
 
             try
             {

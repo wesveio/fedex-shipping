@@ -22,7 +22,7 @@
         private readonly IVtexEnvironmentVariableProvider _environmentVariableProvider;
         private MerchantSettings _merchantSettings;
 
-        private Dictionary<string, string> iso2CodeMap = new Dictionary<string, string>(){
+        private readonly Dictionary<string, string> iso2CodeMap = new Dictionary<string, string>(){
             { "ARE", "AE" },
             { "ARG", "AR" },
             { "AUS", "AU" },
@@ -74,7 +74,7 @@
             { "ZAF", "ZA" }
         };
 
-        private Dictionary<string, string> modalOptionsMap = new Dictionary<string, string>()
+        private readonly Dictionary<string, string> modalOptionsMap = new Dictionary<string, string>()
         {
             {"CHEMICALS", "HAZARDOUS_MATERIALS"},
             {"ELECTRONICS", "BATTERY"},
@@ -101,17 +101,17 @@
 
         public async Task<GetRatesResponseWrapper> GetRates(GetRatesRequest getRatesRequest)
         {
-            GetRatesResponseWrapper fedexCachedResponse;
             GetRatesResponseWrapper getRatesResponseWrapperParent = new GetRatesResponseWrapper();
 
             try
             {
                 this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
                 getRatesResponseWrapperParent.Success = true;
-
+                
                 getRatesResponseWrapperParent.IsValidCountry = 
                     Constants.POSTAL_CODE_REGEX.ContainsKey(getRatesRequest.destination.country);
                 
+                GetRatesResponseWrapper fedexCachedResponse;
                 int cacheKey = $@"
                     {_context.Vtex.App.Version}
                     {JsonConvert.SerializeObject(this._merchantSettings)}
@@ -205,41 +205,51 @@
 
                                 getRatesResponseWrapper.timeSpan = ts;
                                 RateReply reply = ratesResponse.RateReply;
+
+                                _context.Vtex.Logger.Info("reply", "RateReply", "ratesResponse",
+                                    new[]
+                                    {
+                                        ( "reply", JsonConvert.SerializeObject(reply)),
+                                    }
+                                );
+
                                 cell.HighestSeverity.Add(reply.HighestSeverity.ToString());
+
                                 if (reply.HighestSeverity == NotificationSeverityType.SUCCESS || reply.HighestSeverity == NotificationSeverityType.NOTE || reply.HighestSeverity == NotificationSeverityType.WARNING)
                                 {
-                                    // if (!string.Equals(this._environmentVariableProvider.Workspace, "master")) {
-                                    //     ShowRateReply(reply);
-                                    // }
-
                                     Dictionary<string, double> ratesRatio = CalculateRatesRatio(copyItemResult);
-                                    foreach(RateReplyDetail detail in reply.RateReplyDetails)
+
+                                    if (reply.RateReplyDetails != null)
                                     {
-                                        if (!slaMapping[detail.ServiceDescription.Description].Hidden)
+                                        foreach(RateReplyDetail detail in reply.RateReplyDetails)
                                         {
-                                            TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
-                                            string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
-                                            foreach (Item item in copyItemResult)
+                                            if (!slaMapping[detail.ServiceDescription.Description].Hidden && detail.DeliveryTimestampSpecified)
                                             {
-                                                GetRatesResponse rateResponse = new GetRatesResponse
+                                                TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
+                                                string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
+
+                                                foreach (Item item in copyItemResult)
                                                 {
-                                                    carrierId = "FEDEX",
-                                                    itemId = item.id,
-                                                    price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount * Convert.ToDecimal(ratesRatio[item.id]),
-                                                    numberOfPackages = item.quantity,
-                                                    estimateDate = detail.DeliveryTimestamp,
-                                                    shippingMethod = detail.ServiceDescription.Description,
-                                                    transitTime = transitString,
-                                                    carrierSchedule = new List<Schedule>(),
-                                                    deliveryChannel = "delivery",
-                                                    weekendAndHolidays = new WeekendAndHolidays(),
-                                                    pickupAddress = null,
-                                                };
+                                                    GetRatesResponse rateResponse = new GetRatesResponse
+                                                    {
+                                                        carrierId = "FEDEX",
+                                                        itemId = item.id,
+                                                        price = detail.RatedShipmentDetails[0].ShipmentRateDetail.TotalNetCharge.Amount * Convert.ToDecimal(ratesRatio[item.id]),
+                                                        numberOfPackages = item.quantity,
+                                                        estimateDate = detail.DeliveryTimestamp,
+                                                        shippingMethod = detail.ServiceDescription.Description,
+                                                        transitTime = transitString,
+                                                        carrierSchedule = new List<Schedule>(),
+                                                        deliveryChannel = "delivery",
+                                                        weekendAndHolidays = new WeekendAndHolidays(),
+                                                        pickupAddress = null,
+                                                    };
 
-                                                rateResponse.price += Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargePercent / 100) * rateResponse.price + Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargeFlatRate);
+                                                    rateResponse.price += Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargePercent / 100) * rateResponse.price + Convert.ToDecimal(slaMapping[rateResponse.shippingMethod].SurchargeFlatRate);
 
-                                                rateResponse.carrierBusinessHours = carrierBusinessHours;
-                                                getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
+                                                    rateResponse.carrierBusinessHours = carrierBusinessHours;
+                                                    getRatesResponseWrapper.GetRatesResponses.Add(rateResponse);
+                                                }
                                             }
                                         }
                                     }
@@ -263,6 +273,8 @@
                                 Console.WriteLine($"Exception: {e.InnerException}");
                                 Console.WriteLine($"Exception: {e.StackTrace}");
                                 cell.Error.Add(e.Message);
+
+                                _context.Vtex.Logger.Error("GetRates-rateResponse-item", null, "Error:", e);
                             }
 
                             cell.GetRatesResponses.AddRange(getRatesResponseWrapper.GetRatesResponses);
@@ -298,7 +310,7 @@
                 "Error:", ex,
                 new[]
                 {
-                    ( "items", JsonConvert.SerializeObject(getRatesRequest) ),
+                    ( "getRatesRequest", JsonConvert.SerializeObject(getRatesRequest) ),
                 });
             }
 
@@ -333,43 +345,43 @@
 
             return handlingItemList;
         }
+
         private async Task<RateRequest> CreateRateRequest(GetRatesRequest getRatesRequest)
         {
             // Build the RateRequest
             RateRequest request = new RateRequest();
-            request.WebAuthenticationDetail = new WebAuthenticationDetail();
-            request.WebAuthenticationDetail.UserCredential = new WebAuthenticationCredential();
-            request.WebAuthenticationDetail.UserCredential.Key = this._merchantSettings.UserCredentialKey;
-            request.WebAuthenticationDetail.UserCredential.Password = this._merchantSettings.UserCredentialPassword;
-            request.WebAuthenticationDetail.ParentCredential = new WebAuthenticationCredential();
-            request.WebAuthenticationDetail.ParentCredential.Key = this._merchantSettings.ParentCredentialKey;
-            request.WebAuthenticationDetail.ParentCredential.Password = this._merchantSettings.ParentCredentialPassword;
-            
-            request.ClientDetail = new ClientDetail();
-            request.ClientDetail.AccountNumber = this._merchantSettings.ClientDetailAccountNumber;
-            request.ClientDetail.MeterNumber = this._merchantSettings.ClientDetailMeterNumber;
-            
-            // This is a reference field for the customer.  Any value can be used and will be provided in the response.
-            request.TransactionDetail = new TransactionDetail();
-            request.TransactionDetail.CustomerTransactionId = "***Rate Available Services Request ***";
-            
-            request.Version = new VersionId();
-            
-            request.ReturnTransitAndCommit = true;
-            request.ReturnTransitAndCommitSpecified = true;
 
             try
             {
+                request.WebAuthenticationDetail = new WebAuthenticationDetail();
+                request.WebAuthenticationDetail.UserCredential = new WebAuthenticationCredential();
+                request.WebAuthenticationDetail.UserCredential.Key = this._merchantSettings.UserCredentialKey;
+                request.WebAuthenticationDetail.UserCredential.Password = this._merchantSettings.UserCredentialPassword;
+                request.WebAuthenticationDetail.ParentCredential = new WebAuthenticationCredential();
+                request.WebAuthenticationDetail.ParentCredential.Key = this._merchantSettings.ParentCredentialKey;
+                request.WebAuthenticationDetail.ParentCredential.Password = this._merchantSettings.ParentCredentialPassword;
+                
+                request.ClientDetail = new ClientDetail();
+                request.ClientDetail.AccountNumber = this._merchantSettings.ClientDetailAccountNumber;
+                request.ClientDetail.MeterNumber = this._merchantSettings.ClientDetailMeterNumber;
+                
+                // This is a reference field for the customer.  Any value can be used and will be provided in the response.
+                request.TransactionDetail = new TransactionDetail();
+                request.TransactionDetail.CustomerTransactionId = "***Rate Available Services Request ***";
+                
+                request.Version = new VersionId();
+                
+                request.ReturnTransitAndCommit = true;
+                request.ReturnTransitAndCommitSpecified = true;
                 await SetShipmentDetails(request, getRatesRequest);
             }
             catch (Exception ex)
             {
-                _context.Vtex.Logger.Error("CreateRateRequest-SetShipmentDetails", null, 
+                _context.Vtex.Logger.Error("CreateRateRequest", null, 
                 "Error:", ex,
                 new[]
                 {
-                    ( "request", JsonConvert.SerializeObject(request) ),
-                    ( "getRatesRequest", JsonConvert.SerializeObject(getRatesRequest) )
+                    ( "getRatesRequest", JsonConvert.SerializeObject(getRatesRequest) ),
                 });
             }
 
@@ -378,13 +390,16 @@
 
         private async Task SetShipmentDetails(RateRequest request, GetRatesRequest getRatesRequest)
         {
-            request.RequestedShipment = new RequestedShipment();
-            SetOrigin(request, getRatesRequest);
-            SetDestination(request, getRatesRequest);
-
             try
             {
+                request.RequestedShipment = new RequestedShipment();
+                SetOrigin(request, getRatesRequest);
+                SetDestination(request, getRatesRequest);
                 await SetPackageLineItems(request, getRatesRequest);
+                request.RequestedShipment.PackageCount = getRatesRequest.items.Sum(x => x.quantity).ToString();
+                request.RequestedShipment.PreferredCurrency = getRatesRequest.currency;
+                request.RequestedShipment.ShipTimestampSpecified = true;
+                request.RequestedShipment.ShipTimestamp = getRatesRequest.shippingDateUTC;
             }
             catch (Exception ex)
             {
@@ -396,11 +411,6 @@
                     ( "getRatesRequest", JsonConvert.SerializeObject(getRatesRequest) )
                 });
             }
-
-            request.RequestedShipment.PackageCount = getRatesRequest.items.Sum(x => x.quantity).ToString();
-            request.RequestedShipment.PreferredCurrency = getRatesRequest.currency;
-            request.RequestedShipment.ShipTimestampSpecified = true;
-            request.RequestedShipment.ShipTimestamp = getRatesRequest.shippingDateUTC;
         }
 
         private void SetOrigin(RateRequest request, GetRatesRequest getRatesRequest)
@@ -416,8 +426,7 @@
             request.RequestedShipment.Shipper.Address.Residential = getRatesRequest.origin.residential;
         }
 
-        // XXX
-        private bool SetDestination(RateRequest request, GetRatesRequest getRatesRequest)
+        private void SetDestination(RateRequest request, GetRatesRequest getRatesRequest)
         {
             request.RequestedShipment.Recipient = new Party();
             request.RequestedShipment.Recipient.Address = new Address();
@@ -434,10 +443,6 @@
             request.RequestedShipment.Recipient.Address.StreetLines = new string[] { getRatesRequest.destination.street };
             request.RequestedShipment.Recipient.Address.ResidentialSpecified = this._merchantSettings.Residential;
             request.RequestedShipment.Recipient.Address.Residential = this._merchantSettings.Residential;
-
-            Console.WriteLine($"match:: {JsonConvert.SerializeObject(match)} ");
-
-            return false;
         }
 
         // Creates a set for modals with shipAlone
@@ -457,93 +462,92 @@
 
         private async Task SetPackageLineItems(RateRequest request, GetRatesRequest getRatesRequest)
         {
-            // Combines all the items into one box
-            // If 1, then it is pack together in box
-            // If 2, then use smart packing
-            if (this._merchantSettings.OptimizeShippingType > 0)
+            try
             {
-                HashSet<string> shipAlone = GetShipAlone();
-                int mergedPackageIndex = -1;
-                double maxVolume = 0;
-                List<RequestedPackageLineItem> packageLines = new List<RequestedPackageLineItem>();
-
-                // List of items used for smart packing
-                List<Item> smartPackingList = new List<Item>();
-
-                // Iterates through the list
-                // Either combines the items into 1 package
-                // Or adds them separately as ship alone
-                for (int cnt = 0; cnt < getRatesRequest.items.Count; cnt++)
+                // Combines all the items into one box
+                // If 1, then it is pack together in box
+                // If 2, then use smart packing
+                if (this._merchantSettings.OptimizeShippingType > 0)
                 {
-                    if (shipAlone.Contains(getRatesRequest.items[cnt].modal))
+                    HashSet<string> shipAlone = GetShipAlone();
+                    int mergedPackageIndex = -1;
+                    double maxVolume = 0;
+                    List<RequestedPackageLineItem> packageLines = new List<RequestedPackageLineItem>();
+
+                    // List of items used for smart packing
+                    List<Item> smartPackingList = new List<Item>();
+
+                    // Iterates through the list
+                    // Either combines the items into 1 package
+                    // Or adds them separately as ship alone
+                    for (int cnt = 0; cnt < getRatesRequest.items.Count; cnt++)
                     {
-                        packageLines.Add(new RequestedPackageLineItem());
-                        packageLines.Last().SequenceNumber = getRatesRequest.items[cnt].id;
-                        packageLines.Last().GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
-
-                        packageLines.Last().Weight = new Weight();
-                        setWeight(packageLines.Last().Weight, getRatesRequest.items[cnt].unitDimension.weight);
-
-                        packageLines.Last().Dimensions = new Dimensions();
-                        setDimensions(packageLines.Last().Dimensions, getRatesRequest.items[cnt].unitDimension.length, getRatesRequest.items[cnt].unitDimension.width, getRatesRequest.items[cnt].unitDimension.height);
-                        setDimensionUnits(packageLines.Last().Dimensions);
-
-                        // Special Handling goods
-                        // Checks if the modal is in the options and there is available mapping
-                        if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE"))
+                        if (shipAlone.Contains(getRatesRequest.items[cnt].modal))
                         {
-                            packageLines.Last().SpecialServicesRequested = new PackageSpecialServicesRequested();
-                            setDangerousGoodsDetail(packageLines.Last().SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
-                        }
-                    }
-                    else if (this._merchantSettings.OptimizeShippingType == 1)
-                    {
-                        // Sets up the item if can be combined
-                        if (mergedPackageIndex == -1)
-                        {
-                            mergedPackageIndex = cnt;
                             packageLines.Add(new RequestedPackageLineItem());
+                            packageLines.Last().SequenceNumber = getRatesRequest.items[cnt].id;
+                            packageLines.Last().GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
 
-                            packageLines.Last().GroupPackageCount = "1";
                             packageLines.Last().Weight = new Weight();
+                            setWeight(packageLines.Last().Weight, getRatesRequest.items[cnt].unitDimension.weight);
+
                             packageLines.Last().Dimensions = new Dimensions();
-
-                            setWeight(packageLines.Last().Weight, 0);
+                            setDimensions(packageLines.Last().Dimensions, getRatesRequest.items[cnt].unitDimension.length, getRatesRequest.items[cnt].unitDimension.width, getRatesRequest.items[cnt].unitDimension.height);
                             setDimensionUnits(packageLines.Last().Dimensions);
+
+                            // Special Handling goods
+                            // Checks if the modal is in the options and there is available mapping
+                            if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE"))
+                            {
+                                packageLines.Last().SpecialServicesRequested = new PackageSpecialServicesRequested();
+                                setDangerousGoodsDetail(packageLines.Last().SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
+                            }
                         }
-
-                        packageLines[mergedPackageIndex].Weight.Value += Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight * getRatesRequest.items[cnt].quantity);
-                                                
-                        double currentItemVolume = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.length) * Math.Ceiling(getRatesRequest.items[cnt].unitDimension.width) * Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height);
-
-                        if (currentItemVolume > maxVolume)
+                        else if (this._merchantSettings.OptimizeShippingType == 1)
                         {
-                            packageLines[mergedPackageIndex].SequenceNumber = getRatesRequest.items[cnt].id;
-                            setDimensions(packageLines[mergedPackageIndex].Dimensions, getRatesRequest.items[cnt].unitDimension.length, getRatesRequest.items[cnt].unitDimension.width, getRatesRequest.items[cnt].unitDimension.height);
-                            packageLines[mergedPackageIndex].GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
-                        }
+                            // Sets up the item if can be combined
+                            if (mergedPackageIndex == -1)
+                            {
+                                mergedPackageIndex = cnt;
+                                packageLines.Add(new RequestedPackageLineItem());
 
-                        // Special Handling goods
-                        // Checks if the modal is in the options and there is available mapping
-                        if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE")) {
-                            packageLines[mergedPackageIndex].SpecialServicesRequested = new PackageSpecialServicesRequested();
-                            setDangerousGoodsDetail(packageLines[mergedPackageIndex].SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
+                                packageLines.Last().GroupPackageCount = "1";
+                                packageLines.Last().Weight = new Weight();
+                                packageLines.Last().Dimensions = new Dimensions();
+
+                                setWeight(packageLines.Last().Weight, 0);
+                                setDimensionUnits(packageLines.Last().Dimensions);
+                            }
+
+                            packageLines[mergedPackageIndex].Weight.Value += Convert.ToDecimal(getRatesRequest.items[cnt].unitDimension.weight * getRatesRequest.items[cnt].quantity);
+                                                    
+                            double currentItemVolume = Math.Ceiling(getRatesRequest.items[cnt].unitDimension.length) * Math.Ceiling(getRatesRequest.items[cnt].unitDimension.width) * Math.Ceiling(getRatesRequest.items[cnt].unitDimension.height);
+
+                            if (currentItemVolume > maxVolume)
+                            {
+                                packageLines[mergedPackageIndex].SequenceNumber = getRatesRequest.items[cnt].id;
+                                setDimensions(packageLines[mergedPackageIndex].Dimensions, getRatesRequest.items[cnt].unitDimension.length, getRatesRequest.items[cnt].unitDimension.width, getRatesRequest.items[cnt].unitDimension.height);
+                                packageLines[mergedPackageIndex].GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
+                            }
+
+                            // Special Handling goods
+                            // Checks if the modal is in the options and there is available mapping
+                            if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE")) {
+                                packageLines[mergedPackageIndex].SpecialServicesRequested = new PackageSpecialServicesRequested();
+                                setDangerousGoodsDetail(packageLines[mergedPackageIndex].SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
+                            }
+                        } else if (!shipAlone.Contains(getRatesRequest.items[cnt].modal) && this._merchantSettings.OptimizeShippingType == 2) {
+                            smartPackingList.Add(getRatesRequest.items[cnt]);
                         }
-                    } else if (!shipAlone.Contains(getRatesRequest.items[cnt].modal) && this._merchantSettings.OptimizeShippingType == 2) {
-                        smartPackingList.Add(getRatesRequest.items[cnt]);
                     }
-                }
 
-                // For combining items into one box
-                if (mergedPackageIndex != -1)
-                {
-                    packageLines[mergedPackageIndex].Weight.Value /= Convert.ToDecimal(packageLines[mergedPackageIndex].GroupPackageCount);
-                }
-                else if (smartPackingList.Capacity > 0)
-                { // For smart packing
-
-                    try
+                    // For combining items into one box
+                    if (mergedPackageIndex != -1)
                     {
+                        packageLines[mergedPackageIndex].Weight.Value /= Convert.ToDecimal(packageLines[mergedPackageIndex].GroupPackageCount);
+                    }
+                    else if (smartPackingList.Capacity > 0)
+                    { // For smart packing
                         List<Item> packedResponse = await this._packingService.packingMap(smartPackingList);
                         foreach (Item box in packedResponse)
                         {
@@ -567,43 +571,43 @@
 
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        _context.Vtex.Logger.Error("packingMap", null, 
-                        "Error:", ex,
-                        new[]
-                        {
-                            ( "smartPackingList", JsonConvert.SerializeObject(smartPackingList) )
-                        });
-                    }
+
+                    request.RequestedShipment.RequestedPackageLineItems = packageLines.ToArray();
                 }
-
-                request.RequestedShipment.RequestedPackageLineItems = packageLines.ToArray();
-
-            }
-            else
-            {
-                request.RequestedShipment.RequestedPackageLineItems = new RequestedPackageLineItem[getRatesRequest.items.Count];
-            
-                for(int cnt = 0; cnt < getRatesRequest.items.Count; cnt++ )
+                else
                 {
-                    request.RequestedShipment.RequestedPackageLineItems[cnt] = new RequestedPackageLineItem();
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].SequenceNumber = getRatesRequest.items[cnt].id;
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].Weight = new Weight();
-                    setWeight(request.RequestedShipment.RequestedPackageLineItems[cnt].Weight, getRatesRequest.items[cnt].unitDimension.weight);
-                    request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions = new Dimensions();
-                    setDimensions(request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions, getRatesRequest.items[cnt].unitDimension.length, getRatesRequest.items[cnt].unitDimension.width, getRatesRequest.items[cnt].unitDimension.height);
-                    setDimensionUnits(request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions);
-                    
-                    // Special Handling goods
-                    // Checks if the modal is in the options and there is available mapping
-                    if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE"))
+                    request.RequestedShipment.RequestedPackageLineItems = new RequestedPackageLineItem[getRatesRequest.items.Count];
+                
+                    for(int cnt = 0; cnt < getRatesRequest.items.Count; cnt++ )
                     {
-                        request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested = new PackageSpecialServicesRequested();
-                        setDangerousGoodsDetail(request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
+                        request.RequestedShipment.RequestedPackageLineItems[cnt] = new RequestedPackageLineItem();
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].SequenceNumber = getRatesRequest.items[cnt].id;
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].GroupPackageCount = getRatesRequest.items[cnt].quantity.ToString();
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].Weight = new Weight();
+                        setWeight(request.RequestedShipment.RequestedPackageLineItems[cnt].Weight, getRatesRequest.items[cnt].unitDimension.weight);
+                        request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions = new Dimensions();
+                        setDimensions(request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions, getRatesRequest.items[cnt].unitDimension.length, getRatesRequest.items[cnt].unitDimension.width, getRatesRequest.items[cnt].unitDimension.height);
+                        setDimensionUnits(request.RequestedShipment.RequestedPackageLineItems[cnt].Dimensions);
+                        
+                        // Special Handling goods
+                        // Checks if the modal is in the options and there is available mapping
+                        if (!string.IsNullOrEmpty(getRatesRequest.items[cnt].modal) && !modalOptionsMap[getRatesRequest.items[cnt].modal].Equals("NONE"))
+                        {
+                            request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested = new PackageSpecialServicesRequested();
+                            setDangerousGoodsDetail(request.RequestedShipment.RequestedPackageLineItems[cnt].SpecialServicesRequested, modalOptionsMap[getRatesRequest.items[cnt].modal]);
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                _context.Vtex.Logger.Error("SetPackageLineItems", null, 
+                "Error:", ex,
+                new[]
+                {
+                    ( "request", JsonConvert.SerializeObject(request) ),
+                    ( "getRatesRequest", JsonConvert.SerializeObject(getRatesRequest) )
+                });
             }
         }
 
@@ -648,27 +652,6 @@
             packageSpecialServicesRequested.DangerousGoodsDetail.Offeror = "TEST OFFEROR";
             packageSpecialServicesRequested.DangerousGoodsDetail.EmergencyContactNumber = "3268545905";
             packageSpecialServicesRequested.DangerousGoodsDetail.Options = new HazardousCommodityOptionType[] { hazOptionType };
-        }
-
-        private void ShowRateReply(RateReply reply)
-        {
-            Console.WriteLine("--- RateReply details ---");
-            Console.WriteLine(JsonConvert.SerializeObject(reply));
-            for (int i = 0; i < reply.RateReplyDetails.Length; i++)
-            {
-                RateReplyDetail rateReplyDetail = reply.RateReplyDetails[i];
-                Console.WriteLine("Service Type: {0}", rateReplyDetail.ServiceType);
-                Console.WriteLine("Packaging Type: {0}", rateReplyDetail.PackagingType);
-
-                for (int j = 0; j < rateReplyDetail.RatedShipmentDetails.Length; j++)
-                {
-                    RatedShipmentDetail shipmentDetail = rateReplyDetail.RatedShipmentDetails[j];
-                    Console.WriteLine("---Rated Shipment Detail for Rate Type {0}---", j + 1);
-                    ShowShipmentRateDetails(shipmentDetail);
-                    ShowPackageRateDetails(shipmentDetail.RatedPackages);
-                }
-                ShowDeliveryDetails(rateReplyDetail);
-            }
         }
 
         private void ShowShipmentRateDetails(RatedShipmentDetail shipmentDetail)
@@ -736,56 +719,6 @@
             }
         }
 
-        private string TransitDays(string service, string transitTime, string deliveryTimestamp)
-        {
-            int transitDays = 30;
-
-            Service serviceEnum;
-            if (Enum.TryParse(service, true, out serviceEnum))
-            {
-                if (Enum.IsDefined(typeof(Service), serviceEnum))
-                {
-                    switch (serviceEnum)
-                    {
-                        case Service.FIRST_OVERNIGHT:
-                        case Service.PRIORITY_OVERNIGHT:
-                        case Service.STANDARD_OVERNIGHT:
-                            transitDays = 1;
-                            break;
-                        case Service.FEDEX_2_DAY_AM:
-                        case Service.FEDEX_2_DAY:
-                            transitDays = 2;
-                            break;
-                        case Service.FEDEX_EXPRESS_SAVER:
-                            transitDays = 3;
-                            break;
-                        case Service.FEDEX_GROUND:
-                            GroundDays groundDays = (GroundDays)Enum.Parse(typeof(GroundDays), transitTime);
-                            transitDays = (int)groundDays;
-                            break;
-                        case Service.INTERNATIONAL_ECONOMY:
-                        case Service.INTERNATIONAL_FIRST:
-                        case Service.INTERNATIONAL_PRIORITY:
-                            transitDays = CalculateTransitTime(deliveryTimestamp);
-                            break;
-                        default:
-                            Console.WriteLine($"Transit days not set for {service}.");
-                            break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine($"{service} is not a value of the enum.");
-                }
-            }
-            else
-            {
-                Console.WriteLine($"{service} is not a member of the enum.");
-            }
-
-            return transitDays.ToString();
-        }
-
         private int CalculateTransitTime(string deliveryTimestamp)
         {
             int transitDays = 30;
@@ -823,11 +756,6 @@
             }
 
             return itemRatesRatio;
-        }
-
-        private TimeSpan CalculateTransitTime(DateTime deliveryTimestamp)
-        {
-            return deliveryTimestamp.Date - DateTime.Today;
         }
 
         private enum Service

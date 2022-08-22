@@ -18,12 +18,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Added more postal code regex validations.
 
-### Added
-
-- (FEDEXSHIP-41) Logging optimization
-- (FEDEXSHIP-41) GraphQL mutation security
-- (FEDEXSHIP-41) Admin navigation permissions
-
 ## [1.18.3] - 2022-09-06
 
 ### Added

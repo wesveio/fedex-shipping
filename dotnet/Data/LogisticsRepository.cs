@@ -15,7 +15,6 @@ namespace FedexShipping.Data
 
     public class LogisticsRepository : ILogisticsRepository
     {
-        private readonly string _applicationName;
         private readonly string _env;
 
         private readonly IVtexEnvironmentVariableProvider _environmentVariableProvider;
@@ -23,7 +22,6 @@ namespace FedexShipping.Data
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IHttpClientFactory _clientFactory;
         private readonly IIOServiceContext _context;
-        private readonly ICachedKeys _cachedKeys;
 
         public LogisticsRepository(IVtexEnvironmentVariableProvider environmentVariableProvider, IHttpContextAccessor httpContextAccessor, IHttpClientFactory clientFactory, IIOServiceContext context, ICachedKeys cachedKeys) {
             this._environmentVariableProvider = environmentVariableProvider ??
@@ -38,12 +36,6 @@ namespace FedexShipping.Data
             this._context = context ??
                                throw new ArgumentNullException(nameof(context));
 
-            this._cachedKeys = cachedKeys ??
-                               throw new ArgumentNullException(nameof(cachedKeys));
-                               
-            this._applicationName =
-                $"{this._environmentVariableProvider.ApplicationVendor}.{this._environmentVariableProvider.ApplicationName}";
-            
             this._env = string.Equals(this._environmentVariableProvider.Workspace, "master") ? "vtexcommercestable" : "vtexcommercebeta";
         }
 
@@ -83,16 +75,17 @@ namespace FedexShipping.Data
                     }
                 }
             }
-             catch (Exception ex)
+            catch (Exception ex)
             {
                 _context.Vtex.Logger.Error("GetDocks", null, "Error:", ex);
             }
+
 
             return dockList;
         }
 
         public async Task<bool> ChangeShippingProviders(UpdateDockRequest updateDockRequest, JObject requestBody) {
-            
+
             bool IsSuccess = false;
 
             try
@@ -131,8 +124,8 @@ namespace FedexShipping.Data
                 "Error:", ex,
                 new[]
                 {
-                    ( "merchantSettings", JsonConvert.SerializeObject(updateDockRequest) ),
-                    ( "merchantSettings", JsonConvert.SerializeObject(requestBody) )
+                    ( "updateDockRequest", JsonConvert.SerializeObject(updateDockRequest) ),
+                    ( "requestBody", JsonConvert.SerializeObject(requestBody) ),
                 });
             }
 
@@ -140,31 +133,44 @@ namespace FedexShipping.Data
         }
 
         public async Task<bool> SetDocks(UpdateDockRequest updateDockRequest) {
-            
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri($"http://{this._context.Vtex.Account}.{this._env}.com.br/api/logistics/pvt/configuration/docks/{updateDockRequest.DockId}")
-            };
+            bool IsSuccess = false;
 
-            string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
-            if (authToken != null)
+            try
             {
-                request.Headers.Add(Constants.VTEX_ID_HEADER_NAME, authToken);
-                request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
+                var request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri($"http://{this._context.Vtex.Account}.{this._env}.com.br/api/logistics/pvt/configuration/docks/{updateDockRequest.DockId}")
+                };
+
+                string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
+                if (authToken != null)
+                {
+                    request.Headers.Add(Constants.VTEX_ID_HEADER_NAME, authToken);
+                    request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
+                }
+
+                var client = _clientFactory.CreateClient();
+                var response = await client.SendAsync(request);
+                string responseContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    JObject parsedObject = JObject.Parse(responseContent);
+                    var isSuccessChange = await ChangeShippingProviders(updateDockRequest, parsedObject);
+                    IsSuccess = isSuccessChange;
+                }
+            }
+            catch (Exception ex)
+            {
+                _context.Vtex.Logger.Error("SetDocks", null, 
+                "Error:", ex,
+                new[]
+                {
+                    ( "updateDockRequest", JsonConvert.SerializeObject(updateDockRequest) ),
+                });
             }
 
-            var client = _clientFactory.CreateClient();
-            var response = await client.SendAsync(request);
-            string responseContent = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
-            {
-                JObject parsedObject = JObject.Parse(responseContent);
-                var isSuccessChange = await ChangeShippingProviders(updateDockRequest, parsedObject);
-                return isSuccessChange;
-            }
-
-            return false;
+            return IsSuccess;
         }
     }
 }

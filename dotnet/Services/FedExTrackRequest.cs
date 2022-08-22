@@ -4,36 +4,32 @@ using System;
 using System.Threading.Tasks;
 using TrackServiceReference;
 using Vtex.Api.Context;
-using Newtonsoft.Json;
 
 namespace FedexShipping.Services
 {
     public class FedExTrackRequest : IFedExTrackRequest
     {
+        private readonly IIOServiceContext _context;
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private MerchantSettings _merchantSettings;
-        private readonly IIOServiceContext _context;
 
         public FedExTrackRequest(IMerchantSettingsRepository merchantSettingsRepository, IIOServiceContext context)
         {
             this._merchantSettingsRepository = merchantSettingsRepository ??
                                             throw new ArgumentNullException(nameof(merchantSettingsRepository));
 
-            this._context = context ??
-                throw new ArgumentNullException(nameof(context));
+            this._context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<TrackReply> Track(string trackingNumber)
         {
             TrackReply reply = new TrackReply();
-
-
+            
             try
             {
                 this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
                 TrackRequest request = CreateTrackRequest(trackingNumber);
 
-                //TrackService service = new TrackService();
                 TrackPortTypeClient client;
 
                 if (this._merchantSettings.IsLive)
@@ -101,10 +97,6 @@ namespace FedexShipping.Services
 
             // Date range is optional.
             // If omitted, set to false
-            //request.SelectionDetails[0].ShipDateRangeBegin = DateTime.Parse("06/18/2012"); //MM/DD/YYYY
-            //request.SelectionDetails[0].ShipDateRangeEnd = request.SelectionDetails[0].ShipDateRangeBegin.AddDays(0);
-            //request.SelectionDetails[0].ShipDateRangeBeginSpecified = false;
-            //request.SelectionDetails[0].ShipDateRangeEndSpecified = false;
 
             request.SelectionDetails[0].Destination = new Address();
             request.SelectionDetails[0].Destination.CountryCode = "US";
@@ -112,8 +104,6 @@ namespace FedexShipping.Services
 
             // Include detailed scans is optional.
             // If omitted, set to false
-            //request.ProcessingOptions = new TrackRequestProcessingOptionType[1];
-            //request.ProcessingOptions[0] = TrackRequestProcessingOptionType.INCLUDE_DETAILED_SCANS;
 
             return request;
         }

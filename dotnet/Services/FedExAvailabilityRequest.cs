@@ -10,13 +10,13 @@ namespace FedexShipping.Services
     public class FedExAvailabilityRequest : IFedExAvailabilityRequest
     {
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
-        private readonly IIOServiceContext _context;
         private MerchantSettings _merchantSettings;
+        private readonly IIOServiceContext _context;
 
         public FedExAvailabilityRequest(IMerchantSettingsRepository merchantSettingsRepository, IIOServiceContext context)
         {
-            this._merchantSettingsRepository = merchantSettingsRepository 
-                ?? throw new ArgumentNullException(nameof(merchantSettingsRepository));
+            this._merchantSettingsRepository = merchantSettingsRepository ??
+                                            throw new ArgumentNullException(nameof(merchantSettingsRepository));
 
             this._context = context 
                 ?? throw new ArgumentNullException(nameof(context));
@@ -24,16 +24,15 @@ namespace FedexShipping.Services
 
         public async Task<serviceAvailabilityResponse> GetAvailability()
         {
-            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
-
-            ServiceAvailabilityRequest request = CreateServiceAvailabilityRequest();
-            //ValidationAvailabilityAndCommitmentService service = new ValidationAvailabilityAndCommitmentService(); // Initialize the service
-            ValidationAvailabilityAndCommitmentPortTypeClient client;
-            string remoteAddress = string.Empty;
             serviceAvailabilityResponse reply = new serviceAvailabilityResponse();
 
             try
             {
+                this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
+                ServiceAvailabilityRequest request = CreateServiceAvailabilityRequest();
+                ValidationAvailabilityAndCommitmentPortTypeClient client;
+                string remoteAddress = string.Empty;
+            
                 if (this._merchantSettings.IsLive)
                 {
                     remoteAddress = "https://ws.fedex.com/web-services/ValidationAvailabilityAndCommitment";
@@ -46,9 +45,6 @@ namespace FedexShipping.Services
                 }
 
                 reply = await client.serviceAvailabilityAsync(request);
-                //var reply2 = await client.getAllServicesAndPackagingAsync(request);
-                //var reply3 = await client.getAllSpecialServicesAsync(request);
-
                 ShowServiceAvailabilityReply(reply);
             }
             catch (Exception ex)
@@ -90,12 +86,7 @@ namespace FedexShipping.Services
             request.Destination.CountryCode = "US";
 
             request.ShipDate = DateTime.Now; // Shipping date and time
-            //request.CarrierCode = CarrierCodeType.FDXE; // Carrier code types are FDXC(Cargo), FDXE(Express), FDXG(Ground), FXCC(Custom Critical), FXFX(Freight)
-            //If a service is specified it will be checked, if no service is specified all available services will be returned
-            //request.Service = "PRIORITY_OVERNIGHT"; // Service types are STANDARD_OVERNIGHT, PRIORITY_OVERNIGHT, FEDEX_GROUND ...
-            //request.ServiceSpecified = true;
             request.Packaging = "YOUR_PACKAGING"; // Packaging type FEDEX_BOX, FEDEX_PAK, FEDEX_TUBE, YOUR_PACKAGING, ...
-            //request.PackagingSpecified = true;
 
             return request;
         }
