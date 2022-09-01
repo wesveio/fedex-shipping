@@ -78,17 +78,21 @@ strategy:
     specs:
       - cypress/integration/2.1-graphql.spec.js
       - cypress/integration/2.2-rest-apis.spec.js
-  single_multi_product_testcases:
-    enabled: true
-    sendDashboard: true
-    hardTries: 1
-    stopOnFail: false
-    parallel: true
-    specs:
-      - cypress/integration/2.3-single-product-scenarios.spec.js
-      - cypress/integration/2.4-multi-product-scenarios.spec.js
-    dependency:
-      - cypress/integration/2.1-graphql.spec.js
+  
+  # TODO - Enable 2.3 and 2.4 testcases once Calculate shipping api issue resolved. 
+  # JIRA Tickets - https://vtex-dev.atlassian.net/browse/FEDEXSHIP-45 & https://vtex-dev.atlassian.net/browse/FEDEXSHIP-46
+
+  # single_multi_product_testcases:
+  #   enabled: true
+  #   sendDashboard: true
+  #   hardTries: 1
+  #   stopOnFail: false
+  #   parallel: true
+  #   specs:
+  #     - cypress/integration/2.3-single-product-scenarios.spec.js
+  #     - cypress/integration/2.4-multi-product-scenarios.spec.js
+  #   dependency:
+  #     - cypress/integration/2.1-graphql.spec.js
   ship_to_residential_config_testcase:
     enabled: true
     sendDashboard: true
@@ -116,6 +120,9 @@ strategy:
     stopOnFail: false
     parallel: false
     specs:
-      - cypress/integration/2.8-shipping-optimize-scenarios.spec.js
+      # TODO - Enable 2.8 testcase once packing optimization app setting graphql api fixed.
+      # JIRA Ticket - https://vtex-dev.atlassian.net/browse/PACKINGOPT-6
+
+      # - cypress/integration/2.8-shipping-optimize-scenarios.spec.js
       - cypress/integration/2.9-validate-shipping-from-different-origins.spec.js
   
