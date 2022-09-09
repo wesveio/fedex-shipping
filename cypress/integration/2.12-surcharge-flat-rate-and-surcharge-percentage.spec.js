@@ -54,7 +54,9 @@ describe(`${prefix} Scenarios`, () => {
       const rate = amount + surchargeFlatRate
       const total = percentage + rate
 
-      expect(filtershippingMethod[0].price).to.equal(+total.toFixed(3))
+      expect(filtershippingMethod[0].price.toFixed(2)).to.equal(
+        total.toFixed(2)
+      )
     })
   })
 })

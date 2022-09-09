@@ -48,8 +48,8 @@ describe('Modify SLA - Validate Surcharge Percentage in checkout', () => {
         const calculatePercentage = (amount * surchargePercent) / 100
         const calculateFlatRate = amount + surchargeFlatRate
 
-        expect(filtershippingMethod[0].price).to.equal(
-          calculatePercentage + calculateFlatRate
+        expect(filtershippingMethod[0].price.toFixed(2)).to.equal(
+          (calculatePercentage + calculateFlatRate).toFixed(2)
         )
       })
     }
