@@ -53,8 +53,15 @@ namespace FedexShipping.Data
             }
             catch (Exception ex)
             {
-                _context.Vtex.Logger.Error("TryGetCache", null, "Error getting cache", ex);
+                _context.Vtex.Logger.Error("TryGetCache", null, 
+                "Error:", ex,
+                new[]
+                {
+                    ( "cacheKey", cacheKey.ToString() ),
+                    ( "fedexRatesCache", JsonConvert.SerializeObject(fedexRatesCache) )
+                });
             }
+
             return success;
         }
 
@@ -92,7 +99,13 @@ namespace FedexShipping.Data
             }
             catch (Exception ex)
             {
-                _context.Vtex.Logger.Error("TryGetCache", null, "Error setting cache", ex);
+                _context.Vtex.Logger.Error("SetCache", null, 
+                "Error:", ex,
+                new[]
+                {
+                    ( "cacheKey", cacheKey.ToString() ),
+                    ( "fedexRatesCache", JsonConvert.SerializeObject(fedexRatesCache) )
+                });
             }
 
             return success;
@@ -102,51 +115,80 @@ namespace FedexShipping.Data
         {
             GetRatesResponseWrapper getRatesResponseWrapper = null;
 
-            var request = new HttpRequestMessage
+            try
             {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri($"http://infra.io.vtex.com/vbase/v2/{this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_ACCOUNT]}/{this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_WORKSPACE]}/buckets/{this._applicationName}/{Constants.RATES_BUCKET}/files/{cacheKey}")
-            };
+                var request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri($"http://infra.io.vtex.com/vbase/v2/{this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_ACCOUNT]}/{this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_WORKSPACE]}/buckets/{this._applicationName}/{Constants.RATES_BUCKET}/files/{cacheKey}")
+                };
 
-            string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
-            if (authToken != null)
+                string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
+                if (authToken != null)
+                {
+                    request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
+                    request.Headers.Add(Constants.VTEX_ID_HEADER_NAME, authToken);
+                }
+
+                var client = _clientFactory.CreateClient();
+                var response = await client.SendAsync(request);
+                string responseContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    getRatesResponseWrapper = JsonConvert.DeserializeObject<GetRatesResponseWrapper>(responseContent);
+                }
+            }
+            catch (Exception ex)
             {
-                request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
-                request.Headers.Add(Constants.VTEX_ID_HEADER_NAME, authToken);
+                _context.Vtex.Logger.Error("GetCachedRatesResponse", null, 
+                "Error:", ex,
+                new[]
+                {
+                    ( "cacheKey", cacheKey.ToString() )
+                });
             }
 
-            var client = _clientFactory.CreateClient();
-            var response = await client.SendAsync(request);
-            string responseContent = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
-            {
-                getRatesResponseWrapper = JsonConvert.DeserializeObject<GetRatesResponseWrapper>(responseContent);
-            }
 
             return getRatesResponseWrapper;
         }
 
         public async Task<bool> CacheRatesResponse(int cacheKey, GetRatesResponseWrapper fedexRatesCache)
         {
-            var jsonSerializedTaxResponse = JsonConvert.SerializeObject(fedexRatesCache);
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Put,
-                RequestUri = new Uri($"http://infra.io.vtex.com/vbase/v2/{this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_ACCOUNT]}/{this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_WORKSPACE]}/buckets/{this._applicationName}/{Constants.RATES_BUCKET}/files/{cacheKey}"),
-                Content = new StringContent(jsonSerializedTaxResponse, Encoding.UTF8, Constants.APPLICATION_JSON)
-            };
+            bool IsScuccess = false;
 
-            string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
-            if (authToken != null)
+            try
             {
-                request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
-                request.Headers.Add(Constants.VTEX_ID_HEADER_NAME, authToken);
+                var jsonSerializedTaxResponse = JsonConvert.SerializeObject(fedexRatesCache);
+                var request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Put,
+                    RequestUri = new Uri($"http://infra.io.vtex.com/vbase/v2/{this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_ACCOUNT]}/{this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_WORKSPACE]}/buckets/{this._applicationName}/{Constants.RATES_BUCKET}/files/{cacheKey}"),
+                    Content = new StringContent(jsonSerializedTaxResponse, Encoding.UTF8, Constants.APPLICATION_JSON)
+                };
+
+                string authToken = this._httpContextAccessor.HttpContext.Request.Headers[Constants.HEADER_VTEX_CREDENTIAL];
+                if (authToken != null)
+                {
+                    request.Headers.Add(Constants.AUTHORIZATION_HEADER_NAME, authToken);
+                    request.Headers.Add(Constants.VTEX_ID_HEADER_NAME, authToken);
+                }
+
+                var client = _clientFactory.CreateClient();
+                var response = await client.SendAsync(request);
+                IsScuccess = response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                _context.Vtex.Logger.Error("CacheRatesResponse", null, 
+                "Error:", ex,
+                new[]
+                {
+                    ( "cacheKey", cacheKey.ToString() ),
+                    ( "fedexRatesCache", JsonConvert.SerializeObject(fedexRatesCache) )
+                });
             }
 
-            var client = _clientFactory.CreateClient();
-            var response = await client.SendAsync(request);
-
-            return response.IsSuccessStatusCode;
+            return IsScuccess;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace FedexShipping.Models
         public List<GetRatesResponse> GetRatesResponses { get; set; }
         public List<string> HighestSeverity { get; set; } = new List<string>();
         public List<Notification>  Notifications { get; set; }
+        public bool IsValidCountry { get; set; }
         public List<string> Error { get; set; } = new List<string>();
         public bool Success { get; set; }
         public TimeSpan timeSpan { get; set; }
@@ -18,6 +19,7 @@ namespace FedexShipping.Models
             this.GetRatesResponses = new List<GetRatesResponse>();
             this.Notifications = new List<Notification>();
             this.Success = false;
+            this.IsValidCountry = false;
         }
     }
 }

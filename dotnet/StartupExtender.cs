@@ -16,6 +16,7 @@ namespace Vtex
 
         public void ExtendConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IVtexApiService, VtexApiService>();
             services.AddTransient<IFedExRateRequest, FedExRateRequest>();
             services.AddTransient<IFedExAvailabilityRequest, FedExAvailabilityRequest>();
             services.AddTransient<IFedExTrackRequest, FedExTrackRequest>();
