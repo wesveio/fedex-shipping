@@ -115,7 +115,7 @@ describe(`${prefix} Scenarios`, () => {
           validateSaveAppSettingResponse
         )
       })
-      cy.addDelayBetweenRetries(3000)
+      cy.addDelayBetweenRetries(6000)
       loadCalculateShippingAPI(data).then((response) => {
         validateCalculateShipping(response)
         const filtershippingMethod = response.body.filter(

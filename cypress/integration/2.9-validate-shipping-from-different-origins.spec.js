@@ -31,7 +31,7 @@ describe('Validate Ship Rates API from different origins', () => {
     'Use Shipment from Italy to USA(Supported country) ( Origin -> destination = ITA -> USA)',
     updateRetry(5),
     () => {
-      cy.addDelayBetweenRetries(5000)
+      cy.addDelayBetweenRetries(10000)
       data.destination = {
         zipCode: '33301',
         country: 'USA',
@@ -56,7 +56,7 @@ describe('Validate Ship Rates API from different origins', () => {
     'Use Shipment From USA(Supported country) to Italy ( Origin -> destination = USA -> ITA)',
     updateRetry(5),
     () => {
-      cy.addDelayBetweenRetries(5000)
+      cy.addDelayBetweenRetries(10000)
       data.destination = {
         zipCode: '06010',
         country: 'ITA',
