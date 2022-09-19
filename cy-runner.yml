@@ -116,9 +116,6 @@ strategy:
     stopOnFail: false
     parallel: false
     specs:
-      # TODO - Enable 2.8 testcase once packing optimization app setting graphql api fixed.
-      # JIRA Ticket - https://vtex-dev.atlassian.net/browse/PACKINGOPT-6
-
-      # - cypress/integration/2.8-shipping-optimize-scenarios.spec.js
+      - cypress/integration/2.8-shipping-optimize-scenarios.spec.js
       - cypress/integration/2.9-validate-shipping-from-different-origins.spec.js
   
