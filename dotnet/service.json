@@ -15,7 +15,8 @@
           "effect": "allow",
           "actions": ["get", "post"],
           "principals": [
-            "vrn:apps:*:{{account}}:{{workspace}}:app/vtex.shipping-rates-provider@*"
+            "vrn:apps:*:{{account}}:{{workspace}}:app/vtex.shipping-rates-provider@*",
+            "vrn:vtex.vtex-id:*:{{account}}:*:user/vtexappkey-*"
           ]
         }
       ]
