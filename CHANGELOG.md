@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+- (FEDEXSHIP-44) Changed transit time calculation to use current date instead of ship date
 - GitHub reusable workflow and Cy-Runner updated to version 2
 
 ## [1.19.0] - 2022-10-11
