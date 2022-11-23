@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.19.1] - 2022-11-23
+
 ### Changed
 - (FEDEXSHIP-44) Changed transit time calculation to use current date instead of ship date
 

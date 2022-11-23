@@ -1,6 +1,6 @@
 {
   "name": "fedex-shipping",
-  "version": "1.19.0",
+  "version": "1.19.1",
   "scripts": {
     "test": "vtex-test-tools test",
     "lint": "tsc --noEmit && eslint --ext ts,tsx ."
