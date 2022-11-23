@@ -225,7 +225,7 @@
                                         {
                                             if (!slaMapping[detail.ServiceDescription.Description].Hidden && detail.DeliveryTimestampSpecified)
                                             {
-                                                TimeSpan transitArrival = detail.DeliveryTimestamp - getRatesRequest.shippingDateUTC;
+                                                TimeSpan transitArrival = detail.DeliveryTimestamp - DateTime.Now.ToUniversalTime();
                                                 string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
 
                                                 foreach (Item item in copyItemResult)
