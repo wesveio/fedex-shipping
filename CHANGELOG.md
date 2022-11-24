@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+- Moved cypress tests inside cy-runner
+
+### Added
+
 - (FEDEXSHIP-43) App key and Token required for Get Rates API
 
 ## [1.18.4] - 2022-09-16
