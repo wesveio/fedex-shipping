@@ -76,8 +76,8 @@ strategy:
     stopOnFail: true
     parallel: false
     specs:
-      - cypress/integration/2.1-graphql.spec.js
-      - cypress/integration/2.2-rest-apis.spec.js
+      - cypress-shared/integration/fedex-shipping/2.1-graphql.spec.js
+      - cypress-shared/integration/fedex-shipping/2.2-rest-apis.spec.js
   single_multi_product_testcases:
     enabled: true
     sendDashboard: true
@@ -85,10 +85,10 @@ strategy:
     stopOnFail: false
     parallel: true
     specs:
-      - cypress/integration/2.3-single-product-scenarios.spec.js
-      - cypress/integration/2.4-multi-product-scenarios.spec.js
+      - cypress-shared/integration/fedex-shipping/2.3-single-product-scenarios.spec.js
+      - cypress-shared/integration/fedex-shipping/2.4-multi-product-scenarios.spec.js
     dependency:
-      - cypress/integration/2.1-graphql.spec.js
+      - cypress-shared/integration/fedex-shipping/2.1-graphql.spec.js
   ship_to_residential_config_testcase:
     enabled: true
     sendDashboard: true
@@ -96,7 +96,7 @@ strategy:
     stopOnFail: false
     parallel: false
     specs:
-      - cypress/integration/2.7-enable-disable-ship-to-residential-toggle.spec.js
+      - cypress-shared/integration/fedex-shipping/2.7-enable-disable-ship-to-residential-toggle.spec.js
   sla_config_testcases:
     enabled: true
     sendDashboard: true
@@ -104,11 +104,11 @@ strategy:
     stopOnFail: false
     parallel: false
     specs:
-      - cypress/integration/2.5-hide-sla-scenarios.spec.js
-      - cypress/integration/2.6-show-sla-scenarios.spec.js
-      - cypress/integration/2.10-validate-surcharge-flat-rate.spec.js
-      - cypress/integration/2.11-validate-surcharge-percentage.spec.js
-      - cypress/integration/2.12-surcharge-flat-rate-and-surcharge-percentage.spec.js
+      - cypress-shared/integration/fedex-shipping/2.5-hide-sla-scenarios.spec.js
+      - cypress-shared/integration/fedex-shipping/2.6-show-sla-scenarios.spec.js
+      - cypress-shared/integration/fedex-shipping/2.10-validate-surcharge-flat-rate.spec.js
+      - cypress-shared/integration/fedex-shipping/2.11-validate-surcharge-percentage.spec.js
+      - cypress-shared/integration/fedex-shipping/2.12-surcharge-flat-rate-and-surcharge-percentage.spec.js
   Shipping_Optimization_and_Shipping_from_different_origin_testcases:
     enabled: true
     sendDashboard: true
@@ -116,7 +116,7 @@ strategy:
     stopOnFail: false
     parallel: false
     specs:
-      - cypress/integration/2.8-shipping-optimize-scenarios.spec.js
+      - cypress-shared/integration/fedex-shipping/2.8-shipping-optimize-scenarios.spec.js
       # Disable 2.9 testcase
       # Reason - We always getting empty array as response
       # - cypress/integration/2.9-validate-shipping-from-different-origins.spec.js

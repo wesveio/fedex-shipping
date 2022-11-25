@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - (FEDEXSHIP-48) Added option to set a custom delivery estimate if not provided by FedEx
 - Added Kuwait to country list
 
+## [1.19.2] - 2022-11-24
+
 ## [1.19.1] - 2022-11-23
 
 ### Changed
@@ -19,6 +21,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - GitHub reusable workflow and Cy-Runner updated to version 2
 
 ## [1.19.0] - 2022-10-11
+
+### Added
+
+- Moved cypress tests inside cy-runner
 
 ### Added
 

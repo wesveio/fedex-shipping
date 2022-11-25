@@ -1,7 +1,7 @@
 {
   "name": "fedex-shipping",
   "vendor": "vtexus",
-  "version": "1.19.1",
+  "version": "1.19.2",
   "title": "FedEx Shipping",
   "description": "An app for interfacing with FedEx to provide rates and tracking information.",
   "scripts": {
