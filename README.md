@@ -27,7 +27,7 @@ The **FedEx Shipping** app is an integration with the VTEX [Dynamic Rates Hub](h
 - `Is Live Toggle`: Toggles between account types. Ensure that the FedEx account values inputted above are reflective of the type here. Otherwise, it will not authenticate.
 - `Ship To Residential`: Toggles the Shipping to Residential or Business. Certain SLAs will not be available for Residential or vise versa.
 - `Optimize Shipping`: Toggles between **No Smart Packing**, **Pack All Into Largest Box**, or **Smart Packing**. See `Optimize Shipping` section for details
-- `Default Delivery Estimate In Days': Set a custom delivery estimate in the event that a date is not provided by FedEx.  If this setting is blank or zero, rates that do not include a delivery estiamte will not be included in the response.
+- `Default Delivery Estimate In Days`: Set a custom delivery estimate in the event that a date is not provided by FedEx.  If this setting is blank or zero, rates that do not include a delivery estiamte will not be included in the response.
 
 ### Advance Configurations 
 - `Configure Your Unit of Measurement`: This allows you to configure your unit of measurement for your items. Please set the `Weights` and `Dimensions` to a suitable unit of measurement. ***Incorrect units of measurement*** can cause rates to be drastically different than expected or even result in them not showing up.
