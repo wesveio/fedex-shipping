@@ -51,8 +51,8 @@ const Configurations: FC = () => {
     unitDimension: string
     itemModals: any[]
     slaSettings: any[]
-      packingAccessKey: string
-      defaultDeliveryEstimateInDays: number
+    packingAccessKey: string
+    defaultDeliveryEstimateInDays: number
   }>({
     clientDetailMeterNumber: '',
     clientDetailAccountNumber: '',
