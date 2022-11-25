@@ -50,6 +50,7 @@
             { "IRL", "IE" },
             { "ITA", "IT" },
             { "KOR", "KR" },
+            { "KWT", "KW" },
             { "MEX", "MX" },
             { "NIC", "NI" },
             { "NLD", "NL" },
@@ -223,8 +224,20 @@
                                     {
                                         foreach(RateReplyDetail detail in reply.RateReplyDetails)
                                         {
-                                            if (!slaMapping[detail.ServiceDescription.Description].Hidden && detail.DeliveryTimestampSpecified)
+                                            if (!slaMapping[detail.ServiceDescription.Description].Hidden)
                                             {
+                                                if(!detail.DeliveryTimestampSpecified)
+                                                {
+                                                    if (this._merchantSettings.DefaultDeliveryEstimateInDays > 0)
+                                                    {
+                                                        detail.DeliveryTimestamp = DateTime.Now.AddDays(this._merchantSettings.DefaultDeliveryEstimateInDays).ToUniversalTime();
+                                                    }
+                                                    else
+                                                    {
+                                                        break;
+                                                    }
+                                                }
+
                                                 TimeSpan transitArrival = detail.DeliveryTimestamp - DateTime.Now.ToUniversalTime();
                                                 string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
 

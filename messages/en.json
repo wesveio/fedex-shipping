@@ -32,5 +32,6 @@
   "admin/fedex-shipping.incorrectKey": "Incorrect Key",
   "admin/fedex-shipping.testKey": "Test Key",
   "admin/fedex-shipping.success": "Success!",
-  "admin/fedex-shipping.badCredentials": "Bad Credentials"
+  "admin/fedex-shipping.badCredentials": "Bad Credentials",
+  "admin/fedex-shipping.defaultDeliveryEstimateInDays": "Default Delivery Estimate In Days"
 }

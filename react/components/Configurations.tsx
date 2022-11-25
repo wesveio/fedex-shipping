@@ -51,7 +51,8 @@ const Configurations: FC = () => {
     unitDimension: string
     itemModals: any[]
     slaSettings: any[]
-    packingAccessKey: string
+      packingAccessKey: string
+      defaultDeliveryEstimateInDays: number
   }>({
     clientDetailMeterNumber: '',
     clientDetailAccountNumber: '',
@@ -65,6 +66,7 @@ const Configurations: FC = () => {
     itemModals: [],
     slaSettings: [],
     packingAccessKey: '',
+    defaultDeliveryEstimateInDays: 0,
   })
 
   const {
@@ -80,6 +82,7 @@ const Configurations: FC = () => {
     itemModals: items,
     slaSettings,
     packingAccessKey,
+    defaultDeliveryEstimateInDays,
   } = state
 
   const [testKey, { called, loading, data: testKeyResponse }] = useLazyQuery(
@@ -144,6 +147,7 @@ const Configurations: FC = () => {
           itemModals: saveModals,
           slaSettings: saveSlaSettings,
           packingAccessKey,
+          defaultDeliveryEstimateInDays,
         },
       },
     }).then((result: any) => {
@@ -342,7 +346,21 @@ const Configurations: FC = () => {
                   {showKeyStatus()}
                 </Set>
               ) : null}
-            </Set>
+              </Set>
+              <Set orientation="horizontal" spacing={2}>
+                <Input
+                  csx={{ width: 250 }}
+                  id="accountNumber"
+                  label={formatMessage({ id: 'admin/fedex-shipping.defaultDeliveryEstimateInDays' })}
+                  value={defaultDeliveryEstimateInDays}
+                  onChange={(e) =>
+                    setState({
+                      ...state,
+                      defaultDeliveryEstimateInDays: +e.target.value,
+                    })
+                  }
+                  />
+              </Set>
           </Set>
           <Set orientation="horizontal" spacing={3}>
             <Button variant="primary" onClick={() => mapAndSave()}>
