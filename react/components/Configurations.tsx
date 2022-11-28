@@ -352,8 +352,8 @@ const Configurations: FC = () => {
                 csx={{ width: 250 }}
                 id="accountNumber"
                 label={formatMessage({
-                    id: 'admin/fedex-shipping.defaultDeliveryEstimateInDays'
-                  })}
+                  id: 'admin/fedex-shipping.defaultDeliveryEstimateInDays'
+                })}
                 value={defaultDeliveryEstimateInDays}
                 onChange={(e) =>
                   setState({
