@@ -33,6 +33,7 @@ type AppSetting {
   itemModals: [ItemModal]
   slaSettings: [SlaSettings]
   packingAccessKey: String
+  defaultDeliveryEstimateInDays: String
 }
 
 type LogisticsDockList {
@@ -73,6 +74,7 @@ input AppSettingsInput {
   itemModals: [ItemModalInput]
   slaSettings: [SlaSettingsInput]
   packingAccessKey: String
+  defaultDeliveryEstimateInDays: String
 }
 
 input UpdateDockInput {

@@ -52,7 +52,7 @@ const Configurations: FC = () => {
     itemModals: any[]
     slaSettings: any[]
     packingAccessKey: string
-    defaultDeliveryEstimateInDays: number
+    defaultDeliveryEstimateInDays: string
   }>({
     clientDetailMeterNumber: '',
     clientDetailAccountNumber: '',
@@ -66,7 +66,7 @@ const Configurations: FC = () => {
     itemModals: [],
     slaSettings: [],
     packingAccessKey: '',
-    defaultDeliveryEstimateInDays: 0,
+    defaultDeliveryEstimateInDays: '',
   })
 
   const {
@@ -147,7 +147,7 @@ const Configurations: FC = () => {
           itemModals: saveModals,
           slaSettings: saveSlaSettings,
           packingAccessKey,
-          defaultDeliveryEstimateInDays: 0,
+          defaultDeliveryEstimateInDays: '',
         },
       },
     }).then((result: any) => {
@@ -346,23 +346,21 @@ const Configurations: FC = () => {
                   {showKeyStatus()}
                 </Set>
               ) : null}
-            </Set>
-            <Set orientation="horizontal" spacing={2}>
-              <Input
-                csx={{ width: 250 }}
-                id="accountNumber"
-                label={formatMessage({
-                  id: 'admin/fedex-shipping.defaultDeliveryEstimateInDays',
-                })}
-                value={defaultDeliveryEstimateInDays}
-                onChange={(e) =>
-                  setState({
-                    ...state,
-                    defaultDeliveryEstimateInDays: +e.target.value,
-                  })
-                }
-              />
-            </Set>
+              </Set>
+              <Set orientation="horizontal" spacing={2}>
+                <Input
+                  csx={{ width: 250 }}
+                  id="accountNumber"
+                  label={formatMessage({ id: 'admin/fedex-shipping.defaultDeliveryEstimateInDays' })}
+                  value={defaultDeliveryEstimateInDays}
+                  onChange={(e) =>
+                    setState({
+                      ...state,
+                      defaultDeliveryEstimateInDays: +e.target.value,
+                    })
+                  }
+                  />
+              </Set>
           </Set>
           <Set orientation="horizontal" spacing={3}>
             <Button variant="primary" onClick={() => mapAndSave()}>

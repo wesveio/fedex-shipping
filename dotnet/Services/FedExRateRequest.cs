@@ -222,15 +222,25 @@
 
                                     if (reply.RateReplyDetails != null)
                                     {
-                                        foreach(RateReplyDetail detail in reply.RateReplyDetails)
+                                        DateTime defaultDeliveryTimestamp = DateTime.MaxValue;
+                                        int defaultDeliveryEstimateInDays = 0;
+                                        if (!string.IsNullOrWhiteSpace(this._merchantSettings.DefaultDeliveryEstimateInDays))
+                                        {
+                                            if (int.TryParse(this._merchantSettings.DefaultDeliveryEstimateInDays, out defaultDeliveryEstimateInDays))
+                                            {
+                                                defaultDeliveryTimestamp = DateTime.Now.AddDays(defaultDeliveryEstimateInDays).ToUniversalTime();
+                                            }
+                                        }
+
+                                        foreach (RateReplyDetail detail in reply.RateReplyDetails)
                                         {
                                             if (!slaMapping[detail.ServiceDescription.Description].Hidden)
                                             {
                                                 if(!detail.DeliveryTimestampSpecified)
                                                 {
-                                                    if (this._merchantSettings.DefaultDeliveryEstimateInDays > 0)
+                                                    if (defaultDeliveryEstimateInDays > 0)
                                                     {
-                                                        detail.DeliveryTimestamp = DateTime.Now.AddDays(this._merchantSettings.DefaultDeliveryEstimateInDays).ToUniversalTime();
+                                                        detail.DeliveryTimestamp = DateTime.Now.AddDays(defaultDeliveryEstimateInDays).ToUniversalTime();
                                                     }
                                                     else
                                                     {
