@@ -104,9 +104,15 @@
                     merchantSettings.SlaSettings.Add(new SlaSettings("International Two Day", false, 0, 0));
                     merchantSettings.SlaSettings.Add(new SlaSettings("International Priority Freight", false, 0, 0));
                 }
+
                 if (merchantSettings.PackingAccessKey == null) 
                 {
                     merchantSettings.PackingAccessKey = "";
+                }
+
+                if (merchantSettings.DefaultDeliveryEstimateInDays == null)
+                {
+                    merchantSettings.DefaultDeliveryEstimateInDays = "0";
                 }
 
             }
