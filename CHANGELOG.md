@@ -8,10 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - (FEDEXSHIP-48) Added option to set a custom delivery estimate if not provided by FedEx
-
-## [1.19.2] - 2022-11-24
-
-### Added
 - Added Kuwait to country list
 
 ## [1.19.1] - 2022-11-23
