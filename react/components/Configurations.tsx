@@ -346,21 +346,23 @@ const Configurations: FC = () => {
                   {showKeyStatus()}
                 </Set>
               ) : null}
-              </Set>
-              <Set orientation="horizontal" spacing={2}>
-                <Input
-                  csx={{ width: 250 }}
-                  id="accountNumber"
-                  label={formatMessage({ id: 'admin/fedex-shipping.defaultDeliveryEstimateInDays' })}
-                  value={defaultDeliveryEstimateInDays}
-                  onChange={(e) =>
-                    setState({
-                      ...state,
-                      defaultDeliveryEstimateInDays: +e.target.value,
-                    })
-                  }
-                  />
-              </Set>
+            </Set>
+            <Set orientation="horizontal" spacing={2}>
+              <Input
+                csx={{ width: 250 }}
+                id="accountNumber"
+                label={formatMessage({
+                  id: 'admin/fedex-shipping.defaultDeliveryEstimateInDays',
+                })}
+                value={defaultDeliveryEstimateInDays}
+                onChange={(e) =>
+                  setState({
+                    ...state,
+                    defaultDeliveryEstimateInDays: +e.target.value,
+                  })
+                }
+              />
+            </Set>
           </Set>
           <Set orientation="horizontal" spacing={3}>
             <Button variant="primary" onClick={() => mapAndSave()}>
