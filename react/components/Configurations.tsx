@@ -356,7 +356,7 @@ const Configurations: FC = () => {
                   onChange={(e) =>
                     setState({
                       ...state,
-                      defaultDeliveryEstimateInDays: +e.target.value,
+                      defaultDeliveryEstimateInDays: e.target.value,
                     })
                   }
                   />
