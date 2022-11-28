@@ -147,7 +147,7 @@ const Configurations: FC = () => {
           itemModals: saveModals,
           slaSettings: saveSlaSettings,
           packingAccessKey,
-          defaultDeliveryEstimateInDays,
+          defaultDeliveryEstimateInDays: 0,
         },
       },
     }).then((result: any) => {
