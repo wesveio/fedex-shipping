@@ -9,8 +9,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Updated cy-runner strategy hard retries
 
-## [1.19.2] - 2022-11-24
-
 ## [1.19.1] - 2022-11-23
 
 ### Changed
