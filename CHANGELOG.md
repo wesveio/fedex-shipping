@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- Updated cy-runner strategy hard retries
+
 ### Added
 - (FEDEXSHIP-48) Added option to set a custom delivery estimate if not provided by FedEx
 - Added Kuwait to country list
