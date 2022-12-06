@@ -50,6 +50,7 @@
             { "IRL", "IE" },
             { "ITA", "IT" },
             { "KOR", "KR" },
+            { "KWT", "KW" },
             { "MEX", "MX" },
             { "NIC", "NI" },
             { "NLD", "NL" },
@@ -221,10 +222,32 @@
 
                                     if (reply.RateReplyDetails != null)
                                     {
-                                        foreach(RateReplyDetail detail in reply.RateReplyDetails)
+                                        DateTime defaultDeliveryTimestamp = DateTime.MaxValue;
+                                        int defaultDeliveryEstimateInDays = 0;
+                                        if (!string.IsNullOrWhiteSpace(this._merchantSettings.DefaultDeliveryEstimateInDays))
                                         {
-                                            if (!slaMapping[detail.ServiceDescription.Description].Hidden && detail.DeliveryTimestampSpecified)
+                                            if (int.TryParse(this._merchantSettings.DefaultDeliveryEstimateInDays, out defaultDeliveryEstimateInDays))
                                             {
+                                                defaultDeliveryTimestamp = DateTime.Now.AddDays(defaultDeliveryEstimateInDays).ToUniversalTime();
+                                            }
+                                        }
+
+                                        foreach (RateReplyDetail detail in reply.RateReplyDetails)
+                                        {
+                                            if (!slaMapping[detail.ServiceDescription.Description].Hidden)
+                                            {
+                                                if(!detail.DeliveryTimestampSpecified)
+                                                {
+                                                    if (defaultDeliveryEstimateInDays > 0)
+                                                    {
+                                                        detail.DeliveryTimestamp = DateTime.Now.AddDays(defaultDeliveryEstimateInDays).ToUniversalTime();
+                                                    }
+                                                    else
+                                                    {
+                                                        break;
+                                                    }
+                                                }
+
                                                 TimeSpan transitArrival = detail.DeliveryTimestamp - DateTime.Now.ToUniversalTime();
                                                 string transitString = new TimeSpan(transitArrival.Days, transitArrival.Hours, transitArrival.Minutes, transitArrival.Seconds).ToString();
 

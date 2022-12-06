@@ -19,6 +19,7 @@ namespace FedexShipping.Models
         public string PackingAccessKey { get; set; } = "";
         public List<ModalMap> ItemModals { get; set; } = new List<ModalMap>();
         public List<SlaSettings> SlaSettings { get; set; } = new List<SlaSettings>();
+        public string DefaultDeliveryEstimateInDays { get; set; }
     }
 
     public class ModalMap {
