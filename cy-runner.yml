@@ -81,7 +81,7 @@ strategy:
   single_multi_product_testcases:
     enabled: true
     sendDashboard: true
-    hardTries: 1
+    hardTries: 3
     stopOnFail: false
     parallel: true
     specs:
