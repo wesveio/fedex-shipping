@@ -113,4 +113,12 @@ strategy:
       # Disable 2.9 testcase
       # Reason - We always getting empty array as response
       # - cypress/integration/2.9-validate-shipping-from-different-origins.spec.js
+  verify_supported_and_non_supported_countries_testcases:
+    enabled: true
+    sendDashboard: true
+    hardTries: 2
+    stopOnFail: false
+    parallel: false
+    specs:
+      - cypress-shared/integration/fedex-shipping/2.13-verify-fedex-supported-non-supported-countries.spec.js
   
