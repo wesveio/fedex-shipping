@@ -90,6 +90,9 @@ strategy:
     parallel: false
     specs:
       - cypress-shared/integration/fedex-shipping/2.7-enable-disable-ship-to-residential-toggle.spec.js
+    dependency:
+      - cypress-shared/integration/fedex-shipping/2.3-single-product-scenarios.spec.js
+      - cypress-shared/integration/fedex-shipping/2.4-multi-product-scenarios.spec.js
   sla_config_testcases:
     enabled: true
     sendDashboard: true
