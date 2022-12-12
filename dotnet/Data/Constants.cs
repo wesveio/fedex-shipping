@@ -44,6 +44,7 @@ namespace FedexShipping.Data
             {"IRL", ""},
             {"ITA", "\\d{5}$"},
             {"KOR", "\\d{6}\\s\\(\\d{3}-\\d{3}\\)$"},
+            {"KWT", "\\d{5}$"},
             {"MEX", "\\d{5}$"},
             {"NIC", "\\d{5}$"},
             {"NLD", "\\d{4}\\s{0,1}[A-Za-z]{2}$"},

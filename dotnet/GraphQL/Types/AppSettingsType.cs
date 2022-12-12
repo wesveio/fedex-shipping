@@ -26,6 +26,7 @@ namespace FedexShipping.GraphQL.Types
             Field(b => b.ItemModals, type: typeof(ListGraphType<ItemModalsType>)).Description("Item Modals Mapping");
             Field(b => b.SlaSettings, type: typeof(ListGraphType<SlaSettingsType>)).Description("SLA Settings");
             Field(b => b.PackingAccessKey).Description("Packing Key");
+            Field(b => b.DefaultDeliveryEstimateInDays).Description("Default Delivery Estimate In Days");
         }
     }
 }
