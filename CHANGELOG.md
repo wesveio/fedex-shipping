@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- [ENGINEERS-1051] - Enable 2.9 testcase
+
 ## [1.20.0] - 2022-12-12
 
 ### Changed
