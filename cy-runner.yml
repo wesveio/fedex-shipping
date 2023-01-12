@@ -113,7 +113,7 @@ strategy:
     parallel: false
     specs:
       - cypress-shared/integration/fedex-shipping/2.8-shipping-optimize-scenarios.spec.js
-      - cypress/integration/2.9-validate-shipping-from-different-origins.spec.js
+      - cypress-shared/integration/fedex-shipping/2.9-validate-shipping-from-different-origins.spec.js
   verify_supported_and_non_supported_countries_testcases:
     enabled: true
     sendDashboard: true
